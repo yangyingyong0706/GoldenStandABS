@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <meta charset="utf-8" />
+   
+    <!--<link href="../../../asset/style/reset.css" rel="stylesheet" />-->
+    <!--<link href="../../../asset/style/common.css" rel="stylesheet" />-->
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/style/page.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <!--<link href="../../basicData/Common/css/trustWizard.css" rel="stylesheet" />-->
+    <title></title>
+    <style>
+        .checkbox+label:before, .radio+label:before{
+            width:16px;
+            height:16px;
+        }
+        .checkbox+label:after{
+            width:5px;
+            height:10px;
+            left:5px;
+        }
+        .panel{
+            border-radius:2px;
+            background:#fff;
+            border-left:none;
+        }
+        .panel .panel-heading{
+            padding:10px;
+            background:#f7f7f7;
+            border-bottom:1px solid #ddd;
+            font-size:14px;
+            height:50px;
+            box-sizing:border-box;
+        }
+        .panel .panel-body{
+            padding:10px;
+        }
+        .panel .check-box{
+            width:33.333%;
+            display:inline-block;
+            vertical-align: middle;
+        }
+        .panel .check-box .checkbox-inner{
+            padding-left:30px;
+            margin-top:1px;
+            font-size:12px;
+            color:#555;
+            margin-bottom:10px;
+        }
+        .submit{
+            padding:5px 15px;
+            border:none;
+            outline:none;
+            background:#5a77a9;
+            color:rgba(255,255,255,.8);
+            border-radius:2px;
+        }
+        .submit:hover,
+        .submit:active{
+            color:#fff;
+        }
+        li {
+             display:inline-block;
+        }
+        .ConfigContent1 {
+            display:none
+        }
+        .ConfigContent {
+            display:block
+        }
+        .selects {
+            display:inline-block;
+        }
+        .opertion {
+            display:none
+        }
+        .activeOpertion {
+            display:block
+        }
+        .btnDefault {
+            color: #4d4d4d;
+            margin: 0 15px;
+            height: 40px;
+            line-height: 40px;
+        }
+        .ConfigBtn {
+            color: rgba(69,86,156,1);
+            border-bottom: 2px solid rgba(69,86,156,1);  
+        }
+        .btnDefault button{
+            background: inherit;
+            border: none;
+            outline: none;
+        }
+        .btnDefault:hover {
+            color: rgba(69,86,156,1);
+            border-bottom: 2px solid rgba(69,86,156,1);  
+        }
+        .k-grid-header-locked{
+            height:36px;
+        }
+        .k-grid-header th.k-header {
+            vertical-align: middle;
+        }
+        .form{
+            min-height:0;
+            overflow:hidden;
+            padding: 0 15px;
+        }
+         #BtnList {
+             padding: 0;
+             margin: 0 0 15px;
+             height: 40px;
+             line-height: 40px;
+             border-bottom: 1px solid #dedede;
+         }
+         [class^=col] {
+             padding: 0;
+         }
+         #grid {
+             margin: 0 15px;
+         }
+    </style>
+</head>
+<body class="public_font_style">
+    <div class="mt-10">
+        <div class="">
+            <ul id="BtnList">
+                <li class="btnDefault ConfigBtn">
+                    <button type="button" class="">
+                        配置业务审批人
+                    </button>
+                </li>
+                <li class="btnDefault">
+                    <button type="button" class="">
+                        配置业务操作权限
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="form">
+        <div id="OperationPersion" class="opertion activeOpertion">
+            <div class="form-group col-sm-4" style="padding: 0;">
+                <div class="col-sm-3">
+                    <label>审批人</label>
+                </div>
+                <div class="col-sm-6">
+                    <select id="UserSelect" class="form-control" style="padding:4px 10px;">
+                        <option>ddd</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div id="OperationType" class="opertion">
+            <div class="form-group selects col-sm-3" style="padding: 0;">
+                <div class="col-sm-4">
+                    <label>用户</label>
+                </div>
+                <div class="col-sm-8">
+                    <select id="UserSelects" class="form-control" style="padding:4px 10px;">
+                        <option></option>
+                    </select>
+                </div>
+            </div>
+            <!--<div class=" form-group selects col-3">
+                <div class="col-4">
+                    <label>操作：</label>
+                </div>
+                <div class="col-8">
+                    <select id="UserOperation" class="form-control" style="padding:4px 10px;">
+                        <option value="1">只读</option>
+                        <option value="2">可申请编辑</option>
+                    </select>
+                </div>
+            </div>-->
+        </div>
+    </div>
+    <div id="grid"></div>
+    <div class="mb-10" style="height:50px;display:flex;justify-content:center;box-sizing:border-box;padding:10px">
+        <button id="saveOperation" type="submit" class="btn btn-default">保存</button> 
+        <button id="saveOperationColfig" type="submit" class="btn btn-default" style="display:none">保存</button>
+    </div>
+    <!--<div id="approvalContent" class="ConfigContent1 ConfigContent">
+       
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                资产池
+            </div>
+            <div id="AssetPool" class="panel-body"></div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                专项计划
+            </div>
+            <div id="TrustList" class="panel-body"></div>
+        </div>
+        <div class="mb-10">
+        </div>
+    </div>
+    <div id="OperationConfig" class="ConfigContent1">
+        <div class="selects">
+                <label>用户：</label>
+                <select id="UserSelects" class="form-control" style="padding:4px 10px;">
+                    <option></option>
+                </select>
+        </div>
+        <div class="selects">
+            <label>操作：</label>
+            <select id="UserOperation" class="form-control" style="padding:4px 10px;">
+                <option value="1">只读</option>
+                <option value="2">可编辑</option>
+            </select>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                资产池
+            </div>
+            <div id="AssetPools" class="panel-body"></div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                专项计划
+            </div>
+            <div id="TrustLists" class="panel-body"></div>
+        </div>-->
+
+        
+    <!--</div>-->
+    <script src="../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../asset/lib/config'], function (config) {
+            requirejs(['app/roleManage/businessPermission/businessPermission']);
+        });
+    </script>
+</body>
+</html>

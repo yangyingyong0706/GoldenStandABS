@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>相关资产池</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+
+    <!--<link href="../css/style.css" rel="stylesheet" />-->
+    <!--<link href="../css/pagerlist-style.css" rel="stylesheet" />-->
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <script src="../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/ProjectInformationParty/ProjectSource/RelatedAssets']);
+        });
+    </script>
+    <style>
+        .loadpage {
+            position: absolute;
+            top: 46%;
+            left: 46%;
+            background: transparent;
+        }
+
+        .btn .icon {
+            font-size: 14px;
+        }
+
+        .loadpage > i {
+            color: rgb(107, 147, 216);
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            font-size: 13px;
+            color: #4d4d4d;
+            font-family: "Microsoft Yahei";
+            font-weight: normal;
+            padding: 15px;
+            background: #fafafa;
+        }
+
+        .main {
+            padding: 15px 15px 15px;
+            height: calc(100% - 35px);
+            background: #fff;
+        }
+
+        .k-grid tr td {
+            border-width: 0 0 1px 1px;
+            border-style: solid;
+            border-color: #e6e6e6 !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding: 0.45em 1.486em !important;
+        }
+
+        .k-grid tr:hover {
+            background-color: #e2e0e0 !important;
+        }
+
+        .k-grid-content > table {
+            border-right: 1px solid #e6e6e6;
+        }
+
+        .k-grid-header-locked {
+            height: 36px;
+        }
+
+        .k-pager-wrap .k-pager-numbers .k-state-selected {
+            padding: 0;
+            margin: 0;
+        }
+
+        .k-pager-wrap {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        a {
+            text-decoration: none !important;
+        }
+        .ProjectApproval button.btn {
+            float:right;
+            margin-right: 10px;
+            margin-bottom:10px;
+        }
+    </style>
+</head>
+<body style="height:100%">
+    <div class="main">
+        <div id="DashBoard" class="ribbonBox" v-cloak=v-cloak>
+            <div class="ProjectApproval">
+                <button class="btn btn-default f-right" id="DistributionConfigView">
+                    <i class="fa fa-ils fa-fw"></i>
+                    资产池结果视图
+                </button>
+                <button class="btn btn-default f-right" id="DistributionConfig">
+                    <i class="icon icon-cog-alt"></i>
+                    资产池统计计算
+                </button>
+                <button class="btn btn-default f-right" id="Confirm">
+                    <i class="icon icon-cog-alt"></i>
+                    选中
+                </button>
+            </div>
+        </div>
+        <div id="grid" style="clear:both"></div>
+     </div>
+</body>
+</html>

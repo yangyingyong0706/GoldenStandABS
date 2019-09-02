@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>数据上传</title>
+    <link href="../../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <style>
+        #app {
+            padding: 0 15px;
+        }
+        .nav-tabs>li>a {
+            margin-right: 30px;
+            color: #4d4d4d;
+        }
+        .nav>li>a {
+            position: relative;
+            display: block;
+            height: 40px;
+            line-height: 40px;
+            padding: 0;
+            margin-right: 30px;
+        }
+        .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+            color: #45569c;
+            cursor: default;
+            background-color: #fff;
+            border: none;
+            border-bottom: 2px solid #45569c;
+        }
+        .nav-tabs>li>a:hover {
+            border-color: #fff;
+        }
+        .nav>li>a:focus, .nav>li>a:hover {
+            color: #45569c;
+            text-decoration: none;
+            background-color: #fff;
+            border: none;
+            border-bottom: 2px solid #45569c;
+        }
+        iframe {
+            width: 100%;
+            height: 160px;
+            border: none;
+        }
+        .tab-content {
+            margin: 0 -15px;
+        }
+    </style>
+    
+</head>
+<body>
+    <div id="app">
+        <ul id="tabs" class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#panel-1" role="tab" data-toggle="tab">上传数据</a>
+            </li>
+            <!--<li role="presentation" @click="isLoadDataCheck = true">
+                <a href="#panel-2" role="tab" data-toggle="tab">数据校验</a>
+            </li>-->
+            <li role="presentation" @click="isLoadTemplateDownload = true">
+                <a href="#panel-3" role="tab" data-toggle="tab">模板下载</a>
+            </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="panel-1">
+                <iframe v-bind:src="uploadDataSrc"></iframe>
+            </div>
+            <!--<div role="tabpanel" class="tab-pane" id="panel-2" v-if="isLoadDataCheck">
+                <iframe v-bind:src="dataCheckSrc"></iframe>
+            </div>-->
+            <div role="tabpanel" class="tab-pane" id="panel-3" v-if="isLoadTemplateDownload">
+                <iframe v-bind:src="templateDownloadSrc"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TrustFollowUp/CashflowManagement/ImportFileWithTemplate']);
+        });
+    </script>
+
+</body>
+</html>

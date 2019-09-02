@@ -1,0 +1,481 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>基础资产信息管理</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+    <link href="../Common/css/trustWizard.css" rel="stylesheet" />
+    <link href="css/pagerlist-style.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <style>
+        body, html, .public_font_style, .body-container {
+            height: 100%;
+        }
+
+        .body-container {
+            overflow-y: auto;
+        }
+
+        .main {
+            box-sizing: border-box;
+            padding: 15px;
+            padding-bottom: 0px;
+        }
+
+        .nominheight {
+            min-height: inherit !important;
+        }
+
+        .rowNoPadding {
+            padding: 5px 5px !important;
+            line-height: 1em !important;
+        }
+
+        .page-fun {
+            overflow: hidden;
+        }
+
+            .page-fun .pull-left {
+                position: relative;
+                top: 0px;
+            }
+
+            .page-fun .pull-right {
+                position: relative;
+                top: 0px;
+            }
+
+        .filterdiv {
+            padding: 5px 0 !important;
+        }
+
+        .pull-left select {
+            margin-left: 1px;
+            float: left;
+        }
+
+        .pull-left div {
+            float: left;
+        }
+
+        .pull-left button {
+            height: 20px;
+            float: left;
+            height: 26px;
+            margin-left: 2px;
+            margin-bottom: 5px;
+            font-size: 14px;
+            line-height: 10px;
+        }
+
+        .pull-left label {
+            float: left;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .date-filter {
+            height: 26px;
+            box-shadow: rgba(0, 0, 0, 0.075) 0px 1px 1px inset;
+            border-radius: 5px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: rgb(204, 204, 204);
+        }
+
+        #gridAssetDetail {
+            /*margin-top:-7px;*/
+        }
+
+        div.drop.form-panel.list-filters {
+            border-bottom: none;
+        }
+
+        .margin_styleby {
+            margin-bottom: 0px;
+        }
+
+        td.tight-cell.rowNoPadding {
+            text-align: center;
+        }
+
+        html.k-webkit.k-webkit61 {
+            overflow-y: hidden;
+        }
+
+        .loadpage {
+            position: absolute;
+            top: 46%;
+            left: 46%;
+            background: transparent;
+        }
+
+            .loadpage > i {
+                color: rgb(107, 147, 216);
+            }
+
+        body, button, input, select, textarea {
+            font: 13px 'Microsoft Yahei',tahoma,arial,\5b8b\4f53;
+            outline: 0;
+            resize: none;
+            font-weight: normal;
+            color: #555;
+        }
+
+        .table-header-cell k-header, .table-cell, .k-grid-header, .k-pager-wrap, .k-grid-pager, .k-widget, .k-floatwrap {
+            font-size: 13px !important;
+            color: #555;
+        }
+
+        .file-option > span {
+            font-size: 14px !important;
+        }
+
+        .k-grid tr td {
+            /*border-width: 0 0 1px 1px;*/
+            border-style: solid;
+            border-color: #e6e6e6 !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding: 0.45em 1.486em !important;
+            font-family: Arial;
+        }
+
+        .k-grid td.k-state-selected, .k-grid tr.k-state-selected > td {
+            color: #fff;
+        }
+
+        .k-grid tr:hover {
+            background-color: #e2e0e0 !important;
+        }
+
+        .k-grid tr.k-state-selected td a {
+            color: #fff;
+        }
+
+        #uploadSelect {
+            padding-top: 10px;
+        }
+
+        div.k-grid-content tr:last-child > td {
+            border-bottom-width: 1px;
+        }
+
+        .btn.btn-sm {
+            padding: 6px 4px;
+            font-size: 12px;
+            margin-right: 5px;
+            /*font-weight: bold;*/
+            /*border:none;*/
+            position: relative;
+            border-radius: 4px;
+        }
+
+            .btn.btn-sm:last-child {
+                margin-right: 0px;
+            }
+
+            .btn.btn-sm:hover {
+                background: none;
+                text-decoration: none;
+                background: rgba(59,62,93,0.8);
+                border: 1px solid rgba(0,0,0,0.12);
+                color: white;
+            }
+        /*.btn.btn-sm::after{
+            content:'';
+            position:absolute;
+            width:1px;
+            height: 16px;
+            top: 6px;
+            right: -5px;
+            display:block;
+            background:#596d7f;
+        }
+         .btn.btn-sm:last-child::after{
+             display:none;
+         }*/
+        i.fa {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body class="public_font_style">
+    <!--  <div id="loading" class="loadpage text-center"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>-->
+    <div class="body-container form nobottom">
+        <div class="main">
+            <div class="page-fun">
+                <div class="pull-left ">
+                    <div>
+                        <label>基础资产快照日期：</label>
+                        <select class="date-filter" id="ReportingDate"></select>
+                    </div>
+                    <button type="button" class="normal_small_button" id="btnFilterAssetList">查询</button>
+                </div>
+                <div class="pull-right margin_styleby">
+                    <!--<button type="button" class="btn btn-default btn-sm" id="btnViewAssetList"><i class="fa fa-gg"></i>相关资产池</button>-->
+
+                    <button type="button" class="btn btn-default btn-sm" id="CashFlowDisassemblyAndCashFlowList"><i class="fa fa-pie-chart"></i>现金流一览与拆分归集</button>
+
+                    <!--<button type="button" class="btn btn-default btn-sm" id="btnSyncTrustAsset">拆分与归集</button>
+                    <button type="button" class="btn btn-default btn-sm" id="btnViewAssetCashFlow">现金流一览</button>-->
+                    <!--
+                    <button type="button" class="btn btn-default btn-sm" id="btnAssetPoolUnfold">资产池现金流拆分</button>
+                    <button type="button" class="btn btn-default btn-sm" id="btnInterestAdjustments">资产池整体调息</button>
+                    <button type="button" class="btn btn-default btn-sm" id="btnImport">导入基础资产数据</button>
+                    <button type="button" class="btn btn-default btn-sm" id="btnImportRealData">导入实际还款数据</button>
+                    -->
+
+                    <button type="button" class="btn btn-default btn-sm" id="btnImport"><i class="fa fa-file-text-o"></i>导入还款文件</button>
+                    <button type="button" class="btn btn-default btn-sm" id="btnImportAccount"><i class="fa fa-dollar"></i>导入账户资产</button>
+                    <button type="button" class="btn btn-default btn-sm" id="btnImportPlanData"><i class="fa fa-file-powerpoint-o"></i>导入还款计划</button>
+                    <button type="button" class="btn btn-default btn-sm" id="btnImportAssetInfo"><i class="fa fa-line-chart"></i>导入统计信息</button>
+                    <button type="button" class="btn btn-default btn-sm" id="btnTestAssetStatus"><i class="fa fa-database"></i>测算资产状态</button>
+                    <!--<button type="button" class="btn btn-default btn-sm" id="btnDeleteAssetData">删除资产数据</button>-->
+                    <!--
+                    <a type="button" href="https://poolcutwcf/TrustManagementService/ConsumerLoan/Document/基础资产信息表.xlsx" class="btn btn-default btn-sm" id="btnCustomSearch">个性化查询</a>
+                    -->
+                    <button type="button" class="btn btn-default btn-sm" id="btnStatistics"><i class="fa fa-bar-chart"></i>统计视图</button>
+                </div>
+            </div>
+            <div class="form-panel drop upload-sourcefile" style="border-bottom:none;margin-bottom:0px">
+                <div style="display:flex;justify-content:space-between">
+                    <form id="uploadSelect">
+                        <span class="file-option" style="padding:0px;">
+                            报表日期：<input type="text" id="BasicAssetReportingDate" class="date-plugins" readonly="readonly" />
+                        </span>
+                        <input type="radio" name="uploadMethodSelect" value="1" checked="checked" /><span>上传还款明细</span>
+                        <input type="radio" name="uploadMethodSelect" value="2" /><span style="margin-right:5px;">上传还款明细+还款分类</span>
+                    </form>
+                    <div class="pull-right sourcefileMargin">
+                        <div style="display:flex">
+                            <span class="file-option" id="spanUploadProgressMsg">正在上传......</span>
+                            <div class="file-option" id="radioButton" style="display:none;margin-right: 23px;">
+                                还款分类：
+                                <label for="BasicAssetSourceFileUpload" class="input_file_style">
+                                    <input type="file" id="BasicAssetSourceFileUpload" />
+                                    <span>上传文件</span>
+                                </label>
+                            </div>
+                            <div class="file-option">
+                                还款明细：
+                                <label for="BasicAssetSourceFileUploadEx" class="input_file_style">
+                                    <input type="file" id="BasicAssetSourceFileUploadEx" />
+                                    <span>上传文件</span>
+                                </label>
+                            </div>
+
+                            <span class="file-option">
+                                <button type="button" class="normal_small_button" id="btnUploadAssetSourceFile" style="left:5px">上传</button>
+                                <button type="button" class="delet_normal_small_button" id="btnUploadAssetSourceFileCancel" style="left:5px">取消</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-panel drop upload-accountsourcefile" style="display:none;border-bottom:none;margin-top:10px">
+                <div class="pull-right sourcefileMargin">
+                    <span class="file-option" id="AccountspanUploadProgressMsg">正在上传......</span>
+                    <span class="file-option">
+                        选择日期：
+                        <input type="text" id="AccountAssetReportingDate" class="date-plugins" readonly="readonly" />
+                    </span>
+                    <span class="file-option">
+                        账户资产：
+                        <label for="AccountAssetSourceFileUpload" class="input_file_style" style="float:none">
+                            <input type="file" id="AccountAssetSourceFileUpload" />
+                            <span>上传文件</span>
+                        </label>
+                    </span>
+                    <span class="file-option">
+                        <button type="button" class="normal_small_button" id="btnUploadAccountAssetSourceFile">上传</button>
+                        <button type="button" class="delet_normal_small_button" id="btnUploadAccountAssetSourceFileCancel">取消</button>
+                    </span>
+                </div>
+            </div>
+            <div class="form-panel drop upload-planfile" style="display:none;;border-bottom:none;margin-top:10px;">
+                <div class="pull-right sourcefileMargin">
+                    <span class="file-option">
+                        选择日期：
+                        <input type="text" id="DimLoanDate" class="date-plugins" readonly="readonly" />
+                    </span>
+                    <span class="file-option">
+                        计划现金流：
+                        <label for="BasicAssetPlanFileUpload" class="input_file_style" style="float:none">
+                            <input type="file" id="BasicAssetPlanFileUpload" />
+                            <span>上传文件</span>
+                        </label>
+                        <span class="file_name"></span>
+                    </span>
+                    <span class="file-option">
+                        <button type="button" class="normal_small_button" id="btnUploadAssetPlanFile">上传</button>
+                        <button type="button" class="delet_normal_small_button" id="btnUploadAssetPlanFileCancel">取消</button>
+                    </span>
+                </div>
+            </div>
+            <div class="body-container form nobottom nominheight" id="interest_adjustments_div" style="display:none;">
+                <div class="main">
+                    <div class="form-panel  nobottom">
+                        <div class=" form-panel  list-filters" style="min-height:220px;">
+                            <div class="col-12">
+                                <div class="col-6 form-group autoLayout-plugins">
+                                    <div class="col-4">
+                                        <label>利息调整时间：</label>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" class="form-control date-plugins"
+                                               data-attr="interest_adjustments_Date" data-valid="required date" />
+                                    </div>
+                                </div>
+                                <div class="col-6 form-group autoLayout-plugins">
+                                    <div class="col-4">
+                                        <label>利息调整方式：</label>
+                                    </div>
+                                    <div class="col-6">
+                                        <select class="form-control" data-valid="required" data-attr="interest_adjustments_AdjustEffectType">
+                                            <option value="">请选择</option>
+                                            <option value="次年对月对日">次年对月对日</option>
+                                            <option value="下一季对日">下一季对日</option>
+                                            <option value="下一月对日">下一月对日</option>
+                                            <option value="次年第一天">次年第一天</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6 form-group autoLayout-plugins">
+                                    <div class="col-4">
+                                        <label>利息生效方式：</label>
+                                    </div>
+                                    <div class="col-6">
+                                        <select class="form-control" data-attr="interest_adjustments_InterestAdjustType" data-valid="required">
+                                            <option value="">请选择</option>
+                                            <option value="前置">前置</option>
+                                            <option value="后置">后置</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-2">
+                                    </div>
+                                </div>
+                                <div class="col-6 form-group autoLayout-plugins">
+                                    <div class="col-4">
+                                        <label>利率浮动：</label>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" class="form-control" data-attr="interest_adjustments_Fee" data-valid="required decimal" />
+                                    </div>
+                                    <div class="col-2">
+                                    </div>
+                                </div>
+                                <div class="col-6 form-group autoLayout-plugins">
+                                    <div class="col-4">
+                                        <label>资产池封包日：</label>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" class="form-control date-plugins"
+                                               data-attr="interest_adjustments_PoolCloseDate" data-valid="required date" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding:10px; text-align:right;">
+                            <button id="btnInterestAdjustmentsOK" type="button" class="btn btn-primary btn-next">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="body-container form nobottom nominheight" id="AssetPoolUnfold_div" style="display:none;">
+                <div class="main">
+                    <div class="form-panel drop nobottom form_style_asset">
+                        <div class=" form-panel drop list-filters" style="min-height:220px;">
+                            <div class="col-12">
+                                <div class="col-6 form-group autoLayout-plugins">
+                                    <div class="col-4">
+                                        <label>结束日期</label>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="col-11">
+                                            <input type="text" class="form-control date-plugins" name="EndDate" data-valid="required date" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 form-group autoLayout-plugins">
+                                    <div class="col-4">
+                                        <label>剩余期数</label>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="col-11">
+                                            <input type="text" class="form-control" name="RemainTerm" data-valid="required int" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 form-group autoLayout-plugins">
+                                    <div class="col-4">
+                                        <label>兑付日</label>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="col-11">
+                                            <input type="text" class="form-control" name="PayDate" data-valid="required int" data-min="1" data-max="31" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="col-6 form-group autoLayout-plugins">
+                                    <div class="col-4">
+                                        <label>资产池封包日</label>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="col-11">
+                                            <input type="text" class="form-control date-plugins" name="PoolCloseDate" data-valid="date" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 form-group autoLayout-plugins">
+                                    <div class="col-4">
+                                        <label>指定金额</label>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="col-11">
+                                            <input type="text" class="form-control" name="SpecifiedAmt" data-valid="decimal" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding:10px; text-align:right;">
+                            <button id="btnAssetPoolUnfoldOK" type="button" class="btn btn-primary btn-next">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-panel drop nobottom">
+                <div class="form-panel drop list-filters">
+                </div>
+                <!--<div class="form-panel drop filterdiv">
+                    <div>
+                        <label>基础资产快照日期：</label>
+                        <select class="date-filter" id="ReportingDate" >
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-sm" id="btnFilterAssetList">查询</button>
+                </div>-->
+                <div id="gridAssetDetail"></div>
+                <div id="gridAssetPoolList"></div>
+                <div id="divDataList" class="list-container"></div>
+            </div>
+        </div>
+    </div>
+    <script src="../../../../asset/lib/require.js"></script>
+
+    <script type="text/javascript">
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TrustFollowUp/AssetDetailList']);
+        });
+    </script>
+</body>
+</html>

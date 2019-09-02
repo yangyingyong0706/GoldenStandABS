@@ -1,0 +1,269 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title data-bind="text: PageTitle"></title>
+
+    <link rel="stylesheet" href="../css/model.css" />
+    <link rel="stylesheet" href="../../../asset/lib/jquery/jquery-ui.css" />
+    <link rel="stylesheet" href="../../../asset/lib/asyncbox/skins/default.css" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../css/trustWizard.css" rel="stylesheet" />
+    <script data-main="./quickCashFlowDesign" src="../../../asset/lib/require.js"></script>
+    <style>
+        .main-box {
+            width: 45%;
+            margin: 1.5%;
+            box-shadow: 0 0px 1px rgba(0,0,0,.2);
+            float: left;
+            padding: 1%;
+        }
+
+        .form {
+            min-height: 0;
+            border: none;
+            overflow: hidden;
+        }
+
+        .file_name {
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            width: calc(100% - 90px);
+            box-sizing: border-box;
+            padding-left: 10px;
+            border: 1px dashed #ccc;
+            border-right: 0px;
+            color: #666;
+        }
+
+        .form .form-group label {
+            font-weight: normal;
+        }
+
+        .main .h3 .title {
+            border-bottom: none;
+            color: rgba(59,62,93,.8);
+        }
+
+        .date_selector {
+            width: auto;
+        }
+
+        .file_name.filed {
+            color: #222;
+            border-style: solid;
+        }
+
+        table tr td {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        .mb-ms {
+            margin-bottom: 10px;
+        }
+
+        .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+            padding: 8px;
+            line-height: 1.42857143;
+            vertical-align: top;
+            border: 1px solid #ddd;
+        }
+
+        .editInput {
+            width: 80px;
+            box-shadow: none;
+            border: none;
+            border-bottom: 1px solid #ddd;
+        }
+
+            .editInput.date-plugins {
+                width: 100px;
+            }
+
+        .form-control {
+            display: inline-block;
+        }
+
+        .dash-line {
+            height: 0;
+            border-bottom: 1px dashed #ddd;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .mr-xs {
+            margin-right: 5px;
+        }
+
+        .mask {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: #fff url(../../../asset/lib/Kendo/styles/Material/loading-image.gif) center no-repeat;
+            left: 0;
+            height: 0;
+            z-index: 1;
+            height: 100%;
+            top: 0;
+        }
+
+        .editInput.editing {
+            border-bottom: 1px solid #3072b3;
+            box-shadow: 0 2px 0px rgba(132, 132, 132, 0.15);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main" id="app">
+        <div id="mask" v-show='loading' class="mask"></div>
+        <div class="cashFlowInfo main-box">
+            <!--<div class="cashFlowInput">
+                <h3 class="h3 mb-ms"><span class="title">现金流导入</span></h3>
+                <div class="form">
+                    <div class="col-8 form-group">
+                        <div class="col-3"><label id="">上传文件</label></div>
+                        <div class="col-8">
+                            <label class="input_file_style" for="fileUploadFileU" style="width:90px;background:white;float:right;border-radius:0px;border:1px solid rgba(0,0,0,0.2);background:rgb(54, 61, 93);color:white">
+                                <input type="file" id="fileUploadFileU" class="form-control file" data-valid="required" />
+                                <span class="EnterFile_ail">选择文件</span>
+                            </label>
+                            <span class="file_name">暂未选择文件</span>
+                        </div>
+                    </div>
+                    <div class="col-4 form-group" style="margin-bottom:23px">
+                        <div class="col-6"><label id="date_ail">日期</label></div>
+                        <div class="col-6">
+                            <input type="text" id="txtRDate" v-model="cashDate" class="form-control date-plugins" data-valid="" />
+                        </div>
+                    </div>
+                    <div class="buttons pull-right">
+                        <button id="upload_ail" type="button" class="normal_small_button" title="导入" @click="SubmitFormU()">上传</button>
+                    </div>
+                </div>
+            </div>-->
+            <div class="dash-line"></div>
+            <div class="cashFlowTable">
+                <!--<div class=" margin_styleby mb-ms">
+                    <button type="button" class="btn btn-default btn-sm" @click='addDelItem("cash",1)'>+</button>
+                    <button type="button" class="btn btn-default btn-sm" @click='addDelItem("cash",-1)'>-</i></button>
+                </div>-->
+                <div id="cashFlowTable">
+                    <table class="table">
+                        <thead ref="tableThead" style="background:#eee;box-sizing:border-box;color:#222;">
+                            <tr>
+                                <td title="序号" width="10%">序号</td>
+                                <td title="日期" width="18%">开始日期</td>
+                                <td title="日期" width="18%">结束日期</td>
+                                <td title="利息" width="21%">利息</td>
+                                <td title="本金" width="21%">本金</td>
+                                <td title="操作" width="20%">操作</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item,index) in cashFlowTableData" track-by="$index">
+                                <td>{{index + 1}}</td>
+                                <td><span v-show="!item.isEdit">{{item.StartDate}}</span><input v-show="item.isEdit" ref="date" type="text" name="name" data-id='start' class="editInput  form-control date-plugins" v-model="item.StartDate" /></td>
+                                <td><span v-show="!item.isEdit">{{item.EndDate}}</span><input v-show="item.isEdit" ref="date" type="text" name="name" data-id='end' class="editInput  form-control date-plugins" v-model="item.EndDate" /></td>
+                                <td><span v-show="!item.isEdit">{{item.InterestAmount}}</span><input type="text" v-show="item.isEdit" class="editInput  form-control" v-model="item.InterestAmount"></td>
+                                <td><span v-show="!item.isEdit">{{item.PrincipalAmount}}</span><input type="text" v-show="item.isEdit" class="editInput  form-control" v-model="item.PrincipalAmount"></td>
+                                <td><a href="#" @click="delTableItem('cash',index)" class='mr-xs'>删除</a><a href="#" @click="toggleEdit('cash',index)" v-text="item.isEdit?'完成':'编辑'">></a></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <!--<div class="save-btn">
+                    <button id="" type="button" class="normal_small_button" title="导入" @click="saveCashFlowInfo()">保存表格</button>
+                </div>-->
+            </div>
+        </div>
+        <div class="bondDesign main-box">
+            <div class="bondDesignInfo">
+                <h3 class="h3 mb-ms"><span class="title">债券设计信息</span></h3>
+                <div class="form">
+                    <div class="col-6 form-group">
+                        <div class="col-3"><label id="">数据日期</label></div>
+                        <div class="col-8">
+                            <input type="text" id="" class="form-control date-plugins" data-valid="required date" v-model='bondDataDate' />
+                        </div>
+                    </div>
+                    <div class="col-6 form-group " style="margin-bottom:23px">
+                        <div class="col-3"><label id="date_ail">封包日期</label></div>
+                        <div class="col-8">
+                            <input type="text" id="" class="form-control date-plugins" data-valid="required date" v-model='bondPackDate' />
+                        </div>
+                    </div>
+                    <div class="col-8 form-group">
+                        <div class="col-4"><label id="date_ail">专项计划结束日期</label></div>
+                        <div class="col-8">
+                            <input type="text" id="" class="form-control date-plugins" data-valid="required date" v-model='trustEndDate' />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dash-line"></div>
+            <div class="cashFlowTable">
+                <div class="table-btns">
+                    <div class="form">
+                        <div class="col-6 form-group mb-ms">
+                            <div class="col-4"><label id="">债券层数</label></div>
+                            <div class="col-3 mr-xs">
+                                <input id="" type="number" v-model.number="bondNum" class="form-control" data-valid="required" />
+                            </div>
+                            <div class='col-4 '>
+                                <button type="button" class="btn btn-default btn-sm" @click='addDelItem("bond",1)'>+</button>
+                                <button type="button" class="btn btn-default btn-sm" @click='addDelItem("bond",-1)'>-</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="cashFlowTable">
+                    <table class="table">
+                        <thead ref="tableThead" style="background:#eee;box-sizing:border-box;color:#222;">
+                            <tr>
+                                <td title="序号" width="10%">序号</td>
+                                <td title="债券发行利率" width="15%">债券发行利率</td>
+                                <td title="发行期长" width="15%">发行期长</td>
+                                <td title="发行金额" width="15%">发行金额</td>
+                                <td title="债券级别" width="20%">债券级别</td>
+                                <td title="操作" width="20%">操作</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(level,index) in bondInfoTableData" track-by="$index">
+                                <td><span>{{index+1}}</span></td>
+                                <!--<td v-for="(val,key) in level" v-if="key!='isEdit'"><span v-if="!level.isEdit">{{val}}</span><input class="editInput" v-if="level.isEdit" type="text" name="name" v-model="val" /></td>-->
+                                <td><span v-if="!level.isEdit">{{level.intrestRate}}</span><input class="editInput" v-if="level.isEdit" type="text" name="name" v-model="level.intrestRate" /></td>
+                                <td><span v-if="!level.isEdit">{{level.releasePeriod}}</span><input class="editInput" v-if="level.isEdit" type="text" name="name" v-model="level.releasePeriod" /></td>
+                                <td><span v-if="!level.isEdit">{{level.releaseAmount}}</span><input class="editInput" v-if="level.isEdit" type="text" name="name" v-model="level.releaseAmount" /></td>
+                                <td>
+                                    <span v-if="!level.isEdit">{{level.bondLevel}}</span><select class="editInput" v-if="level.isEdit" type="text" name="name" v-model="level.bondLevel">
+                                        <option value=''>请选择</option>
+                                        <option value='AAA'>优先级</option>
+                                        <option value='AA'>次优先级</option>
+                                        <option value='次级'>次级</option>
+                                    </select>
+                                </td>
+                                <td><a href="#" @click="delTableItem('bond',index)" class='mr-xs'>删除</a><a href="#" @click="toggleEdit('bond',index)" v-text="level.isEdit?'完成':'编辑'"></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="save-btn">
+                    <button id="" type="button" class="normal_small_button" title="导入" @click="runDesign">查询数据</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

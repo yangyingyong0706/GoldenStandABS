@@ -1,0 +1,27 @@
+﻿{
+    "app": "DashBoard",
+    "title": "产品管理",
+    "group": [
+        {
+            "module": "Index",
+            "title": "业务向导",
+            "titleclass": "icon-directionLeft01",
+            "elements": [
+                {
+                    "title": "新建产品向导",
+                    "type": "button",
+                    "icon": "icon icon-plus",
+                    "linkname": "AddTrust",
+                    "linkurl": "javascript:AddTrust"
+                },
+                {
+                    "title": "产品信息维护",
+                    "type": "button",
+                    "icon": "icon icon-codepen",
+                    "linkname": "MangeTrust",
+                    "linkurl": "javascript:MangeTrust"
+                }
+            ]
+        }
+    ]
+}

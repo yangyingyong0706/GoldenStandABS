@@ -1,0 +1,131 @@
+﻿ #iframe {
+    height: 100%;
+    border: none;
+    width: 100%;
+    border-left: 1px dashed #ccc;
+}
+
+.rightImage {
+     height: 100%;
+     width: 300px;
+}
+
+.leftImage {
+}
+/*loanIssueOrdersList.html*/
+.hide{display:none;}
+.OperationBox{overflow:hidden;}
+.k-header > span.k-window-title { font-size: 15px;color: #666; font-weight: bold;}
+.uploads { position: relative;width:300px; border: 1px solid #ccc;}
+.uploads span { position: absolute;left: 0px;display: inline-block;background: #f1f1f1;border-right: 1px solid #ccc!important;width: 120px; height: 32px;line-height: 33px; text-align: center;}
+.uploads>span.SpanFile {width: auto!important;margin-left: 130px; background: none!important;border: none!important;}
+.NewCombination > div.uploads > input {outline: none;border: 1px solid #e6e6e6;height: 30px;   width: 170px;   opacity:0;filter:alpha(opacity=0);  padding: 0px 8px; cursor:pointer;}
+.uploadingFiles{ width:100%;position:relative; height: 40px;margin-top:40px;}
+.uploadingFiles a{position:absolute;left:0;right:0;margin:auto;width:62px;    font-size: 14px; color: #666;}
+.upload{margin: 0px 15px 15px 0px;display:inline-block;}
+.upload span{font-size: 14px;width: 105px;height: 35px;text-align: center; line-height: 36px; color: #606060!important;display: inline-block; border: 1px solid #efecec; border-right: none;float: left; background-color: #f1f1f1;}
+.upload input{ width: 188px;height: 32px;padding-left:3px;}
+.funcBtns{display:inline-block;padding: 14px 0px 22px 10px;position:relative; font-size:15px;   font-weight: 600; color: #838383;}
+.funcBtns span{cursor:pointer;}
+.Style{color:#0072c6;}
+.Style::before{display: inline-block;content: "";width: 28px; height: 3px; position: absolute; background: #0072c6;top: 39px; left:33px;box-shadow: 0px 6px 6px #bbc9fa;}
+ 
+/*loanLending.html*/
+.basicInput{
+    padding: 10px 0px;
+    overflow: hidden;
+}
+.basicInput p {
+    float: left;
+    width:  50%;
+    color: #606060;
+    font-size: 14px;
+}
+.basicInput .instructions input{
+    width: 220px;
+    height: 32px;
+    padding-left:6px;
+}
+.basicInput .instructions>span {
+    color: red;
+    margin-left: 5px;
+}
+.describe>span{
+    vertical-align: middle;
+    display: block;
+}
+.describe #issueDescription{
+    margin-top: 10px;
+    width: calc(100% - 3px);
+    height: 160px;
+    padding: 8px;
+    vertical-align: middle;
+    font-size: 14px;
+    width:610px;
+    font-family: Arial;
+}
+.btnTable th {
+    font-weight: normal;
+}
+    .btnTable td {
+    font-weight: normal;
+}
+.btnTable table{
+    width: 100%;
+    height: 256px;
+    font-weight: normal;
+    border: 1px solid #ccc;
+
+}
+.btnTable table thead{
+    border-bottom: 1px solid #ccc;
+}
+.btnTable table tr{
+    height:39px;
+    line-height: 39px;
+    border-bottom: 1px solid #ccc;
+}
+.btnTable table th {
+    font-size: 14px;
+}
+.btnTable table td {
+    text-align: center;
+    font-size: 14px;
+}
+.describe{
+    color: #606060;
+    font-size: 14px;
+}
+.tableHead{
+    margin: 10px 5px;
+}
+.tableHead>span {
+    font-size: 14px;
+}
+.btnTable .operator{
+    font-size: 14px;
+    background-color: #0072c6;
+    color:#fff!important;
+    cursor: pointer;
+    padding: 3px 8px;
+    border-radius: 3px;
+}
+.k-header>.k-window-title{   
+    font-size: 15px;
+    color: #666;
+    font-weight: bold;
+}
+#btnSaveIssue{
+    position: absolute;
+    background-color: #5C95E1;
+    border-radius: 3px;
+    color: #fff!important;
+    cursor: pointer;
+    padding: 6px 20px;
+    bottom: 20px;
+    right: calc(50% - 34px);
+}
+#btnSaveIssue:hover{
+    background-color: #3577d0;
+}
+#window_check{padding:10px 20px;}

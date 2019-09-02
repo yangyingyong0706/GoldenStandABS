@@ -1,0 +1,99 @@
+﻿body,html {
+    margin:0px;
+    padding:0px;
+    width:100%;
+    height:100%;
+    font-family: 'Microsoft YaHei';
+}
+.layer{
+    width:100%;
+    height:100%;
+    display:flex;
+}
+.left_nav_style{
+    width:184px;
+    height:100%;
+    box-sizing:border-box;
+    background:rgba(230,233,245,1);
+}
+.left_nav_style .step-head h2 {
+    line-height: 14px;
+    color: rgba(69,86,156,1);
+    font-size: 16px;
+    font-weight: normal;
+}  
+.left_nav_style .step-head {
+    padding: 1px 16px;
+    height: 39px;
+    position: relative;
+}
+.iframe_content{
+    width:calc(100% - 184px);
+    height:100%;
+}
+.extend_father{
+    width:100%;
+    height:100%;
+}
+.left_nav_style ul{
+    list-style:none;
+    width:100%;
+    padding: 0px;
+    margin: 0px;
+}
+.left_nav_style ul>li {
+    width:100%;
+    display: block;
+    color: rgba(77,77,77,1);
+    cursor: pointer;
+    height: 50px;
+    line-height: 50px;
+    font-size:14px;
+    position: relative;
+}
+.left_nav_style ul>li:hover {
+    color: rgba(69,86,156,1);
+}
+.left_nav_style ul>li:hover .mar_dis {
+    border: 1px solid rgba(69,86,156,1);
+}
+.left_nav_style .current_li .mar_dis {
+    color:#ffffff;
+    border: 1px solid rgba(69,86,156,1);
+    background-color: rgba(69,86,156,1);
+}
+.left_nav_style .mar_dis {
+    float: left;
+    margin-left: 17px;
+    margin-right: 10px;
+    margin-top: 13px;
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    border: 1px solid rgba(77,77,77,1);
+    font-size: 14px;
+    text-align: center;
+    line-height: 20px;
+    display: block;
+    box-sizing: border-box;
+}
+.left_nav_style ul>li .flag { 
+    position: absolute; 
+    left: 27px;
+    top: 37px;
+    width:0px;
+    height:22px;
+    border:0.5px solid rgba(77,77,77,1);    
+}
+.left_nav_style ul>li:last-child .flag {
+    display: none;
+}
+.left_nav_style ul>li:hover .flag {
+    border: 0.5px solid rgba(69,86,156,1); 
+}
+.left_nav_style .current_li .flag { 
+    border: 0.5px solid rgba(69,86,156,1);     
+}
+.left_nav_style ul>.current_li{
+    color: rgba(69,86,156,1);
+}

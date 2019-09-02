@@ -1,0 +1,73 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title data-bind="text: PageTitle"></title>
+    <!--<link rel="stylesheet" href="../../../../asset/lib/bootstrap/dist/css/bootstrap.css" />-->
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../../../asset/lib/jquery/jquery-ui.css" />
+    <link rel="stylesheet" href="../../../../asset/lib/asyncbox/skins/default.css" />
+    <link rel="stylesheet" href="zTree/css/zTreeStyle/zTreeStyle.css" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <style>
+        html,body,.body-container,.main{
+            height:100%
+        }
+        .allSelectTitle {
+            cursor: pointer;
+        }
+
+        .nobottom {
+            border-bottom: none !important;
+            height:100%;
+        }
+        .ztree-wrap {
+            height: calc(100% - 40px);
+            overflow: auto;
+            font-family: 'Microsoft YaHei';
+        }
+
+        .drop {
+            padding-left: 12px;
+            padding-top: 8px;
+        }
+        .button-wrap {   
+            text-align: right;
+            padding: 0 20px;
+        }
+        .button-wrap .btn {
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="body-container form nobottom">
+        <div class="main">
+            <div class="pull-right">
+            </div>
+            <div class="form-panel drop nobottom">
+                <div class="form-panel drop list-filters"> 
+                    <div class="button-wrap"> 
+                        <button class="btn btn-default btn-single-default" id="btnUpdate">更新</button>
+                        <button class="btn btn-default btn-single-default" id="btnValidityCheck">有效性检验</button>
+                        <button class="btn btn-default btn-single-default" id="btnDownLoadPackage">打包下载</button>
+                    </div>
+                </div>
+                <div class="ztree-wrap left">
+                    <ul id="treeDemo" class="ztree"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/productManage/TrustManagement/documentManagement/CatalogManagement']);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>透视报表x</title>
+    <!--<script src="../pre/vue.js"></script>-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <link href="../style/style.css" rel="stylesheet" />
+    <style>
+        html{
+            /*overflow:hidden;*/
+        }
+        body,html{
+            width:100%;
+            height:100%;
+            font-family: 'Microsoft YaHei';
+            font-size: 14px;
+        }
+        body {
+            padding: 15px;
+            box-sizing: border-box;
+            margin: 0px;
+        }
+        a {
+            text-decoration: none;
+        }
+        #container {
+            height: 100%;
+            border: 1px solid #dedede;
+        }
+        #title, #title ul {
+            height: 30px;
+            line-height: 30px;
+        }
+        #title {
+            border-bottom: 1px solid #dedede;
+        }
+        #title ul {
+            margin: 0px;
+            padding: 0px 5px;
+        }
+        #title ul li {
+            float: left;
+            margin: 0 10px;
+            text-align: center;
+        }
+        #title ul li a {
+            color:rgba(77,77,77,1);
+            font-size: 14px;
+        }
+        #title ul li.act {
+            border-bottom: 2px solid rgba(69,86,156,1);
+        }
+        #title ul li.act a {
+            color:rgba(69,86,156,1);
+        }
+        #content {
+            margin: 15px;
+            height: calc(100% - 60px);
+        }
+        #content table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            border: 1px solid #dedede;
+        }
+         #content table thead td {
+             color:rgba(128,128,128,1);
+             font-size: 14px;
+             padding: 5px 10px;
+             background:rgba(243,245,250,1);
+         }
+         #content table td {
+             padding: 0 10px;
+             border-bottom: 1px solid #dedede;
+         }
+         #content table tbody td {
+             height: 30px;
+             line-height: 30px;
+             color:rgba(77,77,77,1);
+         }
+          #content table tbody td a {
+              color: rgba(69,86,156,1);
+          }
+          #content table tbody td a:hover {
+              color: rgba(69,86,156,.8);
+          }
+    </style>
+
+
+    <script data-main="assetReport" src="../../../asset/lib/require.js"></script>
+
+
+
+
+</head>
+<body style="display:none">
+    <div id="selectLanguageDropdown" class="localizationTool" style="display:none"></div>
+    <div id="container">
+        <div id="title">
+            <ul type="none">
+                <li class="act list">
+                    <div><a id="assetTemplate" href="#">资产模板</a></div>
+                </li>
+            </ul>
+        </div>
+        <div id="content">
+            <div id="contentdiv">
+                <div id="div1">
+                    <table cellspacing="1px">
+                        <thead><tr><td id="no" width="120">序号</td><td id="templateName" width="240">模板名称</td><td id="viewReport" width="120">查看</td><td id="download" width="120">点击下载</td></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td id="creditCard">信用卡</td>
+                                <td><a class="aa" href="../AssetWebReport/assetWebReport.html?catalog=SFM_DAL_CreditCard&cube=SFM DAL CreditCard">查看</a></td>
+                                <td id="downLoadCC"></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td id="publicLoan">对公贷款</td>
+                                <td><a class="aa" href="../AssetWebReport/assetWebReport.html?catalog=SFM_DAL_CLO&cube=SFM DAL CLO">查看</a></td>
+                                <td id="downLoadPL"></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td id="consumerLoan">消费贷款</td>
+                                <td><a class="aa" href="../AssetWebReport/assetWebReport.html?catalog=SFM_DAL_ConsumerLoan&cube=SFM DAL ConsumerLoan">查看</a></td>
+                                <td id="downLoadCL"></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td id="asset-backedCommercialPaper">资产支持票据</td>
+                                <td><a class="aa" href="../AssetWebReport/assetWebReport.html?catalog=SFM_DAL_Main&cube=SFM DAL Main">查看</a></td>
+                                <td id="downLoadABCP"></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td id="carLoan">汽车贷款</td>
+                                <td><a class="aa" href="../AssetWebReport/assetWebReport.html?catalog=SFM_DAL_AUTO&cube=SFM DAL AUTO">查看</a></td>
+                                <td id="downLoadCar"></td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td id="personalHousingLoan">个人住房贷</td>
+                                <td><a class="aa" href="../AssetWebReport/assetWebReport.html?catalog=SFM_DAL_RMBS&cube=SFM DAL RMBS">查看</a></td>
+                                <td id="downLoadPHL"></td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td id="accountsReceivable">应收账款</td>
+                                <td><a class="aa" href="../AssetWebReport/assetWebReport.html?catalog=SFM_DAL_AUTO&cube=SFM DAL AUTO">查看</a></td>
+                                <td id ="downLoadAR"></td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td id="accountsMarginTrading">融资融券</td>
+                                <td><a class="aa" href="../AssetDistributionReport/assetDistributionReport.html?catalog=SFM_DAL_MarginTrading&cube=SFM DAL MarginTrading">查看</a></td>
+                                <td id="downLoadAMT"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

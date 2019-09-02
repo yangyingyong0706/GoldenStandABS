@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>导入还款文件</title>
+    <link href="../../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../css/trustFollowUp.css" rel="stylesheet" />
+    <link href="../css/pagerlist-style.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <style>
+        .label_title{
+            background: #f1f1f1; border: 1px solid #efecec; text-align: center; box-sizing: border-box; 
+            line-height: 30px; color: #555; padding: 0 3px; height: 30px; overflow: hidden; display: block; white-space: nowrap; text-overflow: ellipsis; font-size: 14px;
+            width:30%;
+        }
+        .date-plugins{
+            width:70%;
+            border-radius: 2px;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .04);
+            border:1px solid #ddd;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+        .date_selector{
+            left: calc(30% + 12px);
+            top: 61px
+        }
+        .label_check{
+            line-height: 30px; height: 30px; overflow: hidden; display: block; white-space: nowrap; text-overflow: ellipsis; font-size: 14px;
+            width:30%;
+            display: inline-block;
+            width: auto;
+            border-radius: 5px;
+            color: #555;
+            padding: 0px 30px 0 0;
+            vertical-align: middle;
+        }
+        .layer_line{
+            width:100%;
+            margin-bottom:30px
+        }
+        .layer_each{
+            display:flex;
+            margin-bottom:30px;
+        }
+        .file_name{
+                    display: inline-block;
+                    height: 30px;
+                    line-height: 30px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    width: calc(70% - 80px);
+                    box-sizing: border-box;
+                    padding-left: 10px;
+                    border:1px solid rgba(0,0,0,0.2);
+            }
+             .progress {
+            height: 20px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+        }
+
+            .progress > .progress-bar {
+                float: left;
+                width: 0;
+                height: 100%;
+                font-size: 12px;
+                line-height: 20px;
+                text-align: right;
+                background: #6c78bd;
+                background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                -webkit-transition: width .6s ease;
+                -o-transition: width .6s ease;
+                -webkit-background-size: 40px 40px;
+                background-size: 40px 40px;
+                -webkit-animation: progress-bar-stripes 2s linear infinite;
+                -o-animation: progress-bar-stripes 2s linear infinite;
+                animation: progress-bar-stripes 2s linear infinite;
+            }
+            input[type="radio"] + label::before {
+                content: "\a0"; /*不换行空格*/
+                display: inline-block;
+                vertical-align: middle;
+                font-size: 12px;
+                width: 8px;
+                height: 8px;
+                margin-right: .4em;
+                border-radius: 50%;
+                border: 1px solid rgb(57,61,93);
+                text-indent: .15em;
+                line-height: 1; 
+                cursor:pointer;
+                padding:0.2em;
+            }
+            input[type="radio"]:checked + label::before {
+                background-color: rgb(57,61,93);
+                background-clip: content-box;
+                padding: .2em;
+            }
+            input[type="radio"] {
+                position: absolute;
+                clip: rect(0, 0, 0, 0);
+            }
+            .current_span{
+                color:rgb(57,61,93);
+            }
+            .form-item {
+                border: 1px solid #dedede;
+                box-shadow: 0 0 5px 0px rgba(0,0,0,.1);
+                background: #fdfdfd;
+                margin-bottom: 20px;
+            }
+            .importDataTitle {
+                padding: 10px 10px 10px 10px;
+                background: #f1f1f1;
+                font-size: 16px;
+                border-bottom: 1px solid #dedede;
+                margin-bottom: 20px;
+                display: none;
+            }
+    </style>
+</head>
+<body>
+    <div class="form-panel drop upload-sourcefile" style="border-bottom:none;margin-bottom:0px;display:block;padding:20px;box-sizing:border-box">
+        <div>
+            <div class="form-item">
+                <div class="importDataTitle stitle">回款导入</div>
+                <div style="padding: 10px 10px 0 10px;">
+                    <div class="layer_line">
+                        <div class="label_check">
+                            <input type="radio" name="uploadMethodSelect" value="1" checked="checked" id="one" />
+                            <label for="one"><span class="current_span" style="padding:10px">上传还款明细</span></label>
+                        </div>
+                        <div class="label_check">
+                            <input type="radio" name="uploadMethodSelect" value="2" id="two" />
+                            <label style="margin-right:5px;" for="two"><span style="padding:10px">上传还款明细&还款分类</span></label>
+                        </div>
+                    </div>
+                    <form id="uploadSelect" class="layer_each">
+                        <label class="label_title">报表日期</label><input type="text" id="BasicAssetReportingDate" class="date-plugins" readonly="readonly" />
+                    </form>
+                    <div class="layer_each">
+                        <label class="label_title">还款明细</label>
+                        <span class="file_name"></span>
+                        <label for="BasicAssetSourceFileUploadEx" class="input_file_style">
+                            <input type="file" id="BasicAssetSourceFileUploadEx" />
+                            <span>上传文件</span>
+                        </label>
+                    </div>
+                    <div id="test_progress" class="progress" style="width:100%;position:relative;top:-15px;margin:0px;display:none">
+                        <div class="progress-bar"><span></span></div>
+                    </div>
+                    <div class="layer_each" id="radioButton" style="display:none;">
+                        <label class="label_title">还款分类</label>
+                        <span class="file_name"></span>
+                        <label for="BasicAssetSourceFileUpload" class="input_file_style">
+                            <input type="file" id="BasicAssetSourceFileUpload" />
+                            <span>上传文件</span>
+                        </label>
+                    </div>
+                    <div id="test_progress" class="progress" style="width:100%;position:relative;top:-15px;margin:0px;display:none">
+                        <div class="progress-bar"><span></span></div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:center">
+                <button type="button" class="normal_small_button" id="btnUploadAssetSourceFile" style="left:5px">上传</button>
+            </div>
+        </div>
+    </div>
+    <script src="../../../../../asset/lib/require.js"></script>
+
+    <script type="text/javascript">
+        requirejs(['../../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TrustFollowUp/ImportRepayment/ImportRepayment']);
+        });
+    </script>
+
+</body>
+</html>

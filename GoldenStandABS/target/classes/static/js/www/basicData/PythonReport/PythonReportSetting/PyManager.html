@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>配置文件</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link href="../../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/basicData/PythonReport/PythonReportSetting/PyManager']);
+        });
+    </script>
+    <style>
+         body,html{
+            height:100%;
+        }
+         .h3, h3{
+            font-size: 16px;
+            margin: 0px;
+            height: 40px;
+            line-height: 40px;
+            padding-left: 15px;
+            border-bottom:1px solid #dedede;
+         }
+         .form-panel{
+             padding:15px;
+             box-sizing:border-box;
+             width:100%;
+             height:100%
+         }
+    </style>
+
+
+
+
+    <!--<script src="./TrustFollowUp/js/jquery.datagrid.js"></script>
+    <script src="./TrustFollowUp/js/jquery.datagrid.options.js"></script>
+    <script src="./TrustFollowUp/FilePathConfig.js"></script>
+    <script src="./SystemSettings/PyManager.js"></script>
+	<script src="../Common/Scripts/DashboardCommon.js"></script>
+    <script src="../Common/Scripts/jquery-1.7.2.min.js"></script>
+    <script src="../Common/Scripts/jquery.cookie.js"></script>
+    <script src="../Common/Scripts/common.js"></script>
+    <script src="../Common/Scripts/calendar.min.js"></script>
+    <script src="../Common/Scripts/gs-admin-2.pages.js"></script>
+    <script src="../Common/Scripts/App.Global.js"></script>
+    <script src="../Common/Scripts/PoolCutCommon.js"></script>
+    <script src="../Common/Scripts/vue.js"></script>
+	<script src="../Common/Scripts/jquery-ui-latest.js"></script>
+	<script src="../Common/Scripts/anyDialog.js"></script>
+	<script src="../Common/Scripts/TaskIndicatorScript.js"></script>-->
+
+</head>
+<body>
+
+    
+    <div class="body-container form nobottom">
+        <div class="main">
+            <div class="pull-right" style="height:40px;line-height:40px;padding-right:15px;">
+                <button type="button" class="btn btn-default btn-sm" id="btnAddNew" >新增</button> 
+            </div>
+            <h3 class="h3">
+                <span class="title">Python脚本设置</span>
+            </h3>
+            <div class="form-panel drop nobottom">
+                <div id="grid"></div>
+                <div id="divDataList" class="list-container"></div>
+            </div>
+        </div>
+    </div>
+	
+	
+</body>
+</html>

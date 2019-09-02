@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/style/page.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <style>
+        .btn-link {
+            padding: 0;
+        }
+        .k-grid td {
+            padding-top:0.45rem;
+             padding-bottom:0.45rem
+        }
+        body{
+            padding:15px;
+        }
+        html{
+            overflow:hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="grid"></div>
+
+    <script src="../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../asset/lib/config'], function (common) {
+            requirejs(['app/roleManage/ApproveListManagement/ApproveListManagement']);
+        });
+    </script>
+</body>
+</html>

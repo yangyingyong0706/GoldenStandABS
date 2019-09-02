@@ -1,0 +1,56 @@
+﻿.aside .step-box .step-head { 
+    padding: 0; 
+    margin: 0; 
+}
+.aside .step-box .step { 
+
+}
+.aside .step-box { 
+    background-color: #ffffff; 
+    height: 40px; 
+}
+
+.aside .step-box .step > a { 
+    float: left; 
+    border-radius: 2px; 
+    font-weight: normal; 
+    border-bottom: none; 
+}
+.step-box { 
+    border-bottom: 1px solid #dadada; 
+}
+.aside .step-box .step a.active { 
+    border-bottom: 2px solid rgba(69,86,156,1); 
+}
+.aside .step-box .step a.active .step-title{
+    color:rgba(69,86,156,1);
+}
+.page { 
+    padding-left: 0; /*padding-top:107px;*/ /*padding-top:20px;*/ 
+    border-radius: 2px;
+}
+.aside .step-box .step a { 
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    padding: 0;
+    margin-right: 20px;
+    margin-left: 15px;
+}
+.aside .step-box .step a .step-title { 
+    font-size: 14px; 
+    color: rgba(77,77,77,1); 
+    height: 40px;
+    line-height: 40px;
+    margin: 0;
+}
+.aside .step-box .step a:hover .step-title {
+    color: rgba(69,86,156,1); 
+}
+.page .aside {
+     top: 70px;
+}
+.aside .step-box .step a.active h3 span {
+    font-weight: 400;
+}
+

@@ -1,0 +1,41 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title>分布调整</title>
+    <link href="../../../productManage/TrustManagement/ReportWizardEx/css/ReportWizardEx.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+</head>
+<body id="app">
+    <div class="layer">
+        <div class="left_nav_style">
+            <div class="step-head">
+                <h2>分布调整</h2>
+            </div>
+            <ul>
+                <li id="fat" class="current_li" v-on:click="changeIframe($event)">
+                    <span class="mar_dis">1</span>
+                    <span>区间分布</span>
+                    <span class="flag"></span>  
+                </li>
+                <li id="dim" v-on:click="changeIframe($event)">
+                    <span class="mar_dis">2</span>
+                    <span>枚举分布</span>
+                    <span class="flag"></span>     
+                </li>
+            </ul>
+        </div>
+        <div class="iframe_content">
+            <iframe v-bind:src="url" frameborder="0" class="extend_father"></iframe>
+        </div>
+    </div>
+    <script src="../../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/assetFilter/creditfactory/Reports/DistributionConfig']);
+        });
+    </script>
+</body>
+</html>

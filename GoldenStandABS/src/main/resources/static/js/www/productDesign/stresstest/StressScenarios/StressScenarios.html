@@ -1,0 +1,499 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title></title>
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../css/magic/magic.dialog.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../../asset/font/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../../../../asset/lib/devExtreme/style/dx.light.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../asset/lib/devExtreme/style/dx.common.css" />
+    <link rel="dx-theme" data-theme="generic.light" href="../../../../asset/lib/devExtreme/style/dx.light.css" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/toast/toast.css" rel="stylesheet" />
+    <script src="../../../../asset/lib/devExtreme/jszip.min.js"></script>
+    <style type="text/css">
+        body,
+        html {
+            height: 100%;
+        }
+        ul {
+            padding: 0;
+        }
+        .table>tbody>tr>td {
+            vertical-align: middle;
+        }
+        .fixed-len { cursor: pointer; min-width: 130px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;color:#45569c; }
+
+        .riskTransferResult_th { border-bottom: 1px solid  #dce0ee; background: #fafafa; vertical-align: middle; color: #4d4d4d;text-align: center; }
+        .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+            border: 1px solid #dce0ee;
+        }
+        .main { padding: 0px; }
+        #page_main_container { 
+            height: 100%;
+            padding: 15px;
+            background: #ffffff;
+        }
+        html { overflow-x: hidden; }
+        .main .h3 .title { 
+            border-bottom: none; 
+            color: #4d4d4d; 
+        }
+        .table tbody tr td {
+            padding: 5px;
+        }
+        .form-item {
+            border: 1px solid #dedede;
+            padding: 15px;
+            border-top: none;
+            margin-bottom: 15px;
+        }
+        .form-panel {
+            margin: 0px;
+        }
+        .form-panel, .form-drop { border-bottom: none; }
+        .col-12.form-item.form-horizontal { padding-top: 15px; }
+        .form-horizontal .control-label {
+            margin-top: 0;
+        }
+        .control-label label {
+            background:#ebeef5;
+            border: 1px solid #dce0ee;
+            text-align: left;
+            box-sizing: border-box;
+            font-weight: 400;
+            border-radius: 2px 0px 0px 2px;
+            line-height: 30px; 
+            color: #808080; 
+            padding: 0 3px 0px 20px; 
+            height: 30px; 
+            overflow: hidden; 
+            display: block; 
+            white-space: nowrap; 
+            text-overflow: ellipsis; 
+            font-size: 14px;
+            border-right:0 none;
+        }
+
+        .col-4.control-label { padding: 0; }
+        .autoLayout-plugins .form-group { margin: 0; margin-bottom: 10px; }
+        .form-group .col-6 { padding: 0; }
+                  .rightS{position: absolute;right: 20px;top: 10px;}
+            .rightS a{color:#555;text-decoration:none;}
+            .rightS a:hover{color:#1472e2;}
+            .rightS .attr{color: #A3B2B9;margin-left: 6px;margin-right: 4px;}
+            .has-warning{
+                   border-color: #a94442 !important;
+         }
+         .main .h3 {
+            font-size: 16px;
+            padding: 0px;
+            border-bottom: none;
+            height: 40px;
+            line-height: 40px;
+            border: 1px solid #dce0ee;
+            padding: 0 15px;
+            margin: 0;
+         }
+         .main-customize, .main-customize2 {
+             margin: 15px;
+         }
+        .main-customize3 table tr td {
+            padding: 8px 0;
+            border-bottom: 1px solid #dce0ee;
+            border-right: 1px solid #dce0ee;
+            text-align: center;
+            background: #f9f9f9;
+        }
+        tr th {
+            font-size: 14px;
+            font-weight: 400;
+            text-align: center;
+            background: #fafafa;
+            border-bottom: 1px solid #dce0ee;
+        }
+        tr td {
+            text-align: center;
+        }
+        .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
+            border:1px solid #dce0ee;
+        }
+        #resultTable {
+            margin: 15px;
+        }
+        .dx-datagrid-headers{
+            border-top:1px solid #dce0ee;
+            border-bottom: 0 none;
+        }
+        .dx-datagrid-rowsview{
+            border-top: 0 none;
+        }
+        
+        .dx-datagrid {
+            border: 1px solid #dce0ee;
+        }
+        .dx-datagrid-header-panel {
+            border-bottom: none; 
+            padding: 10px 10px 0 0;
+        }
+        .dx-datagrid-table.dx-datagrid-table-fixed tr td {
+            background: #f9f9f9;
+            /*padding: 8px 0;*/
+            border-bottom: 1px solid #dce0ee;
+            border-right: 1px solid #dce0ee;
+            text-align: center;
+        }
+
+        .dx-datagrid-headers .dx-datagrid-table .dx-row > td{
+            border-color:#dce0ee;
+        }
+        .ribbonBox {
+            padding: 0 0 5px 0;
+            height: 45px;
+        }
+        .select { margin-left: 10px; float: right; }
+        .ribbon_span { cursor: pointer; font-size: 12px;white-space:nowrap; overflow:hidden; text-overflow:ellipsis; /*-webkit-transform: scale(0.9);*/ }
+        .settingItem:after{display:block;clear:both;content:"";visibility:hidden;height:0}
+        .settingItem{zoom:1}
+        .loadpage { position: absolute; height: 100%; width: 100%; background: #FFFFFF; z-index: 9999;}
+        .loadpage i {
+            position: absolute; 
+            left: 50%; 
+            top: 40%; 
+            transform: translate(-50%,-40%); 
+            color: rgb(107, 147, 216);
+        } 
+       .col-md-4, .col-md-5, .col-md-6, .col-md-8 {
+            padding-left: 0;
+            padding-right: 0;
+        }
+       .col-md-6 {
+           margin-top: 5px;
+       }
+       .form-control {
+           border-radius: 0px 2px 2px 0px;
+           border: 1px solid #dce0ee;
+       }
+        .form-control:focus{
+            border-color: #45569c;
+            box-shadow: inset 0 0px 0px #45569c, 0 0 4px #45569c;
+        }
+       #btn_add {
+            color: #45569c;
+            display: inline-block;
+            margin-top: 3px;
+            margin:3px 0px 0px 6px
+       }
+       .fixed-len {
+            cursor: pointer;
+            width: 130px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            margin: 0 auto;
+        }
+       .main-customize label {
+           font-size: 16px;
+           color: #4d4d4d;
+           font-weight: 400;
+       }
+       .fixed-table-loading {
+           display: none;
+       }
+       .labelsinger{
+            background: #ebeef5;
+            border: 1px solid #dce0ee;
+            text-align: left;
+            box-sizing: border-box;
+            font-weight: 400;
+            width:35%;
+            float:left;
+            padding-left:20px;
+            height: 30px;
+            line-height: 30px;
+            border-right:0 none;
+            border-radius:2px 0px 0px 2px;
+       }
+       .single-default{
+            border:1px solid #ccd0de;
+            border-radius: 2px;
+       }
+       .form-control{
+            border:1px solid #dce0ee;
+            border-radius:0px 2px 2px 0px;
+        }
+        .form-control:focus{
+            border-color: #45569c;
+            box-shadow: inset 0 0px 0px #45569c, 0 0 4px #45569c;
+        }
+        .has-error .form-control{
+            border-color:red;
+        }
+    </style>
+    <script data-main="./StressScenarios" src="../../../../asset/lib/require.js"></script>
+
+</head>
+<body>
+    <!--<div id="loading" class="loadpage" style="margin: 20px 0 0 0;">
+        <i class="icon icon-setting bigicon am-rotate pa"></i>
+        <i class="icon icon-setting smicon am-rotate pa"></i>
+        <p class="text pa">Configuration Loading...</p>
+    </div>-->
+    <div id="loading" class="loadpage text-center"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+    <div class="rightS hidden">
+        <a href="javascript:void(0);" id="changeCols" data-col="3" class="vtpbmi_changeCols">三栏布局</a>
+        <span class="attr">|</span>
+        <a href="javascript:void(0);" id="RemoveColButtomSH" class="vtpbmi_RemoveColButtomSH">显示删除按钮</a>
+    </div>
+    
+    <div id="page_main_container" class="main public_font_style">
+        <div class="main-sections" data-bind="foreach: Sections">
+            <div class="main-section" data-bind="attr:{sectionIndex: $index(), id: Identity}">
+                <div id="DashBoard" class="ribbonBox">
+                    <div class="btn-group select">
+                        <button type="button" class="btn btn-default btn-group-broderColor">
+                            <i class="icon icon-rouble"></i>
+                            融资成本摊销
+                        </button>
+                        <button type="button" class="btn btn-default dropdown-toggle btn-group-broderColor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu btn-group-broderColor" data-bind="foreach: amortizationCalculations">
+                            <li>
+                                <a>
+                                    <i data-bind="attr:{'class': icon}"></i>
+                                    <span class="ribbon_span" data-bind="text: Text,attr:{'name': Name}"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--<div class="select">
+                        <div class="select_box"><span id="select1">融资成本摊销</span> <i class="icon icon-bottom select-arrows"></i> </div>
+                        <ul class="ribbonGroup_wrap" data-bind="foreach: amortizationCalculations">
+                            <li class="ribbonGroup nav_list_style">
+                                <span class="ribbon_span" data-bind="text: Text, attr:{'name': Name}"></span>
+                            </li>
+                        </ul>
+                    </div>-->
+                    <div class="btn-group select">
+                        <button type="button" class="btn btn-default btn-group-broderColor">
+                            <i class="icon icon-rouble"></i>
+                            风险报酬转移
+                        </button>
+                        <button type="button" class="btn btn-default dropdown-toggle btn-group-broderColor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu btn-group-broderColor" data-bind="foreach: transferRisks">
+                            <li>
+                                <a>
+                                    <i data-bind="attr:{'class': icon}"></i>
+                                    <span class="ribbon_span" data-bind="text: Text,attr:{'name': Name}"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--<div class="select">
+                        <div class="select_box"><span id="select2">风险报酬转移</span> <i class="icon icon-bottom select-arrows"></i> </div>
+                        <ul class="ribbonGroup_wrap" data-bind="foreach: transferRisks">
+                            <li class="ribbonGroup nav_list_style">
+                                <span class="ribbon_span" data-bind="text: Text, attr:{'name': Name}"></span>
+                            </li>
+                        </ul>
+                    </div>-->
+                    <div class="btn-group select">
+                        <button type="button" class="btn btn-default btn-group-broderColor">
+                            <i class="icon icon-rouble"></i>
+                            压力测试
+                        </button>
+                        <button type="button" class="btn btn-default dropdown-toggle btn-group-broderColor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu btn-group-broderColor" data-bind="foreach: stressTesting">
+                            <li>
+                                <a>
+                                    <i data-bind="attr:{'class': icon}"></i>
+                                    <span class="ribbon_span" data-bind="text: Text,attr:{'name': Name}"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--<div class="select">
+                        <div class="select_box"><span id="select3">压力测试 </span><i class="icon icon-bottom select-arrows"></i> </div>
+                        <ul class="ribbonGroup_wrap" data-bind="foreach: stressTesting">
+                            <li class="ribbonGroup nav_list_style">
+                                <span class="ribbon_span" data-bind="text: Text, attr:{'name': Name}"></span>
+                            </li>
+                        </ul>
+                    </div>-->
+                    <!--<div class="btn-group select">
+                        <button type="button" class="btn btn-default">
+                            <i class="icon icon-rouble"></i>
+                            预测模型
+                        </button>
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" data-bind="foreach: predictionModel">
+                            <li>
+                                <a>
+                                    <i data-bind="attr:{'class': icon}" ></i>
+                                    <span class="ribbon_span" data-bind="text: Text,attr:{'name': Name}"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>-->
+                    <!--<div class="select">
+                        <div class="select_box"><span id="select3">预测模型 </span><i class="icon icon-bottom select-arrows"></i> </div>
+                        <ul class="ribbonGroup_wrap" data-bind="foreach: predictionModel">
+                            <li class="ribbonGroup nav_list_style">
+                                <span class="ribbon_span" data-bind="text: Text, attr:{'name': Name}"></span>
+                            </li>
+                        </ul>
+                    </div>-->
+                    <div class="btn-group select">
+                        <button type="button" class="btn btn-default btn-group-broderColor">
+                            <i class="icon icon-rouble"></i>
+                            压力情景
+                        </button>
+                        <button type="button" class="btn btn-default dropdown-toggle btn-group-broderColor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu btn-group-broderColor" data-bind="foreach: leadingIn">
+                            <li>
+                                <a>
+                                    <i data-bind="attr:{'class': icon}"></i>
+                                    <span class="ribbon_span" data-bind="text: Text,attr:{'name': Name}"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--<div class="select">
+                        <div class="select_box"><span id="select3">压力情景 </span><i class="icon icon-bottom select-arrows"></i> </div>
+                        <ul class="ribbonGroup_wrap" data-bind="foreach: leadingIn">
+                            <li class="ribbonGroup nav_list_style">
+                                <span class="ribbon_span" data-bind="text: Text, attr:{'name': Name}"></span>
+                            </li>
+                        </ul>
+                    </div>-->
+                </div>
+                <h3 class="h3">
+                	<span class="title" data-bind="text: Title"></span>
+                	<span style="float: right;font-size: 14px;">点击早偿率、违约率可修改</span>
+                </h3>
+                <div class="form-panel" data-bind="template: { name: Templ, data: FieldsSetting }"></div>
+                <!--<div class="form-save "  data-bind="foreach: Buttons">
+                    <button data-bind="text: Text, attr:{'class': Class,'name': Name}"></button>
+                </div>-->
+            </div>
+        </div>
+        <div class="main-customize" data-bind="with: Customize" style="position: absolute; visibility: hidden;">
+            <label class="large" data-bind="text: StressResultAggregation"></label>
+            <table class="table table-bordered tb-nowrap" id="table_StressResultsAggregation"></table>
+            <label class="large" data-bind="text: StressResult"></label>
+            <table class="table table-bordered tb-nowrap" id="table_StressResults"></table>
+        </div>
+        <div class="main-customize2" style="position: absolute; visibility: hidden;">
+            <div id="RawValue"></div>
+            <div id="Variance"></div>
+            <div id="ShowResult"></div>
+        </div>
+        <div id="resultTable" style="position: absolute; visibility: hidden;"></div>
+    </div>
+
+    <script type="text/html" id="qw_KO_GridView">
+        <div class="form-item">
+            <table class="table table-bordered">
+                <thead>
+                    <tr data-bind="renderGridHeader:InnerText.Operate(), sectionIndex: $parentContext.$index()"></tr>
+                </thead>
+                <tbody data-bind="foreach:GridView">
+                    <tr data-bind="renderGridColumn:$parent.InnerText, sectionIndex: $parentContext.$parentContext.$index()"></tr>
+                </tbody>
+            </table>
+        </div>
+        <h3 class="h3"><span class="title" data-bind="text:DetailsTitle"></span></h3>
+        <div class="form-item">
+            <!--<div class="pull-right btn-group-sm" style="margin-top:-6px">
+                <input type="button" class="delet_normal_small_button" data-bind="value: InnerText.BtnClear" name="input_clear" />
+                <input type="button" class="normal_small_button gdv-detail-btnSave" data-bind="value:InnerText.BtnSave" name="input_save" />
+            </div>-->
+            <!--ko if: HasOptionalFields-->
+            <div class="form-drop container-fluid">
+                <div class="row">
+                    <div class="col-md-4">
+                        <select class="form-control gdv-optionalfields-select" data-bind="foreach: Detail">
+                            <!--ko ifnot: IsDisplay-->
+                            <option data-bind="attr: {value:$index}, text: ItemAliasValue"></option>
+                            <!-- /ko -->
+                        </select>
+                    </div>
+                    <span  id="btn_add"><i class="icon icon-add"></i></span>
+                </div>
+            </div>
+            <!-- /ko -->
+            <div class="settingItem">  
+                <div class="col-md-12 form-item form-horizontal" data-bind="foreach:Detail" style="border-top: 1px solid #dedede;margin-top: 15px;">  
+                    <!-- ko  if: IsDisplay -->
+                    <div class="col-md-6 form-row autoLayout-plugins" id="">
+                        <div class="form-group">
+                            <div class="col-md-4 control-label">
+                                <label data-bind="text:ItemAliasValue"></label>
+                            </div>
+                            <div class="col-md-6">
+                                <span data-bind="renderControl2:ItemId"></span>
+                            </div>
+                            <div class="col-md-2 field-details" data-bind="attr : {title : title}"><i class="icon icon-help" style="margin-top: 10px;display: block;color:#45569c;"></i></div>
+                            <!-- ko  ifnot: IsCompulsory -->
+                            <button type="button" data-bind="attr: { itemIndex: $index }" onclick="gdvOperation.RemoveOptionalField(this)" class="btn btn-remove"><i class="icon icon-remove"></i></button>
+                            <!-- /ko -->
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                </div>
+                <div class="pull-right change-btn">
+                    <input type="button" class="btn btn-danger single-default" data-bind="value: InnerText.BtnClear" name="input_clear" />
+                    <input type="button" class="btn btn-primary " data-bind="value:InnerText.BtnSaveAll" name="btn_Save" style="margin-left: 5px;" />
+                    <input type="button" class="btn btn-default gdv-detail-btnSave single-default" data-bind="value:InnerText.BtnSave" name="input_save" style="margin-left: 5px;" />
+                </div>
+            </div>
+            
+        </div>
+        <!--<div class="form-item">
+            <h3 class="h3"><span class="title" data-bind="text:RiskTransferTitle"></span></h3>
+            <div class="col-12 form-item form-horizontal" data-bind="foreach:Detail">
+                <div class="col-6 form-row autoLayout-plugins">
+                    <div class="form-group">
+                        <div class="col-4 control-label">
+                            <label data-bind="text:ItemAliasValue"></label>
+                        </div>
+                        <div class="col-6">
+                            <span data-bind="renderControl2:ItemId"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+    </script>
+    <div id="taskIndicatorArea" style="display:none;width:480px; height:540px;">
+        <object id="TaskProcessCtl" data="data:application/x-silverlight-2," type="application/x-silverlight-2" style="display:block" width="100%" height="440px" class="ms-dlgDisable">
+            <param name="source" value="/TaskProcessEngine/ClientBin/UI.TaskProcessIndicator.xap" />
+            <param name="enablehtmlaccess" value="True" />
+        </object>
+    </div>
+    <div id="discountrate" style="display:none;padding:15px;text-align:center">
+        <label class="labelsinger">折现率(%)</label>
+        <input type="text" name="name" value=" " class="form-control discountrateinfo" placeholder="请输入0到100之间的数值" style="margin-bottom:20px;width:65%;float:left"/>
+        <button class="btn btn-primary" id="discountrateClick">确定</button>
+    </div>
+</body>
+</html>

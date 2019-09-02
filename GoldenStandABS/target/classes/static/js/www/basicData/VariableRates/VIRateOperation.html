@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title></title>
+
+    <!--<link href="../Common/css/trustWizard.css" rel="stylesheet" />-->
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <script src="../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../asset/lib/config'], function (config) {
+            requirejs(['app/basicData/VariableRates/VIRateOperation']);
+        });
+    </script>
+
+    <style>
+        .checkbox {
+            margin-bottom: 5px;
+        }
+
+            .checkbox label {
+                font-weight: bold;
+                margin-right: 10px;
+            }
+
+        .btn-options {
+            background: #fff;
+
+            border: 1px solid #dedede;
+            border-top: none;
+            padding: 3px 8px;
+            color: #666;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 0 0 3px 3px;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+
+            .btn-options:hover {
+                border-color: #ccc;
+            }
+
+            .btn-options i {
+                font-size: 10px;
+                font-style: normal;
+                color: #888;
+                font-weight: 300;
+                margin-left: 3px;
+            }
+        .empty {
+            border: 1px solid red;
+        }
+        label{
+             background: #f3f5fa; border: 1px solid #dedede; text-align: center; box-sizing: border-box;font-weight:normal;
+             line-height: 30px; color: #555; padding: 0 3px; height: 30px; overflow: hidden; display: block; white-space: nowrap; text-overflow: ellipsis; font-size: 14px;
+             width:40%;
+             margin-bottom:15px; 
+             float: left;
+        }
+        #VIPubDate{
+            box-sizing:border-box;
+            height:30px;
+            line-height:30px;
+            border:1px solid #dedede;
+            padding-left:10px;
+            border-radius:2px;
+            margin-bottom:15px;
+        }
+        .typebox{
+            display:inline-block;
+        }
+        .flr{
+            float:left;
+            width:55%;
+        }
+        .layerSpan{
+            display: inline-block;
+            width: 55%;
+            text-align: left;
+            float: left;
+            line-height: 30px;
+            height: 30px;
+            padding-left: 10px;
+            box-sizing: border-box;
+            border: 1px solid #dedede;
+            border-radius: 2px;
+        }
+        [class^=col] {
+            padding: 0;
+        }
+        .date_selector {
+            left: 40%;
+            top: 30px;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div id="newVISet" style="padding:15px;padding-bottom:0px">
+        <div class="col-xs-12 col-md-6">
+            <label class="typebox" title="公布时间(查询时历史匹配到上一个发布日)">公布时间(查询时历史匹配到上一个发布日)</label>
+            <input id="VIPubDate" type="text" class="date-plugins flr" data-attr="Date" data-valid="required date" />
+        </div>
+        <div id="type" class="col-xs-12 col-md-6">
+            <label style="display:inline-block">利率类型</label>
+            <select id="InterestType" class="form-control" data-valid="required" data-attr="interest_adjustments_AdjustEffectType" style="width:55%;float:left">
+                <option value="">请选择</option>
+                <option value="deposit">存款</option>
+                <option value="loan" selected>贷款</option>
+            </select>
+        </div>
+        <div id="deposit" style="display:none">
+            <div class="col-xs-12 col-md-6">
+                <label for="" class="typebox">三个月</label>
+                <input id="drate1" type="text" class="form-control filter flr" value="0" />
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <label for="" class="typebox">六个月</label>
+                <input id="drate2" type="text" class="form-control filter flr" value="0" />
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <label for="" class="typebox">一年</label>
+                <input id="drate3" type="text" class="form-control filter flr" value="0" />
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <label for="" class="typebox">两年</label>
+                <input id="drate4" type="text" class="form-control filter flr" value="0" />
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <label for="" class="typebox">三年</label>
+                <input id="drate5" type="text" class="form-control filter flr" value="0" />
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <label for="" class="typebox">五年</label>
+                <input id="drate6" type="text" class="form-control filter flr" value="0" />
+            </div>
+        </div>
+        <div id="loan">
+            <div class="col-xs-12 col-md-6">
+                <label for="within6months" class="typebox">不满6个月</label>
+                <input id="lrate1" type="text" class="form-control filter flr" value="0" />
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <label for="6MonthsTo1Years" class="typebox">6个月到一年</label>
+                <input id="lrate2" type="text" class="form-control filter flr" value="0" />
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <label for="1YearsTo3Years" class="typebox">一年到三年</label>
+                <input id="lrate3" type="text" class="form-control filter flr" value="0" />
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <label for="3YearsTo5Years" class="typebox">三年到五年</label>
+                <input id="lrate4" type="text" class="form-control filter flr" value="0" />
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <label for="MoreThan5Years" class="typebox">五年以上</label>
+                <input id="lrate5" type="text" class="form-control filter flr" value="0" />
+            </div>
+        </div>
+    </div>
+    <div id="editVI" style="padding:15px;padding-bottom:0px">
+        <div class="col-xs-12 col-md-6">
+            <label style="display:inline-block">公布日期</label>
+            <span id="VIDate2" class="layerSpan" style="width: 55%;float: left;"></span>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <label id="viEditingSubCategory" style="display:inline-block"></label>
+            <input id="viEditingRate" type="text" class="form-control filter layerSpan" />
+        </div>
+    </div>
+    <div>
+        <div style="text-align:center;" class="col-xs-12">
+            <button type="button" class="btn btn-default" id="btnSubmit">提交</button>
+        </div>
+    </div>
+</body>
+</html>

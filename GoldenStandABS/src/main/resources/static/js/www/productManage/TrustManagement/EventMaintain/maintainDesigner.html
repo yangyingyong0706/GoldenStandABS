@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>设置</title>
+    
+    <link href="css/maintain2.css" rel="stylesheet" />
+    <link href="css/reset.css" rel="stylesheet" />
+    <link href="../Common/Scripts/jquery-ui.css" rel="stylesheet" />
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link href="../../fontello/css/fontello.css" rel="stylesheet" />
+    <script src="../Common/Scripts/jquery-1.7.2.min.js"></script>
+    <script src="../Common/Scripts/jquery-ui-latest.js"></script>
+    <!--<script src="../../Config/globalVariable.js"></script>-->
+    <script src="../../../../config/globalVariable.js"></script>
+    <script src="../Common/Scripts/common.js"></script>
+    <script src="../Common/Scripts/lodash.min.js"></script>
+    <script src="../Common/Scripts/Sortable.js"></script>
+
+</head>
+<body>
+    <div class="content clearfix">
+        <div class="bCont clearfix">
+            <div class="leftTi">
+                <div class="listTitle">
+                    <span>事件</span>
+                    <i><span class="icon-minus" style="color:white;" title="Delete Event" onclick="deleteItemEvent()"></span></i>
+                    <i><span class="icon-plus" style="color:white" title="Add Event" onclick="openEvent('new')"></span></i>
+                </div>
+                <ul id="eventList" class="clearfix"></ul>
+            </div>
+            <div class="rightTi">
+                <div class="determineList">
+                    <div class="work-top">
+                        <div class="pull-right">
+                            <span id="eventName" style="font-size:13px;"></span>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" id="ribbon_SaveEC" class="btn btn-default btn-sm" title="Apply TrustEvent" onclick="applyTrustEvent()">
+                                <i><span class="icon-ok-1" style="color: #6984b1"></span>应用</i>
+                            </button>
+                            <button type="button" id="ribbon_SaveEC" class="btn btn-default btn-sm" title="Save TrustEvent" onclick="saveTrustEvent()">
+                                <i><span class="icon-floppy-1 " style="color: #6984b1"></span>保存</i>
+                            </button>
+                            <button type="button" id="ribbon_Home" class="btn btn-default btn-sm" title="Add RationItem" onclick="openRation()">
+                                <i><span class="icon-plus" style="color: #6984b1"></span>定量</i>
+                            </button>
+                            <button type="button" id="ribbon_HandleEC" class="btn btn-default btn-sm" title="Add Qualitative" onclick="openQualitative()">
+                                <i><span class="icon-plus" style="color: #6984b1"></span>定性</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="determineList">定量列表</div>
+                <div id="rationL">
+                    <table class="table table-bordered parma">
+                        <thead>
+                            <tr>
+                                <th style="background: #efefef;color:#333;font-weight: bold;" width="16"></th>
+                                <th style="background: #efefef;color:#333;font-weight: bold;" width="300">违约条件名</th>
+                                <th style="background: #efefef;color:#333;font-weight: bold;" width="150">当前值</th>
+                                <th style="background: #efefef;color:#333;font-weight: bold;" width="80">条件</th>
+                                <th style="background: #efefef;color:#333;font-weight: bold;" width="150">阀值</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rationList">
+                        </tbody>
+                    </table>
+                  
+                </div>
+                <div class="determineList">定性列表</div>
+                <ul id="QualitativeList" class="determine">
+                </ul>
+            </div>
+        </div>
+
+        <div id="circumstances" class="circ" title="添加定性">
+            <div style="text-align:center;">
+                <div style="margin:20px 10px 0px;position:absolute ">
+                <span style="float:left; ">定性描述：</span>
+                    <div style="float:left;"><textarea id="DisplayDescribe" class="textT" rows="6" cols="43"></textarea></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="circumstances2" class="circ" title="添加定量">
+            <table class="table table-bordered parma">
+                <thead>
+                    <tr>
+                        <th style="background: #efefef;color:#333;font-weight: bold;" width="300">违约条件名</th>
+                        <th style="background: #efefef;color:#333;font-weight: bold;" width="150">当前值</th>
+                        <th style="background: #efefef;color:#333;font-weight: bold;" width="80">条件</th>
+                        <th style="background: #efefef;color:#333;font-weight: bold;" width="150">阀值</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr droppable="tasktools">
+                        <td>
+                            <input type="text" style="width:300px" id="RationDescribe">
+                        </td>
+                        <td>
+                            <input type="text" id="CurrentValue">
+                        </td>
+                        <td>
+                            <select id="Condition">
+                                <option value="&lt;">&lt;</option>
+                                <option value="&gt;">&gt;</option>
+                                <option value="&ge;" selected="selected">&ge;</option>
+                                <option value="&le;">&le;</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" id="Threshold">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="circumstances3" class="circ3" title="事件">
+            <div>
+                <ul>
+                    <li>
+                        <div>ItemCode:</div>
+                        <div>
+                            <input type="text" id="ItemCode" name="ItemCode">
+                        </div>
+                    </li>
+                    <li>
+                        <div>AliasValue:</div>
+                        <div>
+                            <input type="text" id="ItemAliasValue" name="ItemAliasValue">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="js/maintainDesigner.js"></script>
+    <script>
+        $(function () {
+            trustId = getUrlParam('tid');
+
+            if (trustId) {
+                getTrustEventConfig();
+            }
+            getItemEvent();
+        })
+    </script>
+</body>
+</html>

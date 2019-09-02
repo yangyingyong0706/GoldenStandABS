@@ -1,0 +1,38 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>系统设置</title>
+    <!-- 这里引入所有需要的资源 其他通过AJAX载入的页面就不再需要引入了 -->
+    <link href="../Common/css/trustWizard.css" rel="stylesheet" />
+    <link href="../../../asset/lib/goldenstand/uiFrame/css/gs-admin-2.css" rel="stylesheet" />
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+
+    <script src="../../../asset/lib/require.js" data-main="SystemSettings"></script>
+    <style>
+        .page {
+            padding-top:45px;
+            padding-left:10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="topbar">
+            <div class="rightS">
+            </div>
+            <ol class="nav-tab">
+                <li v-for="item in liSource">
+                    <a v-bind:value="item.url" :class="item.class" @click="switchPage(item)" >{{item.name}}</a>
+                </li>
+            </ol>
+        </div>
+        <div id="html" class="page" >
+            <iframe class="iframe" id="ifame_content" v-if="sel!=''" v-bind:src="sel"></iframe>
+        </div>
+
+    </div>
+</body>
+</html>

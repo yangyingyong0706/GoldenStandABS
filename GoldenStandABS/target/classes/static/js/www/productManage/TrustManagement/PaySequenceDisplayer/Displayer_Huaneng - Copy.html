@@ -1,0 +1,417 @@
+﻿<!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>workflow</title>
+    <link rel="stylesheet" href="./Libraries/Styles/reset.css" />
+    <link rel="stylesheet" href="./Libraries/Styles/smartMenu.css" />
+    <link rel="stylesheet" href="./Libraries/Styles/style.css" />
+    <!--[if lte IE 6]>
+    <link href="./Libraries/Styles/style_ie.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+
+    <script src="./Libraries/Scripts/jquery-2.2.3.min.js"></script>
+    <script src="./Libraries/Scripts/anyDialog.js"></script>
+    <script src="./Libraries/Scripts/common.js"></script>
+    <script src="./Libraries/Scripts/GlobalVariable.js"></script>
+    <script src="./Libraries/Scripts/jquery-smartMenu.js"></script>
+    <script src="./Libraries/Scripts/dagre-d3.min.js"></script>
+    <style>
+        body {
+            background-color: #f2f4f8;
+        }
+
+        .container {
+            width: 99%;
+            margin: 20px auto;
+        }
+
+        .section {
+            position: relative;
+            padding-left: 56px;
+            background-color: #f9fafc;
+            border: 1px solid #ccc;
+            border-bottom: 1px solid #eee;
+        }
+
+            .section.toggle {
+                height: 40px;
+                border: none;
+                background: none;
+            }
+
+                .section.toggle .svg {
+                    display: none;
+                }
+
+                .section.toggle .taskProgress {
+                    width: 1200px;
+                    right: -1px;
+                    bottom: -2px;
+                    -moz-opacity: 0.5;
+                    opacity: .5;
+                    -webkit-transition: width 0.18s ease-out 0.18s;
+                    transition: width 0.18s ease-out 0.18s;
+                }
+
+                .section.toggle:hover .taskProgress {
+                    -moz-opacity: 1;
+                    opacity: 1;
+                }
+
+                .section.toggle .taskProgress:before,
+                .section.toggle .taskProgress:after {
+                    border: transparent;
+                }
+
+                .section.toggle .taskProgress .taskText {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    right: 0;
+                    width: 100%;
+                    text-align: center;
+                }
+
+            .section .taskProgress {
+                position: absolute;
+                width: 50px;
+                top: -1px;
+                left: -1px;
+                bottom: 0;
+                border: 1px solid #ccc;
+                background-color: #dcdcdc;
+                cursor: pointer;
+            }
+
+                .section .taskProgress .taskText {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    height: 100%;
+                    display: table;
+                }
+
+                .section .taskProgress .taskName {
+                    padding: 0 16px;
+                    display: table-cell;
+                    vertical-align: middle;
+                }
+                /**.section .taskProgress:before{
+            position: absolute;
+            bottom: -48px;
+            left: -1px;
+            right: 0;
+            content: "";
+            z-index: 99;
+            border:25px solid transparent;
+            border-top-color: #dcdcdc
+        }
+        .section .taskProgress:after{
+            position: absolute;
+            bottom: -50px;
+            left: -1px;
+            right: 0;
+            content: "";
+            z-index: 98;
+            border:25px solid transparent;
+            border-top-color: #b3b3b3;
+        }**/
+                .section .taskProgress.Success {
+                    background: #c8e8af;
+                    border-color: #a9c791;
+                }
+
+                    .section .taskProgress.Success:before {
+                        border-top-color: #c8e8af;
+                    }
+
+                    .section .taskProgress.Success:after {
+                        border-top-color: #a9c791;
+                    }
+
+                .section .taskProgress.Running {
+                    background: #f3eb90;
+                    border-color: #cec779;
+                }
+
+                    .section .taskProgress.Running:before {
+                        border-top-color: #f3eb90;
+                    }
+
+                    .section .taskProgress.Running:after {
+                        border-top-color: #cec779;
+                    }
+
+            .section:last-child {
+                border-bottom: 1px solid #ccc;
+            }
+
+            .section.toggle:last-child {
+                border-bottom: none;
+            }
+
+            .section:last-child .taskProgress:before, .section:last-child .taskProgress:after {
+                border: transparent;
+            }
+
+            .section .svg {
+                margin: 30px auto;
+                -webkit-animation: fade-In .5s ease-out both;
+                animation: fade-In .5s ease-out both;
+            }
+
+            .section ellipse {
+                stroke: none;
+                fill: #dcdcdc;
+            }
+
+            .section .svg text {
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            .section .svg .node rect {
+                stroke: none;
+                fill: #dcdcdc;
+            }
+
+            .section .svg .edgePath path.path {
+                stroke: #828282;
+                fill: none;
+                stroke-width: 1.5px;
+            }
+
+            .section .svg .edgePath marker {
+                fill: #6B6B6B;
+            }
+
+        #div1 {
+            width: 198px;
+            height: 66px;
+            padding: 10px;
+            border: 1px solid #aaaaaa;
+        }
+
+        .dropSpan {
+            /*background-color: #dcdcdc;
+            display: inline-block;
+            padding: 5px;
+            border: 1px solid #eee;
+            border-radius: 8px;*/
+            display: inline-block;
+            cursor: pointer;
+            text-align: center;
+            margin: 2px;
+            background: #f8f8f8;
+            font-size: 12px;
+            padding: 0 5px;
+            height: 28px;
+            line-height: 28px;
+            color: #000;
+            font-weight: bolder;
+            width: 118px;
+            /*float: left;*/
+            overflow: hidden;
+            border-radius: 8px;
+            background-color: #327bbf;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            color: #fff;
+            background-color: #5A77A9;
+            border-color: #475E86;
+        }
+
+        .saveChart {
+            /*position:relative;*/
+            margin-top: -26px;
+            margin-right: 70px;
+            float: right;
+        }
+
+        .objElement {
+            cursor: pointer;
+            text-align: center;
+            margin: 2px;
+            background: #f8f8f8;
+            font-size: 12px;
+            padding: 0 5px;
+            height: 28px;
+            line-height: 28px;
+            color: #000;
+            font-weight: bolder;
+            width: 118px;
+            float: left;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .divTab {
+            border: #BDBDBD solid 1px;
+            padding: 5px;
+        }
+
+        .divTabHead {
+            background-color: #CCCCCC;
+            height: 28px;
+            border: #BDBDBD solid 1px;
+            padding: 5px 5px 0px 5px;
+        }
+
+        .divTabLi {
+            cursor: pointer;
+            font-size: 12px;
+            padding: 0 5px;
+            text-align: center;
+            height: 28px;
+            line-height: 28px;
+            border: #BDBDBD solid 1px;
+            border-right: none;
+            border-bottom: none;
+            width: 100px;
+            float: left;
+            background: url(../img/grayTable.png);
+            color: #000;
+            font-weight: bolder;
+            display: block;
+        }
+
+        .divTabActive {
+            color: #000099 !important;
+            background-color: #EEEEEE !important;
+        }
+
+        .feeElement {
+            background-color: #327bbf;
+            color: #fff;
+        }
+
+        .bondElement {
+            background-color: #cc433b;
+            color: #fff;
+        }
+
+        .leveltd {
+            background-color: #EEEEEE;
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+    <div class="menucontainer">
+        <div class="menu">
+            <ul id="menuList">
+                <li><a href="#" target="_self" id="beforeBreach">违约前</a></li>
+                <li><a href="#" target="_self" id="afterBreach">违约后</a></li>
+            </ul>
+            <button id="btnSaveChart" value="保存" style="float: right; height: 34px;width: 50px;display: inline; background: #4996de;">保存</button>
+            <!--<div class="saveChart"><span><button class="btn btn-default btn-primary" id="btnSaveChart">保存</button></span></div>-->
+        </div>
+        
+    </div>
+    <div id="PaySequenceDisplayerDiv" class="div">
+
+            <div id="workflow" class="container" style="margin-top:50px">
+                <div class="section" style="position: absolute;width: 99.8%; bottom: 194px;top: 36px;">
+                    <div class="taskProgress Pending">
+                        <div class="taskText">
+                            <div class="taskName">流程图</div>
+                        </div>
+                    </div>
+                    <div id="flowChart" style="margin-left:-6px;overflow-y:scroll;height:520px;">
+                        <div class="section control" id="control-0" style="width:100%;height:auto;background-color:#f1f1f1;" ondragover="allowDrop(event)">
+                            <svg xmlns="http://www.w3.org/2000/svg" id="svg1" class="svg" width="1130" height="138.48"><g /></svg>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="section" style="position: absolute; width: 99.8%;bottom: 92px;">
+                    <div class="taskProgress Pending">
+                        <div class="taskText">
+                            <div class="taskName">项目</div>
+                        </div>
+                    </div>
+                    <div class="ui-sortable" id="sortable_div" style="width: auto; height: 100px; line-height: 28px;">
+                        <div title="服务总费用" class="objElement feeElement " id="200" bfcode="" bfclasstype="" bftype="Fee" bfname="Other_Fee_2" draggable="true" ondragstart="drag(event)">服务总费用</div>
+                        <div title="税收" class="objElement feeElement" id="201" bfcode="" bfclasstype="" bftype="Fee" bfname="Other_Fee_3" draggable="true" ondragstart="drag(event)">税收</div>
+                        <div title="增值税" class="objElement feeElement" id="202" bfcode="" bfclasstype="" bftype="Fee" bfname="ValueAddedTax_Fee_2" draggable="true" ondragstart="drag(event)">增值税</div>
+                        <div title="15和信2A1T-利息" class="objElement bondElement" id="203" bfcode="1589294" bfclasstype="FirstClass" bftype="BondInterest" bfname="Interest_Paid_FirstClass_1589294" draggable="true" ondragstart="drag(event)">15和信2A1T-利息</div>
+                        <div title="15和信2A1T-本金" class="objElement bondElement" id="204" bfcode="1589294" bfclasstype="FirstClass" bftype="BondPrincipal" bfname="Principal_Paid_FirstClass_1589294" draggable="true" ondragstart="drag(event)">15和信2A1T-本金</div>
+                        <div title="15和信2A2-利息" class="objElement bondElement" id="205" bfcode="1589295" bfclasstype="FirstClass" bftype="BondInterest" bfname="Interest_Paid_FirstClass_1589295" draggable="true" ondragstart="drag(event)">15和信2A2-利息</div>
+                        <div title="15和信2A2-本金" class="objElement bondElement" id="206" bfcode="1589295" bfclasstype="FirstClass" bftype="BondPrincipal" bfname="Principal_Paid_FirstClass_1589295" draggable="true" ondragstart="drag(event)">15和信2A2-本金</div>
+                        <div title="15和信2A3-利息" class="objElement bondElement" id="207" bfcode="1589296" bfclasstype="FirstClass" bftype="BondInterest" bfname="Interest_Paid_FirstClass_1589296" draggable="true" ondragstart="drag(event)">15和信2A3-利息</div>
+                        <div title="15和信2A3-本金" class="objElement bondElement" id="208" bfcode="1589296" bfclasstype="FirstClass" bftype="BondPrincipal" bfname="Principal_Paid_FirstClass_1589296" draggable="true" ondragstart="drag(event)">15和信2A3-本金</div>
+                        <div title="15和信2B-利息" class="objElement bondElement" id="209" bfcode="1589297" bfclasstype="FirstClass" bftype="BondInterest" bfname="Interest_Paid_FirstClass_1589297" draggable="true" ondragstart="drag(event)">15和信2B-利息</div>
+                        <div title="15和信2B-本金" class="objElement bondElement" id="210" bfcode="1589297" bfclasstype="FirstClass" bftype="BondPrincipal" bfname="Principal_Paid_FirstClass_1589297" draggable="true" ondragstart="drag(event)">15和信2B-本金</div>
+                        <div title="15和信2C-利息" class="objElement bondElement" id="211" bfcode="1589298" bfclasstype="FirstClass" bftype="BondInterest" bfname="Interest_Paid_FirstClass_1589298" draggable="true" ondragstart="drag(event)">15和信2C-利息</div>
+                        <div title="15和信2C-本金" class="objElement bondElement" id="212" bfcode="1589298" bfclasstype="FirstClass" bftype="BondPrincipal" bfname="Principal_Paid_FirstClass_1589298" draggable="true" ondragstart="drag(event)">15和信2C-本金</div>
+                        <button id="addShowColumn" type="button" class="btn btn-plus" style="float:right;margin-top:-26px;margin-right:1px"><i class="icon-jia"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <script src="./Libraries/Scripts/d3.min.js"></script>
+            <script src="./Libraries/Scripts/dagre-d3.min.js"></script>
+            <!--<script src="PaySequenceDisplayer.js"></script>-->
+            <script src="Displayer_Huaneng - Copy.js"></script>
+            <script>
+                //function changeTab(ev) {
+                //    alert(this.firstChild.id);
+                //}
+                $(function () {
+                    trustId = getQueryString("tid");
+                    if (trustId == null) {
+                        trustId = 0;
+                    }
+                    PaySequenceDisplayer.GetTrustPaymentSequence(trustId, function (paymentData) {
+                        var specialTmp = '<div class="section" style="position: absolute; width: 100%;bottom: 0;">' +
+                                            '<div class="taskProgress Pending">' +
+                                                '<div class="taskText">' +
+                                                    '<div class="taskName">特殊情况</div>' +
+                                                '</div>' +
+                                            '</div>' +
+                                            '<div class="svg specialRoom" width="1130" style="height:30px">{0}</div></div>';
+                        var innerHtml = '';
+                        $.each(paymentData, function (index, dom) {
+                            if (dom.ScenarioName == "循环期") {
+                                $('#menuList').html('')
+                                var menuContainer = $('#menuList');
+                                var liInnerHtml = '<a href="#" target="_self" id="{0}">{1}</a>'
+                                var li = document.createElement('li');
+                                var menuListTmp='<li><a href="#" target="_self" id="beforeBreach">非循环期违约后</a></li>'+
+                                                 '<li><a href="#" target="_self" id="afterBreach">非循环期违约前</a></li>'+
+                                                 '<li><a href="#" target="_self" id="beforebreachcircle">循环期违约前</a></li>'+
+                                                 '<li><a href="#" target="_self" id="afterbreachcircle">循环期违约后</a></li>'
+                                //li.innerHTML = liInnerHtml.format("beforebreachcircle", "循环期违约前");
+                                //menuContainer.appendChild(li);
+                                //li = document.createElement('li');
+                                //li.innerHTML = liInnerHtml.format("afterbreachcircle", "循环期违约后");
+                                //menuContainer.appendChild(li);
+                                menuContainer.append(menuListTmp);
+                            }
+                            if (dom.ScenarioName == "加速清偿") {
+                                var SpeedPayId = dom.ScenarioId + 1;
+                                innerHtml += '<span id="' + dom.ScenarioId + '" class="dropSpan" draggable="true" ondragstart="drag(event)" >' + dom.ScenarioName + '</span>';
+                                innerHtml += '<span id="' + SpeedPayId + '" class="dropSpan" draggable="true" ondragstart="drag(event)" >' + "非" + dom.ScenarioName + '</span>';
+                            }
+                        });
+                        specialTmp = specialTmp.format(innerHtml)
+                        specialTmp = specialTmp.format(innerHtml)
+                        $('#workflow').append(specialTmp);
+
+                        var currentTabId = "beforeBreach"
+                        PaySequenceDisplayer.RenderDisplayer(trustId, currentTabId);
+                    });
+
+                    $('.menu ul').on('click', "li", function () {
+                        currentTabId = this.firstChild.id;
+                        PaySequenceDisplayer.ChangeTab(trustId, currentTabId);
+                    })
+                })
+            </script>
+</body>
+</html>

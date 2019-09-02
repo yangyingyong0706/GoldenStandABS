@@ -1,0 +1,534 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>统计</title>
+    <link href="../css/pagerlist-style.css" rel="stylesheet" />
+    <link href="../css/font/GoogleFontDosis.css" rel="stylesheet" />
+    <link href="../../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <style type="text/css">
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .c_layer {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            padding: 15px;
+        }
+
+        #loading {
+            position: absolute;
+            top: 0px;
+            z-index: 1000000;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+        }
+
+            #loading > i {
+                color: rgb(107, 147, 216);
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+            }
+
+        .tab_change {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .li-style.btn-select {
+            color: #45569C;
+        }
+
+        .view-container {
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 20px;
+        }
+
+        .view-banner {
+            width: 100%;
+            height: 240px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .view-blue {
+            width: calc(33.33333% - 10px);
+            height: 100px;
+            background: linear-gradient(to right,#6B97DE 50%,#90B7F5);
+            padding: 15px;
+            margin-right: auto;
+            border-radius: 4px;
+        }
+
+        .view-orange {
+            width: calc(33.33333% - 10px);
+            height: 100px;
+            background: linear-gradient(to right,#DEA17B 50%,#EBCC85);
+            padding: 15px;
+            margin-right: auto;
+            border-radius: 4px;
+        }
+
+        .view-red {
+            width: calc(33.33333% - 10px);
+            height: 100px;
+            background: linear-gradient(to right,#DE876B 50%,#FF9F80);
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        .view-bluelight {
+            width: calc(33.33333% - 10px);
+            height: 100px;
+            background: linear-gradient(to right, #69AFC7 50%,#90B7F5);
+            padding: 15px;
+            margin-right: auto;
+            border-radius: 4px;
+        }
+
+        .view-orangedeep {
+            width: calc(33.33333% - 10px);
+            height: 100px;
+            background: linear-gradient(to right, #E08776 50%,#EBCC85);
+            padding: 15px;
+            margin-right: auto;
+            border-radius: 4px;
+        }
+
+        .view-bluedeep {
+            width: calc(33.33333% - 10px);
+            height: 100px;
+            background: linear-gradient(to right,#6B8EDE 50%,#80D0FF);
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        .number-area {
+            margin-top: 12px;
+            width: 100%;
+        }
+
+        .font-title {
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        .font-ZN {
+            font-size: 12px;
+            color: rgba(255,255,255,0.75);
+        }
+
+        .first-area {
+            display: grid;
+            float: left;
+            width: 50%;
+        }
+
+        .second-area {
+            display: grid;
+            float: left;
+        }
+
+        .table {
+            margin-bottom: 30px;
+        }
+
+        .tab-area {
+            width: 100%;
+        }
+
+        .table, .table > tbody > tr > td, .table > thead > tr > th {
+            border: 1px solid #dce0ee;
+        }
+        .table > thead > tr > th {
+           background-color:#fafafa;
+        }
+        .tab-area .table .table-title-font {
+            color: #6d6d6d;
+            font-weight: normal;
+        }
+
+        .tab-area .table .table-inner-font {
+            color: #222;
+            font-weight: normal;
+        }
+
+        .hightchart-area {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 30px;
+        }
+
+        .select-hightchart, .Endyear-hightchart {
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+
+        #select-pie, #Endyear-pie {
+            width: calc(50% - 10px);
+            height: 100%;
+            margin-right: auto;
+        }
+
+        #select-bar, #Endyear-bar {
+            width: calc(50% - 10px);
+            height: 100%;
+        }
+
+        .line {
+            width: 100%;
+            position: relative;
+            height: 40px;
+            line-height: 40px;
+            overflow: hidden;
+        }
+
+        .line_left, .line_right {
+            position: relative;
+            width: 6px;
+            height: 6px;
+            border: 1px solid #45569c;
+            display: inline-block;
+            top: -3px;
+            background: #45569c;
+            margin-right: 10px;
+        }
+
+        .fonts-style {
+            display: inline-block;
+            position: relative;
+            z-index: 22;
+            background: #fff;
+            font-size: 14px;
+            color: #6d6d6d;
+        }
+
+        #hightchart-linebar {
+            width: 100%;
+            height: 400px;
+        }
+
+        .tab_change_style {
+            text-align: left;
+            width: 100%;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .li-style {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 14px;
+            color: #5E5E5E;
+            cursor: pointer;
+            position: relative;
+        }
+
+            .li-style.btn-select::after {
+                position: absolute;
+                content: "";
+                width: 100%;
+                height: 2px;
+                background: #45569C;
+                left: 0px;
+                bottom: -10px;
+            }
+
+            .li-style::after {
+                position: absolute;
+                content: "";
+                width: 0px;
+                height: 2px;
+                left: 0px;
+                bottom: -10px;
+                background: #45569C;
+                transition: all 0.3s;
+            }
+
+            .li-style:hover::after {
+                width: 100%;
+            }
+    </style>
+</head>
+<body>
+    <div class="c_layer" id="app">
+        <div id="loading">
+            <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+        </div>
+        <div class="tab_change">
+            <!--<div class="btn-group" role="group" aria-label="change-tab">
+                <button type="button" @click="changeTabone()" v-bind:class="Startyear==true?'btn btn-default btn-select':'btn btn-default'">选中区间</button>
+                <button type="button" @click="changeTabtwo()" v-bind:class="Endyear==true?'btn btn-default btn-select':'btn btn-default'">截止目前</button>
+            </div>-->
+            <div class="tab_change_style">
+                <ul>
+                    <li @click="changeTabtwo()" v-bind:class="Endyear==true?'li-style btn-select':'li-style'">截至目前</li>
+                    <li @click="changeTabone()" v-bind:class="Startyear==true?'li-style btn-select':'li-style'">选择区间</li>
+                </ul>
+            </div>
+        </div>
+        <div class="container-fluid" style="clear: both;">
+            <div class="row" v-show="Startyear==true" id="single-form">
+                <span class="list_group_item" style="border-color:#dce0ee;height:30px;">选择区间</span>
+                <div class="Diy-select-input">
+                    <div class="el-input">
+                        <input type="text" class="el-input-inner gold-single-input" autocomplete="off" readonly="readonly" id="StartDay" />
+                        <span class="el-input-suffix">
+                            <span class="el-input-suffix-inner">
+                                <i class="icon icon-bottom select-arrows el-icon-normal"></i>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="el-select-dropdown">
+                        <div class="el-scrollbar">
+                            <div class="el-scrollbar-wrap">
+                                <ul class="el-select-dropdown-list">
+                                    <li class="el-select-dropdown-item" v-for="date in datelist">{{date.StartDate}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_group_item" style="border-color:#dce0ee;height:30px;"><span>~</span></div>
+                <div class="Diy-select-input">
+                    <div class="el-input">
+                        <input type="text" class="el-input-inner gold-single-input" autocomplete="off" placeholder="请选择或输入日期" readonly="readonly" id="EndDay" />
+                        <span class="el-input-suffix">
+                            <span class="el-input-suffix-inner">
+                                <i class="icon icon-bottom select-arrows el-icon-normal"></i>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="el-select-dropdown">
+                        <div class="el-scrollbar">
+                            <div class="el-scrollbar-wrap">
+                                <ul class="el-select-dropdown-list">
+                                    <li class="el-select-dropdown-item" v-for="date in datelist">{{date.EndDate}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:inline-block;position:relative;top:-1px">
+                    <button class="btn btn-primary" @click="statiscsTIndicatoropen()" id="btnclick">确定</button>
+                </div>
+            </div>
+            <div class="row" v-show="Endyear==true">
+                <span class="list_group_item" style="border:1px solid #ccd0de;height:30px;">截至目前的所有数据</span>
+                <div style="display:inline-block;position:relative;top:-1px">
+                    <button type="button" class="btn btn-primary" @click="statiscsTIndicatoropen()" id="btnclick">查询</button>
+                </div>
+            </div>
+        </div>
+        <div class="view-container">
+            <!--<div class="view-banner">
+                <div class="view-blue">
+                    <span class="font-title">计划回款总额</span>
+                    <div class="number-area">
+                        <div class="first-area">
+                            <span class="font-ZN">本金</span>
+                            <span class="font-title">134992</span>
+                        </div>
+                        <div class="second-area">
+                            <span class="font-ZN">利息</span>
+                            <span class="font-title">134992</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-orange">
+                    <span class="font-title">实际回款总额</span>
+                    <div class="number-area">
+                        <div class="first-area">
+                            <span class="font-ZN">本金</span>
+                            <span class="font-title">134992</span>
+                        </div>
+                        <div class="second-area">
+                            <span class="font-ZN">利息</span>
+                            <span class="font-title">134992</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-red">
+                    <span class="font-title">总差额</span>
+                    <div class="number-area">
+                        <div class="first-area">
+                            <span class="font-ZN">本金</span>
+                            <span class="font-title">134992</span>
+                        </div>
+                        <div class="second-area">
+                            <span class="font-ZN">利息</span>
+                            <span class="font-title">134992</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="line">
+                    <div class="line_left"></div><span class="fonts-style">资产池状态</span><div class="line_right"></div>
+                </div>
+                <div class="view-bluelight">
+                    <span class="font-title">部分早偿</span>
+                    <div class="number-area">
+                        <div class="first-area">
+                            <span class="font-ZN">笔数</span>
+                            <span class="font-title">134992</span>
+                        </div>
+                        <div class="second-area">
+                            <span class="font-ZN">差额</span>
+                            <span class="font-title">134992</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-orangedeep">
+                    <span class="font-title">全部早偿</span>
+                    <div class="number-area">
+                        <div class="first-area">
+                            <span class="font-ZN">笔数</span>
+                            <span class="font-title">134992</span>
+                        </div>
+                        <div class="second-area">
+                            <span class="font-ZN">差额</span>
+                            <span class="font-title">134992</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="view-bluedeep">
+                    <span class="font-title">逾期</span>
+                    <div class="number-area">
+                        <div class="first-area">
+                            <span class="font-ZN">笔数</span>
+                            <span class="font-title">134992</span>
+                        </div>
+                        <div class="second-area">
+                            <span class="font-ZN">差额</span>
+                            <span class="font-title">134992</span>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <div class="tab-area">
+                <div style="width:100%">
+                    <div class="line" style="width: calc(100% - 10px);margin-right: auto;">
+                        <div class="line_left"></div><span class="fonts-style">{{fontinfo}} 期间回款统计</span>
+                    </div>
+                    <table class="table" style="width: calc(100% - 10px);margin-right: auto;">
+                        <thead>
+                            <tr>
+                                <th class="table-title-font"></th>
+                                <th class="table-title-font">计划回款总额</th>
+                                <th class="table-title-font">实际回款总额</th>
+                                <th class="table-title-font">总差额</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="table-title-font">本金</td>
+                                <td class="table-inner-font">{{PrincipalDue_Total | rentrunThrouns}}</td>
+                                <td class="table-inner-font">{{PrincipalPaid_Total | rentrunThrouns}}</td>
+                                <td class="table-inner-font">{{PrincipalDiff_Total | rentrunThrouns}}</td>
+                            </tr>
+                            <tr>
+                                <td class="table-title-font">利息</td>
+                                <td class="table-inner-font">{{InterestDue_Total | rentrunThrouns}}</td>
+                                <td class="table-inner-font">{{InterestPaid_Total | rentrunThrouns}}</td>
+                                <td class="table-inner-font">{{InterestDiff_Total | rentrunThrouns}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="width:100%">
+                    <div class="line" style="width: calc(100% - 10px);">
+                        <div class="line_left"></div><span class="fonts-style">{{fontinfo2}} 资产池状态统计</span>
+                    </div>
+                    <table class="table" style="width: calc(100% - 10px);">
+                        <thead>
+                            <tr>
+                                <th class=" table-title-font"></th>
+                                <th class="table-title-font">部分早偿</th>
+                                <th class="table-title-font">全部早偿</th>
+                                <th class="table-title-font">逾期</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="table-title-font">笔数</td>
+                                <td class="table-inner-font">{{PartAccountTotal}}</td>
+                                <td class="table-inner-font">{{AllAccountTotal}}</td>
+                                <td class="table-inner-font">{{OverAccountTotal}}</td>
+                            </tr>
+                            <tr>
+                                <td class="table-title-font">差额</td>
+                                <td class="table-inner-font">{{PartAmountDiff_Total | rentrunThrouns}}</td>
+                                <td class="table-inner-font">{{AllAmountDiff_Total | rentrunThrouns}}</td>
+                                <td class="table-inner-font">{{OverAmountDiff_Total | rentrunThrouns}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="hightchart-area">
+                <div class="select-hightchart">
+                    <div id="select-pie"></div>
+                    <div id="select-bar"></div>
+                </div>
+                <!--<div class="Endyear-hightchart" v-show="Endyear==true">
+                    <div id="Endyear-pie"></div>
+                    <div id="Endyear-bar"></div>
+                </div>-->
+            </div>
+            <div class="line">
+                <div class="line_left"></div><span class="fonts-style">资产逾期情况</span>
+            </div>
+            <div class="tab-area">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="table-title-font">逾期天数</th>
+                            <th class="table-title-font">拖欠金额(元)</th>
+                            <th class="table-title-font">逾期金额占比(%)</th>
+                            <th class="table-title-font">资产笔数</th>
+                            <th class="table-title-font">资产笔数占比</th>
+                            <th class="table-title-font">平均每笔差额</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in tableTreeList">
+                            <td class="table-title-font">{{item.StatusDescription}}</td>
+                            <td class="table-inner-font">{{item.AmountDiff_Total | rentrunThrouns}}</td>
+                            <td class="table-inner-font">{{item.AmountDiffRate}}</td>
+                            <td class="table-inner-font">{{item.AccountTotal}}</td>
+                            <td class="table-inner-font">{{item.AccountRate}}</td>
+                            <td class="table-inner-font">{{item.AmountDiff_Avg | rentrunThrouns}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="line">
+                <div class="line_left"></div><span class="fonts-style">资产逾期总览</span>
+            </div>
+            <div class="hightchart-area" style="margin-bottom:20px">
+                <div id="hightchart-linebar"></div>
+            </div>
+        </div>
+    </div>
+    <script src="../../../../../asset/lib/require.js"></script>
+
+    <script type="text/javascript">
+        requirejs(['../../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TrustFollowUp/statistics/statisticsReport']);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+﻿ [v-cloak] { display: none } 
+.mask{
+    position: relative;
+}
+.mask span {
+    color: #fff;
+    font-size: 14px;
+    position: absolute;
+}
+.mask .logoText{
+    left: 28px;
+    top: 9px;
+}
+.mask .logoEng{
+    font-size: 12px;
+    left: 29px;
+    top: 27px;
+}
+.rightUser i {
+    color: #fff;
+    font-size: 20px!important;
+}
+.Nav {
+    background-color: #54514f!important;
+    /*background-color: #102253!important;*/
+    border-bottom: none!important;
+}
+.left_logo{
+    background-color: #54514f!important;
+    /*background-color: #102253!important;*/
+    border: none!important;
+}
+#crumbs{
+    border: none!important;
+}
+.RightLine{
+    background-color: #eaeade!important;
+}
+.rightUser .icon-jiantou{
+    font-size: 14px!important;
+}
+.rightUser .icon-shezhimoban{
+    font-size: 18px!important;
+   
+}
+.iconShezhi{
+    margin-top: 2px!important;
+}
+.iconWenhao{
+    margin-top: 1px!important;
+}
+.SetUp>span {
+    padding-top: 4px!important;
+}
+.list_box>ul>li{
+    border: none!important;
+}
+.left_box{
+    background-color: #f7f7f7!important;
+}
+.left_box{
+    box-sizing: border-box;
+    border-right: 1px solid #ccc;
+}
+.left_box a {
+            color: #657180!important;
+        }
+.list_box>ul>li>a:hover{
+    border: none!important;
+    /*background-color: #fff!important;*/
+    color: #1b84ed!important;
+    opacity: 1;
+}
+.list_box>ul>li>ul{
+    background-color: #f7f7f7!important;
+}
+.list_box>ul >li>ul >li>ul{
+    background-color: #f7f7f7!important;
+}
+.list_box>ul>li> a>i.icon-sanjiao1{
+    font-size: 10px!important;
+}
+.list_box>ul>li>a i:nth-child(1){
+    font-size: 16px!important;
+}
+.list_box>ul>li>ul>li a>i.icon-sanjiao1{
+    font-size: 10px!important;
+}
+.list_box>ul >li>ul >li>ul>li>a{
+    font-size: 11px!important;
+}
+.list_box>ul a{
+    font-size: 12px!important;
+}
+.list_box>ul>li>a{
+    font-size: 13px!important;
+}
+.left_box .add_style{
+    background-color: #f7f7f7!important;
+    border-left: none!important;
+    color: #1b84ed!important;
+}
+.Highlight span{color: #1b84ed!important}
+.Highlight i{color: #1b84ed!important}
+
+    
+ 

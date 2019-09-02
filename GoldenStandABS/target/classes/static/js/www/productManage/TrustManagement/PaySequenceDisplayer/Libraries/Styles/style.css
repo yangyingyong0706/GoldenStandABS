@@ -1,0 +1,29 @@
+/*code based on Stu Nicholls "ultimate dropdown menu"
+http://www.cssplay.co.uk*/
+/*common styling*/
+/*menu container*/
+.menucontainer{background: #fff url(../images/bgOFF.gif) no-repeat bottom left;}
+/*basic menu styling*/
+/*.menu {float:left;font-family: arial,verdana,sans-serif;width:100%;position:relative;font-size:14px;font-weight:bold;
+background:url(../images/bgOFF.gif) repeat-x bottom left;margin-top:-50px/*border-top:4px solid #B30000;}*/
+.menu {float:left;font-family: arial,verdana,sans-serif;width:99%;position: fixed;z-index: 1;margin-left: 8px;font-size:14px;/*font-weight:bold;*/background:url(../images/bgOFF.gif) repeat-x bottom left;margin-top: -54px/*border-top:4px solid #B30000;*/;}
+.menu ul {padding:0;margin:0;list-style-type:none;float:left;position:relative;}
+.menu ul li {float:left;position:relative;display:inline;background:url(../images/bgDIVIDER.gif) no-repeat bottom right;}
+/*style of main items normal state*/
+.menu ul li a, .menu ul li a:visited {float:left;display:block;text-decoration:none;width:auto;color:#000;padding:0px 16px 0px 16px;line-height:40px;height:40px;}
+* html .menu ul li a, .menu ul li a:visited {width:auto;w\idth:auto;}
+/*hide sub nav items*/
+.menu ul li ul {display:none;}
+/*clear the main nav bg*/
+.menu ul li ul li{background:none;}
+/*style for table of sub nav items*/
+table {margin:-1px;border-collapse:collapse;font-size:11px;}
+/*specific to non IE browsers*/
+/*main nav over state*/
+.menu ul li:hover a {color:#B30000;background: transparent url(../images/bgON.gif) bottom left repeat-x;}
+/*show drop-down list*/
+.menu ul li:hover ul {display:block;position:absolute;top:36px;margin-top:1px;left:0;width:100%;border-top:1px solid #fff;}
+/*drop-down on state*/
+.menu ul li:hover ul li a {display:block;background:#e3e3e3;color:#333;height:auto;line-height:16px;padding:2px 16px 2px 16px;width:120px;border-top:1px solid #fff;}
+/*sub drop-down over state*/
+.menu ul li:hover ul li a:hover {color:#fff;background: #B30000 url(../images/sub-arrow.gif) no-repeat;background-position: 4px 8px;}

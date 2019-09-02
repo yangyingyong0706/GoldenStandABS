@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>任务设置编辑</title>
+    <link href="../Common/css/trustFollowUp.css" rel="stylesheet" />
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <!--<script src="../../Config/GlobalVariable.js"></script>
+
+    <script src="../Common/Scripts/jquery-ui-latest.js"></script>
+    <script src="../Common/Scripts/common.js"></script>
+
+    <script src="../Common/Scripts/calendar.min.js"></script>
+    <script src="../wcfProxy.js"></script>-->-->
+
+    <script src="../../../asset/lib/require.js"></script>
+    <script src="../../../asset/lib/config.js"></script>
+    <script>
+        requirejs(['app/basicData/SystemSettings/TrustTaskConfig']);
+    </script>
+</head>
+<body>
+    <div id="loading" class="loadpage">
+        <i class="icon icon-setting bigicon am-rotate pa"></i>
+        <i class="icon icon-setting smicon am-rotate pa"></i>
+        <p class="text pa">加载配置中...</p>
+    </div>
+    <div class="page">
+        <div class="main">
+            <div class="menu-buttons xs-hidden">
+                <span class="tab-columns">
+                    <button type="button" class="btn btn-active" data-col="2">
+                        <span class="bs bs2"></span>
+                        <span class="bs bs2"></span>
+                    </button>
+                    <button type="button" class="btn" data-col="3">
+                        <span class="bs bs1"></span>
+                        <span class="bs bs1"></span>
+                        <span class="bs bs1"></span>
+                    </button>
+                </span>
+            </div>
+            <h3 id="step-title" class="h3"><span class="title">任务设置</span></h3>
+            
+            <div class="menu_target" style="padding:15px 10px 5px 15px;">
+                
+                <div class="form">
+                    <!-- 任务设置 -->
+                    <div id="TrustExtensionDiv" class="form-body" id="step0">
+                        <div class="form-menu">
+                            <div class="form-panel item">
+                                <div class="col-12" data-bind="foreach:DateSetList.BasicData">
+                                    <!-- ko if : IsDisplay()=='1' -->
+                                    <div class="col-6 form-group autoLayout-plugins">
+                                        <div class="col-4">
+                                            <label data-bind="html:ItemAliasValue"></label>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="col-11" data-bind="renderControl:ItemValue">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /ko -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-button">
+                    <button id="next-step" type="button" class="btn btn-primary btn-next">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

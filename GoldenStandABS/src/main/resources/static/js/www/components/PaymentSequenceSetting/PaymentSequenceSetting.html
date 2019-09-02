@@ -1,0 +1,2246 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>配置偿付顺序</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../productManage/TrustManagement/TrustFollowUp/css/trustFollowUp.css" rel="stylesheet" />
+
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../asset/lib/d3/tipsy.css" rel="stylesheet" />
+    <script data-main="PaymentSequenceSetting" src="../../../asset/lib/require.js"></script>
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <style type="text/css">
+        html, body { /*overflow:hidden;*/
+            height: 100%;
+        }
+
+        body { /*overflow:hidden;*/ /*padding-top:10px;*/
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .heightFull {
+            height: 100%;
+            overflow: hidden;
+            padding: 0 2px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .mask {
+            position: absolute;
+            top: 0px;
+            filter: alpha(opacity=60);
+            background-color: #777;
+            z-index: 1002;
+            left: 0px;
+            opacity: 0.1;
+            -moz-opacity: 0.1;
+        }
+
+        .payment-container {
+            padding: 0px 12px;
+        }
+
+        .tabHead {
+            height: 36px;
+            padding: 0px 0px 5px 0px;
+            margin-bottom: 5px;
+            border-bottom: 1px solid #ececec;
+        }
+
+            .tabHead .divLi {
+                cursor: pointer;
+                padding: 0 6px;
+                font-size: 13px;
+                font-weight: normal !important;
+                font-family: "Microsoft Yahei";
+                text-align: center;
+                height: 28px;
+                line-height: 23px;
+                border: none;
+                color: #333;
+                white-space: nowrap;
+                float: left;
+                margin-left: -1px;
+                font-weight: bold;
+                vertical-align: middle;
+                position: relative;
+                top: 5px;
+                border-radius: 5px;
+                margin-left: 5px;
+                background: #fff;
+                border: 1px solid #62647d;
+            }
+
+        .normal_li {
+            cursor: pointer;
+            padding: 0 6px;
+            font-size: 13px;
+            font-weight: normal !important;
+            font-family: "Microsoft Yahei";
+            text-align: center;
+            height: 28px;
+            line-height: 26px;
+            border: none;
+            color: #333;
+            white-space: nowrap;
+            float: left;
+            margin-left: -1px;
+            font-weight: bold;
+            vertical-align: middle;
+            position: relative;
+            top: 5px;
+            border: 1px solid white;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+            .normal_li::after {
+                content: "";
+                position: absolute;
+                height: 0%;
+                left: 50%;
+                top: 50%;
+                width: 150%;
+                z-index: -1;
+                background: #ccc;
+                -moz-transform: translateX(-50%) translateY(-50%) rotate(25deg);
+                -ms-transform: translateX(-50%) translateY(-50%) rotate(25deg);
+                -webkit-transform: translateX(-50%) translateY(-50%) rotate(25deg);
+                transform: translateX(-50%) translateY(-50%) rotate(25deg);
+                transition: all 0.3s ease 0s;
+            }
+
+        /*.normal_li:hover { color: #ffffff; border-color: #ccc; box-shadow:0px 0px 2px 0px rgba(0,0,0,.2) }*/
+
+            .normal_li:hover:after {
+                height: 450%;
+            }
+
+            .normal_li:hover > button.removeScenario {
+                color: white;
+            }
+
+            .normal_li:hover, .tabHead .divLi.active {
+                background: rgba(69,86,156,1) !important;
+                color: #ffffff;
+                border-color: rgba(236, 212, 212, 0.3);
+            }
+
+                .tabHead .divLi.active .removeScenario {
+                    color: #ffffff;
+                }
+
+        .tabHead .divLi.hide {
+            display: none;
+        }
+
+        .tabHead .divLi.show {
+            display: block;
+        }
+
+        .normal_li > div .edit-btn, .normal_li > div .cancel-btn {
+            display: none;
+        }
+
+        .tabHead .divLi .removeScenario {
+            background-image: none;
+            background: transparent;
+            border: none;
+            height: 27px;
+            line-height: 27px;
+            font-size: 16px;
+            vertical-align: middle;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+            .tabHead .divLi .removeScenario i {
+                color: #000;
+                font-size: 14px;
+            }
+
+        .normal_li:hover .removeScenario i, .tabHead .divLi.active .removeScenario i {
+            color: #fff;
+        }
+
+        .tabHead .divLi span {
+            vertical-align: middle;
+            padding: 0 18px;
+        }
+
+        .tabHead .input {
+            padding: 2px 3px;
+            height: 14px;
+            border: #BDBDBD solid 1px;
+            font-size: 12px;
+            border-radius: 2px;
+            vertical-align: middle;
+        }
+
+        .tabHead .newTabBtn {
+            font-size: 12px;
+            color: #fff;
+        }
+
+            .tabHead .newTabBtn:hover {
+                background: #599bdc;
+            }
+
+        .saveBtn { 
+            float: right; 
+            overflow: visible; 
+            padding: 0.3em 0.7em;  
+            margin: 5px 0 0 0; 
+            color: #555; 
+            white-space: nowrap; 
+            cursor: pointer; 
+            background-color: #45569C;
+            border-color: #45569C;
+            color: #fff;
+        }
+
+            .saveBtn.normal_small_button:hover {
+                background-color: RGBA(69, 86, 156, 1);
+                opacity: 0.9;
+            }
+        /*.saveBtn:hover { border-color: #3072b3; border-bottom-color: #2a65a0; text-decoration: none; text-shadow: -1px -1px 0 rgba(0,0,0,0.3); color: #fff; background-color: rgba(59,62,93,0.8); background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#599bdc), to(#3072b3)); background-image: -moz-linear-gradient(#599bdc, #3072b3); background-image: -o-linear-gradient(#599bdc, #3072b3); background-image: linear-gradient(#599bdc, #3072b3); font-size: 14px; font-family: "Microsoft Yahei"; font-weight: normal; }*/
+
+        .form {
+            min-height: 0;
+        }
+
+        .objElement {
+            cursor: pointer;
+            text-align: center;
+            margin: 2px;
+            background: #f8f8f8;
+            font-size: 13px;
+            font-weight: normal !important;
+            font-family: "Microsoft Yahei";
+            padding: 0 5px;
+            height: 22px;
+            line-height: 22px;
+            color: #000;
+            font-weight: bolder;
+            width: 118px;
+            float: left;
+            overflow: hidden;
+        }
+
+        .feeElement {
+            color: #555;
+            border: 1px solid #5dadff;
+            background: white;
+            border-radius: 5px;
+        }
+
+        .bondElement {
+            color: #555;
+            background: white;
+            border: 1px solid #dac427;
+            border-radius: 5px;
+        }
+
+        .leveltd {
+            background-color: #EEEEEE;
+            color: #000000;
+            text-align: center;
+        }
+
+        #sortable_div {
+            position: fixed;
+            bottom: 0px;
+            width: 100%;
+            background: white;
+        }
+
+        .ofv {
+            overflow: visible !important;
+        }
+
+        .showOptions {
+            position: absolute;
+            left: 0;
+            top: 30px;
+            right: 0;
+            z-index: 999;
+        }
+
+            .showOptions > .form-control {
+                height: auto;
+                max-height: 150px;
+                overflow-y: auto;
+                vertical-align: middle;
+            }
+
+        .showOptions > .form-control input[type=checkbox],
+                .showOptions > .form-control label {
+                    vertical-align: middle;
+                    margin-top: 0;
+                }
+
+                .showOptions > .form-control label {
+                    height: 20px;
+                    display: inline-block;
+                    line-height: 20px;
+                    font: 500 14px/20px "Microsoft Yahei";
+                }
+
+        .form .form-group {
+            margin-bottom: 1px;
+        }
+
+        .form .form-group {
+            margin-bottom: 15px;
+        }
+
+        #sortable_div {
+            min-height: 84px;
+            max-height: 84px;
+            width: calc(100% - 26px);
+            border: 1px solid rgba(0,0,0,0.1);
+            border-top: none;
+            background: rgb(250,250,250);
+            border-bottom: none;
+        }
+
+        input {
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            outline: none;
+        }
+
+        #grid {
+            height: 500px;
+        }
+
+            #grid tbody select {
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                outline: none;
+                width: 87px;
+            }
+
+        .k-grid-header th.k-header {
+            padding-left: 8px;
+        }
+
+        .k-grid td {
+            padding-left: 11px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .col-3 {
+                width: 25%;
+        }
+        }
+
+
+        .filter-area {
+        }
+
+        .panel-body {
+            padding: 10px 0;
+        }
+
+        .ui-tabs-nav {
+            overflow: hidden;
+            border-bottom: 1px solid #ddd;
+        }
+
+            .ui-tabs-nav > span {
+                margin-right: 2px;
+                line-height: 1.42857143;
+                margin-bottom: 0px;
+                float: left;
+                position: relative;
+                margin-right: 10px;
+                cursor: default;
+                padding: 8px 6px;
+            }
+
+                .ui-tabs-nav > span.active, .ui-tabs-nav > span:hover {
+                    color: #4078d8;
+                    cursor: default; /* background-color: rgb(116, 157, 230); */
+                    border-bottom: 1.5px solid #6b7acb; /* border-bottom-color: transparent; */
+                }
+
+        .choose-area {
+            height: 100%; /*border: 1px solid #eee;*/
+            background: #fff;
+            box-sizing: border-box;
+            box-shadow: 0 1px 4px rgba(0,0,0,.4);
+            padding: 5px 12px;
+            border-radius: 4px;
+        }
+
+        .filter-area {
+        }
+
+        .panel-body {
+            padding: 10px 0;
+        }
+
+        .ui-tabs-nav {
+            overflow: hidden;
+            border-bottom: 1px solid #ddd;
+            height: 36.5px;
+            box-sizing: border-box;
+        }
+        /*.ui-tabs-nav > span { margin-right: 2px; line-height: 1.42857143; border: 1px solid #e6e6e6; border-radius: 4px 4px 0 0; float: left; margin-bottom: -1px; position: relative; padding: 8px 18px; cursor: default; }
+        .ui-tabs-nav > span.active, .ui-tabs-nav > span:hover { color: #fff; cursor: default; background-color: rgb(116, 157, 230); border: 1px solid #6b7acb; border-bottom-color: transparent; }*/
+        .list > li.objLRElement > span {
+            border-color: rgb(50, 52, 74);
+            border-radius: 3px;
+        }
+
+        .list > li.objGRElement > span {
+            border-color: #888aa2;
+            border-radius: 3px;
+        }
+
+        .list > li.objGRElement.chosenElement > span {
+            background: rgb(123, 196, 220);
+            border-radius: 3px;
+            width: 100%;
+            box-sizing: border-box;
+            color: #fff;
+            border: none;
+        }
+
+        .list > li > span {
+            float: left; /* padding: 2px 9px; */
+            border-width: 1px;
+            box-sizing: border-box;
+            border-radius: 12px;
+            border-style: solid;
+            border-color: #222;
+            margin: 3px 4px;
+            cursor: pointer;
+            height: 24px;
+            width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            line-height: 24px;
+            padding: 0 10px;
+            text-align: center;
+            font-size: 12px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .list > li {
+            float: left;
+            width: 47%;
+            margin-right: 3%;
+        }
+
+        .list.ele-list > li {
+            width: 100%;
+            margin-right: 0;
+        }
+
+        .ele-list {
+            height: 100%;
+        }
+
+        .list > li.objElementTalbe {
+            width: auto;
+            margin-right: 1%;
+        }
+
+        table .list > li.tableLREle span {
+            width: 100%;
+            box-sizing: border-box;
+            background: rgb(122, 176, 122);
+            color: #fff;
+            border-color: transparent;
+            border-radius: 3px;
+        }
+
+        .list > li.objFeeElement i, .list > li.objGRElement.chosenElement i {
+            position: absolute;
+            right: -2px;
+            top: 0px;
+            font-size: 10px;
+            background: #fff;
+            border-radius: 50%;
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 1px solid #ddd;
+            line-height: 14px;
+            display: none;
+            transition: all .3s ease;
+            text-align: center;
+            s;
+        }
+
+        .list > li.objFeeElement:hover, .list > li.objGRElement.chosenElement:hover {
+            position: relative;
+        }
+
+            .list > li.objFeeElement:hover i, .list > li.objGRElement.chosenElement:hover i {
+                display: block;
+            }
+
+        .clear:after {
+            content: ".";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+
+        .c-box {
+            background: #fff;
+            box-sizing: border-box;
+        }
+
+            .c-box > .title {
+                background: #eee;
+                color: #111;
+                font-size: 12px;
+                height: 26px;
+                line-height: 26px;
+                padding-left: 15px;
+            }
+
+                .c-box > .title.chosenTit {
+                    background: #eeeeee;
+                    color: #444;
+                    font-size: 13px;
+                }
+
+            .c-box .content {
+                background-color: #ffffff;
+                color: inherit;
+                padding: 10px;
+                border-color: #e7eaec;
+                -webkit-border-image: none;
+                -o-border-image: none;
+                border-image: none;
+                border-style: solid solid;
+                border-width: 1px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+        .choosingBlobalRules, .choosingBlobalRules > li, .choosingBlobalRules > li > span {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .choosingLocalRules, .choosingLocalRules > li, .choosingLocalRules > li > span {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .ele-ares .content {
+            max-height: 200px;
+            overflow: auto;
+        }
+
+        .ele-ares > li > span {
+            float: left;
+            padding: 4px 8px;
+            border-width: 1px;
+            border-radius: 3px;
+            border-style: solid;
+            border-color: #222;
+            margin: 3px 5px;
+            min-width: 88px;
+            text-align: center;
+        }
+
+        .filter-area .content {
+            height: calc(100% - 30px);
+            overflow-y: auto;
+        }
+
+        .list > li.accountTpye1 > span, .account-box.accountTpye1 {
+            border-color: #5687dd;
+        }
+
+        .list > li.accountTpye2 > span, .account-box.accountTpye2 {
+            border-color: green;
+        }
+
+        .list > li.accountTpye3 > span, .account-box.accountTpye3 {
+            border-color: #edbf08;
+        }
+
+        .list > li.accountTpye4 > span, .account-box.accountTpye4 {
+            border-color: #ca1919;
+        }
+
+        .sortable-ghost span {
+            background: #999;
+            color: #fff;
+            border-color: #999 !important;
+        }
+        /*li.accountTpye1.sortable-ghost span { background: #5687dd; color: #fff;
+            border-color: #5687dd !important; }
+           li.accountTpye2.sortable-ghost span { background: green; color: #fff;
+            border-color: green !important; }
+            li.accountTpye3.sortable-ghost span { background: #edbf08; color: #fff;
+            border-color:  #edbf08 !important; }
+             li.accountTpye4.sortable-ghost span { background:red; color: #fff;
+            border-color: red!important; }*/
+        .hasAccount span {
+            padding: 7px 20px;
+            border-radius: 4px;
+            color: #fff;
+            margin-right: 14px; /*border: 1.5px dashed rgba(116,157,230,1);*/
+            box-shadow: 1px 1px 1px rgba(0,0,0,.2);
+            vertical-align: middle;
+            display: inline-block;
+        }
+
+            .hasAccount span.accountTpye1 {
+                background: #698ac3;
+            }
+
+            .hasAccount span.accountTpye2 {
+                background: #64b064;
+            }
+
+            .hasAccount span.accountTpye3 {
+                background: #edbf08;
+            }
+
+            .hasAccount span.accountTpye4 {
+                background: #ea9f68;
+            }
+
+        .account-box-title.accountTpye1.active, .account-box-title.accountTpye1.active h4 {
+            border-color: #698ac3;
+            color: #698ac3;
+        }
+
+        .account-box-title.accountTpye2.active, .account-box-title.accountTpye2.active h4 {
+            border-color: #64b064;
+            color: #64b064;
+        }
+
+        .account-box-title.accountTpye3.active, .account-box-title.accountTpye3.active h4 {
+            border-color: #edbf08;
+            color: #edbf08;
+        }
+
+        .account-box-title.accountTpye4.active, .account-box-title.accountTpye4.active h4 {
+            border-color: #ea9f68;
+            color: #ea9f68;
+        }
+
+        .account-tit-wrap {
+            width: 24%;
+            display: inline-block;
+            float: left;
+        }
+
+        .account-con-wrap {
+            width: 75%;
+            display: inline-block;
+            float: right;
+        }
+
+        .account-box-title {
+            display: inline-block;
+            position: relative; /* background: #c04242; */
+            width: 100%;
+            font-size: 0;
+            text-align: center;
+            border: 1px dashed #eee;
+            box-sizing: border-box;
+            border-radius: 3px 0 0 3px;
+            position: relative;
+            right: -1px;
+            color: #808080;
+        }
+
+            .account-box-title .title {
+                font-size: 12px;
+                display: inline-block; /* border-radius: 3px 3px 0 0; */ /* border: 1px solid #aaa; */ /* border-bottom: none; */
+                height: 30px;
+                line-height: 30px; /* background: #f8f8f8; */
+                color: #757575; /* padding: 0 4px; */
+                width: 83%;
+                box-sizing: border-box;
+                text-align: center;
+                border-right: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                position: relative;
+                font-size: 12px;
+            }
+
+                .account-box-title .title i {
+                    color: #bfb9b9;
+                    position: absolute;
+                    right: 1px;
+                }
+
+            .account-box-title:hover, .account-box-title.active {
+                background: #fff;
+                color: #7b7272;
+                border-color: #789fe6;
+                cursor: pointer;
+                border-style: solid;
+            }
+
+                .account-box-title:hover i, .account-box-title.active .title i, .account-box-title:hover .title, .account-box-title.active .title {
+                    color: inherit;
+                    font-weight: bold;
+                }
+
+        .account-box > .account-ele {
+            padding: 5px;
+            height: 150px;
+            overflow: auto;
+        }
+
+            .account-box > .account-ele > div {
+                height: 100%;
+            }
+
+        .account-box {
+            margin-bottom: 8px;
+            border: 1px solid #749de6;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        .acount-body .title span {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .interest {
+            background-color: #1ab394;
+            color: #fff;
+        }
+
+        .principal {
+            background-color: #f8ac59;
+        }
+
+        .total {
+            background-color: #1c84c6;
+        }
+
+        .reserve {
+            background-color: #23c6c8;
+        }
+
+        .account-list .item {
+            margin-left: 10px;
+        }
+
+        .account-list {
+            display: block;
+            vertical-align: middle;
+            padding-left: 10px;
+        }
+
+            .account-list > div {
+                position: relative;
+                padding: 10px 7px 5px 6px;
+            }
+
+        .account-list.list2 > div:before,
+            .account-list.list2 > div:after {
+                content: "";
+                left: -8px;
+                position: absolute;
+                right: auto;
+                border-width: 1px;
+            }
+
+            .account-list.list2 > div:before {
+                border-left: 1px dashed #999;
+                bottom: 50px;
+                height: 92%;
+                top: -10px;
+                width: 1px;
+            }
+
+            .account-list.list2 > div:after {
+                border-top: 1px dashed #999;
+                height: 20px;
+                top: 17px;
+                width: 28px;
+                content: "";
+                left: -7px;
+                position: absolute;
+                right: auto;
+                border-width: 1px;
+                border-top: 1px dashed #999;
+                height: 20px;
+                top: 17px;
+                width: 12px;
+            }
+
+            .account-list.list2 {
+                margin-top: 6px;
+                padding-left: 12px;
+            }
+
+            .account-list > div span {
+                padding: 3px 20px 3px 5px;
+                margin-bottom: 2px;
+                border-radius: 3px;
+                cursor: pointer;
+                border: 1px solid #444;
+                font-size: 12px;
+                position: relative;
+            }
+
+            .account-list > div.chosenAccount > .account-tree-node > span {
+                background: #749de6;
+                color: #fff;
+                border-color: #749de6;
+            }
+
+            .account-list .account-name:hover {
+                background: #043389;
+                cursor: pointer;
+                border-color: #043389;
+            }
+
+        ul {
+            min-height: 20px;
+        }
+
+        table tr:nth-child(even) {
+            background: rgba(116, 157, 230, 0.08) !important;
+        }
+
+        table thead tr td {
+            padding: .5em .3em !important;
+        }
+
+        table tr td {
+            text-align: center !important;
+        }
+
+        li.chosenElement span {
+            border-width: 1px;
+        }
+
+        .rule-select-area {
+            position: relative;
+            z-index: 10;
+        }
+
+            .rule-select-area > .content {
+                min-height: 200px;
+            }
+
+            .rule-select-area .globle-rule-wrap {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                transition: all 1s ease;
+            }
+
+                .rule-select-area .globle-rule-wrap .globle-rule {
+                    transition: all 1s ease;
+                    opacity: 0;
+                    display: none;
+                }
+
+                .rule-select-area .globle-rule-wrap .side-button {
+                    position: absolute;
+                    left: 100%;
+                    top: 0;
+                    width: 20px;
+                    height: auto;
+                    background: #599bdc;
+                    text-align: center;
+                    padding: 6px 3px;
+                    color: #fff;
+                }
+
+                .rule-select-area .globle-rule-wrap.slide {
+                    width: 100%;
+                    left: 100%;
+                }
+
+                    .rule-select-area .globle-rule-wrap.slide .globle-rule {
+                        opacity: 1;
+                        display: block;
+                    }
+
+        .flip-list-move {
+            transition: transform 0.5s;
+        }
+
+        .account-box-enter-active, .account-box-leave-active {
+            transition: all 0.5s ease;
+        }
+
+        .account-box-enter, .account-box-leave-to {
+            transform: translateY(-10px);
+            opacity: 0;
+        }
+
+        .fade-enter-active, .fade-leave-active {
+            transition: all 0.5s ease;
+        }
+
+        .fade-enter {
+            opacity: 0;
+        }
+
+        .fade-leave-to {
+            opacity: 0;
+        }
+
+        .no-move {
+            transition: transform 0s;
+        }
+
+        .account-sortable-ghost {
+            display: none;
+        }
+
+        .account-box-title .sortable-ghost {
+            display: none;
+        }
+
+        label {
+            font-size: 12px !important;
+        }
+
+        li.objGRElement > span, li.objLRElement > span {
+            cursor: default;
+        }
+
+        .my-handle {
+            box-shadow: 0 0 5px rgba(0,0,0,.2);
+            transform: rotate(30deg);
+        }
+
+        .payment-container {
+            border: none;
+            height: 100%;
+        }
+
+        .loading {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+        }
+
+        ul.emptyList, .emptyAccountsList {
+        }
+
+        .emptyList {
+            font-size: 14px;
+            background: #f6f6f6;
+            color: #c7c7c7;
+            height: 100%; /*line-height: 84px;*/
+            text-align: center;
+            display: table;
+            box-sizing: border-box;
+            padding: 0 15px;
+            width: 100%;
+            line-height: 18px;
+        }
+
+            .emptyList span {
+                display: table-cell;
+                vertical-align: middle;
+            }
+        /*.emptyAccountsList { content: "您还未选择账户"; display: block; line-height: 20px; text-indent: 10px; font-size: 12px; background: #f6f6f6; color: #aeaeae; }
+        .emptyRulesList:after { content: "请拖动规则到此处"; display: block; line-height: 20px; text-indent: 10px; font-size: 12px; background: #f6f6f6; color: #aeaeae; }*/
+        .maxh200 {
+            max-height: 200px;
+            overflow: auto;
+        }
+
+        .maxh495 {
+            overflow: auto;
+        }
+
+        .minh200 {
+            min-height: 200px;
+            overflow: auto;
+        }
+
+        .accountIcon {
+            font-size: 12px;
+            padding: 4px;
+            position: absolute;
+        }
+
+        .tabview { /*height: 600px !important;*/
+        }
+
+        .inputTip {
+            border: 1px solid red;
+        }
+
+        .optionNA {
+            color: #565656;
+        }
+
+        .option {
+            color: #555;
+        }
+
+        .form .form-panel.item {
+            margin-top: 10px;
+            height: calc(100% - 60px);
+            border: none;
+        }
+
+        .c-box.hasLocalRules h2 { /*height:30px;
+            line-height:30px;*/
+            font-size: 13px;
+        }
+
+        .c-box.hasLocalRules, .c-box.hasAccount {
+            margin-bottom: 0;
+        }
+
+        .mid-area {
+            height: 100%;
+            box-sizing: border-box;
+            overflow-y: auto; /* border: 1px solid rgba(116,157,230,1); */ /*box-shadow: 0px 0px 2px rgba(116, 157, 230, 0.67);*/
+            padding: 0 15px;
+        }
+
+        #grid {
+            border: none;
+        }
+
+        ul.choosenBlobalRules > li > span {
+            border-style: dashed;
+        }
+
+        .no-data {
+            width: 100%;
+            margin-top: 150px;
+            text-align: center;
+            font-size: 16px;
+            font-size: 18px;
+            color: #c1c1c1;
+        }
+
+        #dialogEditRule .objName {
+            padding: 3px 10px;
+            border: 1px dashed #3a73c2;
+            border-radius: 4px;
+            background: #ebf2f9;
+            color: #3a73c2;
+        }
+
+        .normal_li . -btn,
+        .normal_li .cancel-btn {
+            display: none;
+        }
+
+        .normal_li :hover .edit-btn, .normal_li :hover .cancel-btn {
+            display: inline-block;
+        }
+
+        .loadings {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(236, 236, 236, 0.13);
+        }
+
+        .ball-clip-rotate-pulse {
+            position: relative;
+            -webkit-transform: translateY(-15px);
+            -ms-transform: translateY(-15px);
+            transform: translateY(-15px);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+        }
+
+            .ball-clip-rotate-pulse > div:first-child {
+                background: #279fcf;
+                height: 16px;
+                width: 16px;
+                top: 9px;
+                left: 9px;
+                -webkit-animation: scale 1s 0s cubic-bezier(.09, .57, .49, .9) infinite;
+                animation: scale 1s 0s cubic-bezier(.09, .57, .49, .9) infinite;
+            }
+
+            .ball-clip-rotate-pulse > div {
+                -webkit-animation-fill-mode: both;
+                animation-fill-mode: both;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                border-radius: 100%;
+            }
+
+                .ball-clip-rotate-pulse > div:last-child {
+                    position: absolute;
+                    border: 2px solid #279fcf;
+                    width: 30px;
+                    height: 30px;
+                    background: transparent;
+                    border: 2px solid;
+                    border-color: #279fcf transparent #279fcf transparent;
+                    -webkit-animation: rotate 1s 0s cubic-bezier(.09, .57, .49, .9) infinite;
+                    animation: rotate 1s 0s cubic-bezier(.09, .57, .49, .9) infinite;
+                    -webkit-animation-duration: 1s;
+                    animation-duration: 1s;
+                }
+
+        @keyframes rotate {
+
+            0% {
+                -webkit-transform: rotate(0deg) scale(1);
+                transform: rotate(0deg) scale(1);
+            }
+
+            50% {
+                -webkit-transform: rotate(180deg) scale(0.6);
+                transform: rotate(180deg) scale(0.6);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg) scale(1);
+                transform: rotate(360deg) scale(1);
+            }
+        }
+
+        .title i.fa-caret-right, .title i.fa-caret-down {
+            float: right;
+            padding: 7px 10px 5px;
+        }
+
+        .choosingBlobalRules > li > i,
+        .choosingLocalRules > li > i {
+            display: inline-block;
+            vertical-align: middle;
+            color: rgba(69,86,156,1);
+        }
+
+        .choosingBlobalRules > li > span, .choosingLocalRules > li > span {
+            display: inline-block;
+            cursor: pointer;
+            width: calc(100% - 30px);
+            vertical-align: middle;
+            float: none;
+        }
+
+        .choosingBlobalRules > li, .choosingLocalRules > li {
+            padding-left: 6px;
+            position: relative;
+        }
+
+        .choosingBlobalRules > li:before,
+        .choosingLocalRules > li:before,
+        .tree_node_wrap:before,
+            .account-list > div:after {
+                content: "";
+                left: -8px;
+                position: absolute;
+                right: auto;
+                border-width: 1px;
+            }
+
+        .choosingBlobalRules > li:before,
+        .choosingLocalRules > li:before,
+            .tree_node_wrap:before {
+                border-left: 1px dashed #999;
+                bottom: 50px;
+                height: 92%;
+                top: -10px;
+                width: 1px;
+            }
+
+        .choosingBlobalRules > li:after,
+        .choosingLocalRules > li:after,
+            .tree_node_wrap:after {
+                border-top: 1px dashed #999;
+                height: 20px;
+                top: 17px;
+                width: 28px;
+                content: "";
+                left: -7px;
+                position: absolute;
+                right: auto;
+                border-width: 1px;
+                border-top: 1px dashed #999;
+                height: 20px;
+                top: 17px;
+                width: 12px;
+            }
+
+        .tree_node_wrap:after {
+            top: 10px;
+            visibility: initial;
+        }
+
+        .tree_node_wrap:before {
+            height: 110%;
+            top: -12px;
+        }
+
+        .tree_node_wrap:last-child:before {
+            top: -8px;
+        }
+
+        .choosingBlobalRules > li:first-child:before {
+            height: 55%;
+            top: 1px;
+        }
+
+        .choosingBlobalRules,
+        .choosingLocalRules {
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .tree_foder {
+            font-size: 13px;
+            cursor: default;
+        }
+
+            .tree_foder i {
+                margin-right: 5px;
+                color: rgba(69,86,156,1);
+            }
+
+        .tree_node_wrap {
+            padding-bottom: 5px;
+            padding-left: 5px;
+            position: relative;
+            margin-left: 12px;
+        }
+
+        .search {
+            margin-bottom: 5px;
+        }
+
+            .search input {
+                width: 100px;
+                padding: 2px 8px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+        .center {
+            position: relative;
+            transition: all .3s ease;
+        }
+
+        .slide_arr {
+            width: 0px;
+            height: 25px;
+            transition: all .3s ease;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 999;
+            cursor: pointer;
+            border-left: 13px solid rgba(69,86,156,1);
+            border-bottom: 13px solid transparent;
+            border-top: 13px solid transparent;
+        }
+
+        .slide_arr_lef {
+            left: 100%;
+        }
+
+            .slide_arr_lef i, .slide_arr_rig i {
+                position: absolute;
+                top: 25%;
+                right: 5px;
+                color: #fff;
+            }
+
+        .slide_arr_rig i {
+            left: 5px;
+        }
+
+        .slide_arr_rig {
+            right: 100%;
+            border-left: none;
+            border-right: 13px solid rgba(69,86,156,1);
+        }
+
+        .transLeft {
+            position: absolute;
+            transform: translateX(-100%);
+        }
+
+        .transRight {
+            transform: translateX(100%);
+        }
+
+        @media (min-width: 768px) {
+            .col-9 {
+                width: 75%;
+            }
+        }
+
+        .choose-area-right {
+            position: absolute;
+            right: 2px;
+            top: 0;
+        }
+
+        .account-tree-node > i {
+            margin-right: 5px;
+            color: #62647d;
+        }
+
+        .objLRElement.hasMoved, objGRElement.hasMoved {
+            cursor: not-allowed;
+        }
+
+            .objLRElement.hasMoved span, .objGRElement.hasMoved span {
+                cursor: not-allowed;
+                background: #fff;
+                border-color: #ebeef5 !important;
+                color: #c0c4cc;
+            }
+
+            .objLRElement.hasMoved i, .objGRElement.hasMoved i {
+                color: #c0c4cc;
+            }
+
+        .noRuleData {
+            color: #666;
+        }
+
+            .noRuleData span {
+                font-size: 12px;
+            }
+
+        .hidegrag {
+            pointer-events: none;
+            opacity: 0.2;
+        }
+
+        .objLRElement.hasMoved, objGRElement.hasMoved {
+            cursor: not-allowed;
+        }
+
+            .objLRElement.hasMoved span, .objGRElement.hasMoved span {
+                cursor: not-allowed;
+                background: #fff;
+                border-color: #ebeef5 !important;
+                color: #c0c4cc;
+            }
+
+            .objLRElement.hasMoved i, .objGRElement.hasMoved i {
+                color: #c0c4cc;
+            }
+
+        .noRuleData {
+            color: #666;
+        }
+
+            .noRuleData span {
+                font-size: 12px;
+        }
+
+        .hidegrag {
+            pointer-events: none;
+            opacity: 0.2;
+        }
+
+        .iscover {
+            position: absolute;
+            top: 7px;
+            right: 180px;
+            overflow: visible;
+            display: inline-block;
+            padding: 0.3em 0.7em;
+            font-size: 13px;
+        }
+
+            .iscover input {
+                vertical-align: middle;
+            }
+
+        .mb-xs {
+            margin-bottom: 5px;
+        }
+
+        .mb-s {
+            margin-bottom: 15px;
+        }
+
+        .mr-xs {
+            margin-right: 5px;
+        }
+
+        .icon-button {
+            padding: 4px 10px; /*border: 1px solid #ddd;*/
+            border-radius: 4px; /* margin-top: 4px; */
+            position: relative;
+            top: 6px;
+            margin-right: 5px;
+        }
+
+        .icon-color {
+            color: rgb(65, 116, 203);
+        }
+
+        .node rect,
+        .node circle,
+        .node ellipse,
+        .node polygon {
+            stroke: #fff;
+            fill: #fff;
+            stroke-width: 1.5px;
+        }
+
+        .node g {
+            fill: #fff;
+        }
+
+        .edgePath path {
+            stroke: #333;
+            fill: #333;
+            stroke-width: 1.5px;
+        }
+
+        .dataViewBtn {
+            margin-right: 10px;
+            background-color: #45569C;
+            border-color: #45569C;
+            color: #ffff;
+        }
+
+        .tipsy-inner {
+            text-align: left;
+        }
+
+            .tipsy-inner p {
+                margin-bottom: 4px;
+            }
+
+                .tipsy-inner p.tips-title {
+                    margin-bottom: 8px;
+                    border-bottom: 1px solid #fff;
+                }
+
+        #dialogEditRule {
+            max-height: 600px;
+            padding: 15px;
+            /*overflow: auto;*/
+        }
+
+        .textCenter {
+            text-align: center;
+        }
+
+        #dataView {
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            display: none;
+            overflow: hidden;
+        }
+
+        .ui-tabs-panel {
+            height: calc(100% - 36.5px);
+        }
+        /*.content.clear>div{height: 100%}*/
+        .content.clear.maxh495 .globle-rule-tree {
+            height: auto;
+        }
+
+        .changebox {
+            height: 30px;
+            border: 1px solid #e7eaec;
+            overflow: hidden;
+            background: #fff;
+            border-top: none;
+            line-height: 30px;
+            font-size: 14px;
+        }
+
+        .changebox_area {
+            position: relative;
+            width: 100%;
+            display: flex;
+            list-style: none;
+        }
+
+        .changebox_area_span {
+            width: auto;
+            padding: 0 15px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .changebox_area_span_current {
+            position: relative;
+            width: 100%;
+            display: inline-block;
+            color: rgba(69,86,156,1);
+        }
+
+            .changebox_area_span_current::after {
+                content: "";
+                position: absolute;
+                left: 0px;
+                bottom: 0px;
+                width: 100%;
+                height: 1px;
+                background: rgba(69,86,156,1);
+            }
+            .cl-84{
+                width:78%;
+            }
+            .cl-6{
+                width:53%;
+            }
+    </style>
+
+</head>
+<body>
+    <div id="app" class="heightFull">
+        <div id="dataView" class="dataView" style="">
+            <svg width="100%" height="100%"><g /></svg>
+        </div>
+
+        <div id="mask" class="mask"><div class="loading" v-show="loading"><img src="../../../asset/lib/Kendo/styles/Material/loading-image.gif" /></div></div>
+        <div class="payment-container form" v-cloak>
+            <div id="tabHead" class="tabHead">
+                <div class="iscover" v-show="isStructure != 0">
+                    <label for="check_box_cover">不允许被覆盖（默认允许）</label>
+                    <input type="checkbox" id="check_box_cover" v-model="isCover" />
+                </div>
+                <button type="button" class="btn saveBtn saveBtnSingle normal_small_button" v-bind:disabled="isSaving" @click="saveStructureSquence()" v-if="isStructure">保存</button>
+                <button type="button" class="btn saveBtn saveBtnSingle normal_small_button" v-bind:disabled="isSaving" @click="savePaymentSquence(1)" v-else>保存</button>
+                <button type="button" class="btn saveBtn " @click="savePaymentSquence(2)" v-show="false">全部保存</button>
+                <button class="btn saveBtn dataViewBtn normal_small_button" @click="showView">偿付情景视图</button>
+                <!--<div title="提示:请先刷新现金流模型" class="field-details" style="display: inline-block;float: right;">
+                    <button type="button" class="btn saveBtn normal_small_button" @click="openNewIframe()" style="margin-right:10px">偿付组合公式</button>
+                </div>-->
+                <div id="scenarioList" v-for="item in paymentScenarioList">
+                    <div class="divLi normal_li" v-bind:class="{'active':item.ScenarioName == c_Scenario.ScenarioName,'divTip':!(item.b_StartDateId&&item.b_EndDateId&&item.b_PrincipalPrecision&&item.b_InterestPrecision)}">
+                        <div v-show="!item.IsEditingScenarioName">
+                            <span @click="switchScenario(item)">{{item.ScenarioName}}</span>
+                            <button type="button" class="removeScenario edit-btn" @click="editScenarioName(item)" v-bind:class="{ hidegrag: isStructure }"><i class="icon icon-edit"></i></button>
+                            <button type="button" class="removeScenario cancel-btn" @click="deleteScenario(item)" v-bind:class="{ hidegrag: isStructure }"><i class="icon icon-close"></i></button>
+                        </div>
+                        <div v-show="item.IsEditingScenarioName">
+                            <input type="text" class="input" v-bind:ref="item.ScenarioName" v-model="item.ScenarioName" />
+                            <button type="button" class="removeScenario" @click="saveEditScenarioName(item)" v-bind:class="{ hidegrag: isStructure }"><i class="icon icon-check"></i></button>
+                            <button type="button" class="removeScenario" @click="cancelEditScenarioName(item)" v-bind:class="{ hidegrag: isStructure }"><i class="icon icon-close"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="divLi" v-show="IsAddingScenarioName">
+                    <input type="text" class="input" ref="newTabInput" id="newTabInput" v-model="addingScenarioName" />
+                    <button type="button" class="removeScenario" @click="saveAddScenarioName"><i class="icon icon-check"></i></button>
+                    <button type="button" class="removeScenario" @click="cancelAddScenarioName"><i class="icon icon-close"></i></button>
+                </div>
+                <div class="divLi" v-show="!IsAddingScenarioName" @click="addScenarioName" v-if="!isStructure">
+                    <span style="color:rgba(69,86,156,1);">新增偿付情景<i class="icon icon-add"></i></span>
+                </div>
+            </div>
+            <div id="divBody" class="form-panel item" ref="divBody" v-show="!loading">
+                <div class="no-data" v-if="isNodata">
+                    <img src="../../../asset/img/no_ata.png" />暂无偿付情景，请点击添加新的偿付情景
+                </div>
+                <div class="col-12 heightFull" v-show="paymentScenarioList.length >0">
+                    <!--左边表单区域-->
+                    <!--操作区域-->
+                    <div class="col-3 center choose-area" v-bind:class="{transLeft:!flexLayoutData.left}" style="width:22%">
+                        <div class="slide_arr slide_arr_lef" @click="flexLayoutData.left=!flexLayoutData.left" title="展开配置区域"><i class="fa " v-bind:class="[flexLayoutData.left ? 'fa-caret-left':'fa-caret-right']"></i></div>
+                        <div class="ui-tabs-nav clear">
+                            <span v-bind:class="{ active: c_Scenario.tabView==0 }" @click="c_Scenario.tabView = 0">基础配置</span>
+                            <span v-bind:class="{ active: c_Scenario.tabView==1 }" @click="c_Scenario.tabView = 1">配置账户</span>
+                            <!--<span v-bind:class="{ active: c_Scenario.tabView==2 }" @click="c_Scenario.tabView = 2">3、配置规则</span>-->
+                        </div>
+                        <div class="ui-tabs-panel">
+                            <div class="panel-body" v-show="c_Scenario.tabView == 0">
+                                <div class="col-12  form-area">
+                                    <div class="col-12 form-group autoLayout-plugins">
+                                        <div class="col-5">
+                                            <label>本金精度</label>
+                                        </div>
+                                        <div class="col-7" style="display:flex">
+                                            <input type="number" class="form-control form-item col-9" v-bind:class="{'inputTip':(typeof(c_Scenario.b_PrincipalPrecision)!='undefined'&&!c_Scenario.b_PrincipalPrecision)}" v-model="c_Scenario.PrincipalPrecision" @click="cancelValidateTip('PrincipalPrecision')" />
+                                            <div class="field-details" style="display:inline-block;margin-left:10px;" title="分配本金时，每百元分配金额保留的小数位数。">
+                                                <i class="icon icon-help" style="margin-top: 2px;display: block;color:#4174cb;"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 form-group autoLayout-plugins">
+                                        <div class="col-5">
+                                            <label>利息精度</label>
+                                        </div>
+                                        <div class="col-7" style="display:flex">
+                                            <input type="number" class="form-control form-item col-9" v-bind:class="{'inputTip':(typeof(c_Scenario.b_InterestPrecision)!='undefined'&&!c_Scenario.b_InterestPrecision)}" v-model="c_Scenario.InterestPrecision" @click="cancelValidateTip('InterestPrecision')" />
+                                            <div class="field-details" style="display:inline-block;margin-left:10px;" title="分配利息时，每百元分配金额保留的小数位数。">
+                                                <i class="icon icon-help" style="margin-top: 2px;display: block;color:#4174cb;"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--<div class="col-12 form-group autoLayout-plugins">
+                                            <div class="col-5">
+                                                <label>收入账结余是否转入本金账</label>
+                                            </div>
+                                            <div class="col-7">
+                                                <input type="checkbox" class="form-item" v-model="c_Scenario.AllowInterestToPrincipal" />
+                                                <div class="field-details" style="display:inline-block;margin-left:10px;">
+                                                    <i class="icon icon-help" style="margin-top: 2px;display: block;color:#4174cb;"></i>
+                                                    <div class="field-detail-box">
+                                                        若不区分收入账与本金账，则所有资金均作为利息回收款，请勾选此项。
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>-->
+                                    <div class="col-12 form-group autoLayout-plugins">
+                                        <div class="col-5">
+                                            <label>选择期数</label>
+                                        </div>
+                                        <div class="col-7">
+                                            <input type="checkbox" class="form-item" id="check_box" v-bind:disabled="isStructure != 0" v-model="c_Scenario.IsChecked" style="width:19px;height:19px;border:none" />
+                                        </div>
+                                    </div>
+                                    <div class="col-12 form-group autoLayout-plugins periodfields" v-if="c_Scenario.IsChecked">
+                                        <div class="col-5">
+                                            <label>起始（含该日）</label>
+                                        </div>
+                                        <div class="col-7">
+                                            <select class="form-control form-item" v-bind:disabled="isStructure != 0" v-bind:class="{'inputTip':(typeof(c_Scenario.b_StartDateId)!='undefined'&&!c_Scenario.b_StartDateId)}" v-model="c_Scenario.StartDateId" @click="cancelValidateTip('StartDateId')">
+                                                <option v-for="item in periodStartOptions" v-bind:value="item.value">{{item.text}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 form-group autoLayout-plugins periodfields" v-if="c_Scenario.IsChecked">
+                                        <div class="col-5">
+                                            <label>终止（含该日）</label>
+                                        </div>
+                                        <div class="col-7">
+                                            <select class="form-control form-item" v-bind:disabled="isStructure != 0" v-bind:class="{'inputTip':(typeof(c_Scenario.b_EndDateId)!='undefined'&&!c_Scenario.b_EndDateId)}" v-model="c_Scenario.EndDateId" @click="cancelValidateTip('EndDateId')">
+                                                <option v-for="item in periodEndOptions" v-bind:value="item.value">{{item.text}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 form-group autoLayout-plugins periodfields" v-if="c_Scenario.IsChecked" style="display:none;">
+                                        <div class="col-5">
+                                            <label>不包含区间（可多选）</label>
+                                        </div>
+                                        <div id="multiOptions" class="col-7" style="position:relative">
+                                            <div class="form-control">
+                                                选择
+                                                日期区间...
+                                            </div>
+                                            <div class="showOptions" style="display:none;">
+
+                                                <div class="form-control">
+                                                    <p>
+                                                        <input type="checkbox" />
+                                                        <label></label>
+                                                    </p>
+                                                </div>
+                                                <div style="padding:4px 10px;background:#f2f2f2;border:1px solid #ddd;border-top:none;border-radius:0 0 3px 3px;">
+                                                    <input type="checkbox" />&nbsp;全选/反选
+                                                </div>
+
+                                                <div class="form-control">
+                                                    <div style="line-height:80px;height:80px;text-align:center;color:#888;">
+                                                        没有找到符合条件的日期区间~
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="panel-body acount-body" v-show="c_Scenario.tabView == 1" style="height: calc(100% - 10px);">
+                                <div class="c-box" style="height: 30%;">
+                                    <h2 class="title">待选账户<span> （点击选择账户）</span></h2>
+                                    <div class="wraper content clear" style="height: calc(100% - 30px);overflow: auto;">
+                                        <div name="flip-list" class=" account-list list" tag="div">
+                                            <div v-for="item in dataAccounts" v-bind:class="{chosenAccount:isChosenAccount(item)}" v-if=" item.Code == 'TrustPlanAccount_Reserve_AvailableAmt' || item.Code == 'TrustPlanAccount_Total_AvailableAmt' ">
+                                                <div class="account-tree-node" ref="account_tree_node"><i class="fa  fa-folder-open folder"></i><span @click.stop="toggleAccount(item)"> {{item.DisplayName}} <i class="fa accountIcon" v-bind:class="isChosenAccount(item)?'fa-check-square-o' :'fa-square-o'"></i></span></div>
+                                                <div name="flip-list" class=" account-list list2" v-if="item.Code == 'TrustPlanAccount_Total_AvailableAmt'">
+                                                    <div v-for="item2 in dataAccounts" v-bind:class="{chosenAccount:isChosenAccount(item2)}" v-if="item2.Code == 'TrustPlanAccount_Interest_AvailableAmt' || item2.Code == 'TrustPlanAccount_Principal_AvailableAmt'">
+                                                        <div class="account-tree-node"><i class="fa  fa-file-text"></i><span @click.stop="toggleAccount(item2)"> {{item2.DisplayName}} <i class="fa  accountIcon" v-bind:class="isChosenAccount(item2)?'fa-check-square-o' :'fa-square-o'"></i></span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--<ul class="account-list">
+            <item class="item" v-bind:model="accountTreeData"></item>
+        </ul>-->
+                                    </div>
+                                </div>
+                                <div class="c-box filter-area" ref="chosenAccount" style="height: 35%;">
+                                    <h2 class="title" ref="title">账户聚类<span></span></h2>
+                                    <div class="content">
+                                        <div class="emptyList" v-if="emptyAccountsList"><span>您还未选择账户</span></div>
+                                        <!--<transition-group name="account-box" class="" tag="div">-->
+                                        <div class="account-tit-wrap">
+                                            <div class="account-box-title" v-for="(item,index) in c_Scenario.HasAccounts" v-bind:class="[{active:accountView == index},checkAccountClass(item)]" v-bind:key="item.Code">
+                                                <draggable element="div" v-bind:options="{group:{ put:['feeObj']},ghostClass:'account-sortable-ghost'}" @change="changeAccountSource" v-bind:component-data="{activeIndex:index,accountName:item.Code}" v-model="item.subFees">
+                                                    <h4 class="title" @click="accountView = index">{{item.DisplayName}} </h4>
+                                                </draggable>
+                                            </div>
+                                        </div>
+                                        <div class="account-con-wrap">
+                                            <div class="account-box" v-for="(item,index) in c_Scenario.HasAccounts" v-bind:class="checkAccountClass(item)" v-bind:key="item.Code" v-show="accountView == index">
+                                                <div class="account-ele clear">
+                                                    <draggable element="div" v-bind:move="checkMove" @change="changeAccountSource" v-bind:component-data="item" v-bind:options="{group:{name:'feeObj' ,put:['chosingFeeObj','feeObj']}}" v-model="item.subFees" v-if="outin==true">
+                                                        <transition-group name="flip-list" class="ele-list list" tag="ul">
+                                                            <li v-for="ele in item.subFees" class="objFeeElement" v-bind:title="ele.DisplayName" v-bind:key="ele.Name" v-bind:class="checkAccountClass(ele)" v-if="ele.CashFlowDirection=='0' "><span>{{ele.DisplayName}}</span></li>
+                                                            <div class="emptyList" style="height:150px;" v-if="item.subFees.length == 0" v-bind:key="emptySelectableBondFees"><span>可从账户中拖拽元素到此处</span></div>
+                                                        </transition-group>
+                                                    </draggable>
+                                                    <draggable element="div" v-bind:move="checkMove" @change="changeAccountSource" v-bind:component-data="item" v-bind:options="{group:{name:'feeObj' ,put:['chosingFeeObj','feeObj']}}" v-model="item.subFees" v-if="outin==false">
+                                                        <transition-group name="flip-list" class="ele-list list" tag="ul">
+                                                            <li v-for="ele in item.subFees" class="objFeeElement" v-bind:title="ele.DisplayName" v-bind:key="ele.Name" v-bind:class="checkAccountClass(ele)" v-if="ele.CashFlowDirection=='1'"><span>{{ele.DisplayName}}</span></li>
+                                                            <div class="emptyList" style="height:150px;" v-if="item.subFees.length == 0" v-bind:key="emptySelectableBondFees"><span>可从账户中拖拽元素到此处</span></div>
+                                                        </transition-group>
+                                                    </draggable>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--</transition-group>-->
+                                    </div>
+                                </div>
+                                <div class="c-box ele-ares" id="ele-area" style="height:35%">
+                                    <h2 class="title" ref="title">待选元素</h2>
+                                    <div class="content" style="height: calc(100% - 26px);">
+                                        <draggable element="div" @end="dragEndFlag=true" v-bind:move="checkMove" v-bind:component-data="{area:'choosingArea'}" v-bind:options="{group:{name:'feeObj' ,put:['feeObj']}}" v-model="c_Scenario.SelectableBondFees" style="height:100%">
+                                            <transition-group name="flip-list" class="ele-list list" tag="ul">
+                                                <li v-for="ele in c_Scenario.SelectableBondFees" v-bind:title="ele.DisplayName" v-bind:class="{'Fee_style': ele.Type=='Fee' || ele.Type =='BondInterest','BondPrincipal_style':ele.Type =='BondPrincipal'  }" v-bind:key="ele.Name"><span>{{ele.DisplayName}}</span></li>
+                                                <div class="emptyList" v-if="emptySelectableBondFees" v-bind:key="emptySelectableBondFees"><span>可从账户中拖拽元素到此处</span></div>
+                                            </transition-group>
+                                        </draggable>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--中间表格区域-->
+                    <div v-bind:class=centerLayout style="height:100%;overflow-y:auto;">
+                        <div class=" mid-area">
+                            <div class="c-box hasAccount" style="height:9%;">
+                                <!--<h2 class="title chosenTit">已选账户</h2>-->
+                                <div class="content clear" style="height:100%;text-align:center;border-radius:5px 5px 0 0;position:relative;">
+                                    <span class="hack" style="height:100%;padding:0;box-shadow:0;"></span>
+                                    <span class="title" v-for="(item,index) in c_Scenario.HasAccounts" v-bind:class="checkAccountClass(item)"><i class="fa fa-cny"></i> {{item.DisplayName}}</span>
+
+                                </div>
+                            </div>
+                            <!---收入和支出切换--->
+                            <div class="changebox">
+                                <ul class="changebox_area">
+                                    <li class="changebox_area_span" id="outpoint" @click="changeClick($event)"><span class="changebox_area_span_current">支出</span></li>
+                                    <li class="changebox_area_span" id="inpoint" @click="changeClick($event)"><span>收入</span></li>
+                                </ul>
+                            </div>
+                            <!--支出-->
+                            <div class="outputArea" v-show="outin">
+                            <div class="c-box hasLocalRules" style="height:33%">
+                                <h2 class="title chosenTit">已选全局规则</h2>
+                                <div class="content" style="height:calc(100% - 26px);overflow:auto;">
+                                    <draggable element="div" style="height:100%;" v-bind:move="checkMove" @change="GRaddchange" @end="dragEndFlag=true" v-bind:options="{group:'GRuleObj'}" v-model="c_Scenario.HasGlobalRules" v-bind:component-data="{area:'globalRule'}">
+                                        <transition-group name="flip-list" class="list choosenBlobalRules globalConnectedSortable" tag="ul" style="min-height:100%">
+                                            <li v-for="(item,index) in c_Scenario.HasGlobalRules" v-bind:title="item.DisplayName" class="objGRElement chosenElement" @dblclick="editObj(item)" key="item.Code"><span>{{index + 1}} {{item.DisplayName}}</span><i class="icon icon-close" @click="c_Scenario.HasGlobalRules.remove(item)"></i></li>
+                                            <div class="emptyList" v-if="emptyHasGR" v-bind:key="emptyHasGR"><span>您暂未选择作用的全局规则</span></div>
+                                        </transition-group>
+                                    </draggable>
+                                </div>
+                            </div>
+                            <div class="table-wrap" style="width:100%;height:57%;overflow:auto;" ref="table" v-bind:class="{'tabview':c_Scenario.tabView == 1}">
+                                <table id="grid" border="1" style="width:100%;">
+                                    <thead ref="tableThead" style="background:#eee;box-sizing:border-box;color:#222;">
+                                        <tr>
+                                            <td title="序号" width="10%">序号</td>
+                                            <td title="债券费用元素" width="90%">债券费用元素</td>
+                                            <!--<td title="支付限额（元）" width="12%">支付限额（元）</td>
+                                            <td title="剩余资金分配方式" width="14%">剩余资金分配方式</td>
+                                            <td title="同级分配" width="12%">支付限额（元）</td>-->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="item in c_Scenario.Levels">
+                                            <td v-bind:value="item.Id">{{item.Id}}</td>
+                                            <td class="table-fee-list" data-level="item.Id">
+                                                <draggable element="div" v-bind:move="checkMove" @end="dragEndFlag=true" @change="tableObjsChange" v-bind:component-data="{area:'levelsArea'}" v-bind:options="{group:{name:'feeObj' ,put:['LRuleObj','feeObj']}}" v-bind:list="item.Elements">
+                                                    <transition-group name="flip-list" class=" list" tag="ul">
+                                                            <li class=" objFeeElement chosenElement" v-bind:title="ele.DisplayName" v-for="(ele,index) in item.Elements" v-bind:key="index" @dblclick="editObj(ele,item.Id)" v-bind:class="checkAccountClass(ele)" v-if="ele.CashFlowDirection == '0'">
+                                                                <span>{{ele.DisplayName}}</span><i class="icon icon-close" @click="revertEle(ele ,item)"></i>
+                                                            </li>
+                                                        </transition-group>
+                                                    </draggable>
+                                                </td>
+                                                <!--<td><input v-model="item.PercentageOfSurplus" type="number" />%</td>
+                                                <td>
+                                                    <select v-model="item.AllocationRuleOfSameLevel">
+                                                        <option v-for="opt in PayLimitationSelectOptions" value="opt.value">{{opt.name}}</option>
+                                                    </select>
+                                                </td>-->
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!--收入-->
+                            <div class="inputArea" v-show="!outin">
+                                <div class="table-wrap" style="width:100%;height:57%;overflow:auto;" ref="table" v-bind:class="{'tabview':c_Scenario.tabView == 1}">
+                                    <table id="grid" border="1" style="width:100%;">
+                                        <thead ref="tableThead" style="background:#eee;box-sizing:border-box;color:#222;">
+                                            <tr>
+                                                <td title="序号" width="10%">序号</td>
+                                                <td title="收入" width="90%">收入</td>
+                                                <!--<td title="支付限额（元）" width="12%">支付限额（元）</td>
+                                                <td title="剩余资金分配方式" width="14%">剩余资金分配方式</td>
+                                                <td title="同级分配" width="12%">支付限额（元）</td>-->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="item in c_Scenario.Levels">
+                                                <td v-bind:value="item.Id">{{item.Id}}</td>
+                                                <td class="table-fee-list" data-level="item.Id">
+                                                    <draggable element="div" v-bind:move="checkMove" @end="dragEndFlag=true" @change="tableObjsChange" v-bind:component-data="{area:'levelsArea'}" v-bind:options="{group:{name:'feeObj' ,put:['LRuleObj','feeObj']}}" v-bind:list="item.Elements">
+                                                        <transition-group name="flip-list" class=" list" tag="ul">
+                                                            <li class=" objFeeElement chosenElement" v-bind:title="ele.DisplayName" v-for="(ele,index) in item.Elements" v-bind:key="index" @dblclick="editObj(ele,item.Id)" v-bind:class="checkAccountClass(ele)" v-if="ele.CashFlowDirection == '1'">
+                                                            <span>{{ele.DisplayName}}</span><i class="icon icon-close" @click="revertEle(ele ,item)"></i>
+                                                        </li>
+                                                    </transition-group>
+                                                </draggable>
+                                            </td>
+                                            <!--<td><input v-model="item.PercentageOfSurplus" type="number" />%</td>
+                                            <td>
+                                                <select v-model="item.AllocationRuleOfSameLevel">
+                                                    <option v-for="opt in PayLimitationSelectOptions" value="opt.value">{{opt.name}}</option>
+                                                </select>
+                                            </td>-->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <!--右侧规则区域-->
+
+                    <div class="col-3 center choose-area choose-area-right " v-bind:class="{transRight:!flexLayoutData.right}">
+                        <div class="slide_arr slide_arr_rig" @click="flexLayoutData.right = !flexLayoutData.right" title="展开规则区域"><i class="fa" v-bind:class="[flexLayoutData.right ? 'fa-caret-right':'fa-caret-left']"></i></div>
+                        <div class="ui-tabs-nav clear">
+                                <span class="active" value="1" @click="changeRule($event)">全局规则</span>
+                                <span value="2" @click="changeRule($event)">局部规则</span>
+                        </div>
+                        <div class="ui-tabs-panel">
+                            <div class="panel-body rules-body" style="height: calc(100% - 10px);">
+                                <div class="c-box rule-select-area" style="height: 100%;">
+                                    <div class="c-box globle-rule" style="height: 100%;">
+                                        <h2 class="title" ref="title">规则体系</h2>
+                                        <div class="content clear maxh495" ref="rule_con" style="height: calc(100% - 26px);">
+                                            <form class="search">
+                                                <input name="query" v-model="ruleSearchQuery" placeholder="请输入规则关键字">
+                                            </form>
+                                            <!--全局-->
+                                            <div class="globle-rule-tree" v-show="showThe=='1'">
+                                                <div class="tree_foder singer"><i class="fa fa-folder-open"></i>单期</div>
+                                                <div v-for="tree_node in data_rules_tree" class="tree_node_wrap clear">
+                                                    <div class="tree_foder" ref="rule_tree_node" v-bind:class="{'noRuleData':tree_node.global_rules.length == 0}"><i class="fa fa-folder-open"></i>{{tree_node.title}}<span v-if="tree_node.global_rules.length == 0">( 暂无规则 )</span></div>
+                                                    <!--单期全局-->
+                                                    <draggable element="div" class="clear" v-bind:clone="eleClone" v-bind:move="checkMove" @end="dragEndFlag=true" @change="GRchange" v-bind:options="{group:{name:'GRuleObj',pull:'clone'}}" v-model="tree_node.global_rules" v-bind:component-data="{area:'globalRule'}">
+                                                        <transition-group name="flip-list" class="list choosingBlobalRules globalConnectedSortable" tag="ul" style="min-height:0;">
+                                                                <li v-for="(item,index) in tree_node.global_rules" v-bind:title="item.DisplayName" class="objGRElement" key="item.DisplayName" v-bind:class="{'hasMoved':item.used}" v-if="item.Genre!='1'"><i class="fa fa-file-text"></i><span>{{item.DisplayName}}</span></li>
+                                                                <!--<div class="emptyList" v-if="tree_node.global_rules.length == 0" v-bind:key="'a'" style="min-height:20px;"><span>暂无规则</span></div>-->
+                                                            </transition-group>
+                                                    </draggable>
+                                                    <!--单期全局-->
+                                                </div>
+                                            </div>
+                                            <div class="globle-rule-tree" v-show="showThe=='1'">
+                                                <div class="tree_foder Multi"><i class="fa fa-folder-open"></i>多期</div>
+                                                <div v-for="tree_node in data_rules_tree" class="tree_node_wrap clear">
+                                                    <div class="tree_foder" ref="rule_tree_node" v-bind:class="{'noRuleData':tree_node.local_rules.length == 0}"><i class="fa fa-folder-open"></i>{{tree_node.title}}<span v-if="tree_node.local_rules.length == 0">( 暂无规则 )</span></div>
+                                                    <!--多期全局-->
+                                                    <draggable element="div" class="clear" v-bind:clone="eleClone" v-bind:move="checkMove" @end="dragEndFlag=true" @change="GRchange" v-bind:options="{group:{name:'GRuleObj',pull:'clone'}}" v-model="tree_node.global_rules" v-bind:component-data="{area:'globalRule'}">
+                                                        <transition-group name="flip-list" class="list choosingBlobalRules globalConnectedSortable" tag="ul" style="min-height:0;">
+                                                            <li v-for="(item,index) in tree_node.global_rules" v-bind:title="item.DisplayName" class="objGRElement" key="item.DisplayName" v-bind:class="{'hasMoved':item.used}" v-if="item.Genre=='1'"><i class="fa fa-file-text"></i><span>{{item.DisplayName}}</span></li>
+                                                            <!--<div class="emptyList" v-if="tree_node.global_rules.length == 0" v-bind:key="'a'" style="min-height:20px;"><span>暂无规则</span></div>-->
+                                                        </transition-group>
+                                                    </draggable>
+                                                    <!--多期全局-->
+                                                </div>
+                                            </div>
+                                            <!--全局-->
+                                            <!--局部-->
+                                            <div class="globle-rule-tree" v-show="showThe=='2'">
+                                                <div class="tree_foder singer"><i class="fa fa-folder-open"></i>单期</div>
+                                                <div v-for="tree_node in data_rules_tree" class="tree_node_wrap clear">
+                                                    <div class="tree_foder" ref="rule_tree_node" v-bind:class="{'noRuleData':tree_node.global_rules.length == 0}"><i class="fa fa-folder-open"></i>{{tree_node.title}}<span v-if="tree_node.global_rules.length == 0">( 暂无规则 )</span></div>
+                                                    <!--单期局部-->
+                                                    <draggable element="div" class="clear" v-bind:clone="eleClone" v-bind:move="checkMove" @end="dragEndFlag=true" @change="LRchange" v-bind:component-data="{area:'localRule'}" ref="localRule" v-bind:options="{group:{name:'LRuleObj' , pull:'clone'}}" v-model="tree_node.local_rules">
+                                                        <transition-group name="flip-list" class="list choosingLocalRules" tag="ul" ref="localRules" style="min-height:0;">
+                                                            <li v-for="item in tree_node.local_rules" class="objLRElement" v-bind:title="item.DisplayName" v-bind:key="item.DisplayName" v-bind:class="{'hasMoved':item.used}" v-if="item.Genre!='1'"><i class="fa fa-file-text"></i><span>{{item.DisplayName}}</span></li>
+                                                            <!-- <div class="emptyList" v-if="tree_node.local_rules.length == 0" v-bind:key="'a'" style="min-height:20px;"><span>暂无规则</span></div>-->
+                                                        </transition-group>
+                                                    </draggable>
+                                                    <!--单期局部-->
+                                                </div>
+                                            </div>
+                                            <div class="globle-rule-tree" v-show="showThe=='2'">
+                                                <div class="tree_foder Multi"><i class="fa fa-folder-open"></i>多期</div>
+                                                <div v-for="tree_node in data_rules_tree" class="tree_node_wrap clear">
+                                                    <div class="tree_foder" ref="rule_tree_node" v-bind:class="{'noRuleData':tree_node.local_rules.length == 0}"><i class="fa fa-folder-open"></i>{{tree_node.title}}<span v-if="tree_node.local_rules.length == 0">( 暂无规则 )</span></div>
+                                                    <!--多期局部-->
+                                                    <draggable element="div" class="clear" v-bind:clone="eleClone" v-bind:move="checkMove" @end="dragEndFlag=true" @change="LRchange" v-bind:component-data="{area:'localRule'}" ref="localRule" v-bind:options="{group:{name:'LRuleObj' , pull:'clone'}}" v-model="tree_node.local_rules">
+                                                        <transition-group name="flip-list" class="list choosingLocalRules" tag="ul" ref="localRules" style="min-height:0;">
+                                                            <li v-for="item in tree_node.local_rules" class="objLRElement" v-bind:title="item.DisplayName" v-bind:key="item.DisplayName" v-bind:class="{'hasMoved':item.used}" v-if="item.Genre=='1'"><i class="fa fa-file-text"></i><span>{{item.DisplayName}}</span></li>
+                                                            <!-- <div class="emptyList" v-if="tree_node.local_rules.length == 0" v-bind:key="'a'" style="min-height:20px;"><span>暂无规则</span></div>-->
+                                                        </transition-group>
+                                                    </draggable>
+                                                    <!--多期局部-->
+                                                </div>
+                                            </div>
+                                            <!--局部-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+
+
+        <input type="hidden" name="name" v-model="flage" />
+        <!--弹框-->
+        <div id="dialogEditRule" class="hide clear" v-cloak>
+            <h6 class="objName" style="margin-bottom:5px;">元素名称：{{c_Obj.DisplayName}}</h6>
+            <div v-if="c_Obj.Code !='Rule_SubClass_IncomeAllocation'">
+                <div class="col-12">
+                    <div class="c-box">
+                        <h2 class="title">编辑属性</h2>
+                        <div class="content clear form">
+                            <div class="col-6 form-group autoLayout-plugins " v-if="c_Obj.Type!='Rule' || c_Obj.IsAmount=='1'">
+                                <div class="col-5">
+                                    <label>{{getEditLabelName(c_Obj,'amount')}}</label>
+                                </div>
+                                <div class="col-7">
+                                    <input type="text" class="form-control form-item col-12" v-model="objBeforeEdit.Amount" v-on:keyup="Tbadd(objBeforeEdit.Amount,$event)" />
+                                </div>
+                            </div>
+                            <div class="col-6 form-group autoLayout-plugins " v-if="c_Obj.Type!='Rule' || c_Obj.IsPercentage=='1'">
+                                <div class="col-5">
+                                    <label>{{getEditLabelName(c_Obj,'percentage')}}</label>
+                                </div>
+                                <div class="col-7">
+                                    <input id="nex" placeholder="0~1之间" class="form-control form-item col-12" v-model="objBeforeEdit.Percentage" v-on:keyup="TestNumber()" />
+                                </div>
+                            </div>
+                            <div class="col-6 form-group autoLayout-plugins" v-if="c_Obj.Type=='Rule'&&c_Obj.IsAllocationRuleOfSameLevel=='1'">
+                                <div class="col-5">
+                                    <label>{{getEditLabelName(c_Obj,'SameLevel')}}</label>
+                                </div>
+                                <div class="col-7">
+                                    <!--<input type="number" />-->
+                                    <select v-bind:class="{'optionNA':objBeforeEdit.AllocationRuleOfSameLevel==''}" v-model="objBeforeEdit.AllocationRuleOfSameLevel" class="form-control form-item col-12">
+                                        <option v-bind:class="item.Value==''?'optionNA':'option'" v-for="item in c_ObjAllocationRuleOptions" v-bind:value="item.Value">{{item.Text}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--<div class="col-1 form-group "></div>-->
+                            <div class="col-6 form-group autoLayout-plugins" v-if="(c_Obj.Type!='Rule' || c_Obj.IsSource=='1') && c_Obj.CashFlowDirection !='1'">
+                                <div class="col-5">
+                                    <label>{{getEditLabelName(c_Obj,'source')}}</label>
+                                </div>
+                                <div class="col-7">
+                                    <!--<input type="text" class="form-control form-item col-12" v-model="objBeforeEdit.Source" />-->
+                                    <select v-bind:class="{'optionNA':objBeforeEdit.Source==''}" class="form-control form-item" v-model="objBeforeEdit.Source">
+                                        <option v-bind:class="item.Value==''?'optionNA':'option'" v-for="item in c_SourceAndTargetOptions" v-bind:value="item.Value">{{item.Text}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6 form-group autoLayout-plugins" v-if="(c_Obj.Type=='Rule' && c_Obj.IsTarget=='1')||(c_Obj.Type=='Fee'&&c_Obj.CashFlowDirection=='1')">
+                                <div class="col-5">
+                                    <label>{{getEditLabelName(c_Obj,'target')}}</label>
+                                </div>
+                                <div class="col-7">
+                                    <!--<input type="text" class="form-control form-item col-12" v-model="objBeforeEdit.Target" />-->
+                                    <select v-bind:class="{'optionNA':objBeforeEdit.Target==''}" class="form-control form-item" v-model="objBeforeEdit.Target">
+                                        <option v-bind:class="item.Value==''?'optionNA':'option'" v-for="item in c_SourceAndTargetOptions" v-bind:value="item.Value">{{item.Text}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6 form-group autoLayout-plugins " v-if="c_Obj.isSupplement=='1'&& c_Obj.Type=='Rule'">
+                                <div class="col-5">
+                                    <label>{{getEditLabelName(c_Obj,'supplement')}}</label>
+                                </div>
+                                <div class="col-7">
+                                    <input placeholder="请输入" class="form-control form-item col-12" v-model="objBeforeEdit.Supplement" />
+                                </div>
+                            </div>
+                            <div class="col-6 form-group autoLayout-plugins " v-if="c_Obj.Type!='Rule'">
+                                <div class=" col-5">
+                                    <label title="费用计提金额（不填写默认不做计提）">费用计提金额（不填写默认不做计提）</label>
+                                </div>
+                                <div class="col-7">
+                                    <input type="text" class="form-control form-item col-12" v-model="objBeforeEdit.Supplement" v-on:keyup="Tbadds(objBeforeEdit.Supplement,$event)" />
+                                </div>
+                            </div>
+                            <div class="col-6 form-group autoLayout-plugins " v-if="c_Obj.isRoudRule=='1'&& c_Obj.Type=='Rule'">
+                                <div class=" col-5">
+                                    <label>{{getEditLabelName(c_Obj,'RoudRule')}}</label>
+                                </div>
+                                <div class="col-7">
+                                    <select v-bind:class="{'optionNA':objBeforeEdit.RoudRule==''}" class="form-control form-item" v-model="objBeforeEdit.RoudRule">
+                                        <option v-bind:class="item.Value==''?'optionNA':'option'" v-for="item in c_ObjRoudRuleOptions" v-bind:value="item.Value">{{item.Text}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- 新增两个元素 Genre TransferAmount -->
+                            <!--分类的拿掉-->
+                            <div class="col-6 form-group autoLayout-plugins " v-if="false">
+                                <div class=" col-5">
+                                    <label>{{getEditLabelName(c_Obj,'Genre')}}</label>
+                                </div>
+                                <div class="col-7">
+                                    <select v-bind:class="{'optionNA':objBeforeEdit.Genre==''}" class="form-control form-item" v-model="objBeforeEdit.Genre">
+                                        <option v-bind:class="item.Value==''?'optionNA':'option'" v-for="item in c_ObjGenreOptions" v-bind:value="item.Value">{{item.Text}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--分类的拿掉-->
+                            <div class="col-6 form-group autoLayout-plugins " v-if="c_Obj.isTransferAmount=='1'&& c_Obj.Type=='Rule'">
+                                <div class=" col-5">
+                                    <label>{{getEditLabelName(c_Obj,'TransferAmount')}}</label>
+                                </div>
+                                <div class="col-7">
+                                    <select v-bind:class="{'optionNA':objBeforeEdit.TransferAmount==''}" class="form-control form-item" v-model="objBeforeEdit.TransferAmount">
+                                        <option v-bind:class="item.Value==''?'optionNA':'option'" v-for="item in c_ObjTransferAmountOptions" v-bind:value="item.FormulaValue">{{item.FormulaName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--<div class="col-6 form-group autoLayout-plugins " v-if="c_Obj.isTriggerCondition=='1'&& c_Obj.Type=='Rule'">
+                                <div class=" col-5">
+                                    <label>{{getEditLabelName(c_Obj,'TriggerCondition')}}</label>
+                                </div>
+                                <div class="col-7">
+                                    <select v-bind:class="{'optionNA':objBeforeEdit.TriggerCondition==''}" class="form-control form-item" v-model="objBeforeEdit.TriggerCondition">
+                                        <option v-bind:class="item.Value==''?'optionNA':'option'" v-for="item in c_ObjTriggerConditionOptions" v-bind:value="item.FormulaValue">{{item.FormulaName}}</option>
+                                    </select>
+                                </div>
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="c-box col-6" v-if="c_Obj.IsElementNames=='1'">
+                        <h2 class="title">规则作用的元素</h2>
+                        <div class="content clear maxh200">
+                            <draggable element="div" @end="" v-bind:options="{group:{name:'feeObj'}}" v-model="c_ObjHasEles">
+                                <transition-group name="flip-list" class=" list" tag="ul">
+                                    <li class="Fee_style objFeeElement" v-bind:title="ele.DisplayName" v-for="ele in c_ObjHasEles" v-bind:key="ele.Name">
+                                        <span>{{ele.DisplayName}}</span>
+                                    </li>
+                                    <div class="emptyList" v-if="c_ObjHasEles.length == 0" v-bind:key="'a'"><span>暂无作用元素</span></div>
+                                </transition-group>
+                            </draggable>
+                        </div>
+                    </div>
+                    <div class="c-box col-6" v-if="c_Obj.IsElementNames=='1'">
+                        <h2 class="title">待选元素区域</h2>
+                        <div class="content clear maxh200">
+                            <draggable element="div" @end="" v-bind:options="{group:{name:'feeObj'}}" v-model="c_ObjNoEles">
+                                <transition-group name="flip-list" class=" list" tag="ul">
+                                    <li class="Fee_style objFeeElement" v-bind:title="ele.DisplayName" v-for="ele in c_ObjNoEles" v-bind:key="ele.Name">
+                                        <span>{{ele.DisplayName}}</span>
+                                    </li>
+                                    <div class="emptyList" v-if="c_ObjNoEles.length == 0" v-bind:key="'a'"><span>暂无可选元素</span></div>
+                                </transition-group>
+                            </draggable>
+                        </div>
+                    </div>
+                </div>
+                <!--触发条件-->
+                <div class="col-12">
+                    <div class="c-box col-6" v-if="c_Obj.isTriggerCondition=='1'&& c_Obj.Type=='Rule'">
+                        <h2 class="title">作用条件</h2>
+                        <div class="content clear maxh200">
+                            <draggable element="div" @end="" v-bind:options="{group:{name:'TriggerCondition'}}" v-model="c_ObjTriggerConditionOptionsEX">
+                                <transition-group name="flip-list" class=" list" tag="ul">
+                                    <li class="Fee_style objFeeElement" v-bind:title="item.FormulaName" v-for="item in c_ObjTriggerConditionOptionsEX" v-bind:key="item.FormulaValue">
+                                        <span>{{item.FormulaName}}</span>
+                                    </li>
+                                    <div class="emptyList" v-if="c_ObjTriggerConditionOptionsEX.length == 0" v-bind:key="'a'"><span>暂无作用条件</span></div>
+                                </transition-group>
+                            </draggable>
+                        </div>
+                    </div>
+                    <div class="c-box col-6" v-if="c_Obj.isTriggerCondition=='1'&& c_Obj.Type=='Rule'">
+                        <h2 class="title">待选触发条件</h2>
+                        <div class="content clear maxh200">
+                            <draggable element="div" @end="" v-bind:options="{group:{name:'TriggerCondition'}}" v-model="SelectTriggerCondition">
+                                <transition-group name="flip-list" class=" list" tag="ul">
+                                    <li class="Fee_style objFeeElement" v-bind:title="item.FormulaName" v-for="item in SelectTriggerCondition" v-bind:key="item.FormulaValue">
+                                        <span>{{item.FormulaName}}</span>
+                                    </li>
+                                    <div class="emptyList" v-if="SelectTriggerCondition.length == 0" v-bind:key="'a'"><span>暂无可选条件</span></div>
+                                </transition-group>
+                            </draggable>
+                        </div>
+                    </div>
+                </div>
+                <!---->
+            </div>
+            <div v-if="c_Obj.Code =='Rule_SubClass_IncomeAllocation'">
+                <div class="col-12">
+                    <div class="form">
+                        <div class="col-5 form-group autoLayout-plugins">
+                            <div class="col-5">
+                                <label>来源</label>
+                            </div>
+                            <div class="col-7">
+                                <!--<input type="text" class="form-control form-item col-12" v-model="objBeforeEdit.Target" />-->
+                                <select v-bind:class="{'optionNA':objBeforeEdit.Target==''}" class="form-control form-item" v-model="objBeforeEdit.Source">
+                                    <option v-bind:class="item.Value==''?'optionNA':'option'" v-for="item in c_SourceAndTargetOptions" v-bind:value="item.Value">{{item.Text}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-5 form-group autoLayout-plugins" v-if="c_Obj.Type=='Rule' && c_Obj.IsTarget=='1'">
+                            <div class="col-5">
+                                <label>目标</label>
+                            </div>
+                            <div class="col-7">
+                                <!--<input type="text" class="form-control form-item col-12" v-model="objBeforeEdit.Target" />-->
+                                <select v-bind:class="{'optionNA':objBeforeEdit.Target==''}" class="form-control form-item" v-model="objBeforeEdit.Target">
+                                    <option v-bind:class="item.Value==''?'optionNA':'option'" v-for="item in c_SourceAndTargetOptions" v-bind:value="item.Value">{{item.Text}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-2 form-group autoLayout-plugins">
+                            <div class="col-9">
+                                <label for="check_box_cover">收益率模式</label>
+                            </div>
+                            <div class="col-1">
+                                <input type="checkbox" id="form-control form-item" v-model="isIncomeAllocationP" />
+                            </div>   
+                        </div>
+                    </div>
+                    <div style="clear:both"></div>
+                    <div class="c-box">
+                        <h2 class="title">添加收益阈值<i class="icon icon-add icon-color" @click="editIncome(1)"></i></h2>
+                        <div class="content form clear ">
+                            <div class="form-group col-12" v-for="(l,index) in objBeforeEdit.SubClassAllocationSequence">
+                                <div class="col-12 mb-xs">
+                                    <div class="col-1 ">
+                                        <label>费用阈值</label>
+                                    </div>
+                                    <div class="col-2 ">
+                                        <input id="LevelThreshHold" class="form-control form-item col-12" v-model="l.LevelThreshHold" v-on:keyup="Theddb(l.LevelThreshHold,index)" />
+                                    </div>
+                                    <div class="col-1 ">
+                                        <label>分配比例</label>
+                                    </div>
+                                    <div class="col-2 ">
+                                        <input id="AvailablePercent" class="form-control form-item col-12" v-model="l.AvailablePercent" v-on:keyup="numbertest(l.AvailablePercent,$event)" />
+                                    </div>
+                                    <div class="col-2">
+                                        <label>分配值（优先）</label>
+                                    </div>
+                                    <div class="col-2">
+                                        <input id="AvailableVal" class="form-control form-item col-12" v-model="l.AvailableVal" v-on:keyup="TheAdd(l.AvailableVal,index)" />
+                                    </div>
+                                    <div class="col-2 " style="height:30px">
+                                        <span class="icon-button"><i class="icon  icon-remove icon-color " @click="editIncome(2,l)"></i></span>
+                                        <span class="icon-button " ref="level_arrow" @click="toggleSlide(index)"><i class="icon  icon-top icon-color"></i></span>
+                                    </div>
+                                </div>
+                                <div style="clear:both " class="mb-xs"></div>
+                                <div class="c-box" ref="level_detail">
+                                    <h2 class="title">分配明细 <span class="icon icon-add icon-color" @click="editIncome(3,l)"></span></h2>
+                                    <div class="content  clear">
+                                        <div class="col-12 mb-xs" v-for="(detail,index) in l.Distributions">
+                                            <div class="col-1"></div>
+                                            <div class="col-2 ">
+                                                <label>分配对象</label>
+                                            </div>
+                                            <div class="col-3 mr-xs">
+                                                <select v-model="detail.tar" class="form-control form-item col-12">
+                                                    <option v-for="inc in IncomeEle" v-bind:value="inc.Name">{{inc.DisplayName}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-2 ">
+                                                <label>费用比例</label>
+                                            </div>
+                                            <div class="col-3 mr-xs">
+                                                <input id="detail" class="form-control form-item col-12" v-model="detail.val" v-on:keyup="numbertests($event,index)" />
+                                            </div>
+                                            <div class="col-1">
+                                                <span class="icon-button icon-color"><i class="icon  icon-remove" @click="editIncome(4,l,detail)"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="buttons textCenter">
+                <button type="button" id="saveObjEditBtn" class="btn saveBtn saveBtnSingle normal_small_button" title="保存" style="float:none">保存</button>
+            </div>
+        </div>
+</div>
+    <script type="text/x-template" id="my-item">
+        <li>
+            <div @click="toggleFolder">
+                {{leave.name}}
+                <span v-if="hasLeave">[{{isClosed?'+':'-'}}]</span>
+            </div>
+            <ul v-show="!isClosed">
+                <item class="item" v-for="leave in leave.children" v-bind:leave="leave" v-bind:secrch-string="secrchString"></item>
+            </ul>
+
+        </li>
+    </script>
+    <script type="text/x-template" id="laoding-template">
+        <transition name="animateName">
+            <div class="loadings" v-show="isShow">
+                <div class="loader-inner ball-clip-rotate-pulse">
+                    <div class="loadings__loader__dot"></div>
+                    <div class="loadings__loader__dot"></div>
+                </div>
+            </div>
+        </transition>
+    </script>
+
+</body>
+</html>

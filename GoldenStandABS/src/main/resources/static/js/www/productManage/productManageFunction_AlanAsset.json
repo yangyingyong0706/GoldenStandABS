@@ -1,0 +1,83 @@
+﻿{
+    "app": "productManageFunction",
+    "title": "产品管理",
+    "group": [
+        {
+            "module": "Index",
+            "title": "产品管理中心",
+            "elements": [
+                {
+                    "title": "刷新",
+                    "type": "button",
+                    "icon": "icon icon-arrows-ccw",
+                    "linkname": "RefreshTrsustList",
+                    "linkurl": "javascript:RefreshTrsustList"
+                },
+                {
+                    "title": "删除",
+                    "type": "button",
+                    "icon": "icon icon-trash-empty",
+                    "linkname": "DeleteTrust",
+                    "linkurl": "javascript:DeleteTrust"
+                },
+                {
+                    "title": "产品文档管理",
+                    "type": "button",
+                    "icon": "icon icon-file-word",
+                    "linkname": "ProductFilesManage",
+                    "linkurl": "javascript:ProductFilesManage"
+                },
+                {
+                    "title": "原始权益人管理",
+                    "type": "button",
+                    "icon": "icon icon-group",
+                    "linkname": "OriginalOwner",
+                    "linkurl": "javascript:OriginalOwner"
+                },
+                {
+                    "title": "现金流预测结果",
+                    "type": "button",
+                    "icon": "icon icon-chart-pie",
+                    "linkname": "ShowCashFlowResult",
+                    "linkurl": "javascript:ShowCashFlowResult"
+                },
+                {
+                    "title": "现金流预测模型",
+                    "type": "button",
+                    "icon": "icon icon-chart-area",
+                    "linkname": "OpenCashflowAddMessage",
+                    "linkurl": "javascript:OpenCashflowAddMessage"
+                },
+                {
+                    "title": "收益分配模型",
+                    "type": "button",
+                    "icon": "icon icon-cog-alt",
+                    "linkname": "OpenCashflow",
+                    "linkurl": "javascript:OpenCashflow"
+                },
+                {
+                    "title": "收益分配历史数据",
+                    "type": "button",
+                    "icon": "icon icon-wenjian",
+                    "linkname": "ViewIncomeDistributionHistoryData",
+                    "linkurl": "javascript:ViewIncomeDistributionHistoryData"
+                },
+                {
+                    "title": "收益分配计算",
+                    "type": "button",
+                    "icon": "icon icon-chart-bar",
+                    "linkname": "TrustCollectionPickerPage",
+                    "linkurl": "javascript:TrustCollectionPickerPage"
+                },
+                {
+                    "title": "底部资产管理",
+                    "type": "button",
+                    "icon": "icon icon-list",
+                    "linkname": "AssetDetail",
+                    "linkurl": "javascript:AssetDetail"
+                }
+                
+            ]
+        }
+    ]
+}

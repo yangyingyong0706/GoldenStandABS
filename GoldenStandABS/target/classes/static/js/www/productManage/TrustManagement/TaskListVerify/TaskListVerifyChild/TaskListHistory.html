@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>受托报告_收益分配任务单历史记录</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <link href="../../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../taskList-style.css" rel="stylesheet" />
+    
+    
+    <style>
+        .hidebox{
+            width: 100%;
+            background: #f1f1f1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .content_row{
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            box-shadow: 0px 0px 0px 1px #fff;
+            background: #fff;
+            display: flex;
+        }
+        .content_row_span{
+            display: inline-block;
+            width: 50%;
+            text-align: center;
+            border-right: 1px solid #f1f1f1;
+        }
+        .content_row_span_color{
+            display: inline-block;
+            width: 50%;
+            text-align: center;
+            cursor:pointer;
+            color:blue;
+        }
+        td{
+            padding:0.586em 1.486em !important;
+            font-size:14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 分页所需变量-->
+    <input type='hidden' id='current_page' />
+    <input type='hidden' id='show_per_page' />
+    <div class="main">
+        <!--<h3 class="h3"><span class="title" id="taskTitle"></span></h3>-->
+        <div class="content">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th width="30px">序号</th>
+                        <th width="200px">SessionNameCode</th>
+                        <th width="50px">使用者</th>
+                        <th width="50px">导入次数</th>
+                        <th width="130px">操作时间</th>
+                        <th width="60px">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="divProcessStatusList">
+                </tbody>
+            </table>
+            <div id='page_navigation'></div>
+        </div>
+    </div>
+
+    <div class="run-loading" id="divLoading">
+        <div class="loading">
+            <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+        </div>
+    </div>
+    <script src="../../../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TaskListVerify/TaskListVerifyChild/TaskListHistory']);
+        })
+    </script>
+
+</body>
+</html>

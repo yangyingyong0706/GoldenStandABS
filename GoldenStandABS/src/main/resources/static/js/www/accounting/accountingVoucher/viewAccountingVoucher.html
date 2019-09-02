@@ -1,0 +1,400 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>会计凭证查询</title>
+    <link href="../../../asset/font/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="../../../asset/style/reset.css" rel="stylesheet" />
+    <link href="../../../asset/style/common.css" rel="stylesheet" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/goldenstand/uiFrame/css/gs-admin-2.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../transactionManage/style/index.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="accountingVoucher.css" rel="stylesheet" />
+
+    <script src="../../../asset/lib/require.js" data-main="viewAccountingVoucher"></script>
+    <style>
+       .manager-content {
+            margin: 0;
+            padding: 0;
+        }
+
+        header, .btnItem, .btnItemSave {
+            padding: 0px;
+            display: flex;
+            height: 39px;
+        }
+        .k-grid-header th.k-header{
+            text-align:center;
+            padding: 0px;
+            height: 36px;
+            line-height: 36px;
+        }
+
+        .row {
+            margin: 15px;
+        }
+        .bs-example{
+            display:flex;
+            float:right;
+            width:170px;
+            margin-top:-5px;
+        }
+        .margin_l{
+            margin-right:5px;
+        }
+      .btnItemCRUD  .layer_width{
+            width:700px;
+        }
+      .container-fluid{
+          padding-left:0px;
+          padding-right:0px;
+      }
+      .pull-right{
+          position:relative;
+          right:5px;
+      }
+         header input, .btnItemCRUD input{
+            height:24px !important;
+        }
+        .input_style{
+            border-radius:2px;
+        }
+        #grid th{
+            padding-left:17px;
+        }
+                .col-md-12{
+            padding:0px;
+        }
+        .form-horizontal .form-group{
+            margin:0px;
+            margin-bottom:15px;
+        }
+        .form-horizontal .control-label{
+            background: #f1f1f1;
+            text-align: center;
+            width:40%;
+            padding: 0px;
+            height: 30px;
+            line-height: 30px;
+        }
+        .form-group>.col-md-6{
+            padding:0px;
+            width:60%;
+        }
+        .form-control{
+            height: 30px;
+            border-radius: 2px;
+        }
+        .form-save {
+            width: 100%;
+            text-align:center
+        }
+         .input_style{
+            border-radius:2px;
+        }
+        .k-grid tr.k-state-selected>td{
+            border-color:rgba(0,0,0,0.1);
+        }
+        .main{
+            padding:15px;
+        }
+        .btnDiv button {
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body style="display:none">
+    <div id="selectLanguageDropdown_qcl" class="localizationTool" style="display:none"></div>
+    <div class="container-fluid">
+        <div class="row manager-content">
+            <div class="clearfix" style="margin-bottom: 15px;">
+                <div style="float: right;">
+                    <!--<span class="title-transaction" id="title1">会计核算</span> > <span class="transaction-navTitle" id="title2">会计凭证查询</span>-->
+                    <div data-example-id="single-button-dropdown">
+                            <button type="button" class="btn btn-default" aria-haspopup="true" aria-expanded="false" id="ViewDetails"><i class="icon icon-codepen"></i><span id="btnView">查看</span></button>
+                    </div>
+                </div>
+                <div style="float: left;">
+                    <div class="input-group" style="display:inline-block;">
+                        <span id="title3">流水号</span>：
+                        <input type="number" class="input_style" style="display:inline-block;line-height:25px;" aria-describedby="basic-addon2">
+                        <button type="button" class="btn btn-primary" id="check">查询</button> 
+                    </div>
+                </div>
+            </div>
+            <section>
+                <div id="grid"></div>
+            </section>
+            <section class="btnItemSave"></section>
+
+            <div id="lookDetails" title="查看详情" style="width:100%;height:100%">
+                <div class="main" id="lookDetailscontent">
+                    <div class="form-panel" style="display:inline-block">
+                        <div class="col-md-12 form-row form-horizontal" data-bind="">
+                            <!-- ko if: IsDisplay -->
+                            <div class="col-md-6 form-row autoLayout-plugins" style="padding:0px;width:49%;margin-right:2%">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" data-bind="" id="tab1">流水号</label>
+                                    <div class="col-md-6">
+                                        <span data-bind="renderControl:ItemId"><input class="form-control" id="detailsSerialNo" type="text" data-bind="" data-valid=" Required"></span>
+                                    </div>
+                                    <!-- ko  if: IsNew --><!-- /ko -->
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                            <!-- ko if: IsDisplay -->
+                            <div class="col-md-6 form-row autoLayout-plugins" style="padding:0px;width:49%;">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" data-bind="text:ItemAliasValue" id="tab2">记账日期</label>
+                                    <div class="col-md-6">
+                                        <span data-bind="renderControl:ItemId"><input class="form-control" id="detailAccountDate" type="text" data-bind="value: ItemValue" data-valid=" Required"></span>
+                                    </div>
+                                    <!-- ko  if: IsNew --><!-- /ko -->
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-row autoLayout-plugins" style="padding:0px;width:49%;margin-right:2%">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" data-bind="text:ItemAliasValue" id="tab3">冲销标志</label>
+                                    <div class="col-md-6">
+                                        <span data-bind="renderControl:ItemId"><input class="form-control" id="detailAbatementMark" type="text" data-bind="value: ItemValue" data-valid=" Required"></span>
+                                    </div>
+                                    <!-- ko  if: IsNew --><!-- /ko -->
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-row autoLayout-plugins" style="padding:0px;width:49%;">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" data-bind="text:ItemAliasValue" id="tab4">币种</label>
+                                    <div class="col-md-6">
+                                        <span data-bind="renderControl:ItemId"><input class="form-control" id="detailCurrency" type="text" data-bind="value: ItemValue" data-valid=" Required"></span>
+                                    </div>
+                                    <!-- ko  if: IsNew --><!-- /ko -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="detailsgrid">
+                    </div>
+                    <div class="form-save">
+                        <input class="btn btn-primary" id="save" onclick="saveItem()" type="button" value="保存信息" style="display:none" >
+                    </div>
+                </div>
+            </div>
+            <div id="EditDetails" title="编辑" style="width:100%; height:100%;">
+                <div class="main" id="EditDetailsDiv">
+                    <div class="tab-columns">
+                        <button class="btn btn-active" type="button" data-col="2">
+                            <span class="bs bs2"></span>
+                            <span class="bs bs2"></span>
+                        </button>
+                        <button class="btn" type="button" data-col="3">
+                            <span class="bs bs1"></span>
+                            <span class="bs bs1"></span>
+                            <span class="bs bs1"></span>
+                        </button>
+                    </div>
+                    <h3 class="h3" id="step-title"><span class="title" data-bind="text:Language.ProductInfo">会计凭证查询</span></h3>
+                        <div class="col-md-12 form-row form-horizontal" data-bind="">
+                            <!-- ko if: IsDisplay -->
+                            <div class="col-md-6 form-row autoLayout-plugins">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" data-bind="">流水号</label>
+                                    <div class="col-md-6">
+                                        <span data-bind="renderControl:ItemId"><input class="form-control" type="text" data-bind="" data-valid=" Required"></span>
+                                    </div>
+                                    <!-- ko  if: IsNew --><!-- /ko -->
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                            <!-- ko if: IsDisplay -->
+                            <div class="col-md-6 form-row autoLayout-plugins">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" data-bind="text:ItemAliasValue">冲销标志</label>
+                                    <div class="col-md-6">
+                                        <span data-bind="renderControl:ItemId"><input class="form-control" onchange="validControlValue(this)" type="text" data-bind="value: ItemValue" data-valid=" Required"></span>
+                                    </div>
+                                    <!-- ko  if: IsNew --><!-- /ko -->
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-row autoLayout-plugins">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" data-bind="text:ItemAliasValue">交易编号</label>
+                                    <div class="col-md-6">
+                                        <span data-bind="renderControl:ItemId"><input class="form-control" onchange="validControlValue(this)" type="text" data-bind="value: ItemValue" data-valid=" Required"></span>
+                                    </div>
+                                    <!-- ko  if: IsNew --><!-- /ko -->
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-row autoLayout-plugins">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" data-bind="text:ItemAliasValue">流水账日期</label>
+                                    <div class="col-md-6">
+                                        <span data-bind="renderControl:ItemId"><input class="form-control" onchange="validControlValue(this)" type="text" data-bind="value: ItemValue" data-valid=" Required"></span>
+                                    </div>
+                                    <!-- ko  if: IsNew --><!-- /ko -->
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-save">
+                        <input class="btn btn-primary" id="save" type="button" value="保存信息" style="display:none">
+                    </div>
+                </div>
+            </div>
+            <div id="AddDetails" title="增加" style="width:100%; height:100%;">
+                <div class="main" id="AddDetailsDiv">
+                    <div class="tab-columns">
+                        <button class="btn btn-active" type="button" data-col="2">
+                            <span class="bs bs2"></span>
+                            <span class="bs bs2"></span>
+                        </button>
+                        <button class="btn" type="button" data-col="3">
+                            <span class="bs bs1"></span>
+                            <span class="bs bs1"></span>
+                            <span class="bs bs1"></span>
+                        </button>
+                    </div>
+                    <h3 class="h3" id="step-title"><span class="title" data-bind="text:Language.ProductInfo">会计凭证查询</span></h3>
+                    <div class="form-panel">
+                        <div class="col-md-12 form-drop">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <select class="form-control" id="tb_CompulsoryDDL" data-bind="">
+                                        <!--ko ifnot:IsDisplay--><!-- /ko -->
+                                        <!--ko ifnot:IsDisplay--><!-- /ko -->
+                                        <!--ko ifnot:IsDisplay--><!-- /ko -->
+                                        <!--ko ifnot:IsDisplay--><!-- /ko -->
+                                        <!--ko ifnot:IsDisplay--><!-- /ko -->
+                                        <!--ko ifnot:IsDisplay--><!-- /ko -->
+                                        <!--ko ifnot:IsDisplay-->
+                                        <option value="ClosureDate" data-bind="">关闭日期</option>
+                                        <!-- /ko -->
+                                        <!--ko ifnot:IsDisplay-->
+                                        <option value="ExchangeCenter" data-bind="">交易所</option>
+                                        <!-- /ko -->
+                                    </select>
+                                </div>
+                                <button class="btn btn-plus" onclick="createCompulsory()" type="button"><i class="icon icon-add"></i></button>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-row form-horizontal" data-bind="">
+                            <!-- ko if: IsDisplay -->
+                            <div class="col-md-6 form-row autoLayout-plugins">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" data-bind="">流水号</label>
+                                    <div class="col-md-6">
+                                        <span data-bind="renderControl:ItemId"><input class="form-control" onchange="validControlValue(this)" type="text" data-bind="" data-valid=" Required"></span>
+                                    </div>
+                                    <!-- ko  if: IsNew --><!-- /ko -->
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                            <!-- ko if: IsDisplay -->
+                            <div class="col-md-6 form-row autoLayout-plugins">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" data-bind="text:ItemAliasValue">冲销标志</label>
+                                    <div class="col-md-6">
+                                        <span data-bind="renderControl:ItemId"><input class="form-control" onchange="validControlValue(this)" type="text" data-bind="value: ItemValue" data-valid=" Required"></span>
+                                    </div>
+                                    <!-- ko  if: IsNew --><!-- /ko -->
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-row autoLayout-plugins">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" data-bind="text:ItemAliasValue">交易编号</label>
+                                    <div class="col-md-6">
+                                        <span data-bind="renderControl:ItemId"><input class="form-control" onchange="validControlValue(this)" type="text" data-bind="value: ItemValue" data-valid=" Required"></span>
+                                    </div>
+                                    <!-- ko  if: IsNew --><!-- /ko -->
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-row autoLayout-plugins">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" data-bind="text:ItemAliasValue">流水账日期</label>
+                                    <div class="col-md-6">
+                                        <span data-bind="renderControl:ItemId"><input class="form-control" onchange="validControlValue(this)" type="text" data-bind="value: ItemValue" data-valid=" Required"></span>
+                                    </div>
+                                    <!-- ko  if: IsNew --><!-- /ko -->
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-save">
+                        <input class="btn btn-primary" id="save" style="display:none" type="button" value="保存信息" >
+                    </div>
+                </div>
+            </div>
+            <div id="DeleteDetails" title="删除" style="width:100%; height:100%;">
+                <div class="main" id="DeleteDetailsDiv">
+                    <div class="tab-columns">
+                        <button class="btn btn-active" type="button" data-col="2">
+                            <span class="bs bs2"></span>
+                            <span class="bs bs2"></span>
+                        </button>
+                        <button class="btn" type="button" data-col="3">
+                            <span class="bs bs1"></span>
+                            <span class="bs bs1"></span>
+                            <span class="bs bs1"></span>
+                        </button>
+                    </div>
+                    <h3 class="h3" id="step-title"><span class="title" data-bind="text:Language.ProductInfo">会计凭证查询</span></h3>
+                        <div class="col-md-12 form-row form-horizontal" data-bind="">
+                            <!-- ko if: IsDisplay -->
+                            <div class="col-md-6 form-row autoLayout-plugins">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" data-bind="">流水号</label>
+                                    <div class="col-md-6">
+                                        <span data-bind="renderControl:ItemId"><input class="form-control" onchange="validControlValue(this)" type="text" data-bind="" data-valid=" Required"></span>
+                                    </div>
+                                    <!-- ko  if: IsNew --><!-- /ko -->
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                            <!-- ko if: IsDisplay -->
+                            <div class="col-md-6 form-row autoLayout-plugins">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" data-bind="text:ItemAliasValue">冲销标志</label>
+                                    <div class="col-md-6">
+                                        <span data-bind="renderControl:ItemId"><input class="form-control" onchange="validControlValue(this)" type="text" data-bind="value: ItemValue" data-valid=" Required"></span>
+                                    </div>
+                                    <!-- ko  if: IsNew --><!-- /ko -->
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-row autoLayout-plugins">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" data-bind="text:ItemAliasValue">交易编号</label>
+                                    <div class="col-md-6">
+                                        <span data-bind="renderControl:ItemId"><input class="form-control" onchange="validControlValue(this)" type="text" data-bind="value: ItemValue" data-valid=" Required"></span>
+                                    </div>
+                                    <!-- ko  if: IsNew --><!-- /ko -->
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-row autoLayout-plugins">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" data-bind="text:ItemAliasValue">流水账日期</label>
+                                    <div class="col-md-6">
+                                        <span data-bind="renderControl:ItemId"><input class="form-control" onchange="validControlValue(this)" type="text" data-bind="value: ItemValue" data-valid=" Required"></span>
+                                    </div>
+                                    <!-- ko  if: IsNew --><!-- /ko -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-save">
+                        <input class="btn btn-primary" id="save" style="display:none" type="button" value="保存信息" >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,353 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>个人工作台</title>
+    <link href="../productManage/TrustManagement/Common/css/trustWizard.css" rel="stylesheet" />
+    <link href="../productManage/TrustManagement/TrustFollowUp/css/pagerlist-style.css" rel="stylesheet" />
+    <link href="../../asset/lib/fullCalendar/fullcalendar.min.css" rel="stylesheet" />
+    <link href="../../asset/style/style.css" rel="stylesheet" />
+    <link href="../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../asset/font/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="WorkBench.css" rel="stylesheet" />
+    <style>
+        .date_selector{
+            width:auto;
+        }
+        .list_group_item{
+            box-sizing:border-box;
+            margin-top:-3px;
+        }
+        .Diy-input{
+            width: 130px;
+            border: 1px solid #ccc;
+            height: 35px;
+            box-sizing: border-box;
+            border-radius: 4px;
+            padding-left:10px;
+        }
+       .btn.btn-primary{
+            display: inline-block;
+            height: 30px;
+            padding: 4px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border: 1px solid #dedede;
+            border-radius: 3px;
+            background: rgba(69,86,156,.9);
+            border-color: #45569c;
+            color: #fff;
+       }
+       .num{
+           padding:0 10px;
+           color:rgb(45,118,237);
+           font-weight:bolder;
+           font-size:16px
+       }
+       .item{
+           display:none;
+           padding-top:12px;
+       }
+       .show{
+           display:block;
+       }
+       .item-wb{
+           margin-top:6px;
+       }
+       #reason_input{
+            border-radius: 5px;
+            box-shadow: none;
+            border: 1px solid #ddd;
+            padding: 5px;
+            box-sizing: border-box;
+            margin: 0px;
+            width: 100%;
+            height: 38px;
+       }
+       #status-dialog{
+           padding:15px;
+       }
+       #status-dialog .btns{
+           float:right;
+       }
+       .btn-default.btn{
+            color: #777;
+            background-color: #fff;
+            border-color: #dedede;
+            display: inline-block;
+            height: 30px;
+            padding: 4px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border: 1px solid #dedede;
+            border-radius: 3px;
+            box-sizing:border-box;
+       }
+    </style>
+</head>
+<body>
+    <div class="body-container" id="app">
+        <div class="main">
+            <div class="col-12">
+                <div class="col-4 wb-content ContextLeft">
+                    <div class="col-12 wb-content" style="padding:10px 10px 0 10px;display:flex;">
+                        <div class="col-3" style="line-height:30px;margin-left:10px">产品过滤：</div>
+                        <div style="position:relative">
+                            <input type="text" class="form-control col-4 checkTrustId" style="display:inline-block;width:137px;" id="SeachTrustId" value="" placeholder="请选择产品" />
+                            <div id="ClickDiv" style="display:none"></div>
+                            <select class="form-control selectSeach" id="selectSeachTrustId"></select>
+                            <div class="MaskSelect"></div>
+                        </div>
+                        <button id="Seach" class="normal_small_button col-2" style="margin-left:40px">过滤</button>
+                    </div>
+                    <div class="col-12 wb-content ContentBox" style="padding:10px;">
+                        <ul id="tabs">
+                            <li class="current"><a href="#" title="today">今日待办事项</a></li>
+                            <li><a href="#" title="noCheck">待审核事项</a></li>
+                            <li><a href="#" title="hasCheck">已审核事项</a></li>
+                        </ul>
+                        <div id="contnet">
+                            <div id="today" class="item show">
+                                <div>今日待办共:<span id='total' class="num">0</span>条</div>
+                                <div id="TodayDataList" class="item-wb">
+                                    <div id="TodayDataGrid"></div>
+                                    <div id="ErrorData" style="text-align:center;padding:10px">今日无待办事项！</div>
+                                </div>
+                            </div>
+                            <div id="noCheck" class="item">
+                                <div>待审核共:<span id='noCheckTotal' class="num">0</span>条</div>
+                                <div id="noCheckDataList" class="item-wb">
+                                    <div id="noCheckDataGrid"></div>
+                                    <div id="noCheckErrorData" style="text-align:center;padding:10px">无待审核事项！</div>
+                                </div>
+                            </div>
+                            <div id="hasCheck" class="item">
+                                <div>已审核共:<span id='hasCheckTotal' class="num">0</span>条</div>
+                                <div id="hasCheckDataList" class="item-wb">
+                                    <div id="hasCheckDataGrid"></div>
+                                    <div id="hasCheckErrorData" style="text-align:center;padding:10px">无已审核事项！</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-12 ContentBox" style="padding:10px 10px 0 10px;">
+                        <h3 class="h3 TableTitle">
+                            <span class="title ">存续期当前触发事件提醒</span>
+                        </h3>
+                        <div id="TrustEventAlertList" class="list-container wb-top5" style="margin-top:5px">
+                            <div id="TrustEventAlertTable"></div>
+                            <div id="TrustEventAlertListError" style="text-align:center;padding:10px">暂无数据！</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="box" class="col-8 contextRight ContentBox">
+                    <div class="TableTitle">
+                        <span class="title">
+                            <i class="col-4 TitleLeft"></i>
+                            <span class="col-2 TitleText">我的日程</span>
+                            <i class="col-4 TitleRight"></i>
+                            <button id="goHome" class="normal_small_button">返回主页</button>
+                        </span>
+
+                    </div>
+                    <div id="head_list" style="margin-top:10px">
+                        <input type="button" value="日历格式" class="active normal_small_button" />
+                        <input type="button" value="列表格式" id="divDataListBtn" class="normal_small_button" />
+                    </div>
+
+                    <div style="padding-right:10px;float:right">
+                        <div class="normal_small_button btn" id="download">下载</div>
+                        <div class="normal_small_button btn" id="addEvent" style="width:7.4em">添加待办项</div>
+                    </div>
+                    <div id="menu_content">
+                        <div class="tab tabActive">
+                            <!--我的日程日历展示-->
+                            <div class="col-12 wb-content" id="MyDate">
+                                <div id='gsCalendar' class="wb-top5"></div>
+                            </div>
+                        </div>
+                        <div class="tab">
+                            <!--我的日程列表展示-->
+                            <div class="col-12" id="MyDateList" style="padding:10px 10px 0 0;">
+                                <div id="divDataList" class="list-container wb-top5">
+                                    <div id="divDataGrid"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="addOrganisation" class="col-12 form-panel" style="display: none; padding: 15px">
+            <div class="col-12 form-group" style="margin-bottom: 10px; line-height: 30px;">
+                <div class="col-3">
+                    <label class="TrustId">产品名称</label>
+                </div>
+                <div class="col-8">
+                    <!--<input type="text" maxlength="10" class="form-control" id="TrustId" />-->
+                    <!--<select class="form-control" id=""></select>-->
+                    <span style="position:relative">
+                        <input type="text" class="form-control col-11 checkTrustId" style="display:inline-block;width:93.666667%" id="AddTrustEvents" value="" placeholder="请选择产品" />
+                        <div id="AddClickDiv" style="display:none"></div>
+                        <select class="form-control" id="AddTrustEvent" style="position:absolute;left:60%;width:20px;"></select>
+                        <div id="MaskAddEventSelect" style="position:absolute;left:60%;width:20px;height:30px;background:transparent"></div>
+                    </span>
+                </div>
+            </div>
+            <div class="col-12 form-group" style="margin-bottom: 10px; line-height: 30px;">
+                <div class="col-3">
+                    <label class="AddTitle">标题</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" maxlength="10" class="form-control" id="AddTitle" />
+                </div>
+            </div>
+            <div class="col-12 form-group" style="margin-bottom: 10px; line-height: 30px;">
+                <div class="col-3">
+                    <label class="AddDateTime">时间</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" id="AddDateTime" class="form-control date-plugins" />
+                </div>
+            </div>
+            <div class="col-12 form-group" style="margin-bottom: 10px; line-height: 30px;">
+                <div class="col-3">
+                    <label class="AddType">类型</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" id="AddType" class="form-control" />
+                </div>
+            </div>
+            <div class="col-12 form-group" style="margin-bottom: 10px; line-height: 30px;">
+                <div class="col-3">
+                    <label class="AddDesc">描述</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" id="AddDesc" class="form-control" />
+                </div>
+            </div>
+            <div class="col-12 form-group">
+                <div class="form-button" style="padding-top: 5px;padding-bottom:0px">
+                    <button id="saveOrganisation" type="button" class="normal_small_button vti_Confirm">确定</button>
+                </div>
+            </div>
+        </div>
+        <div id="dowloadarea" style="display:none;padding:15px;box-sizing:border-box">
+            <div class="row">
+                <div style="text-align:center;margin-bottom:20px">
+                    <span class="list_group_item">选择区间</span>
+                    <div style="display:inline-block">
+                        <input type="text" class="Diy-input date-plugins" />
+                    </div>
+                    <span class="list_group_item">~</span>
+                    <div style="display:inline-block">
+                        <input type="text" class="Diy-input date-plugins" />
+                    </div>
+                </div>
+                <div style="text-align:center">
+                    <button id="btnclick" class="btn btn-primary">下载</button>
+                </div>
+            </div>
+
+        </div>
+        <div id='gsCalendarEvent' class="popBox">
+            <!--<div class="event-info">事件信息<span onclick="closeEventDetail()" class="closeDetail">X</span></div>-->
+            <!--<div class="event-detail-alert">选择事件，点击查看</div>-->
+            <div class="event-detail-content">
+                <div>
+                    <span class="section-name">标题：</span>
+                    <span class="event-content content-wrap" data-name="title"></span>
+                </div>
+                <div>
+                    <span class="section-name">时间：</span>
+                    <span class="event-content" data-name="startDspl"></span>
+                </div>
+                <div>
+                    <span class="section-name">类型：</span>
+                    <span class="event-content content-wrap" data-name="eventType"></span>
+                </div>
+                <div>
+                    <span class="section-name">描述：</span>
+                    <span class="event-content content-wrap minheight" data-name="eventDesc"></span>
+                </div>
+            </div>
+        </div>
+        <div id='gsTrustInfoEvent' class="popBox">
+            <!--<div class="event-info">事件信息<span onclick="closeEventDetail()" class="closeDetail">X</span></div>-->
+            <!--<div class="event-detail-alert">选择事件，点击查看</div>-->
+            <div class="event-detail-content">
+                <!--<div>
+                    <span class="section-name">专项计划名称：</span>
+                    <span class="event-content content-wrap" data-name="TrustCode"></span>
+                </div>-->
+                <div>
+                    <span class="section-name">专项事件：</span>
+                    <span class="event-content content-wrap" data-name="ItemAliasValue"></span>
+                </div>
+                <div>
+                    <span class="section-name">事件条目：</span>
+                    <ul class="event-content" data-name="DisplayDescribe">
+                        <li></li>
+                    </ul>
+                    <!--<span class="event-content" data-name="DisplayDescribe"></span>-->
+                </div>
+                <div>
+                    <span class="section-name">产品代码：</span>
+                    <span class="event-content content-wrap" data-name="TrustId"></span>
+                </div>
+                <div>
+                    <span class="section-name">触发时间：</span>
+                    <span class="event-content content-wrap minheight" data-name="StartDate"></span>
+                </div>
+            </div>
+        </div>
+        <!--审核-->
+        <div id="status-dialog" style="display:none">
+            <div class="resson">
+                <textarea id="reason_input"></textarea>
+            </div>
+            <div class="btns">
+                <div class='btn btn-default' id="btn_pass" onclick="addCheckReport('pass')">同意</div>
+                <div class='btn btn-default' id="btn_reject" onclick="addCheckReport('reject')">拒绝</div>
+
+            </div>
+        </div>
+    </div>
+    <script src="../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../asset/lib/config'], function (common) {
+            requirejs(['app/WorkBench/WorkBench']);
+        });
+    </script>
+</body>
+</html>

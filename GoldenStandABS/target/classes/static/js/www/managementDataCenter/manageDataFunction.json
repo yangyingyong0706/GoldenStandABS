@@ -1,0 +1,117 @@
+﻿{
+    "app": "DashBoard",
+    "title": "产品切片",
+    "button": [
+        {
+            "title": "更新数据切片",
+            "type": "button",
+            "class": "btn btn-default",
+            "icon": "icon iconfont icon-daoru",
+            "linkname": "updateDataSlice",
+            "linkurl": "javascript:updateDataSlice"
+        },
+        {
+            "title": "新建产品",
+            "type": "button",
+            "class": "btn btn-default",
+            "icon": "icon iconfont icon-daoru",
+            "linkname": "createProduct",
+            "linkurl": "javascript:createProduct"
+        },
+        {
+            "title": "日期设置",
+            "type": "button",
+            "class": "btn btn-default",
+            "icon": "icon iconfont icon-daoru",
+            "linkname": "settingDate",
+            "linkurl": "javascript:settingDate"
+        },
+        {
+            "title": "底部资产管理",
+            "type": "button",
+            "class": "btn btn-default",
+            "icon": "icon iconfont icon-daoru",
+            "linkname": "bottomAssetManage",
+            "linkurl": "javascript:bottomAssetManage"
+        }
+    ],
+    "group": [
+        {
+            "module": "abc",
+            "title": "资产明细",
+            "titleclass": "icon iconfont icon-yingyong",
+            "elements": [
+                {
+                    "title": "数据模板",
+                    "type": "button",
+                    "icon": "icon iconfont icon-moban",
+                    "linkname": "DownAssetTemplates",
+                    "linkurl": "javascript:DownAssetTemplates"
+                },
+                {
+                    "title": "数据校验",
+                    "type": "button",
+                    "icon": "icon iconfont icon-xiaoyan",
+                    "linkname": "OpenDataCheckPage",
+                    "linkurl": "javascript:OpenDataCheckPage"
+                },
+                {
+                    "title": "导入资产",
+                    "type": "button",
+                    "icon": "icon iconfont icon-daoru",
+                    "linkname": "OpenUploadTrust",
+                    "linkurl": "javascript:OpenUploadTrust"
+                }
+            ]
+        },
+        {
+            "module": "Index",
+            "title": "回款记录",
+            "titleclass": "icon iconfont icon-huankuanjilu",
+            "elements": [
+                {
+                    "title": "回款计划导入",
+                    "type": "button",
+                    "icon": "icon iconfont icon-daoru",
+                    "linkname": "importPaymentPlan",
+                    "linkurl": "javascript:importPaymentPlan"
+                },
+                {
+                    "title": "回款数据导入",
+                    "type": "button",
+                    "icon": "icon iconfont icon-daoru",
+                    "linkname": "importPaymentData",
+                    "linkurl": "javascript:importPaymentData"
+                },
+                {
+                    "title": "回款数据管理",
+                    "type": "button",
+                    "icon": "icon iconfont icon-daoru",
+                    "linkname": "PaymentDataManage",
+                    "linkurl": "javascript:PaymentDataManage"
+                }
+            ]
+        },
+        {
+            "module": "Index",
+            "title": "资产状态监控",
+            "titleclass": "icon iconfont icon-huankuanjilu",
+            "elements": [
+                {
+                    "title": "资产统计视图",
+                    "type": "button",
+                    "icon": "icon iconfont icon-daoru",
+                    "linkname": "assetStatistics",
+                    "linkurl": "javascript:assetStatistics"
+                },
+                {
+                    "title": "资产维度统计",
+                    "type": "button",
+                    "icon": "icon iconfont icon-daoru",
+                    "linkname": "assetStatus",
+                    "linkurl": "javascript:assetStatus"
+                }
+            ]
+        }
+    ]
+}

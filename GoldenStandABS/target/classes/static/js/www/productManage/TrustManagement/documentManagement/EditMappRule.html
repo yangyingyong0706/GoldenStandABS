@@ -1,0 +1,92 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title>编辑底稿目录规则</title>
+    <link href="../../../../../asset/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../../../../components/viewDateSet/css/trustWizard.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+
+
+    <style type="text/css">
+        .main-dialog {
+            padding: 15px 5px;
+            overflow: hidden;
+            margin-top: 10px;
+            border-top: 1px solid #ededed;
+        }
+
+        .red-border {
+            border: 1px solid red !important;
+        }
+
+        .form-horizontal, .form-row, .form-group {
+            width: 100%;
+            float: left;
+        }
+
+        .col-3 {
+            width: 10%;
+        }
+
+        .col-6 {
+            width: 85%;
+        }
+        .pannel{
+            padding-left: 5%;
+            padding-right: 5%;
+            margin-top: 2%;
+        }
+        #CatalogContent{
+            height:100%;
+        }
+        .date_selector{
+            box-sizing:initial;
+        }
+    </style>
+
+    <script src="../../../../../asset/lib/require.js"></script>
+
+    <script>
+        requirejs(['../../../../../asset/lib/config'], function (config) {
+            require(['app/productManage/TrustManagement/documentManagement/zTree/js/EditMappRule'])
+        });
+    </script>
+</head>
+<body>
+    <div class="pannel">
+            <div class="form-group">
+                <label class="col-3 control-label">日期</label>
+                <div class="col-6">
+                    <input type="text" id="CatalogDatetime" placeholder="请选择日期" class="form-control date-plugins" data-valid="required date" />
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-3 control-label">内容</label>
+                <div class="col-6">
+                    <textarea id="CatalogContent" placeholder="请输入内容" class="form-control" rows="15" cols="30"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-3 control-label">备注</label>
+                <div class="col-6">
+                    <textarea id="Remark" placeholder="请输入内容" class="form-control" rows="5" cols="30"></textarea>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="col-3 control-label"></label>
+                    <div class="col-6" style="text-align:center;">
+                        <button class="normal_small_button" style="padding:4px 20px;margin:0 auto;" id="btnSave">保存</button>
+                    </div>
+                </div>
+            </div>
+    </div>
+</body>
+</html>

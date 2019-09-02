@@ -1,0 +1,23 @@
+.mask {
+	background: #EEEEEE; position: absolute; left: 0; top: 0;
+	text-align: center; margin-top: 0; padding: 0;
+	filter: alpha(opacity=30); opacity: 0.3; width:100%; height:100%;
+}
+.dialog {
+	position: absolute; left: 0; top: 0; margin: 0 auto;
+	overflow: hidden; border: 1px solid #CCC; background: none;
+}
+.dialog>.head {
+	height: 24px; line-height: 24px; background-color: #e0dfdf;
+	overflow: hidden; white-space: nowrap; padding: 2px 4px;
+}
+.dialog>.head .icon { margin-top: 4px; }
+.dialog>.body { background-color: #FFF; overflow: auto; }
+.dialog .wait { text-align: center; padding: 5px; }
+.dialog .wait h3 { margin: 5px; }
+
+.dialog>.body>.bottom>.button {
+	float: right; padding: 4px 6px 4px 6px; background-color: #EEE;
+	border: 1px solid #CCC; margin-left: 4px;
+	text-align: center; height: 16px; line-height: 16px;
+}

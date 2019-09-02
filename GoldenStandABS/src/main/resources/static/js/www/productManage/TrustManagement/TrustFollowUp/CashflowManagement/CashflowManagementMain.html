@@ -1,0 +1,47 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title>回款管理汇总页面</title>
+    <link href="../../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../ReportWizardEx/css/ReportWizardEx.css" rel="stylesheet" />
+</head>
+<body id="app">
+    <div class="layer">
+        <div class="left_nav_style" v-if="enterShow">
+            <div class="step-head">
+                <h2>
+                    <span>回款管理</span>
+                </h2>
+            </div>
+            <ul>
+                <li id="CashflowManagementTotal" class="current_li" v-on:click="changeIframe($event)">
+                    <span class="mar_dis">1</span>
+                    <span>归集数据管理</span>
+                    <span class="flag"></span>
+                </li>
+                <li id="CashflowManagementSplit" v-on:click="changeIframe($event)">
+                    <span class="mar_dis">2</span>
+                    <span>分期数据管理</span>
+                    <span class="flag"></span>
+                </li>
+                <li id="statistics" v-on:click="changeIframe($event)">
+                    <span class="mar_dis">3</span>
+                    <span>统计视图</span>
+                    <span class="flag"></span>
+                </li>
+            </ul>
+        </div>
+        <div class="iframe_content">
+            <iframe v-bind:src="url" frameborder="0" class="extend_father"></iframe>
+        </div>
+    </div>
+    <script src="../../../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TrustFollowUp/CashflowManagement/CashflowManagementMain']);
+        });
+    </script>
+</body>
+</html>

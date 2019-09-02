@@ -1,0 +1,160 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>系统设置</title>
+    <!-- 这里引入所有需要的资源 其他通过AJAX载入的页面就不再需要引入了 -->
+
+    <link href="TrustWizard/trustWizard.css" rel="stylesheet" />
+
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <script src="../../../asset/lib/jquery/jquery-1.7.2.min.js"></script>
+
+    <script src="../../../config/globalVariable.js"></script>
+
+    <script src="Common/Scripts/MathCalculate.js"></script>
+    <script src="Common/Scripts/calendar.min.js"></script>
+
+    <script src="../../../asset/lib/jquery/jquery-ui-latest.js"></script>
+
+    <script src="../../../asset/lib/knockout/knockout-3.4.0.js"></script>
+    <script src="../../../asset/lib/knockout/knockout.binding.rendercontrol.js"></script>
+    <script src="../../../asset/lib/knockout/knockout.mapping-latest.js"></script>
+
+    <!--<script src="Common/Scripts/format.number.js"></script>-->
+    <script src="Common/Scripts/format.number_copy.js"></script>
+    <script src="Common/Scripts/common.js"></script>
+    <script src="wcfProxy.js"></script>
+    <script src="Common/Scripts/anyDialog.js"></script>
+    <script src="Common/Scripts/showModalDialog.js"></script>
+    <!--<script src="../UIFrame/js/permission.js"></script>-->
+</head>
+<body>
+    <div class="topbar">
+        <div class="navbar">
+            <span class="menu"><i class="icon icon-list"></i></span>
+            <h2>系统设置</h2>
+        </div>
+        <div class="rightS">
+        </div>
+        <ol class="nav-tab">
+            <li>
+                <a href="SystemSettings/TrustTaskConfigList.html" tab="trustwizard" class="active">任务设置</a>
+            </li>
+            <li>
+                <a href="SystemSettings/CalendarDate/CalendarDateList.html" tab="calendardate">公休假设置</a>
+            </li>
+            <!--<li>
+                <a href="./TrustFollowUp/OriginalOwnerList.html" tab="originator"></a>
+            </li>
+            <li>
+                <a href="./TrustEvents/TrustEvents.html" tab="trustevent"></a>
+            </li>-->
+        </ol>
+    </div>
+    <div id="html" class="page">
+
+    </div>
+
+    <div id="taskIndicatorArea" style="display:none;width:440px; height:440px;">
+        <object id="TaskProcessCtl" data="data:application/x-silverlight-2," type="application/x-silverlight-2" style="display:block" width="100%" height="440px" class="ms-dlgDisable">
+            <param name="source" value="/TaskProcessEngine/ClientBin/UI.TaskProcessIndicator.xap" />
+            <param name="enablehtmlaccess" value="True" />
+        </object>
+    </div>
+    <script>
+        var trustId = getQueryString('tid');
+        var tab = getHashValue('tab');
+
+        // 记录当前列数
+        var col = 2;
+        // 根据参数显示列
+        var columns = function (col) {
+            if (parseInt(col) >= 4) col = 4;
+            return 12 / parseInt(col);
+        };
+        // 自动布局
+        var autoLayout = function (col) {
+            $('.autoLayout-plugins').each(function () {
+                var _class = $(this).attr('class');
+                $(this).attr('class', _class.replace(/(\d)/, col));
+            });
+        };
+        // 页面载入
+        $('.nav-tab li a').click(function (event) {
+            event.preventDefault();
+            var $this = $(this);
+            var attrTab = $this.attr('tab');
+
+            //if (!trustId || isNaN(trustId) || trustId <= 0) {
+            //    if (attrTab != 'trustwizard')
+            //        return false;
+            //}
+
+            $this.closest('li').siblings().find('a').removeClass('active');
+            $this.addClass('active');
+            var url = $this.attr('href');
+            setHashValue('tab', attrTab);
+            $.ajax({
+                type: 'get',
+                cache: false,
+                url: url + (url.indexOf('?') < 0 ? '?' : '&') + 'random=' + Math.random(),
+                dataType: 'html',
+                success: function (res) {
+                    $('#html').empty();
+                    $('#html').html(res);
+                    autoLayout(columns(col));
+                }
+            });
+        });
+        if (!tab) tab = $('.nav-tab li a').eq(0).attr('tab');
+        var tabSelector = '.nav-tab li a[tab="' + tab + '"]';
+        $(tabSelector).click()
+
+        // 布局切换
+        $(document).on('click', '#changeCols', function () {
+            var $this = $(this);
+            col = $this.attr('data-col');
+            autoLayout(columns(col));
+            if (col == 2) {
+                $(this).attr('data-col', '3').html('三栏布局');
+            } else {
+                $(this).attr('data-col', '2').html('两栏布局');
+            }
+        });
+
+        //Global Indicator
+        var sessionID, taskCode;
+        var clientName = 'TaskProcess';
+        var IndicatorAppDomain = 'Task';
+        function InitParams() {
+        }
+        var IsSilverlightInitialized = false;
+        function InitParams() {
+            if (!IsSilverlightInitialized) {
+                IsSilverlightInitialized = true;
+            }
+            document.getElementById("TaskProcessCtl").Content.SL_Agent.InitParams(sessionID, IndicatorAppDomain, taskCode, clientName);
+        }
+
+        function PopupTaskProcessIndicatorTM() {
+            $("#taskIndicatorArea").dialog({
+                modal: true,
+                dialogClass: "TaskProcessDialogClass",
+                closeText: "",
+                //closeOnEscape:false,
+                height: 485,
+                width: 470,
+                close: function (event, ui) {
+                    window.location.reload();
+                }, // refresh report repository while close the task process screen.
+                //open: function (event, ui) { $(this).closest('.ui-dialog').find('.ui-dialog-titlebar-close').hide(); },
+                title: "任务处理"
+            });
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+﻿{
+    "app": "transactionManage",
+    "title": "transactionManage",
+    "group": [
+        {
+            "module": "Index",
+            "title": "Business Guide",
+            "titleclass": "icon-directionLeft01",
+            "elements": [
+                {
+                    "title": "Asset Assignment",
+                    "type": "button",
+                    "icon": "fa fa-sign-out fa-fw",
+                    "linkname": "viewAssetTransfer",
+                    "linkurl": "javascript:viewAssetTransfer",
+                    "asideUrl": "assetTransfer/viewAssetTransfer.html"
+                },
+                {
+                    "title": "Allocation Trust",
+                    "type": "button",
+                    "icon": "fa fa-indent fa-fw",
+                    "linkname": "viewAllocationTrust",
+                    "linkurl": "javascript:viewAllocationTrust",
+                    "asideUrl": "allocationTrust/viewAllocationTrust.html"
+                },
+                {
+                    "title": "Asset Recovery",
+                    "type": "button",
+                    "icon": "iconfont icon-huishou",
+                    "linkname": "viewAssetRecovery",
+                    "linkurl": "javascript:viewAssetRecovery",
+                    "asideUrl": "assetRecovery/viewAssetRecovery.html"
+                },
+                {
+                    "title": "Buy Back",
+                    "type": "button",
+                    "icon": "iconfont icon-jinshengmoxing",
+                    "linkname": "viewBuyBack",
+                    "linkurl": "javascript:viewBuyBack",
+                    "asideUrl": "buyBack/viewBuyBack.html"
+                },
+                {
+                    "title": "Recovery Transfer",
+                    "type": "button",
+                    "icon": "iconfont icon-linjinhuigou",
+                    "linkname": "viewRecoveryTransfer",
+                    "linkurl": "javascript:viewRecoveryTransfer",
+                    "asideUrl": "recoveryTransfer/viewRecoveryTransfer.html"
+                },
+                {
+                    "title": "Asset Redemption",
+                    "type": "button",
+                    "icon": "iconfont icon-shuhuiguanliicon",
+                    "linkname": "viewAssetRedemption",
+                    "linkurl": "javascript:viewAssetRedemption",
+                    "asideUrl": "assetRedemption/viewAssetRedemption.html"
+                },
+                {
+                    "title": "Clearance Buy Back",
+                    "type": "button",
+                    "icon": "iconfont icon-zichanguanli",
+                    "linkname": "viewClearanceBuyBack",
+                    "linkurl": "javascript:viewClearanceBuyBack",
+                    "asideUrl": "clearanceBuyBack/viewClearanceBuyBack.html"
+                },
+                {
+                    "title": "Recycle Mark",
+                    "type": "button",
+                    "icon": "iconfont icon-zichan1",
+                    "linkname": "viewRecycleMark",
+                    "linkurl": "javascript:viewRecycleMark",
+                    "asideUrl": "recycleMark/viewRecycleMark.html"
+                }
+            ]
+        }
+    ]
+}
+

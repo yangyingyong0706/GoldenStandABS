@@ -1,0 +1,257 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>费用信息</title>
+    <link href="css/FeeSettings.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <script src="../../../../asset/lib/jquery/jquery-1.7.2.min.js"></script>
+
+    <script src="../../../../config/globalVariable.js"></script>
+    <script src="../Common/Scripts/MathCalculate.js"></script>
+
+    <script src="../../../../asset/lib/jquery/jquery-ui-latest.js"></script>
+
+    <script src="js/autoComplete.js"></script>
+
+    <script src="../../../../asset/lib/knockout/knockout-3.4.0.js"></script>
+    <script src="../../../../asset/lib/knockout/knockout.binding.rendercontrol.js"></script>
+    <script src="../../../../asset/lib/knockout/knockout.mapping-latest.js"></script>
+
+    <!--<script src="../Common/Scripts/format.number.js"></script>-->
+    <script src="../Common/Scripts/format.number_copy.js"></script>
+    <script src="../Common/Scripts/common.js"></script>
+    <script src="../wcfProxy.js"></script>
+    <script src="FeeSettings.js"></script>
+    <style>
+        html,body{
+            background:#f7f7f7;
+        }
+        .fee-header{
+            padding:10px 0;
+            background:#5A77A9;
+            color:#fff;
+            font-size:14px;
+        }
+        .fee-header .showBtn{
+            float:right;
+            vertical-align:middle;
+        }
+        .fee-container{
+            padding:0 15px;
+        }
+        .fee-setting{
+            border-bottom:#eaeaea 1px solid;
+            background:#fff;
+        }
+        .fee-setting.fee-fixed{
+            position:fixed;
+            top:0;
+            left:0;
+            right:0;
+            box-shadow:0 2px 5px rgba(0,0,0,.15);
+            z-index:99;
+        }
+        .form-middle{
+            vertical-align:middle;
+            padding:10px 0;
+        }
+        .form-middle label {
+            font-weight: bold;
+            color: #333;
+            padding: 0 3px;
+            overflow: hidden;
+            display: inline-block;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            vertical-align:middle;
+        }
+        .form-middle .btn{
+            vertical-align:1px;
+        }
+        .form-middle input[type=checkbox]{
+            vertical-align:middle;
+        }
+        .form-middle .form-control{
+            display:inline-block;
+            width:auto;
+        }
+        .form-inline{
+            margin-right:20px;
+            display:inline-block;
+        }
+        .fee-table{
+            width:100%;
+            margin-top:20px;
+            margin-bottom:50px;
+        }
+        .fee-table>thead>tr>th{
+            background:#dadada;
+            font-weight:bold;
+            height:30px;
+            text-align:center;
+        }
+        .fee-table>thead>tr>th,
+        .fee-table>tbody>tr>td{
+            padding:3px 6px;
+            border:1px solid #dadada;
+            vertical-align:middle;
+        }
+        .fee-name{
+            background:#efefef;
+            text-align:center;
+        }
+        .fee-input-group{
+            position:relative;
+            width:50%;
+            float:left;
+            margin-bottom:10px;
+        }
+        .fee-input-group .fee-inner{
+            padding:10px;
+        }
+        .fee-input-group .fee-inner .form-label{
+            width:40%;
+            float:left;
+            padding-top:5px;
+        }
+        .fee-input-group .fee-inner .form-container{
+            width:60%;
+            float:left;
+        }
+        .fee-table .description{
+            color:#666;
+            text-align:center;
+        }
+        .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
+            background-color:#fff!important;
+            border-color:#ddd!important;
+            border-radius:3px;
+        }
+    </style>
+    <style>
+        .custom-combobox {
+            position: relative;
+            display: block;
+        }
+
+        .custom-combobox-toggle {
+            position: absolute;
+            top: 0;
+            right:0;
+            bottom: 0;
+            padding: 0;
+        }
+
+        .custom-combobox-input {
+            padding: 3px 35px 3px 3px;
+        }
+
+        .red-border-left {
+            border:1px solid red!important;
+            border-right:none!important;
+        }
+
+        .red-border-right {
+            border:1px solid red!important;
+            border-left:none!important;
+        }
+    </style>
+
+</head>
+<body id="rootNode">
+    <div class="fee-header">
+        <div class="fee-container">
+            <div class="showBtn">
+                <input type="checkbox" name="remove" value="" id="RemoveColButtomSH" style="vertical-align:middle;" />
+                删除费用
+            </div>
+            <i class="icon icon-asset" style="color:#fff470;"></i> 费用信息
+        </div>
+    </div>
+    <div class="fee-setting form-middle">
+        <div class="fee-container">
+            <span class="form-inline">
+                <label>费用：</label>
+                <select class="form-control" id="feeSelect" data-bind="foreach:viewModel.Hide">
+                    <option data-bind="html:DisplayName,attr:{dataIndex: $index}"></option>
+                </select>
+                <button id="addShowColumn" type="button" class="btn btn-plus" style="vertical-align:-1px;padding:0;padding-left:5px;"><i class="icon icon-add" style="margin:0;"></i></button>
+            </span>
+            <span class="form-inline">
+                <label>兑付日：</label>
+                <select class="form-control" id="dateSelect" onchange="dateSelectChange();"></select>
+            </span>
+            <span class="form-inline">
+                <label>是否向后覆盖：</label>
+                <input type="checkbox" id="IsApplyAfter" checked="checked" onclick="warnUser(this)" />
+            </span>
+            <button type="button" class="btn btn-primary btn-sm" id="btnSearch" onclick="SaveFee()">保存</button>
+        </div>
+    </div>
+    <div class="fee-container">
+        <table class="fee-table">
+            <thead>
+                <tr>
+                    <th width="200">费用类型</th>
+                    <th width="100">费用名称</th>
+                    <th>参数列表</th>
+                    <th width="200">费用描述</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: viewModel.Json">
+                <tr>
+                    <td class="fee-name">
+                        <strong data-bind="text: FeeTypeDisplayName"></strong>
+                        <div style="display:inline-block">
+                            <button id="removeShowColumn" title="删除" data-bind="attr:{dataIndex: $index}" class="btn btn-remove">
+                                <i class="icon icon-remove"></i>
+                            </button>
+                        </div>
+                    </td>
+                    <td>
+                        <div data-bind="renderControl:DisplayName"></div>
+                    </td>
+                    <td>
+                        <!-- ko foreach: Parameters -->
+                        <div class="fee-input-group">
+                            <div class="fee-inner form-middle">
+                                <div class="form-label"><label data-bind="text: DisplayName"></label></div>
+                                <div data-bind="renderControl:ItemValue" class="form-container"></div>
+                                <!--<div class="field-details" style="position:absolute;right:10px;">
+                                    <i class="icon icon-help" style="margin-top: 4px;display: block;color:#4174cb;"></i>
+                                    <div class="field-detail-box">
+                                        若不区分收入账与本金账，则所有资金均作为利息回收款，请将回收款数值填入此项
+                                    </div>
+                                </div>-->
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                    </td>
+                    <td>
+                        <p class="description" data-bind="text: MethodDisplayName"></p>
+                        <!-- ko if:isDebug()==true -->
+                        <p data-bind="text:ActionCode"></p>
+                        <!-- /ko -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        var $table = $('.fee-table'),
+            $feeSetting = $('.fee-setting'),
+            offsetTop = $table.offset().top;
+        $(window).scroll(function () {
+            var top = $(this).scrollTop();
+            if (top > offsetTop) {
+                if (!$feeSetting.hasClass('fee-fixed')) $feeSetting.addClass('fee-fixed');
+            } else {
+                if ($feeSetting.hasClass('fee-fixed')) $feeSetting.removeClass('fee-fixed');
+            }
+        });
+    </script>
+</body>
+</html>

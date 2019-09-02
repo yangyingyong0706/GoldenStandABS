@@ -1,0 +1,405 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<title>资产池处理</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+		<meta name="renderer" content="webkit" />
+		<link href="../Contents/style.css" rel="stylesheet" />
+		<link href="../Contents/pagerlist-style.css" rel="stylesheet" />
+		<link href="../../../asset/style/bootstrap.css" rel="stylesheet" />
+		<link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+		<link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+        <link href="../../../asset/lib/toast/toast.css" rel="stylesheet" />
+		<link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+		<link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="../css/ECPreviewControl.css" rel="stylesheet" />
+        <link href="../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+		<script data-main="./poolTargeting.js" src="../../../asset/lib/require.js"></script>
+	</head>
+	<body style="display:none">
+		<div id="selectLanguageDropdown_qcl" class="localizationTool" style="display:none"></div>
+		<div class="main" id="main">
+			<div id="loading" v-if="pointerEventsBoolean">
+				<i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+			</div>
+			<div class="step-title">
+				<ul>
+					<li>
+						<i class="fa fa-map-marker"></i>
+						<span class="poolDetail" data-name="PoolName"></span>
+						<span>
+							(<span class="poolDetail" data-name="PoolId"></span>)
+						</span>
+					</li>
+					<li></li>
+					<li class="title" id="spanPageTitle"></li>
+				</ul>
+			</div>
+			<!--目标化页面-->
+			<div class="targetedPage" v-if="titleText == 'PoolTargetParent'">
+				<!--tab标签页导航-->
+				<ul class="clear">
+					<li>表单视图</li>
+					<li id="btnRunTask" @click="t_rerunTask">创建子资产池</li>
+				</ul>
+				<!--表单视图-->
+
+				<div class="formView">
+					<template v-for="(index0, EC) in ecModel" v-if="EC.CriteriaDescription == '统计属性目标化'">
+						<div class="clear subFormView" style="display: none;">
+							<div class="col-12 col_style">
+								<div class="col-6 form-group autoLayout-plugins">
+									<div class="col-2">
+										<label>{{EC.XMLSqlQueryEC.Presentation[0].RowText}}</label>
+									</div>
+									<div class="col-5">
+										<div class="col-11 baseInfo_wrap">
+											<input type="text" class="form-control date-plugins" v-model="EC.XMLSqlQueryEC.Presentation[0].Field[0].Value" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<p v-if="false" class="Reminder">{{EC.XMLSqlQueryEC.Presentation[1].RowText}}</p>
+						<div class="formaldehyde">
+							<p @click="EC.XMLSqlQueryEC.Presentation[2].show = !EC.XMLSqlQueryEC.Presentation[2].show" style="display: inline-block;cursor: pointer;">{{EC.XMLSqlQueryEC.Presentation[2].RowText}}</p>
+							<div class="sub_formaldehyde" v-if="EC.XMLSqlQueryEC.Presentation[2].show">
+								<table class="table table-bordered">
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>Name</th>
+											<th>CurrentValue</th>
+											<th>TargetValue</th>
+											<th>Tolerance</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr v-for="(index, item) in EC.XMLSqlQueryEC.Presentation[2].Field[0].SuggestedItems">
+											<td>
+												<label class="virtual-label"><input type="checkbox" class="org-checkbox" v-model="item.IsCheck" ></label>
+											</td>
+											<td>{{item.Name}}</td>
+											<td>{{item.CurrentValue}}</td>
+											<td>
+                                                <input type="text" v-model="item.TargetValue" class="input-group-box" >
+												<button id=CurrentRateTableTdBox{{$index}} v-if="index == 0" @click="target()">参考范围</button>
+												<button id=CurrentRateTableTdBox{{$index}} v-if="index == 1" @click="term()">参考范围</button>
+											</td>
+											<td><input type="text" v-model="item.Tolerance" class="input-group-box" ></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="dynamicsTable">
+							<div class="clear subFormView">
+                                <div class="col-12 col_style" id="gold-form-panel">
+                                    <div class="col-6 form-group autoLayout-plugins" style="margin-bottom: -5px;">
+                                        <div class="col-2">
+                                            <label class="gold-group-addon">属性</label>
+                                        </div>
+                                        <div class="col-5">
+                                            <div class="col-12 baseInfo_wrap">
+                                                <select class="form-control date-plugins gold-form-control" v-model="getAddSelectValue" @change="valueChange(getAddSelectValue)">
+                                                    <option v-for="(index, item) in getAddSelectData" value="item.DistributionTypeCode">{{item.DistributionTypeName}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <p class="save" class="{pointerEvents: pointerEventsBoolean}" @click="addItem(EC, $event, index0)" style="margin: 0px 0px 0px 10px;">新增</p>
+                                        </div>
+                                    </div>
+                                </div>
+							</div>
+							<template v-for="(index, term) in EC.XMLSqlQueryEC.Presentation">
+								<div class="sub_dynamicsTable formaldehyde" v-if="index > 2">
+									<ul class="clear">
+										<li @click="term.show = !term.show">{{term.RowText}}</li>
+										<li :class="{pointerEvents: pointerEventsBoolean}" @click="removeItem(index0, index, $event)">
+											<button id="removeShowColumn" title="删除" class="btn btn-remove">
+			                                    <i class="icon icon-remove"></i>
+			                                </button>
+										</li>
+									</ul>
+									<div class="sub_formaldehyde" v-if="term.show">
+										<table class="table table-bordered">
+											<thead>
+												<tr>
+													<th>#</th>
+													<th>Name</th>
+													<th>CurrentValue</th>
+													<th>TargetValue</th>
+													<th>Tolerance</th>
+												</tr>
+											</thead>
+											<tbody>
+                                                <tr v-for="(index2, SuggestedItems) in term.Field[0].SuggestedItems" v-if="SuggestedItems.CurrentValue != ''">
+                                                    <td>
+                                                        <label class="virtual-label"><input type="checkbox" class="org-checkbox" v-model="SuggestedItems.IsCheck" @change="isSelectedF(EC.XMLSqlQueryEC.Presentation, SuggestedItems.IsCheck, index)" v-bind:disabled="SuggestedItems.Name=='未知'"></label>
+                                                    </td>
+                                                    <td>{{SuggestedItems.Name}}</td>
+                                                    <td>{{SuggestedItems.CurrentValue}}</td>
+                                                    <td>
+                                                        <input type="text" v-model="SuggestedItems.TargetValue" class="input-group-box"
+                                                               v-on:blur="dataCheck(SuggestedItems.TargetValue,SuggestedItems.IsCheck,index,index2,$event,'TargetValue')"
+                                                               v-on:keyup.enter="dataCheck(SuggestedItems.TargetValue,SuggestedItems.IsCheck,index,index2,$event,'TargetValue')"
+                                                               v-on:focus="reWrite(SuggestedItems.TargetValue,SuggestedItems.IsCheck,$event)"
+                                                               v-bind:disabled="SuggestedItems.Name=='未知'">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" v-model="SuggestedItems.Tolerance" class="input-group-box"
+                                                               v-on:blur="dataCheck(SuggestedItems.Tolerance,SuggestedItems.IsCheck,index,index2,$event,'Tolerance')"
+                                                               v-on:keyup.enter="dataCheck(SuggestedItems.Tolerance,SuggestedItems.IsCheck,index,index2,$event,'TargetValue')"
+                                                               v-on:focus="reWrite(SuggestedItems.Tolerance,SuggestedItems.IsCheck,$event)"
+                                                               v-bind:disabled="SuggestedItems.Name=='未知'">
+                                                    </td>
+                                                </tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</template>
+                            <div  class="save" @click="saveECEntitiesTarget(EC,$event,index0)" style="position:absolute;right:185px;top:-8px;">保存</div>
+						</div>
+					</template>
+				</div>
+			</div>
+			<!--额度调整页面-->
+			<div class="targetedPage limitChange" v-if="titleText == 'PoolTargetChild'">
+				<!--tab标签页导航-->
+				<ul class="clear">
+					<li>表单视图</li>
+					<li id="btnRunTask" @click="t_rerunTask">创建子资产池</li>
+				</ul>
+				<!--表单视图-->
+                <div class="formView">
+                    <template v-for="(index0, EC) in ecModel" v-if="EC.CriteriaDescription == '待销售资产池目标化'">
+                        <div class="clear subFormView" id="gold-form-panel">
+                            <!--是否Exclude互斥：-->
+                            <div class="col-12 col_style">
+                                <div class="col-6 form-group autoLayout-plugins">
+                                    <div class="col-4"><label class="gold-single-addon">是否互斥：</label></div>
+                                    <div class="col-6">
+                                        <div class="col-12 baseInfo_wrap clear">
+                                            <div class="isMutualExclusion">
+                                                <input type="radio" v-bind:value="true" id="isMutualExclusion_one" v-model="isMutualExclusion" />
+                                                <label for="isMutualExclusion_one">是</label>
+                                            </div>
+                                            <div class="isMutualExclusion">
+                                                <input type="radio" v-bind:value="false" id="isMutualExclusion_two" v-model="isMutualExclusion" />
+                                                <label for="isMutualExclusion_two">否</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--额度调整-->
+                            <div class="col-6 col_style" v-for="(index, item) in EC.XMLSqlQueryEC.Presentation" v-if="item.RowText != '已销售资产金额 ($):'">
+                                <div class="col-12 form-group autoLayout-plugins">
+                                    <div class="col-4"><label class="gold-group-addon">{{item.RowText}}</label></div>
+                                    <div class="col-6">
+                                        <div class="col-12 baseInfo_wrap">
+                                            <input type="text" class="form-control date-plugins gold-form-control" v-if="item.Field[0].FieldType == 'DQueryDisplay' && isMutualExclusion" v-model="mutualExclusionValue | numFormt" disabled="disabled" />
+                                            <input type="text" class="form-control date-plugins gold-form-control" v-if="item.Field[0].FieldType == 'DQueryDisplay'  && !isMutualExclusion" v-model="item.Field[0].Value | numFormt" disabled="disabled" />
+                                            <input type="text" class="form-control date-plugins gold-form-control" v-if="item.Field[0].FieldType == 'TextBox'" v-model="item.Field[0].Value | numFormt" @keyup="inputChage($event)" @focus="inputFocus($event)" @blur="inputBlur($event)" v-bind:disabled="!EC.IsEditable" />
+                                        </div>
+                                    </div>
+                                    <div class="col-1" v-bind:title="getChinaNumber(item.Field[0].Value, index, isMutualExclusion, mutualExclusionValue)">
+                                        <span class="input-group-addon noBG"><i class="icon icon-asset"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="save" @click="limitChange(EC, $event, index0)" >保存</div>
+                    </template>
+                </div>
+			</div>
+			<div class="form" id="PoolECForm" v-if="titleText != 'PoolTargetChild' && titleText != 'PoolTargetParent'" v-cloak>
+				<!--<h3 id="step-title" class="business_title"><span class="title">商务逻辑</span></h3>-->
+				<div class="form-body default">
+					<div class="all" v-if="ecModel.length">
+	                    <label class="virtual-label"><input type="checkbox" class="org-checkbox" id="all-input" v-model="allChecked" disabled="disabled"></label>
+	                    <label for="all-input">全选</label>
+	                    <span>({{checkedSet.length}})</span>
+	                    <div class="pull-right all-wraper">
+	                        <button type="button" class="btn btn-primary" @click="saveEnableEC">保存</button>
+	                        <button type="button" class="btn btn-default" id="btnRunTask" @click="t_rerunTask">创建子资产池</button>
+	                    </div>
+	                </div>
+					<div>
+						<div class="view-work-body">
+							<div v-for="typeCode in CriteriaTypeCodeSet" v-cloak>
+								<div class="typeCode-title">
+									<span selectstart="return fasle" @click="typeCode.isShow=!typeCode.isShow">
+                                    {{typeCode.code}}
+                                    <i class="icon-down-dir" v-show="typeCode.isShow"></i>
+                                    <i class="icon-up-dir" v-show="!typeCode.isShow"></i>
+                                </span>
+								</div>
+								<div v-show="typeCode.isShow">
+									<div class="menu" v-show="index == 0" v-bind:class="index">
+										<span class="line"></span>
+										<ul>
+											<li v-for="(index, EC) in ecModel|filterBy typeCode.code in 'CriteriaTypeCode'"><span v-bind:class="{active: index == 0}"></span>
+												<div>{{EC.CriteriaDescription}}</div>
+											</li>
+										</ul>
+									</div>
+									<div class="ec-row" v-for="EC in ecModel|filterBy typeCode.code in 'CriteriaTypeCode'" v-bind:class="{mb0:$index==ecModel.length-1}">
+										<div class="btns-wraper" style="background-color:#f5f5f5">
+											<div class='desc-wraper'>
+												<label class="virtual-label"><input type="checkbox" class="org-checkbox" v-bind:value="EC.CriteriaId" v-model="checkedSet" v-bind:disabled="!EC.IsEditable"></label>
+												<span class="ec-name">{{EC.CriteriaName}}</span>
+												<span class="ec-desc">({{EC.CriteriaDescription}})</span>
+												<i class='fa fa-angle-down'></i>
+											</div>
+											<div class="list-wraper">
+												<ul class="tab-list">
+													<li class="list-item" v-bind:class="{active:EC.activeView=='Form'}" @click="EC.activeView='Form'">
+														<span>表单视图</span>
+													</li>
+													<li class="list-item" v-bind:class="{active:EC.activeView=='Query'}" @click="refreshQuery(EC)">
+														<span>查询语句</span>
+													</li>
+													<li class="list-item" v-bind:class="{active:EC.activeView=='Verification'}" @click="EC.activeView='Verification'">
+														<span>校验语句</span>
+													</li>
+													<li class="list-item" @click="saveECEntities(EC,$event)">
+														<span>保存</span>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<div class="content-wraper">
+											<table class="table table-hover view-table m0" v-show="EC.activeView=='Form'">
+												<tbody>
+													<tr v-for="row in EC.XMLSqlQueryEC.Presentation">
+														<td class="textCell pl15" width="430px">{{row.RowText}}</td>
+														<td class="desCell">
+															<template v-for="field in row.Field">
+																<select class="form-control input-group-select" v-if="field.FieldType=='ReplaceOperator'" v-model="field.Value" v-bind:disabled="!EC.IsEditable">
+																	<option v-for="item in field.SuggestedOperators" value="{{item.Value}}">{{item.Name}}</option>
+																</select>
+																<input type="text" class="input-group-box" v-if="field.FieldType=='TextBox'" v-model="field.Value | numFormt" @keyup="inputChage($event)" @focus="inputFocus($event)" @blur="inputBlur($event)" v-bind:disabled="!EC.IsEditable">
+																<input type="text" class="input-group-box" v-if="field.FieldType=='DQueryDisplay'" v-model="field.Value | numFormt" disabled="disabled">
+																<label class="virtual-label mb0 mr5" v-if="field.FieldType=='CheckBox'">
+                                                                <input type="checkbox" class="org-checkbox" v-model="field.IsCheck" v-bind:disabled="!EC.IsEditable">
+                                                            </label>
+																<table class="subtable table" v-if="field.FieldType=='ReplaceLookup'&&field.DataSourceType=='Static'">
+																	<thead v-if="field.SuggestedItems.length">
+																		<tr>
+																			<th>#</th>
+																			<th>Name</th>
+																			<th>Value</th>
+																			<!--<th>Excluded</th>
+                                                                        <th>IsNew</th>-->
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<tr v-for="staticItem in field.SuggestedItems">
+																			<td>
+																				<label class="virtual-label"><input type="checkbox" class="org-checkbox" v-model="staticItem.IsCheck" v-bind:disabled="!EC.IsEditable"></label>
+																			</td>
+																			<td>{{staticItem.Name}}</td>
+																			<td>{{staticItem.Value}}</td>
+																			{{$parent.$index}}-{{$index}}
+																			<!--<td>{{staticItem.Excluded}}</td>
+                                                                        <td>{{staticItem.IsNew}}</td>-->
+																		</tr>
+																	</tbody>
+																</table>
+																<table class="subtable table" v-if="field.FieldType=='ReplaceLookup'&&field.DataSourceType=='Dynamic'">
+																	<thead v-if="field.SuggestedItems.length">
+																		<tr>
+																			<th>#</th>
+																			<th>Name</th>
+																			<th>Value</th>
+																			<th>Excluded</th>
+																			<th>IsNew</th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<tr v-for="staticItem in field.SuggestedItems">
+																			<td>
+																				<label class="virtual-label"><input type="checkbox" class="org-checkbox" v-model="staticItem.IsCheck" v-bind:disabled="!EC.IsEditable"></label>
+																			</td>
+																			<td>{{staticItem.Name}}</td>
+																			<td>{{staticItem.Value}}</td>
+																			<td>{{staticItem.Excluded}}</td>
+																			<td>{{staticItem.IsNew}}</td>
+																		</tr>
+																	</tbody>
+																</table>
+																<table class="subtable table" v-if="field.FieldType=='TargetLookup'">
+																	<thead v-if="field.SuggestedItems.length">
+																		<tr>
+																			<th>#</th>
+																			<th>Name</th>
+																			<th>CurrentValue</th>
+																			<th>TargetValue</th>
+																			<th>Tolerance</th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<tr v-for="staticItem in field.SuggestedItems">
+																			<td>
+																				<label class="virtual-label"><input type="checkbox" class="org-checkbox" v-model="staticItem.IsCheck"></label>
+																			</td>
+																			<td>{{staticItem.Name}}</td>
+																			<td>{{staticItem.CurrentValue}}</td>
+																			<td>
+																				<input type="text" v-model="staticItem.TargetValue" v-on:keyup="NumberCheck(staticItem.TargetValue,$event)">
+																				<button id=CurrentRateTableTdBox{{$index}} style='padding:1px;margin:3px' v-if="$parent.$parent.$index==2&&$index==0" @click="target()">参考范围</button>
+																				<button id=CurrentRateTableTdBox{{$index}} style='padding:1px;margin:3px' v-if="$parent.$parent.$index==2&&$index==1" @click="term()">参考范围</button>
+																			</td>
+																			<td><input type="text" v-model="staticItem.Tolerance" v-on:keyup="NumberCheck(staticItem.TargetValue,$event)"></td>
+																		</tr>
+																	</tbody>
+																</table>
+															</template>
+															<div v-if="EC.ECPassNo=='ChildPass'&&$parent.$parent.$index==0&&$parent.$index==0&&($index==0||$index==2)" v-on:mouseover.prevent="divMouseover($event)" v-on:mouseleave="divMouseleave($event)" id='field{{$index}}' class='field-details' style='position:relative;max-width:50px;left:60%;bottom:28px;'>
+																<i class='icon icon-asset' style='margin-top: 4px;display: inline-block;color:#4174cb;'></i>
+																<div id='fieldtip{{$index}}' class='field-detail-box' style='width:200px;font-size:12px;display: inline-block;position:absolute;top:10px;left:35px'>
+
+																</div>
+															</div>
+														</td>
+
+													</tr>
+												</tbody>
+											</table>
+											<textarea class="view-area" placeholder="Query ..." v-model="EC.ECQeury" v-bind:disabled="!EC.IsEditable" v-show="EC.activeView=='Query'"></textarea>
+											<textarea class="view-area" placeholder="Verification ..." v-model="EC.ECDrillthroughQuery" v-bind:disabled="!EC.IsEditable" v-show="EC.activeView=='Verification'"></textarea>
+											<div v-show="EC.activeView=='result'">
+												<table class="table table-hover">
+													<thead>
+														<tr class="info">
+															<th v-for="title in ecDataTitle">{{title}}</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr v-for="ec in ecData">
+															<td v-for="data in ec">
+																{{data}}
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+
+</html>

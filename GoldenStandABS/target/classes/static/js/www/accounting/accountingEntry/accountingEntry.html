@@ -1,0 +1,248 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>会计分录转换</title>
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet">
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+
+
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../productDesign/css/trustWizard.css" rel="stylesheet" />
+    <script data-main="accountingEntry" src="../../../asset/lib/require.js"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+            height: 100%;
+            font-family: 'Microsoft YaHei';
+            padding: 6px 15px 0px 15px;
+        }
+        .main .h3 {
+            margin-top: 0px;
+        }
+        .form .form-group {
+            margin-bottom: 7px;
+        }
+        .main h3 .title {
+            font-weight: normal;
+            font-size: 16px;
+            font-family: 'Microsoft YaHei';
+        }
+
+        .file_name {
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            width: calc(100% - 90px);
+            box-sizing: border-box;
+            padding-left: 10px;
+            border: 1px solid rgba(0,0,0,0.2);
+            border-right: 0px;
+            color: #666;
+        }
+
+        .form {
+            border-bottom: none;
+            min-height: 0;
+        }
+
+            .form .form-group label {
+                font-weight: normal;
+                font-family: 'Microsoft YaHei'
+            }
+
+        .main .h3 .title {
+            border-bottom: none;
+            color: rgba(59,62,93,.8);
+        }
+
+        .date_selector {
+            width: auto;
+        }
+
+        .file_name.filed {
+            color: #222;
+            border-style: solid;
+        }
+
+        .form .input_file_style {
+            width: 90px;
+            float: right;
+            border-radius: 0px;
+            border: 1px solid rgba(220,224,238,1);
+            background: rgba(243,245,250,1);
+            color: #808080;
+        }
+
+        .main .form .notice-word {
+            padding: 7px;
+            margin-bottom: 2%;
+        }
+
+        .table table {
+            width: 100%;
+            border: 1px solid #dedede;
+        }
+
+            .table table tr:first-child td {
+                background: #f7f7f7;
+                color: #555555;
+                font-weight: normal;
+                font-family: 'Microsoft YaHei';
+            }
+
+            .table table tr td {
+                padding: 8px 0;
+                border-bottom: 1px solid #dedede;
+                border-right: 1px solid #dedede;
+                text-align: center;
+                background: #ffffff;
+            }
+
+                .table table tr td a:link {
+                    color: #5c6aaa;
+                }
+
+                .table table tr td a:visited {
+                    color: #0e132a;
+                }
+
+                .table table tr td a:hover {
+                    color: #0e132a;
+                }
+
+        .form .buttons {
+            text-align: center;
+        }
+
+        .mr-sm {
+            margin-right: 10px;
+        }
+
+        .mask {
+            position: fixed;
+            top: 0px;
+            width: 100%;
+            bottom: 0;
+            background-color: #fff;
+            z-index: 1002;
+            left: 0px;
+            text-align: center;
+        }
+
+            .mask img {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+            }
+
+        .noData {
+            height: 300px;
+            background: url(../../../asset/img/no_ata.png) center center no-repeat;
+            border: 1px solid #eee;
+            border-top: 0;
+        }
+
+        .gd-message {
+            min-width: 380px;
+            box-sizing: border-box;
+            border-radius: 4px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #ebeef5;
+            position: fixed;
+            z-index: 99999;
+            left: 50%;
+            top: 60px;
+            transform: translateX(-50%);
+            background-color: #edf2fc;
+            transition: opacity 0.3s,transform .4s;
+            overflow: hidden;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+
+            .gd-message .fa {
+                margin-right: 8px;
+                margin-top: 3px;
+            }
+
+        .gd-message-success {
+            color: #67c23a;
+            background-color: #f0f9eb;
+        }
+
+        .gd-message-warning {
+            color: #e6a23c;
+            background-color: #fdf6ec;
+        }
+
+        .gd-message-info {
+            color: #909399;
+            background-color: #f0f9eb;
+        }
+
+        .gd-message-error {
+            color: #f56c6c;
+            background-color: #fef0f0;
+        }
+    </style>
+</head>
+<body>
+    <div id="selectLanguageDropdown_qcl" class="localizationTool" style="display:none"></div>
+    <div class="main" id="main">
+        <div id="mask" class="mask" v-show="loading"><img src="../../../asset/img/loading-image.gif" /> </div>
+        <h3 class="h3"><span class="title">会计分录转换</span></h3>
+        <div class="form">
+            <div class="col-12 form-group">
+                <div class="col-1"><label id="">上传文件</label></div>
+                <div class="col-3 mr-sm">
+                    <label class="input_file_style" for="fileUploadFileU" style="">
+                        <input type="file" id="fileUploadFileU" class="form-control file" data-valid="required" />
+                        <span class="EnterFile_ail" id="choose_file">选择文件</span>
+                    </label>
+                    <span class="file_name" id="content_file">暂未选择文件</span>
+                </div>
+                <div class="col-2"><label id="">SAP抬头公司代码</label></div>
+                <div class="col-2">
+                    <input type="number" name="name" class="form-control" v-model="companyCode" data-valid="required" />
+                </div>
+                <div class="buttons col-1"> 
+                    <button id="upload_ail" type="button" class="btn btn-primary" title="导入" @click="SubmitFormU()">上传</button>
+                </div>
+            </div>
+
+        </div>
+        <div class="table col-12" v-bind:class="{'noData':fileList.length==0}">
+            <table>
+                <tr>
+                    <td id="tab1">序号</td>
+                    <td id="tab2">上传日期</td>
+                    <td id="tab3">原始文件</td>
+                    <td id="tab4">转换后的文件</td>
+                </tr>
+                <tr v-for="(item,index) in fileList">
+                    <td>{{index+1}}</td>
+                    <td>{{item.ReportingDateId}}</td>
+                    <td>
+                        <a v-bind:href="item.OriginalFilePath">{{item.OriginalFileName}}</a>   <!--新增了属性绑定，原始文件下载链接-->
+                    </td>
+                    <td>
+                        <a v-bind:href="item.ChangeFilePath">{{item.ChangeFileName}}</a>   <!--新增了属性绑定，转换后的文件下载链接-->
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+﻿#loading{
+flex-direction:row;
+-webkit-flex-direction:row;
+-ms-flex-direction:row;
+-mos-flex-direction:row;
+-o-flex-direction:row;
+justify-content:center;
+-webkit-justify-content:center;
+-ms-justify-content:center;
+height:100%;
+width:100%;
+position:fixed;
+top:0px;
+}
+img{
+    width:60px ;
+    height:60px;
+    margin:auto 0;
+}
+
+.loadingBox{
+    display: box;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+

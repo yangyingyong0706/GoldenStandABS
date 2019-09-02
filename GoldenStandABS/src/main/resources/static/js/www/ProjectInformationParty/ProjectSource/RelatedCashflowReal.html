@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" style="overflow:hidden">
+<head>
+    <title>相关现金流</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+
+    <script src="../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/ProjectInformationParty/js/project_interface']);
+            requirejs(['app/ProjectInformationParty/ProjectSource/RelatedCashflowReal']);
+        });
+    </script>
+
+    <style>
+        html, body {
+            height: 100%;
+        }
+        .body-container {
+            padding: 15px;
+            height: 100%;
+            background: #fafafa;
+        }
+
+        #loading {
+            position: absolute;
+            top: 0px;
+            z-index: 1002;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+        }
+        #loading > i {
+            color: rgb(107, 147, 216);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        [v-cloak] {
+            display: none;
+        }
+        .title {
+            height: 40px;
+            line-height: 40px;
+            border-bottom: 1px solid #dedede;
+            color: rgba(69,86,156,1);
+            font-size: 16px;
+            margin: -15px -15px 0;
+            padding: 0 15px;
+            background: #ffffff;
+        }
+        #addProject {
+            float: right;
+            margin-top: 5px;
+        }
+        .haveTrust { 
+            padding: 15px;
+            margin: 0 -15px;
+        }
+        ul,li {
+            margin: 0;
+            padding: 0;
+        }
+        ul li {
+            list-style: none;
+        }
+        .haveTrust .TrustCard .TrustCardLi {
+            width: calc(25% - 15px);
+            height: 80px;
+            /*border: 1px solid #dedede;*/
+            border-radius: 5px;
+            padding: 5px 10px;
+            float: left;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            background: #ffffff;
+        }
+        .haveTrust .TrustCard .TrustCardLi:nth-child(4n) {
+            margin-right: 0;
+        }
+        .haveTrust .TrustCard .TrustCardLi .leftSide {
+            float: left;
+            width: 70%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .haveTrust .TrustCard .TrustCardLi .rightSide {
+            float: right;
+            width: 30%;
+            text-align: right;
+        }
+         .haveTrust .TrustCard .TrustCardLi p {
+             margin: 0;
+             line-height: 35px;
+             overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+         }
+         .haveTrust .TrustCard .TrustCardLi>a{
+             display: block;
+             background: #ffffff url('../../basicAsset/style/images/asset.png') no-repeat right;
+            background-size: 60px 60px;
+            color: #888888;
+         }
+         .k-grid tr:hover {
+            background-color: #f3f5fa;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+         .k-grid-header th.k-header {
+            vertical-align: middle;
+        }
+         .allDealTrust {
+             background: #ffffff;
+             padding: 15px;
+             margin-top: 15px;
+         }
+         .wrap-btn {
+             text-align: right;
+         }
+         #grid {
+             margin-top: 15px;
+         }
+         .showGrid {
+             text-align: right;
+         }
+         .main {
+             height: 100%;
+         }
+         .haveTrust {
+             max-height: 100%;
+             overflow-y: scroll;
+         }
+    </style>
+</head>
+<body>
+    <div class="body-container" id="app">
+        <div id="loading">
+            <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+        </div>
+        <div class="main">
+            <h3 class="title">
+                相关现金流
+                <button id="addProject" class="btn btn-default">选择产品</button>
+            </h3>
+            <!--<div class="showGrid">
+                
+            </div>-->
+            <div class="allDealTrust" style="display: none;">
+                <div class="clearfix wrap-btn">
+                    <button id="saveProject" class="btn btn-primary">保存</button>
+                </div>
+                <div id="grid"></div>
+            </div>
+            <div class="haveTrust">
+                <ul class="TrustCard clearfix">
+                    <li class="TrustCardLi" v-for="item in trustList">
+                        <a target="_blank" v-bind:href=item.href class="clearfix">
+                            <div class="leftSide">
+                                <p>{{item.name}}</p>
+                                <p>{{item.code}}</p>
+                            </div>
+                            <div class="rightSide">
+                                <p>{{item.number}}</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

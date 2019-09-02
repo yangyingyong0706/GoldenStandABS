@@ -1,0 +1,338 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<!--big mom-->
+<head>
+    <meta charset="UTF-8">
+    <title>高登世德ABS系统</title>
+    <link href="../asset/img/icon.png" mce_href="../asset/img/icon.png" rel="icon">
+    <link href="../asset/style/reset.css" rel="stylesheet">
+    <link href="../asset/style/common.css" rel="stylesheet">
+    <link href="../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../asset/lib/toast/toast.css" rel="stylesheet" />
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            height: 100%;
+            font: 14px/1.5 'microsoft yahei', 'arial', 'simsun', 'sans-serif';
+            overflow-x: hidden;
+        }
+
+        #container {
+            min-width: 1200px;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+            #container:before {
+                content: "";
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                bottom: 0px;
+                right: 0px;
+                filter: blur(20px);
+                background: rgba(0,0,0,0.3);
+                z-index: -1;
+            }
+
+        .header {
+            height: 50px;
+            margin: auto;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            /*background: #292f4a;*/
+            background-image: url("../asset/img/nav.png");
+            background-size: cover;
+        }
+
+        .logo-wrap {
+            float: left;
+            height: 50px;
+            line-height: 50px;
+            font-size: 18px;
+            color: #fff;
+            width: 200px;
+            font-family: "Microsoft Yahei";
+            display: flex;
+            justify-content: space-between;
+        }
+
+            .logo-wrap img {
+                height: 30px;
+                cursor: pointer;
+                width: 157px;
+                margin: auto;
+            }
+
+        .header-nav {
+            margin-left: 1%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .list {
+            width: 100%;
+            padding-top: 8px;
+            box-sizing: border-box;
+        }
+
+        .header-login {
+            margin-top: 10px;
+            color: rgba(255,255,255,.8);
+            font-size: 14px;
+            vertical-align: middle;
+            margin-left: auto;
+            margin-right: 10px;
+        }
+
+            .header-login .user-name,
+            .header-login .user-avatar,
+            .header-login .icon {
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+                .header-login .user-avatar img {
+                    width: 20px;
+                    height: 22px;
+                    margin-top: 5px;
+                }
+
+            .header-login .user-name {
+                margin-left: 8px;
+                cursor: pointer;
+                line-height: 30px;
+                min-width: 50px;
+                text-align: center;
+            }
+
+            .header-login .icon {
+                transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
+                transform-origin: 50% 50% 0;
+                transition: transform .2s ease-in 0s;
+                line-height: 30px;
+                position: relative;
+            }
+
+        .icon {
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+            top: 0px;
+        }
+
+        .header-login .user-info {
+            position: relative;
+            display: flex;
+        }
+
+        .user-info {
+            z-index: 99;
+            display: flex;
+        }
+
+        .user-options {
+            display: none;
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            height: auto;
+            top: 0;
+            right: 0;
+            color: transparent;
+            background-color: transparent;
+            border-radius: 3px;
+            -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+            transition: all .2s ease;
+            opacity: 0;
+            z-index: 9;
+            min-width: 120px;
+        }
+
+            .user-options > .option-item > a {
+                padding: 6px 10px;
+                color: transparent;
+                display: block;
+                border-bottom: 1px solid transparent;
+            }
+
+        .header-login:hover {
+            color: #fff;
+        }
+
+        .header-login .user-options {
+            -webkit-transform: translateY(35px);
+            transform: translateY(35px);
+            opacity: 1;
+            color: #fff;
+            background-color: #fff;
+            border: 1px solid #ededed;
+            box-shadow: 0 0 10px rgba(0,0,0,.1);
+        }
+
+            .header-login .user-options > .option-item > a {
+                border-color: #f5f6f7;
+                color: #333;
+            }
+
+                .header-login .user-options > .option-item > a:hover {
+                    color: #3555a5;
+                }
+
+        .list .list-item {
+            position: relative;
+            display: inline-block;
+            text-align: center;
+            height: 30px;
+            line-height: 30px;
+            margin: 0 25px 0 0;
+        }
+
+            .list .list-item a {
+                font-size: 14px;
+                text-decoration: none;
+                color: rgba(255,255,255,.7);
+            }
+
+            .list .list-item .line {
+                display: block;
+                height: 1px;
+                border-radius: 3px;
+                width: 20%;
+                margin: auto;
+                background-color: transparent;
+                transition: width .3s;
+            }
+
+            .list .list-item:hover .line,
+            .list .list-item.active .line {
+                background: #fff;
+                width: 100%;
+            }
+
+            .list .list-item:hover > a,
+            .list .list-item.active > a {
+                color: #fff;
+            }
+
+        .tab-wrap {
+            padding: 12px 15px;
+        }
+
+            .tab-wrap > ul > li > a > span {
+                vertical-align: middle;
+            }
+
+        .content {
+            position: relative;
+            height: calc(100% - 50px);
+            box-shadow: 0 0 10px rgba(0,0,0,.15);
+            margin: auto;
+            width: 100%;
+        }
+
+        .iframe-wrap {
+            position: absolute;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+        }
+
+        .red {
+            color: #de0707;
+        }
+
+        .z-hide {
+            z-index: 0;
+        }
+
+        .ads {
+            /*color:lightslategray;*/
+            float: left;
+            height: 50px;
+            line-height: 50px;
+            font-size: 18px;
+            color: #fff;
+            font-family: SimSun;
+            width: 72%;
+        }
+
+            .ads .list .list-item {
+                width: 20%;
+                /*font-size:larger;*/
+            }
+    </style>
+</head>
+
+<body style="display:none">
+    <div id="selectLanguageDropdown" class="localizationTool" style="display:none"></div>
+    <div id="container">
+        <header class="header clearfix">
+            <div class="logo-wrap"><img src="../asset/img/logo.png" /></div>
+            <nav class="header-nav" style="display:none;">
+                <ul class="list" data-bind="foreach: tabs">
+                    <li class="list-item" data-bind="css: { active: id() == $parent.showId() },attr:{name:id()}">
+                        <a href="javascript:;" data-bind="text:name, event: { click: $parent.changeIframe.bind($parent,$data,$index) }">
+                        </a>
+                        <span class="line"></span>
+                    </li>
+                </ul>
+            </nav>
+            <nav class="ads">
+                <ul class="list">
+                    <!--<li class="list-item">标  准</li><li class="list-item"><h1>简  单</h1></li><li class="list-item"><h1>透  明</h1></li><li class="list-item"><h1>可  比</h1></li>-->
+                </ul>
+            </nav>
+            <div class="header-login">
+                <div class="user-info">
+                    <span class="user-avatar">
+                        <img src="../asset/img/head_portrait.png">
+                    </span>
+                    <span class="user-name">
+                        goldenstand
+                    </span>
+                    <i class="icon icon-bottom"></i>
+                    <ul class="user-options">
+                        <!--<li class="option-item"><a id="setting" href="javascript:;" data-bind="event: { click: setting }">设置</a></li>-->
+                        <!--系统登录日志按钮-->
+                        <li class="option-item"><a id="loginLogs" href="javascript:;" data-bind="event: { click: loginLogs }">登录日志</a></li>
+                        <li class="option-item"><a id="changePassword" href="javascript:;" data-bind="event: { click: changePassword }">修改密码</a></li>
+                        <li class="option-item"><a id="clearCache" href="javascript:;" data-bind="event: { click: clearCache }">清理缓存</a></li>
+                        <li class="option-item"><a id="logout" href="javascript:;" data-bind="event: { click: loginOut }">退出</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <div class="content">
+            <!--id="bussinessSystem"-->
+            <iframe id="work" class="iframe-wrap" src="./navigator/main.html"></iframe>
+            <!-- ko foreach: tabs-->
+            <!-- ko if:isLoaded() -->
+            <iframe class="iframe-wrap" data-bind="attr: { src: url,id:id()},css: { 'z-hide': id() != $parent.showId() }"></iframe>
+            <!--<div style="height: 20px;width: 20px;float: left;background: red;margin-left:2px;" data-bind="attr:{id:id()}"> test</div>-->
+            <!-- /ko -->
+            <!-- /ko -->
+
+        </div>
+    </div>
+
+    <script src="../asset/lib/require.js"></script>
+    <!--<script src="../asset/lib/config.js"></script>-->
+    <script>
+        requirejs(['../asset/lib/config'], function (common) {
+            requirejs(['app/index']);
+        });
+    </script>
+</body>
+
+</html>

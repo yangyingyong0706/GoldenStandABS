@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>操作记录</title>
+    <link href="../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+
+    <style type="text/css">
+        html {
+            padding: 0;
+            height:100%;
+        }
+
+        body {
+            padding: 15px;
+            margin: 0;
+            font: 12px/1.5 'Microsoft Yahei',tahoma,arial,\5b8b\4f53;
+            height:calc(100% - 30px)
+        }
+
+        .div-nav {
+            height: 40px;
+            font-family: 'Microsoft YaHei', Lantinghei SC, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans;
+            border-bottom: 1px solid #dedede;
+            margin-top: -15px;
+            margin-bottom: 15px;
+        }
+        .tab_a {
+            display: inline-block;
+            margin: 0 15px;
+            height: 39px;
+            line-height: 40px;
+            font-size: 14px;
+            color: #4d4d4d;
+            cursor: pointer;
+        }
+        .current_a, .tab_a:hover {
+           color: rgba(69,86,156,1);
+           border-bottom: 2px solid rgba(69,86,156,1);
+        }
+        .k-animation-container, .k-animation-container *, .k-animation-container :after, .k-block .k-header, .k-list-container, .k-widget, .k-widget *, .k-widget :before {
+            box-sizing: border-box;
+        }
+       a:hover, .btn-link:focus, .btn-link:hover{
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="div-nav">
+        <a class="schemaLink current_a tab_a" value="task">存续期管理</a>
+        <a class="schemaLink tab_a" value="consumerLoan">资产池中心</a>
+        <a class="ActLogs tab_a" value="QuickFrame">系统操作</a>
+    </div>
+    <div id="grid"></div>
+    <script src="../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../asset/lib/config.js'], function (config) {
+            requirejs(['app/history/history']);
+        });
+    </script>
+</body>
+</html>

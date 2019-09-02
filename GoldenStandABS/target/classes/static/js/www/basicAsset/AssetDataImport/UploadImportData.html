@@ -1,0 +1,255 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>导入资产</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+
+    <link href="../style/style.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/style/jquery.searchableSelect.css" rel="stylesheet" />
+    <script src="../../../asset/lib/require.js"></script>
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/toast/toast.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <script type="text/javascript">
+
+        requirejs(['../../../asset/lib/config.js'], function (config) {
+
+            requirejs(['app/basicAsset/AssetDataImport/UploadImportData']);
+
+        });
+    </script>
+
+    <style>
+        .main {
+            position: relative;
+        }
+        .buttons {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        #uploadinfo {
+            padding-top: 5px;
+        }
+        .progress {
+            height: 20px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+        }
+       .progress > .progress-bar {
+            float: left;
+            width: 0;
+            height: 100%;
+            font-size: 12px;
+            line-height: 20px;
+            text-align: right;
+            background: #6c78bd;
+            color: #fff;
+            background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+            background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+            background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+            -webkit-transition: width .6s ease;
+            -o-transition: width .6s ease;
+            -webkit-background-size: 40px 40px;
+            background-size: 40px 40px;
+            -webkit-animation: progress-bar-stripes 2s linear infinite;
+            -o-animation: progress-bar-stripes 2s linear infinite;
+            animation: progress-bar-stripes 2s linear infinite;
+        }
+
+        .file_name {
+            width: calc(100% - 90px);
+            overflow:hidden;
+            text-overflow:ellipsis;
+            white-space:nowrap;
+        }
+        .importDataTitle {
+            font-size: 16px;
+            height: 40px;
+            line-height: 40px;
+            color: #45569C;
+            border-bottom: 1px solid rgba(230,233,245,1);
+            margin-bottom:20px;
+        }
+        .form {
+            margin-bottom: -40px;
+            padding:20px;
+        }
+        .form .form-panel.drop {
+            padding-top: 20px;
+        }
+        #recycleAsset_ail {
+            border-radius: 2px;
+            border-right: 1px solid rgba(220,224,238,1);
+        }
+        .checkbox-position {
+            top: 4px;
+        }
+      
+         @media (min-width: 768px) {
+            .col-12 {
+                width: 45%;
+            }
+            .col-9 {
+                width: 60%;
+            }
+            .col-6 {
+                width: calc(50% - 20px);
+                margin-right: 20px;
+            }
+            .col-3{
+               width:25%
+            }
+            .col-3{
+               width:25%
+            }
+            .col-8{
+                width:75%
+            }
+            .col-5{
+               width:50%
+            }
+         }
+         @media (max-width: 768px) {
+            .col-6 {
+                width: 100%;
+            }
+            .col-8{
+                width:75%
+            }
+            .col-5 {
+                width: 50%;
+            }
+        }
+         #typetwo{
+             display:none
+         }
+    </style>
+
+</head>
+<body style="display:none ;">
+    <div id="selectLanguageDropdown_ail" class="localizationTool" style="display:none"></div>
+    <div class="main">
+        <!--<h3 id="step-title" class="h3"><span class="title">导入资产</span></h3>-->
+        <div class="form" id="AssetPoolCreationForm">
+            <div class="importDataTitle">
+                导入资产
+                <div  style="position:absolute;right:40px;width:120px;top:15px">
+                    <div class="btn btn-primary" id="downloadTemplate" >下载模板</div>
+                    <div data-toggle="tooltip" data-placement="bottom" title="导入的资产必须为当前计算日的资产" style="position:absolute;right:0px;top:3px">
+                        <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="form-body default">
+                <div class="form-panel" id="gold-form-panel">
+                    <div class="col-6 form-group" style="display:inline-block" id="typeone">
+                        <div class="col-3"><label id="uploadFile_ail" class="gold-group-addon">上传文件</label></div>
+                        <div class="col-8">
+                            <span class="file_name gold-file-name"></span>
+                            <label class="input_file_style gold-form-file" for="fileUploadFileU" style="width:90px;">
+                                <input type="file" id="fileUploadFileU" class="form-control file" data-valid="required" style="display:none;" />
+                                <span class="EnterFile_ail">选择文件</span>
+                            </label>
+                        </div>
+                        <div id="test_progress" class="progress" style="width:100%;position:relative;top:5px;margin:0px;display:none">
+                            <div class="progress-bar"><span></span></div>
+                        </div>
+                    </div>
+                    <div class="col-6 form-group" style="display:inline-block" id="typetwo">
+                        <div style="width:100%;float:left">
+                            <div style="width:25%;float: left;"><label id="uploadFile_ail" class="gold-group-addon" style="padding-left:22px;">账户文件</label></div>
+                            <div style="width:75%;float: left;">
+                                <span class="file_name gold-file-name"></span>
+                                <label class="input_file_style gold-form-file" for="fileUploadone" style="width:90px;">
+                                    <input type="file" id="fileUploadone" class=" file" data-valid="required" style="display:none;" />
+                                    <span class="EnterFile_ail">选择文件</span>
+                                </label>
+                            </div>
+                            <div id="test_progressone" class="progress" style="width:100%;position:relative;top:5px;margin:0px;display:none;float:left">
+                                <div class="progress-bar"><span></span></div>
+                            </div>
+                        </div>
+                      
+                    </div>
+                    <div class="col-6 form-group" v-cloak>
+                        <div class="col-3"><label id="special_plan" class="gold-group-addon">产品</label></div>
+                        <div class="col-8">
+                            <select class="form-control gold-form-control" id="TrustId"></select>
+                        </div>
+                    </div>
+                    <div class="col-6 form-group" style="display:inline-block" id="typetwoex">
+                        <div style="width:100%;float:left">
+                            <div style="width:25%;float: left;"><label id="uploadFile_ail" class="gold-group-addon" style="padding-left:22px;">订单文件</label></div>
+                            <div style="width:75%;float: left;">
+                                <span class="file_name gold-file-name"></span>
+                                <label class="input_file_style gold-form-file" for="fileUploadtwo" style="width:90px;">
+                                    <input type="file" id="fileUploadtwo" class=" file" data-valid="required" style="display:none;" />
+                                    <span class="EnterFile_ail">选择文件</span>
+                                </label>
+                            </div>
+                            <div id="test_progresstwo" class="progress" style="width:100%;position:relative;top:5px;margin:0px;display:none;float:left;">
+                                <div class="progress-bar"><span></span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 form-group">
+                        <div class="col-3"><label id="date_ail" class="gold-group-addon">日期</label></div>
+                        <div class="col-8">
+                            <input type="text" id="txtRDate" class="form-control date-plugins gold-form-control" data-valid="required date" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="col-6 form-group">
+                        <div class="col-3"><label id="assetType_ail" class="gold-group-addon">资产类型</label></div>
+                        <div class="col-8">
+                            <select class="form-control gold-form-control" id="AssetTypeU" disabled></select>
+                        </div>
+                    </div>
+                    <div class="col-6 form-group">
+                        <div class="col-3"><label id="assetOrigin_ail" class="gold-group-addon">资产来源</label></div>
+                        <div class="col-8">
+                            <select class="form-control gold-form-control" id="OrganisationCodeU" disabled></select>
+                        </div>
+                    </div>
+                    <div class="col-6 form-group">
+                        <div class="col-3"><label id="recycleAsset_ail" class="gold-single-addon">循环购买资产</label></div>
+                        <div class="col-8"><input id="checkbox" type="checkbox" value="1" name="checkU" style="margin-left: 5px;margin-top: 12px;" /></div>
+                    </div>
+
+
+
+                </div>
+                <div class="buttons pull-right">
+                    <button id="upload_ail" type="button" class="btn btn-primary" title="导入" onclick="SubmitFormU()">上传</button>
+                    <!--<button id="cancel_ail" type="button" class="delet_normal_small_button" title="取消" onclick="Cancel()">取消</button>-->
+                </div>
+
+                <div class="form-panel">
+                    <div id="rechis" style="height:290px;">
+                        <label class="">上传记录</label>
+                        <hr>
+                        <div id="grid"></div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="visibility:hidden"> &nbsp;</div>
+    </div>
+
+
+</body>
+</html>
+

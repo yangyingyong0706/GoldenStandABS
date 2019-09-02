@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title>产品年度报告</title>
+    <link href="../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="TrustAnnualReport.css" rel="stylesheet" />
+    <link href="ReportGrid.css" rel="stylesheet" />
+    <script src="../../asset/lib/goldenstand/Kendo/jszip.js"></script>
+
+    <style>
+        .tips {
+            color: #888;
+            font-size: 12px;
+            margin-left: 20px;
+        }
+        #startDateSelect {
+            height: 30px;
+            line-height: 30px;
+            width: 140px;
+            margin-left: 10px;
+        }
+        .left_div {
+            font-size:14px;
+            font-family:"微软雅黑";
+            font-weight:400;
+            color:rgba(77,77,77,1);
+        }
+        .k-grid td.k-state-selected, .k-grid tr.k-state-selected, .k-listview>.k-state-selected, .k-state-selected .k-progress-status {
+            color: #4d4d4d;
+        }
+        .header {
+            margin: 15px 0;
+        }
+        #tabList {
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="loading" class="loadpage text-center"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+    <div id="reportGetTrustDiv" class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 header" style="height: 35px;">
+                <div class="clearfix">
+                    <button id="exportData" type="button" @click="exportDataClick()" class="btn btn-default pull-right" style="position: relative;top: 2px;">
+                        <i class="icon icon-export"></i>
+                        <span>下载报告</span>
+                    </button>
+                    <span class="left_div pull-right">
+                        产品报告年份:
+                        <select id="startDateSelect" @change="startDateSelectChange()"></select>
+                        <!--<span class="tips">注：请先选择日期再进行产品年报编辑或下载</span>-->
+                    </span>
+                </div>
+                <hr />
+                <!--<button class="btn btn-default pull-right" id="GenerateDoc" @click="GenerateDocClick()" style="margin-right: 10px;">生成报告</button>
+                <button class="btn btn-default pull-right" id="GetData" @click="taskDetailClick()" style="margin-right: 10px;">获取数据</button>
+                <button class="btn btn-default pull-right" id="EditItem" @click="EditItemClick()" style="margin-right: 10px;">编辑</button>-->
+            </div>
+            <div id="tabList" class="col-md-12">
+                <div id="reportGetTrustGrid"></div>
+            </div>
+        </div>
+        <!--数据详情-->
+        <div id='task-dialog' style="display: none;">
+            <div class="table-btn">
+                <div style="width:100%;display:flex;justify-content: space-between;">
+                    <!--<div style="width: calc(100% - 120px);display: flex;justify-content: flex-end;margin-top: 10px;">
+                    <span style="margin-right: 5px;margin-top: -4px;">清空资产服务报告数据 </span>
+                    <input id="IsDelImport" type="checkbox" />
+                </div>-->
+                    <div class='btn btn-default' @click='pullAllData()'>获取全部数据</div>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>数据名称</td>
+                        <td>完成状态</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="stateItem in reportDataTemp">
+                        <td>{{stateItem.DataSourceDescription}}</td>
+                        <td><span class="badge" v-bind:class="stateItem.state=='1'?'badge-info':stateItem.state=='2'?'badge-denger':''">{{stateItem.state=="1"?"完成":stateItem.state=="2"?"未获取":"未完成"}}</span></td>
+                        <td><a @click="pullReportData(stateItem,reportDataTemp.selectedReportId,reportDataTemp.prieodData)" class="oper_btn" href="###">获取数据</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../asset/lib/config.js'], function (config) {
+            requirejs(['app/report/TrustAnnualReport']);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title></title>
+
+    <link href="../../css/bootstrap.css" rel="stylesheet" />
+    <link href="../../css/magic/magic.dialog.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../../../../asset/lib/devExtreme/style/dx.light.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../asset/lib/devExtreme/style/dx.common.css" />
+    <link rel="dx-theme" data-theme="generic.light" href="../../../../asset/lib/devExtreme/style/dx.light.css" />
+    <link href="../../css/trustWizard.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <script src="../../../../asset/lib/devExtreme/jszip.min.js"></script>
+    <style type="text/css">
+        .fixed-len { cursor: pointer; width: 130px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+        .riskTransferResult_th { border-bottom: 2px solid #B2C3E2; background: #D4DFF3; vertical-align: middle; color: #5A77A9; }
+        h2 { font-size: 20px; color: 999999; }
+
+        h3 { font-size: 18px; color: 999999; }
+        .main { padding: 0px; }
+        body { padding: 6px 15px 0px 15px; }
+        html { overflow-x: hidden; }
+        .main .h3 .title { border-bottom: none; color:rgba(59,62,93,.8); }
+        body .normal_small_button, .delet_normal_small_button { font-size: 13px !important; }
+        .form-save { display: flex; flex-wrap: wrap; }
+        .form-save button { margin: 0px 5px 10px 0px; }
+        .form-panel, .form-drop { border-bottom: none; }
+        .col-12.form-item.form-horizontal { border: 1px solid rgba(0,0,0,0.1); padding-top: 15px; }
+        .control-label label { background: #f1f1f1; border: 1px solid #efecec; text-align: center; box-sizing: border-box; }
+
+        .control-label label { line-height: 30px; color: #555; padding: 0 3px; height: 30px; overflow: hidden; display: block; white-space: nowrap; text-overflow: ellipsis; font-size: 14px; }
+        .col-4.control-label { padding: 0; }
+        .autoLayout-plugins .form-group { margin: 0; margin-bottom: 10px; }
+        .form-group .col-6 { padding: 0; }
+         .main-customize3 table tr td {
+            padding: 8px 0;
+            border-bottom: 1px solid #cacaca;
+            border-right: 1px solid #cacaca;
+            text-align: center;
+            background: #f9f9f9;
+        }
+        .dx-datagrid {
+            border: 1px solid #cacaca;
+        }
+        .dx-datagrid-header-panel {
+            border-bottom: none; 
+            padding: 10px 10px 0 0;
+        }
+    </style>
+    <script data-main="./StressScenarios" src="../../../../asset/lib/require.js"></script>
+
+</head>
+<body>
+    <div id="loading" class="loadpage">
+        <i class="icon icon-setting bigicon am-rotate pa"></i>
+        <i class="icon icon-setting smicon am-rotate pa"></i>
+        <p class="text pa">Configuration Loading...</p>
+    </div>
+
+    <div id="page_main_container" class="main public_font_style">
+        <div class="main-sections" data-bind="foreach: Sections">
+            <div class="main-section" data-bind="attr:{sectionIndex: $index(), id: Identity}">
+                <h3 class="h3"><span class="title" data-bind="text: Title"></span></h3>
+
+                <div class="form-panel" data-bind="template: { name: Templ, data: FieldsSetting }"></div>
+
+                <div class="form-save" data-bind="foreach: Buttons">
+                    <button data-bind="text: Text, attr:{'class': Class,'name': Name, sectionIndex: $index()}"></button>
+                </div>
+            </div>
+        </div>
+        <div class="main-customize hidden" data-bind="with: Customize">
+            <label class="large" data-bind="text: StressResultAggregation"></label>
+            <table class="table table-bordered tb-nowrap" id="table_StressResultsAggregation"></table>
+            <label class="large" data-bind="text: StressResult"></label>
+            <table class="table table-bordered tb-nowrap" id="table_StressResults"></table>
+        </div>
+        <div class="main-customize2 hidden">
+            <div id="RawValue"></div>
+            <div id="Variance"></div>
+            <div id="ShowResult"></div>
+        </div>
+        <div class="main-customize3 hidden">
+            <div id="resultTable"></div>
+        </div>
+    </div>
+
+    <script type="text/html" id="qw_KO_GridView">
+        <div class="form-item">
+            <table class="table table-bordered">
+                <thead>
+                    <tr data-bind="renderGridHeader:InnerText.Operate(), sectionIndex: $parentContext.$index()"></tr>
+                </thead>
+                <tbody data-bind="foreach:GridView">
+                    <tr data-bind="renderGridColumn:$parent.InnerText, sectionIndex: $parentContext.$parentContext.$index()"></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="form-item">
+            <div class="pull-right btn-group-sm" style="margin-top:-6px">
+                <input type="button" class="delet_normal_small_button" data-bind="value: InnerText.BtnClear" name="input_clear" />
+                <input type="button" class="normal_small_button gdv-detail-btnSave" data-bind="value:InnerText.BtnSave" name="input_save" />
+            </div>
+            <h3 class="h3"><span class="title" data-bind="text:DetailsTitle"></span></h3>
+
+            <!--ko if: HasOptionalFields-->
+            <div class="form-drop">
+                <div class="row">
+                    <div class="col-4">
+                        <select class="form-control gdv-optionalfields-select" data-bind="foreach: Detail">
+                            <!--ko ifnot: IsDisplay-->
+                            <option data-bind="attr: {value:$index}, text: ItemAliasValue"></option>
+                            <!-- /ko -->
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-plus" id="btn_add"><i class="icon icon-add"></i></button>
+                </div>
+            </div>
+            <!-- /ko -->
+
+            <div class="col-12 form-item form-horizontal" data-bind="foreach:Detail">
+                <!-- ko  if: IsDisplay -->
+                <div class="col-6 form-row autoLayout-plugins">
+                    <div class="form-group">
+                        <div class="col-4 control-label">
+                            <label data-bind="text:ItemAliasValue"></label>
+                        </div>
+                        <div class="col-6">
+                            <span data-bind="renderControl2:ItemId"></span>
+                        </div>
+                        <!-- ko  ifnot: IsCompulsory -->
+                        <button type="button" data-bind="attr: { itemIndex: $index }" onclick="gdvOperation.RemoveOptionalField(this)" class="btn btn-remove"><i class="icon icon-remove"></i></button>
+                        <!-- /ko -->
+                    </div>
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+        <!--<div class="form-item">
+            <h3 class="h3"><span class="title" data-bind="text:RiskTransferTitle"></span></h3>
+            <div class="col-12 form-item form-horizontal" data-bind="foreach:Detail">
+                <div class="col-6 form-row autoLayout-plugins">
+                    <div class="form-group">
+                        <div class="col-4 control-label">
+                            <label data-bind="text:ItemAliasValue"></label>
+                        </div>
+                        <div class="col-6">
+                            <span data-bind="renderControl2:ItemId"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+    </script>
+    <div id="taskIndicatorArea" style="display:none;width:480px; height:540px;">
+        <object id="TaskProcessCtl" data="data:application/x-silverlight-2," type="application/x-silverlight-2" style="display:block" width="100%" height="440px" class="ms-dlgDisable">
+            <param name="source" value="/TaskProcessEngine/ClientBin/UI.TaskProcessIndicator.xap" />
+            <param name="enablehtmlaccess" value="True" />
+        </object>
+    </div>
+
+</body>
+</html>

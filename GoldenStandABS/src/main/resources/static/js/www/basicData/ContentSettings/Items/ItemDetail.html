@@ -1,0 +1,283 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>内容信息管理</title>
+    <!--<link rel="stylesheet" href="../../TrustFollowUp/css/trustFollowUp.css" />-->
+    <!--<link href="../../Common/css/trustFollowUp.css" rel="stylesheet" />-->
+    <!--<link href="../../Common/Scripts/jquery-ui.css" rel="stylesheet" />-->
+    <!--<link href="../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />-->
+    <link href="../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <script src="../../../../asset/lib/require.js"></script>
+    <script src="../../../../asset/lib/config.js"></script>
+    <script>
+        requirejs(['app/basicData/ContentSettings/Items/ItemDetail'])
+    </script>
+    <style>
+        .page{
+            padding-left:0px;
+        }
+        #loading {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            background: #fff;
+            z-index: 99;
+        }
+        .menu_target{
+            padding:15px;
+        }
+        .page .main{
+            padding:0px;
+        }
+        #itemDetailFrom>.form-group.autoLayout-plugins.col-xs-6:nth-child(4) .col-xs-4>label{
+            background:transparent;
+            border:none;
+        }
+        #itemDetailFrom>.form-group.autoLayout-plugins.col-xs-6:nth-child(6) .col-xs-4>label{
+            background:transparent;
+            border:none;
+        }
+        [class^=col] {
+            padding: 0;
+        }
+        .h3 {
+            margin: -15px -15px 15px;
+            font-size: 16px;
+            border-bottom: 1px solid #dedede;
+            height: 40px;
+            line-height: 40px;
+            padding: 0 15px;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading" class="loadpage">
+        <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+        <!--<p class="text pa">加载配置中...</p>-->
+    </div>
+    <div class="page">
+        <div class="menu_target">
+            <!--<div class="menu-buttons xs-hidden">
+                <span class="tab-columns">
+                    <button type="button" class="btn btn-active" data-col="2">
+                        <span class="bs bs2"></span>
+                        <span class="bs bs2"></span>
+                    </button>
+                    <button type="button" class="btn" data-col="3">
+                        <span class="bs bs1"></span>
+                        <span class="bs bs1"></span>
+                        <span class="bs bs1"></span>
+                    </button>
+                </span>
+            </div>-->
+            <div class="main">
+                <h3 id="step-title" class="h3">
+                    <span class="title titlecur">内容信息管理</span>
+                </h3>
+                <div class="form">
+                    <div id="TrustExtensionDiv" class="form-body" id="step0">
+                        <div class="form-menu">
+                            <div class="form-panel item">
+                                <div class="col-xs-12" id="itemDetailFrom">
+                                    <!-- ko if : IsDisplay()=='1' -->
+                                    <div class="col-xs-6 form-group autoLayout-plugins">
+                                        <div class="col-xs-4">
+                                            <label>编码</label>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <input type="text" class="form-control form-item" data-attr="ItemCode" data-valid="required" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 form-group autoLayout-plugins">
+                                        <div class="col-xs-4">
+                                            <label>中文名称</label>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <input type="text" class="form-control form-item" data-attr="ItemAliasValue" data-valid="required" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 form-group autoLayout-plugins">
+                                        <div class="col-xs-4">
+                                            <label>语言</label>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <select class="form-control form-item" data-attr="ItemAliasSetName"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 form-group autoLayout-plugins">
+                                        <div class="col-xs-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-xs-6">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 form-group autoLayout-plugins">
+                                        <div class="col-xs-4">
+                                            <label>是否放入存续期</label>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <input type="checkbox" class="form-item" data-attr="IsRequired" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 form-group autoLayout-plugins">
+                                        <div class="col-xs-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-xs-6">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 form-group autoLayout-plugins">
+                                        <div class="col-xs-4">
+                                            <label>表名</label>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <input type="text" class="form-control form-item" data-attr="TableName" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 form-group autoLayout-plugins">
+                                        <div class="col-xs-4">
+                                            <label>数据类型</label>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <select class="form-control form-item" data-attr="DataType"></select>
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <button type="button" class="btn btn-plus"><i class="icon icon-add"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 form-group autoLayout-plugins">
+                                        <div class="col-xs-4">
+                                            <label>是否必填</label>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <input type="checkbox" class="form-item" data-attr="IsCompulsory" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 form-group autoLayout-plugins">
+                                        <div class="col-xs-4">
+                                            <label>是否自动计算</label>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <input type="checkbox" class="form-item" data-attr="IsCalculated" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 form-group autoLayout-plugins">
+                                        <div class="col-xs-4">
+                                            <label>单位</label>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <select class="form-control form-item" data-attr="UnitOfMeasure"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 form-group autoLayout-plugins">
+                                        <div class="col-xs-4">
+                                            <label>精度</label>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <input type="text" class="form-control form-item" data-attr="Precise" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 form-group autoLayout-plugins">
+                                        <div class="col-xs-4">
+                                            <label>顺序号</label>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <input type="text" class="form-control form-item" data-attr="SequenceNo" data-valid="int" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 form-group autoLayout-plugins">
+                                        <div class="col-xs-4">
+                                            <label>是否基准日</label>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <input type="checkbox" class="form-item" data-attr="IsReferenceDate" />
+                                        </div>
+                                    </div>
+                                    <!-- /ko -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-button" style="text-align: center;">
+                    <button id="Save" type="button" class="btn btn-default">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="AlertDiv" style="display:none;padding: 15px;padding-top:0px;padding-bottom:0px" class="page">
+        <div class="main">
+            <div class="form" style="border-bottom:none">
+                <div class="form-body">
+                    <div class="form-menu">
+                        <div class="form-panel item">
+                            <div id="AlertDivFrom">
+                                <!-- ko if : IsDisplay()=='1' -->
+                                <!--AlertDivFromTamplate-->
+                                <!-- /ko -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="AlertDivFromTamplate" style="display:none;">
+        <div class="col-xs-12 row">
+            <div class="col-xs-4 form-group autoLayout-plugins">
+                <div class="col-xs-3">
+                    <label>Key</label>
+                </div>
+                <div class="col-xs-7">
+                    <input type="text" class="form-control form-item" data-attr="ValueShort" data-valid="required" />
+                </div>
+            </div>
+            <div class="col-xs-4 form-group autoLayout-plugins">
+                <div class="col-xs-3">
+                    <label>描述</label>
+                </div>
+                <div class="col-xs-7">
+                    <input type="text" class="form-control form-item" data-attr="Value" data-valid="required" />
+                </div>
+            </div>
+            <div class="col-xs-3 form-group autoLayout-plugins">
+                <div class="col-xs-3">
+                    <label>英文描述</label>
+                </div>
+                <div class="col-xs-7">
+                    <input type="text" class="form-control form-item" data-attr="CodeDictionaryCode" data-valid="required" />
+                </div>
+            </div>
+            <div class="col-xs-4 form-group autoLayout-plugins">
+                <div class="col-xs-3">
+                    <label>语言</label>
+                </div>
+                <div class="col-xs-7">
+                    <select type="text" class="form-control form-item" data-attr="AliasSetName">
+                        <option value="zh-CN">中文</option>
+                        <option value="en-US">英文</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-4 form-group autoLayout-plugins">
+                <div class="col-xs-3">
+                    <label>排序</label>
+                </div>
+                <div class="col-xs-7">
+                    <input type="text" class="form-control form-item" data-attr="SequenceNo" data-valid="int" />
+                </div>
+            </div>
+            <div class="col-xs-3" style="text-align: center;">
+                <button type="button" title="增加" class="btn btn-plus" style="display:none;"><i class="icon icon-add"></i></button>
+                <button type="button" title="删除" class="btn btn-remove" style="display:none;"><i class="icon icon-remove"></i></button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

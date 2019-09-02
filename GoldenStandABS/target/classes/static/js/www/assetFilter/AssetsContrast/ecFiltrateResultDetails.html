@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-compatible" content="IE=edge,chrome=1">
+		<title></title>
+		<link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+		<link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+		<link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+		<link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+        <link href="../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+		<style>
+			.ecFiltrateResult {
+				padding: 15px;
+				box-sizing: border-box;
+			}
+			
+			.table_title {
+				height: 40px;
+				line-height: 40px;
+				border-bottom: none;
+			}
+			
+			.table_title:after {
+				content: '';
+				display: block;
+				width: 0;
+				height: 0;
+				clear: both;
+			}
+			
+			.table_title div {
+				float: right;
+				color: rgba(69, 86, 156, 1);
+			}
+			
+			.table_title div:nth-child(2) {
+				float: right;
+				color: #5e5e5e;
+			}
+			.loadpage {
+				position: absolute;
+				height: 100%;
+				width: 100%;
+				background: #FFFFFF;
+				z-index: 9999;
+			}
+			
+			.loadpage>i {
+				color: rgb(107, 147, 216);
+			}
+			
+			#grid td {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			
+			#grid th {
+				font-size: 13px;
+				height: 25px;
+				vertical-align: middle;
+			}
+			
+			.k-grid-header th.k-header {
+				padding: 0.468em 1.3em !important
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="ecFiltrateResult" class="ecFiltrateResult">
+			<div id="loading" class="loadpage text-center"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+			<div class="table_title">
+                <div class="btn btn-default btn-single-default" id="back"><i class="icon icon-chexiao"></i>返回</div>
+				<!--<div>总笔数: <span> </span></div>-->
+			</div>
+			<div id="grid"></div>
+		</div>
+		<script src="../../../asset/lib/require.js"></script>
+		<script>
+			requirejs(['../../../asset/lib/config.js'], function(config) {
+				requirejs(['app/assetFilter/AssetsContrast/ecFiltrateResultDetails']);
+			});
+		</script>
+	</body>
+
+</html>

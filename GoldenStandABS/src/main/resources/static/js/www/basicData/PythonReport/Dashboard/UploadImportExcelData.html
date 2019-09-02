@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>文件上传</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+
+    <link href="../css/demo.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../asset/style/jquery.searchableSelect.css" rel="stylesheet" />
+    <script src="../../../../asset/lib/require.js"></script>
+    <link href="../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+
+        requirejs(['../../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/basicData/PythonReport/Dashboard/UploadImportExcelData']);
+        });
+    </script>
+    <style>
+        html {
+            height: 100%;
+        }
+
+        html, body {
+            font-family: 'Microsoft YaHei';
+        }
+
+        .main {
+            position: relative;
+        }
+
+        .buttons {
+            position: absolute;
+            right: 0px;
+            bottom: -55px;
+            text-align: center;
+            width: 100%;
+        }
+
+        #uploadinfo {
+            padding-top: 5px;
+        }
+
+        .form .form-group label {
+            text-align: left;
+            font-weight: normal;
+            background: rgba(243,245,250,1);
+            border: 1px solid rgba(220,224,238,1);
+            border-radius: 2px;
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
+            border-right: 0px;
+            padding-left: 22px;
+            line-height: 28px;
+            font-size: 14px;
+            color: #808080;
+        }
+
+        .col-12.form-group:nth-child(even) {
+            margin-left: auto;
+        }
+
+        @media (min-width: 768px) {
+            .col-12 {
+                width: 45%;
+            }
+
+            .col-9 {
+                width: 60%;
+            }
+
+            .col-3 {
+                width: 40%;
+            }
+        }
+
+        .progress {
+            height: 12px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+        }
+
+            .progress > .progress-bar {
+                float: left;
+                width: 0;
+                height: 100%;
+                font-size: 12px;
+                line-height: 12px;
+                text-align: right;
+                background: #6c78bd;
+                color: #fff;
+                background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                -webkit-transition: width .6s ease;
+                -o-transition: width .6s ease;
+                -webkit-background-size: 40px 40px;
+                background-size: 40px 40px;
+                -webkit-animation: progress-bar-stripes 2s linear infinite;
+                -o-animation: progress-bar-stripes 2s linear infinite;
+                animation: progress-bar-stripes 2s linear infinite;
+            }
+
+        .file_name {
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            width: calc(100% - 90px);
+            box-sizing: border-box;
+            padding-left: 10px;
+            border: 1px solid rgba(220,224,238,1);
+            border-right: 0px;
+            overflow: hidden;
+        }
+
+        .form-panel.drop {
+            padding: 20px;
+            margin-bottom: 0px;
+        }
+
+        .importDataTitle {
+            font-size: 16px;
+            border-bottom: 1px solid rgba(230,233,245,1);
+            height: 40px;
+            line-height: 40px;
+            padding-left: 20px;
+            color: #45569C;
+        }
+
+        .form-control {
+            height: 30px;
+            border: 1px solid rgba(220,224,238,1);
+            border-radius: 2px;
+            border-top-left-radius: 0px;
+            border-bottom-left-radius: 0px;
+            box-shadow: none;
+        }
+
+        .form {
+            margin-bottom: -40px;
+        }
+
+            .form .form-panel.drop {
+                padding-top: 20px;
+            }
+
+                .form .form-panel.drop .form-group {
+                    margin-bottom: 20px;
+                }
+
+        #recycleAsset_ail {
+            border-radius: 2px;
+            border-right: 1px solid rgba(220,224,238,1);
+        }
+
+        .checkbox-position {
+            top: 4px;
+        }
+
+        .btn.btn-primary {
+            background-color: #45569C;
+            border-color: #45569C;
+        }
+
+            .btn.btn-primary:hover {
+                background-color: RGBA(69, 86, 156, 1);
+                opacity: 0.9;
+            }
+
+        @media (max-width: 768px) {
+            .col-6 {
+                width: 100%;
+            }
+
+            .col-8 {
+                width: 75%;
+            }
+
+            .col-5 {
+                width: 50%;
+            }
+        }
+
+        .col-6.form-group:nth-child(even) {
+            margin-left: auto;
+        }
+
+        @media (min-width: 768px) {
+            .col-6 {
+                width: 49%;
+            }
+
+            .col-3 {
+                width: 25%;
+            }
+
+            .col-3 {
+                width: 25%;
+            }
+
+            .col-8 {
+                width: 75%;
+            }
+
+            .col-5 {
+                width: 50%;
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <div class="main">
+
+        <div class="form" id="AssetPoolCreationForm">
+            <div class="form-body default">
+                <div class="form-panel drop">
+                    <div class="col-6 form-group">
+                        <div class="col-3"><label id="uploadFile_ail">上传文件</label></div>
+                        <div class="col-5">
+                            <label class="input_file_style" for="fileUploadFileU" style="width:90px;float:right;border-radius:0px;border:1px solid rgba(220,224,238,1);background:rgba(243,245,250,1);color:#808080;padding:0px;text-align:center">
+                                <input type="file" id="fileUploadFileU" class="form-control file" data-valid="required" />
+                                <span class="EnterFile_ail">选择文件</span>
+                            </label>
+                            <span class="file_name"></span>
+                        </div>
+                    </div>
+                    <div class="col-6 form-group" v-cloak>
+                        <div class="col-3"><label id="special_date">兑付日</label></div>
+                        <div class="col-8">
+                            <select class="form-control" id="ReportDate"></select>
+                        </div>
+                    </div>
+                    <!--<div class="col-6 form-group" v-cloak>
+                        <div class="col-3"><label id="special_plan">解析模板</label></div>
+                        <div class="col-8">
+                            <select class="form-control" id="DataPlan"></select>
+                        </div>
+                    </div>-->
+
+                </div>
+
+                <div class="buttons pull-right">
+                    <button id="upload_ail" type="button" class="btn btn-primary" title="导入" onclick="SubmitFormU()">上传</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

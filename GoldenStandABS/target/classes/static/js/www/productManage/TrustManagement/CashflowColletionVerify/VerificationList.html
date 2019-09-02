@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>校验结果</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+
+    <link href="../style/style.css" rel="stylesheet" />
+    <link href="../style/pagerlist-style.css" rel="stylesheet" />
+    <link href="../../../asset/style/reset.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+
+
+    <script src="../../../asset/lib/require.js"></script>
+
+    <script type="text/javascript">
+
+        requirejs(['../../../asset/lib/config.js'], function (config) {
+
+            requirejs(['app/basicAsset/AssetDataCheck/VerificationList']);
+
+        });
+
+
+
+    </script>
+
+    <style>
+        .error-list {
+            padding: 10px 5px;
+            -webkit-transition: height .3s ease;
+            -o-transition: height .3s ease;
+            transition: height .3s ease;
+        }
+
+            .error-list .left-title {
+                float: left;
+            }
+
+            .error-list .right-title {
+                float: right;
+            }
+
+        .title {
+            font-size: 14px;
+            padding: 15px 0;
+        }
+
+        .title-blue {
+            color: #4a59b7;
+        }
+
+        .title-grey {
+            color: #888;
+        }
+
+        a.title-blue {
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+            a.title-blue:hover {
+                color: #4a59b7;
+                outline: #4a59b7 dotted 1px;
+            }
+
+        .error-detail {
+            position: relative;
+            height: 25px;
+            font-size: 12px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .error-progress {
+            position: relative;
+            margin-top: 20px;
+            background: #eaebf1;
+            height: 5px;
+            border-radius: 5px;
+        }
+
+        .error-progress-bar {
+            float: left;
+            background-color: #4a59b7;
+            height: 5px;
+            border-radius: 5px;
+        }
+
+        .error-progress:after {
+            position: absolute;
+            content: attr(data-label);
+            left: 5px;
+            top: -20px;
+            color: #4a59b7;
+        }
+
+        .error-hover {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            width: 120px;
+            -webkit-transition: right .2s ease;
+            -o-transition: right .2s ease;
+            transition: right .2s ease;
+        }
+
+        .error-column {
+            position: absolute;
+            right: 5px;
+            top: 0;
+            bottom: 0;
+            color: #4a59b7;
+        }
+
+        .error-detail:hover {
+            cursor: pointer;
+        }
+
+            .error-detail:hover .error-hover {
+                right: 5px;
+            }
+
+                .error-detail:hover .error-hover:after {
+                    position: absolute;
+                    right: 5px;
+                    content: attr(data-hover);
+                    color: #4a59b7;
+                }
+
+            .error-detail:hover .error-column {
+                opacity: 0;
+            }
+
+        .error-item {
+            border-top: 1px solid #ededed;
+            border-bottom: 1px solid #ededed;
+            padding: 10px 0;
+            margin-top: -1px;
+        }
+
+            .error-item .error-item-name {
+                /*font-weight: bold;*/
+            }
+
+        .fold {
+            height: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+
+
+
+
+</head>
+<body>
+    <div id="app">
+        <div class="error-list" v-bind:class="{fold:view}">
+            <div class="title">
+                <span class="left-title title-blue">
+                    错误占比统计
+                </span>
+                <span class="right-title title-blue">
+                    错误列名
+                </span>
+                <div class="clearfix"></div>
+            </div>
+            <div class="error-detail" v-for="v in errorDetails.data" @click="viewDetail(v.columnName)">
+                <div class="error-progress" v-bind="{'data-label':'占比 '+v.percents}">
+                    <div class="error-progress-bar" v-bind:style="{width:v.percents}"></div>
+                </div>
+                <div class="error-hover" v-bind="{'data-hover':'查看修改建议'}"></div>
+                <div class="error-column" v-text="v.columnName"></div>
+            </div>
+            <div class="title text-center">
+                <a class="title-blue" target="_blank" v-bind:href="download">下载校验结果</a>
+            </div>
+        </div>
+        <div class="error-list" v-show="view" style="display:none">
+            <div class="title text-center">
+                <span class="left-title title-blue">
+                    修改建议（{{errorAdvise.total}}条）
+                </span>
+                <span v-text="columnName + '字段错误'"></span>
+                <a class="right-title title-blue" href="javascript:;" @click.stop="closeView">
+                    收起
+                </a>
+                <div class="clearfix" v-bind:vuex="states"></div>
+            </div>
+            <div class="error-advise">
+                <div class="error-item" v-for="v in errorAdvise.data">
+                    <p><span class="error-item-name public_font_style" v-if="v.VerifyRow!=''">校验行：</span><span class="public_font_style" v-text="v.VerifyRow"></span></p>
+                    <p><span class="error-item-name public_font_style">校验类型：</span><span class="public_font_style" v-text="v.VerifyType"></span></p>
+                    <p><span class="error-item-name public_font_style">修改建议：</span><span class="public_font_style" v-text="v.VerifyResult"></span></p>
+                </div>
+            </div>
+            <div class="title text-center" v-if="totalPage > 1 && current <= totalPage" v-bind:pages="totalPage">
+                <a class="title-blue" @click.stop="current +=1 " v-text="'加载更多'"></a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

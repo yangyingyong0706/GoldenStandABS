@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link href="../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../productManage/TrustManagement/TaskListVerify/taskList-style.css" rel="stylesheet" />
+    <title>收益权转让明细</title>
+
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        a,
+        span,
+        td,
+        div,
+        li {
+            font-family: "Microsoft YaHei";
+        }
+
+        body {
+            font-family: "Microsoft YaHei";
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+        .rowtitle{
+            width:100%;
+            display:flex;
+            height:30px
+        }
+        label{
+            width:100%;
+            padding-left:20px;
+            border-right: 0px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .slstyle{
+            width:100%;
+            padding-left: 20px;
+        }
+        .width-1,.width-2{
+            width:15%
+        }
+        .addbuton{
+            display: inline-block;
+            width:50px;
+            padding-left: 20px;
+            line-height: 30px;
+            color: #45569C;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .layerhanf{
+            width: 100%;
+            overflow: auto;
+        }
+        .titleh p{
+            margin-top:20px;
+            margin-bottom:10px;
+            font-size:16px
+        }
+        .input_style {
+            border-radius: 3px;
+            height: 25px;
+            padding-left: 10px;
+            box-sizing: border-box;
+            font-size: 12px;
+            padding: 0px 0px;
+            text-align: center;
+            line-height: 1;
+            width: 90%;
+        }
+        .table>tbody>tr>td, .table>tfoot>tr>td, .table>thead>tr>th{
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .date_selector,.date_selector table{
+            width:auto;
+            margin-left:0px
+        }
+        .borderRed{
+            border-color:red !important
+        }
+        input[disabled]{
+            background:white;
+            border:none;
+            box-shadow: none;
+        }
+        .fixed {
+            text-align: center;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translate(-50%);
+        }
+        .ui-state-default, .ui-widget-content .ui-state-default{
+    border: 1px solid #f1f1f1;
+    text-align: center;
+    white-space: nowrap;
+    color: rgb(34, 34, 34);
+    background: #fff;
+}
+.ui-state-active, .ui-widget-content .ui-state-active{
+    border: 1px solid #aaaaaa;
+    background:rgb(34, 34, 34);
+    color: #fff;
+    font-weight: 700;
+}
+.ui-state-default.ui-state-hover{
+     border: 1px solid #aaaaaa;
+    background: rgb(34, 34, 34);
+    color: #fff;
+}
+    </style>
+</head>
+<body>
+<div id="PageMainContainer" class="main-content" v-cloak>
+    <div class="rowtitle">
+        <div class="width-1" style="padding-right: 0px">
+            <label>请选择受让方</label>
+        </div>
+        <div class="width-2" style="padding-left: 0px; margin-right: 20px; width: 40%;">
+            <select class="slstyle" v-model="selectCode">
+                <option v-for="items in personList" v-bind:value="items.Id">{{items.InvestorName}}</option>
+            </select>
+        </div>
+        <div class="width-1" style="padding-right: 0px">
+            <label>债券类型</label>
+        </div>
+        <div class="width-2" style="padding-left: 0px; width: 20%;">
+            <input class="slstyle" v-bind:value="BondName" readonly="readonly" style="height: 30px; line-height: 30px; border: 1px solid #dedede;"/>
+        </div>
+        <div class="addbuton" @click="addinfo">
+            <i class="icon icon-add"></i>
+        </div>
+    </div>
+    <div class="titleh">
+        <p>转让信息</p>
+    </div>
+    <div class="layerhanf">
+        <table class="table">
+            <thead>
+            <tr>
+                <th width="250">转让方</th>
+                <th width="150">可转金额</th>
+                <th width="150">转让金额</th>
+                <th width="100">转让时间</th>
+                <th width="250">受让方</th>
+                <th width="100">转让利率</th>
+                <th width="60">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="items in datalist">
+                <td>{{items.assignor}}</td>
+                <td>{{items.Amount | ReturnMoney}}</td>
+                <td><input type="text" name="name" class="input_style LetMoney" autocomplete="off"></td>
+                <td><input type="text" name="name" class="input_style date-plugins datetimes" autocomplete="off"/></td>
+                <td>{{items.selectName}}</td>
+                <td><input type="text" name="name" class="input_style Rate" v-bind:value="items.Rate" autocomplete="off"/></td>
+                <td @click="removeItem(items)"><i class="icon icon-trash-empty" title="删除" style="color: #d00000; cursor: pointer"></i></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="fixed">
+        <button class="btn btn-default" @click="resite" style="margin-right: 10px">重置转让</button>
+        <button class="btn btn-primary" @click="tobexml">确认转让</button>
+    </div>
+</div>
+    <script src="../../../../asset/lib/require.js"></script>
+
+    <script type="text/javascript">
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/InvestManagement/usufruct']);
+        });
+    </script>
+</body>
+</html>

@@ -15,4 +15,9 @@ public interface TrustManagementService {
 	List<Map<String,Object>>  GetTrustInfoFromWizardMap(String TrustId);
 	
 	List<Trust>  GetTrust();
+	
+	Map<String,Object> getABSversion();
+	
+	List<Map<String,Object>> GetAllCodeDictionary(String aliasSetName);
+	
 }

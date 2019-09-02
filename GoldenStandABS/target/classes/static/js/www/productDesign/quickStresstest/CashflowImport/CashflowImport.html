@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>现金流导入</title>
+        <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+        <link href="../../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+        <link href="../../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+		<link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+        <link href="../../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+		<script data-main="CashflowImport" src="../../../../asset/lib/require.js"></script>
+		<style>
+			html,body {
+				height: 100%;
+				overflow: hidden;
+				font-family: 'Microsoft YaHei';
+			}
+            body {
+                padding: 15px;
+            }
+			.file_name {
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				width: calc(100% - 90px);
+				box-sizing: border-box;
+				padding-left: 10px;
+				color: #666;
+			}
+			
+			.form .form-group label {
+				font-weight: normal;
+			}
+			.main .h3 .title {
+				border-bottom: none;
+				color: rgba(59, 62, 93, .8);
+			}
+			
+			.date_selector {
+				width: auto;
+			}
+			
+			.file_name.filed {
+				color: #222;
+				border-style: solid;
+			}
+            [class^=col] {
+                padding: 0;
+            }
+            .bg-danger {
+                font-size: 12px;
+                color: #808080;
+                background: rgba(208,0,0,.05);
+            }
+            #grid{
+                display: block;
+                float: left;
+                width: 100%;
+            }
+            .buttons {
+                text-align: right;
+                padding-right: 0;
+            }
+            #downLoadPCFIT2 {
+                margin-left: 5px;
+            }
+		</style>
+	</head>
+
+	<body style="display:none">
+		<div id="selectLanguageDropdown_qcl" class="localizationTool" style="display:none"></div>
+		<div class="main" id="main">
+            <div class="form" id="gold-form-panel">
+                <div class="col-xs-12 form-group">
+                    <div class="col-xs-1"><label id="loadFile" class="gold-group-addon">上传文件</label></div>
+                    <div class="col-xs-4">
+                        <span class="file_name gold-file-name" id="noFile">暂未选择文件</span>
+                        <label class="input_file_style gold-form-file" for="fileUploadFileU" style="width:90px;">
+                            <input type="file" id="fileUploadFileU" class="form-control file" data-valid="required" />
+                            <span class="EnterFile_ail" id="chooseFile">选择文件</span>
+                        </label>
+                    </div>
+                    <div class="col-xs-3" style="padding-left:10px;">
+                        <button id="upload_ail" type="button" class="btn btn-primary" title="导入" onclick="SubmitFormU()">上传</button>
+                        <button type="button" class="btn btn-primary" id="downLoadPCFIT2">模板下载</button>
+                    </div>
+                    <div class="buttons col-xs-4">
+                        <button id="QuickPressureCashFlowView" type="button" class="btn btn-default btn-single-default" onclick="QuickPressureCashFlowView()">查看现金流归集结果</button>
+                    </div>
+                </div>
+                <!--<div class="col-xs-12 form-group" style="margin-bottom:23px">
+            <div class="col-xs-3"><label id="date_ail">数据日期</label></div>
+            <div class="col-xs-9">
+                <input type="text" id="txtRDate" class="form-control date-plugins" data-valid="required date" autocomplete="off"/>
+            </div>
+        </div>-->
+
+                <div id="grid"></div>
+            </div>
+		</div>
+	</body>
+
+</html>

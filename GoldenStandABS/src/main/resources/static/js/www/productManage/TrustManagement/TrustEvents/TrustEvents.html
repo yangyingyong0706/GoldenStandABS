@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>专项事件</title>
+    <link href="../Common/css/TrustStudio.css" rel="stylesheet" />
+
+    <link href="../TrustWizard/trustWizard.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <!--<script src="../../../../asset/lib/jquery/jquery-1.7.2.min.js"></script>
+    <script src="../../../../asset/lib/jquery/jquery-ui-latest.js"></script>
+
+    <script src="../../../../asset/lib/knockout/knockout-3.4.0.js"></script>
+    <script src="../../../../asset/lib/knockout/knockout.binding.rendercontrol.js"></script>
+    <script src="../../../../asset/lib/knockout/knockout.mapping.js"></script>
+
+    <script src="../Common/Scripts/calendar.min.js"></script>
+    <script src="../Common/Scripts/common.js"></script>-->
+    <!--<script src="../../../../config/globalVariable.js"></script>-->
+    <!--<script src="TrustEventView.js"></script>-->
+
+
+
+
+    <style type="text/css">
+        .mask {       
+            position: absolute; top: 0px; filter: alpha(opacity=60); background-color: #777;     
+            z-index: 1002; left: 0px;     
+            opacity:0.1; -moz-opacity:0.1     
+        }  
+        @keyframes blink {
+            from {
+                background-color: #FFFF77;
+            }
+
+            to {
+                background-color: #ffffff;
+            }
+        }
+
+        @-webkit-keyframes blink {
+            from {
+                background-color: #FFFF77;
+            }
+
+            to {
+                background-color: #ffffff;
+            }
+        }
+
+        @-moz-keyframes blink {
+            from {
+                background-color: #FFFF77;
+            }
+
+            to {
+                background-color: #ffffff;
+            }
+        }
+
+        @-ms-keyframes blink {
+            from {
+                background-color: #FFFF77;
+            }
+
+            to {
+                background-color: #ffffff;
+            }
+        }
+
+        @-o-keyframes blink {
+            from {
+                background-color: #FFFF77;
+            }
+
+            to {
+                background-color: #ffffff;
+            }
+        }
+
+        .blink {
+            animation: blink 5s linear infinite;
+            -webkit-animation: blink 5s linear infinite;
+            -moz-animation: blink 5s linear infinite;
+            -ms-animation: blink 5s linear infinite;
+            -o-animation: blink 5s linear infinite;
+            background-color: #FFFF77;
+        }
+
+        .page .main {
+            padding: 10px 20px !important;
+        }
+
+        .table-scroll {
+            margin-top: 20px;
+            overflow: auto;
+        }
+
+        .condition-checking-false {
+            color: red !important;
+        }
+
+        .scenarioName {
+            float: right;
+            margin-right: 12px;
+            /* width: auto; */
+            height: 29px;
+            background: white;
+            margin-top: -30px;
+            color: black;
+            padding: 6px;
+            line-height: 14px;
+            border: 1px solid gainsboro;
+        }
+
+        .isCurrentScenario {
+            background: #ececec;
+        }
+        .main {
+            padding:2px 6px 4px 13px
+        }
+    </style>
+</head>
+<body>
+    <div id="mask" class="mask"></div>
+    <div>
+        <div class="main .public_font_style">
+            <div class="form-body" id="formbody">
+                <h3 class="h3"><span class="title">专项事件</span></h3>
+                <div><button type="button" class="btn normal_small_button" id="scenarioName" data-bind="text:ScenarioName,attr:{class:ScenarioClass}">循环期</button></div>
+                <div class="table-scroll">
+                    <table id="tbListView" class="lst-view-tb table" style="width:98%">
+                        <thead style="background-color: #EEE;">
+                            <tr>
+                                <th style="width:20%">专项事件</th>
+                                <th style="width:60%;text-align:center; padding-right:15px;">专项条目</th>
+                                <th style="width:20%">触发时间</th>
+                            </tr>
+
+                            <tr class="list-view-tr-emptymsg">
+                                <td colspan="11">当前视图没有可显示记录</td>
+                            </tr>
+                        </thead>
+                        <tbody id="TrustEventList" class="lst-view-tbody" data-bind="foreach: TrustEventItem">
+                            <tr data-bind="css:{'blink': (!checkingResult()&&EventStatus()!=='Y')}">
+                                <td data-bind="text: EventDescription"></td>
+                                <td>
+                                    <table data-bind="foreach: triggers" class="triggers" style=" width:100%; padding-bottom:3px;text-align:left;">
+                                        <tr data-bind="css:{'condition-checking-false': (!checkingResult())}">
+                                            <td width='20px'>
+                                                <input class="statusCheckBox" type="checkbox" data-bind="checked: EventStatus()=='Y',attr: {TrustEventId:TrustEventId(),parentIndex:$parentContext.$index(),itemIndex: $index(),itemCode:ItemCode()}"
+                                                       style="margin:0px 4px" onchange="StatusChangedTriggered(this)" />
+                                            </td>
+                                            <td style="display:block;border:1px solid #ccc;padding:5px 0px;border-radius:2px;line-height:20px;margin-bottom:5px">
+                                                <span style="margin:0px 30px 0 10px;float:left" data-bind="text: EventDescription"></span>
+                                                <span style="margin:0px 30px 0 10px" data-bind="text: CurrentValue"></span>
+                                                <span style="margin:0px 30px 0 10px" data-bind="text: Operator"></span>
+                                                <span style="margin:0px 30px 0 10px" data-bind="text: Threshold"></span>
+                                            </td>
+
+                                        </tr>
+                                    </table>
+                                    <table data-bind="foreach: triggersQualitative" class="triggersQualitative" style="width:100%; padding-bottom:3px;">
+                                        <tr data-bind="css:{'condition-checking-false': (!checkingResult())}">
+                                            <td width='20px'>
+                                                <input class="statusCheckBox" type="checkbox" data-bind="checked: EventStatus()=='Y',attr: {TrustEventId:TrustEventId(),parentIndex:$parentContext.$index(),itemIndex: $index(),itemCode:ItemCode()}" style="margin:0px 4px" onchange="StatusChangedTriggeredQualitative(this)" />
+                                            </td>
+                                            <!--<td width="180px" data-bind="text: EventDescription"></td>
+                                        <td width="250px" data-bind="text: CurrentValue"></td>-->
+                                            <td style="width:100%; padding-bottom:5px;">
+                                                <textarea rows="2" class="form-control addedTriggeredRecord" style="height:32px; min-width:200px;" data-bind="value: EventDescription"></textarea>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <!--<td colspan="3">
+
+                            </td>-->
+                                <!--<td style="text-align:right; padding-right:15px;">
+                                <input class="statusCheckBox" type="checkbox" data-bind="checked: EventStatus()=='Y', attr: {itemIndex: $index()}"
+                                       onchange="gsTrustEvent.StatusChanged(this)" />
+                            </td>-->
+                                <td>
+                                    <input type="text" class="date-plugins form-control"
+                                           data-bind="value: StartDate, enable: EventStatus()==='Y', attr:{id: 'startDate_txt'+$index()}" />
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" style="border: none !important; text-align: right; padding-top: 30px;">
+                                    <button type="button" class="btn normal_small_button" id="btnTrustEventUpdate" disabled="disabled">更新</button>
+                                    <button type="button" class="btn delet_normal_small_button" id="btncancelclick">取消</button>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../../../asset/lib/require.js"></script>
+
+    <script type="text/javascript">
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TrustEvents/TrustEventView']);
+        });
+
+    </script>
+</body>
+</html>

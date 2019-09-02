@@ -1,0 +1,292 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>存续期仪表盘</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+    <link href="../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../Dashboard/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+    <link href="../TrustFollowUp/css/pagerlist-style.css" rel="stylesheet" />
+    <link href="../Dashboard/css/demo.css" rel="stylesheet" />
+    <link href="../Common/css/trustWizard.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+
+    
+    
+    <style type="text/css">
+        .main{padding:10px;}
+        #divDataList td .template {
+            text-align: left;
+        }
+
+        #divDataList td .mainform {
+            width: 250px;
+            overflow-x: hidden;
+            display: inline-block;
+        }
+
+        #divDataList td .template input {
+            margin-right: 10px;
+        }
+
+        #divDataList td .template a {
+            margin-right: 10px;
+        }
+
+        #divDataList td .template span {
+            margin-right: 10px;
+        }
+
+        #divDataList td .do .a {
+            margin-right: 10px;
+        }
+
+        .waitAudit {
+            background: #FCD5B4;
+        }
+
+        .waitHandUp {
+            background: #FCD5B4;
+        }
+
+        .isOk {
+            background: #D8E4BC;
+        }
+        .stateError {
+            background:pink;
+        }
+    </style>
+    <style>
+        /*body {
+            margin: 0px;
+            overflow: hidden;
+            background-color: #fff;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }*/
+
+        .ms-link:visited {
+            color: #0072c6;
+            text-decoration: none;
+        }
+
+        .ms-cui-disabled {
+            color: #767676;
+        }
+
+        .ms-cui-ctl-large {
+            overflow: hidden;
+            display: inline-block;
+            text-align: center;
+            vertical-align: top;
+            margin-left: 1px;
+            margin-right: 1px;
+        }
+
+        a.ms-cui-ctl-large {
+            padding: 2px 0px 2px;
+            height: 63px;
+            cursor: default;
+        }
+
+        .ui-widget-content a {
+            color: #222222;
+        }
+
+        hr {
+            border-width: 0px;
+            border-top: 1px solid #c6c6c6;
+        }
+
+        img {
+            border: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .ms-cui-disabled * {
+            color: #5b626c !important;
+            cursor: default !important;
+        }
+
+        .ms-cui-ctl-largeIconContainer {
+            height: 33px;
+            padding: 2px 4px 0px;
+            display: block;
+        }
+
+        .ms-cui-ctl-largelabel, .ms-cui-ctl-mediumlabel {
+            color: #23272c;
+        }
+
+        .ms-cui-ctl-largelabel {
+            display: block;
+            padding: 2px 1px 0px;
+            line-height: 1em !important;
+        }
+
+        .ms-cui-img-container, .ms-cui-img-cont-float {
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+            z-index: 10;
+        }
+
+        .ms-cui-img-cont-float {
+            display: inline-block;
+        }
+
+        .ms-cui-img-32by32 {
+            width: 32px;
+            height: 32px;
+        }
+
+        .ms-cui-disabled .ms-cui-img-container, .ms-cui-disabled .ms-cui-img-cont-float, .ms-cui-disabled .ms-cui-jewel-left, .ms-cui-disabled .ms-cui-jewel-middle, .ms-cui-disabled .ms-cui-jewel-right {
+            background-color: #fff !important;
+            opacity: 0.3;
+        }
+
+        .ms-cui-img-container img, .ms-cui-img-cont-float img {
+            position: absolute;
+            z-index: 5;
+        }
+
+        .ui-dialog-content {
+            border: 0px;
+        }
+        .main .h3 {
+            height: 38px;
+            line-height: 38px;
+            padding-bottom:0px;
+        }
+        .main .h3 .title {
+            color:rgb(54,61,93);
+            font-size: 16px;
+             border-bottom: 0px !important; 
+            padding: 8px 0;
+        }
+        .form-control{
+            top:4px;
+        }
+        .label_style{
+                text-align: center;
+                background: #f1f1f1;
+                border: 1px solid #efecec;
+                box-sizing: border-box;
+                position: relative;
+                top: 4px;
+                height: 30px;
+                line-height: 30px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="body-container form nobottom">
+        <div class="main">
+            <div class="pull-right">
+                <!--<button type="button" class="btn btn-default btn-sm" id="btnAddNew">新增</button>-->
+
+            </div>
+            <h3 class="h3">
+                <span class="title">产品文档管理</span>
+            </h3>
+            <div class="form-panel drop nobottom" style="padding-top:0px">
+                <div class="form-panel drop list-filters" style="padding-top: 0px;margin-bottom: 0px;border: none;">
+                    <div class="col-12" style="height:38px;margin-top:10px;margin-bottom:10px;">
+                        <div class="col-5 form-group">
+                            <div class="col-3">
+                                <label class="label_style">专项计划代码</label>
+                            </div>
+                            <div class="col-8">
+                                <input class="filter <> form-control" name="TrustName" id="TrustCode" />
+                                <div id="menuContentTrustCode" class="menuContent" style="display:none; position: absolute;">
+                                    <ul id="treeTrustCode" class="ztree" style="margin-top:0; width:330px; height: 300px;"></ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 form-group">
+                            <div class="col-4">
+                                <label class="label_style">兑付日期</label>
+                            </div>
+                            <div class="col-7">
+                                <input class="filter <> form-control" name="ReportingEndDate" id="PayDate" />
+                                <div id="menuContentPayDate" class="menuContent" style="display:none; position: absolute;">
+                                    <ul id="treePayDate" class="ztree" style="margin-top:0; width:180px; height: 300px;"></ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2 form-group" style="margin-bottom: 0px;margin-top: 5px;display:flex;float:right">
+                            <button type="reset" class="delet_normal_small_button" id="btnReset" style="margin-left:auto">重置</button>
+                            <button type="button" class="normal_small_button" id="btnSearch" style="margin-left:10px">检索</button>
+                            <!--<button type="button" class="btn btn-primary btn-sm" onclick="testss();">检索</button>
+                            <button type="button" class="btn btn-primary btn-sm" onclick="testlocal();">检索</button>-->
+                            <span id="result"></span>
+                        </div>
+                    </div>
+                </div>
+                <div id="divDataList" class="list-container"></div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="ui-dialog-content ui-widget-content" id="targetStateArea" style="display:none;width: auto; height: 234.72px; min-height: 0px;margin:5px;" scrolltop="0" scrollleft="0">
+            <div id="statusHeader">
+                <!--<div style="padding: 10px 0px;">专项计划: <b>6</b>&nbsp;&nbsp;&nbsp;&nbsp;收款日期: <b>20210825</b><div></div></div><br>-->
+            </div>
+            <div id="nextStates">
+                <!--
+                        <a class="ms-cui-ctl-large generateReportRibbonButton" onclick="return false;" href="javascript:;">
+                        <span class="ms-cui-ctl-largeIconContainer">
+                            <span class=" ms-cui-img-32by32 ms-cui-img-cont-float ms-cui-imageDisabled">
+                                <img style="left: -68px; top: -34px;" alt="Loan Report" src="/_layouts/15/1033/images/formatmap32x32.png">
+                            </span>
+                        </span>
+                        <span class="ms-cui-ctl-largelabel">生成报表 <br></span>
+                    </a>&nbsp;
+                    <a class="ms-cui-ctl-large ms-cui-disabled approveRibbonButton" href="javascript:;">
+                        <span class="ms-cui-ctl-largeIconContainer">
+                            <span class="ms-cui-img-32by32 ms-cui-img-cont-float ms-cui-imageDisabled">
+                                <img style="left: -102px; top: -34px;" alt="Approve Report" src="/_layouts/15/1033/images/formatmap32x32.png">
+                            </span>
+                        </span>
+                        <span class="ms-cui-ctl-largelabel">审核通过<br></span>
+                    </a>&nbsp;
+                    <a class="ms-cui-ctl-large ms-cui-disabled distributeRibbonButton" onclick="return false;" href="javascript:;">
+                        <span class="ms-cui-ctl-largeIconContainer">
+                            <span class="ms-cui-img-32by32 ms-cui-img-cont-float ms-cui-imageDisabled">
+                                <img style="left: -442px; top: -68px;" alt="Distribute Report" src="/_layouts/15/1033/images/formatmap32x32.png">
+                            </span>
+                        </span>
+                        <span class="ms-cui-ctl-largelabel">上交报表  <br></span>
+                    </a>&nbsp;
+                    <a class="ms-cui-ctl-large ms-cui-disabled rejectRibbonButton" onclick="return false;" href="javascript:;">
+                        <span class="ms-cui-ctl-largeIconContainer">
+                            <span class="ms-cui-img-32by32 ms-cui-img-cont-float ms-cui-imageDisabled">
+                                <img style="left: 0px; top: -34px;" alt="Reject Report" src="/_layouts/15/1033/images/formatmap32x32.png">
+                            </span>
+                        </span>
+                        <span class="ms-cui-ctl-largelabel">拒绝审核<br></span>
+                    </a><hr>
+                    <a class="ms-cui-ctl-large ms-cui-disabled loanReportRibbonButton" onclick="return false;" href="javascript:;">
+                        <span class="ms-cui-ctl-largeIconContainer">
+                            <span class=" ms-cui-img-32by32 ms-cui-img-cont-float ms-cui-imageDisabled">
+                                <img style="left: -408px; top: -102px;" alt="Latest RBA Loan Report" src="/_layouts/15/1033/images/formatmap32x32.png">
+                            </span>
+                        </span>
+                        <span class="ms-cui-ctl-largelabel">下载信托服务报表<br></span>
+                    </a>
+                    -->
+            </div>
+        </div>
+    </div>
+    <script src="../../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../../asset/lib/config'], function (common) {
+            requirejs(['app/productManage/TrustManagement/Dashboard/DashboardList']);
+        });
+    </script>
+</body>
+</html>

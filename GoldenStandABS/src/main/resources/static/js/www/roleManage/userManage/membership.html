@@ -1,0 +1,162 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title></title>
+    <!--<link href="../css/bootstrap.css" rel="stylesheet" />-->
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!--<link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" type="text/css" />-->
+    <!--<link href="../../basicAsset/style/style.css" rel="stylesheet" />-->
+    <link href="../../../asset/style/page.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+
+    <style>
+        .main label {
+            font-weight:normal;
+        }
+        .form-horizontal .control-label{
+            text-align: center;
+            background: #f3f5fa;
+            height: 30px;
+            box-sizing: border-box;
+            line-height: 30px;
+            margin: 0px;
+            padding: 0px;
+            font-weight: normal;
+        }
+         .main{
+            padding:15px;
+            padding-right:0px;
+        }
+          .form-horizontal .form-group{
+           margin-left:0px;
+           margin-right:0px;
+        }
+        .btn-group{
+            width:100%;
+        }
+         input[type=radio]{
+            height: 20px;
+            position: relative;
+            top: 5px;
+        }
+         [class^=col] {
+            padding: 0;
+        }
+         .col-sm-4 {
+             padding-right: 15px;
+         }
+        input[type='radio']:checked {
+            background: url(../../../asset/lib/bootstrap/ischecked/icon@18px.png) no-repeat -133px 0px;
+        }
+
+        input[type=radio] {
+            width: 19px;
+            height: 19px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: url(../../../asset/lib/bootstrap/ischecked/icon@18px.png) no-repeat -96px 0px;
+            outline: none;
+        }
+    </style>
+    </head>
+    <body>
+
+        <div id="ItemDiv" class="main public_font_style" style="border-top:1px solid #eee;">
+            <div class="form-panel">
+                <div class="col-sm-12 form-row form-horizontal">
+                    <div class="col-sm-12 form-row autoLayout-plugins">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">用户名</label>
+                            <div class="col-sm-4">
+                                <input id="userName" type="text" class="form-control validControlValue" data-valid="Required" />
+                            </div>
+                            <label class="col-sm-2 control-label">最新活跃日期</label>
+                            <div class="col-sm-4">
+                                <input id="lastActiveDate" type="text" class="form-control date-plugins" disabled />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">是否匿名</label>
+                            <div class="col-sm-4">
+                                <label><input type="radio" name="isAnonymous" id="isAnonymousNo" /> 否</label>&nbsp;
+                                <label><input type="radio" name="isAnonymous" id="isAnonymousYes" /> 是</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">密码</label>
+                            <div class="col-sm-4">
+                                <input id="password" type="password" class="form-control" />
+                            </div>
+                            <label class="col-sm-2 control-label">邮箱</label>
+                            <div class="col-sm-4">
+                                <input id="email" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">密码问题</label>
+                            <div class="col-sm-4">
+                                <select id="passwordQuestion" class="form-control"></select>
+                            </div>
+                            <label class="col-sm-2 control-label">密码答案</label>
+                            <div class="col-sm-4">
+                                <input id="passwordAnswer" type="text" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">是否审批</label>
+                            <div class="col-sm-4">
+                                <label><input type="radio" name="isApproved" id="isApprovedNo" /> 否</label>&nbsp;
+                                <label><input type="radio" name="isApproved" id="isApprovedYes" /> 是</label>
+                            </div>
+                            <label class="col-sm-2 control-label">是否锁定</label>
+                            <div class="col-sm-4">
+                                <label><input type="radio" name="isLockedOut" id="isLockedOutNo" /> 否</label>&nbsp;
+                                <label><input type="radio" name="isLockedOut" id="isLockedOutYes" /> 是</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">创建日期</label>
+                            <div class="col-sm-4">
+                                <input id="createDate" type="text" class="form-control date-plugins" disabled=disabled disabled=disabled disabled=disabled disabled=disabled disabled=disabled disabled=disabled disabled=disabled disabled=disabled disabled=disabled disabled=disabled disabled=disabled disabled=disabled disabled=disabled disabled=disabled disabled=disabled disabled=disabled />
+                            </div>
+                            <label class="col-sm-2 control-label">上次登录时间</label>
+                            <div class="col-sm-4">
+                                <input id="lastLoginDate" type="text" class="form-control date-plugins" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">上次更改密码时间</label>
+                            <div class="col-sm-4">
+                                <input id="lastPasswordChangedDate" type="text" class="form-control date-plugins" />
+                            </div>
+                            <label class="col-sm-2 control-label">上次锁定时间</label>
+                            <div class="col-sm-4">
+                                <input id="lastLockoutDate" type="text" class="form-control date-plugins" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">备注</label>
+                            <div class="col-sm-4">
+                                <input id="comment" type="text" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="group" aria-label="..." style="margin-top:20px;display:block;text-align: center;">
+                <button type="button" id="btnSave" class="btn btn-default">保存</button>
+            </div>
+        </div>
+        <script src="../../../asset/lib/require.js"></script>
+        <script>
+            requirejs(['../../../asset/lib/config'], function (common) {
+                requirejs(['app/roleManage/userManage/membership']);
+            });
+        </script>
+    </body>
+    </html>

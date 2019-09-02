@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>任务设置</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <!--<link href="../../Common/css/pagerlist-style.css" rel="stylesheet" />-->
+    <!--<link href="../../Common/css/trustWizard.css" rel="stylesheet" />-->
+    <link href="../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <script src="../../../../asset/lib/require.js"></script>
+    <script src="../../../../asset/lib/config.js"></script>
+    <script>
+        requirejs(['app/basicData/SystemSettings/CalendarDate/CalendarDateList']);
+    </script>
+    <style>
+        html,body {
+            height: 100%;
+        }
+        body {
+            padding: 15px;
+            background: #fafafa;
+        }
+        .form .form-group label{
+            font-weight:normal;
+        }
+        .main {
+            padding: 0 15px;
+        }
+        .main .h3 .title{
+            color:#4d4d4d;
+            border-bottom:none;
+        }
+        .main .h3{
+            height: 40px;
+            line-height: 40px;
+            padding-bottom:0px;
+            border-bottom:1px solid #dedede;
+            margin: 0 -15px;
+            font-size: 16px;
+            font-weight: 400;
+            padding: 0 15px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .form .form-panel.drop{
+            padding-top:15px;
+        }
+        .form .form-panel.item .h3 .title{
+                font-size: 16px;
+                font-weight:normal;
+                padding: 6px 0;
+                color: rgba(59,62,93,0.8);
+                border: none;
+        }
+        a{
+            color:rgb(0,0,0);
+        }
+        a:hover, .btn-link:focus, .btn-link:hover{
+            text-decoration: none;
+        }
+        .fbtn:hover{
+           color: rgba(20,114,226,1);
+        }
+         .lbtn:hover{
+             color: rgba(215,69,69,1);
+         }
+         .body-container {
+             height: calc(100% - 35px);
+             background: #ffffff;
+         }
+         .mytable {
+            border-collapse: collapse;
+            width: 100%;
+        }
+         .mytable .table-th {
+            background-color: #f3f5fa;
+        }
+         .mytable .table-td,.mytable .table-th {
+            height: 30px;
+            padding: 0 8px;
+            text-align: center;
+            border: 1px solid #dedede;
+            font-family: '微软雅黑';
+            color: #4d4d4d;
+            font-weight: 400;
+        }
+         [class^=col] {
+             padding: 0;
+         }
+         .pager {
+             text-align: right;
+             float: inherit;
+         }
+         .pager .next>a, .pager .next>span {
+            float: inherit;
+        }
+         .pager li>a {
+             margin: 0 10px;
+         }
+        .pager li>a, .pager li>span {
+            padding: 2px 10px;
+            border: 1px solid #dedede;
+            cursor: pointer;
+        }
+        .settingWeek .backgroundBorder {
+            height: 15px;
+            background: #fafafa;
+            margin: 0 -15px;
+        }
+        .buttons {
+            height: 30px;
+            width: 100%;
+            text-align: center;
+            margin: 40px 0;
+        }
+        #divDetailForm {
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="body-container form nobottom">
+        <div class="main">
+            <div class="settingWeek">
+                <h3 class="h3">
+                    <span class="title">公休假设置</span>
+                </h3>
+                <div class="nobottom">
+                    <div class="form-panel drop list-filters">
+                        <div class="col-md-12">
+                            <div class="col-md-3 form-group">
+                                <div class="col-md-4">
+                                    <label>日期类型</label>
+                                </div>
+                                <div class="col-md-7">
+                                    <select class="filter like form-control" name="CalendarName">
+                                        <option value="">所有</option>
+                                        <option value="中国大陆法定工作日">工作日</option>
+                                        <option value="中国大陆法定非工作日">非工作日</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-1 form-group">
+                                <div class="col-md-4">
+                                    <label>年</label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input class="filter eq form-control" name="YEAR(Date)" />
+                                </div>
+                            </div>
+                            <div class="col-md-1 form-group">
+                                <div class="col-md-4">
+                                    <label>月</label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input class="filter eq form-control" name="MONTH(Date)" />
+                                </div>
+                            </div>
+                            <div class="col-md-1 form-group">
+                                <div class="col-md-4">
+                                    <label>日</label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input class="filter eq form-control" name="DAY(Date)" />
+                                </div>
+                            </div>
+                            <button type="reset" class="btn btn-default" id="btnReset">重置</button>
+                            <button type="button" class="btn btn-default" id="btnSearch" style="margin-left: 5px;">检索</button>
+                        </div>
+                    </div>
+                    <div id="divDataList" class="list-container"></div>
+                </div>
+                <div class="backgroundBorder"></div>
+            </div>
+            <div class="form-panel item" id="TrustItem_Detail">
+                <div class="form-panel item">
+                    
+                    <h3 class="h3">
+                        <span class="title" id="detailFormTitle">添加公休假</span>
+                        <!--<span class="normal">（资产开始至到期期限：<label id="lbAssetStartEndPeriod"></label>）</span>-->
+                    </h3>
+                    <div class="form-panel drop nobottom">
+                        <div class="form-panel item" id="divDetailForm">
+                            <div class="col-md-4 form-group">
+                                <div class="col-md-4">
+                                    <label>名称</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-control" data-attr="CalendarName" data-valid="required">
+                                        <option value="中国大陆法定工作日">工作日</option>
+                                        <option value="中国大陆法定非工作日">非工作日</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <div class="col-md-4">
+                                    <label>日期</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control date-plugins"
+                                           data-attr="Date" data-valid="required date" />
+                                </div>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <div class="col-md-4">
+                                    <label>描述</label>
+                                </div>
+                                <div class="col-md-6" style="position:relative;">
+                                    <input type="text" class="form-control" data-attr="Description" data-valid="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="buttons">
+                            <input type="button" class="btn btn-default" id="btnCancel" value="取消" />
+                            <input type="button" class="btn btn-default" id="btnSave" value="保存" style="margin-left: 5px;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

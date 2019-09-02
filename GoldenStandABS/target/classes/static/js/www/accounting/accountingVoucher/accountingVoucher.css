@@ -1,0 +1,76 @@
+﻿        .manager-content {
+            margin: 0;
+            padding: 0;
+        }
+
+        header, .btnItem, .btnItemSave {
+            padding: 5px 10px;
+        }
+
+        .title-transaction {
+            font-size: 14px;
+            font-weight: bolder;
+        }
+
+        .transaction-navTitle {
+            font-size: 12px;
+            color: #5a77a9;
+        }
+
+        .btnItemCRUD {
+            padding: 5px 10px 10px 10px;
+        }
+
+        .main {
+            display: none;
+        }
+
+        .ui-dialog {
+            width: 80% !important;
+            position:absolute;
+            top:10px !important;
+            left:50px !important;
+        }
+        .row {
+            margin: 0;
+            padding: 0 10px;
+            height: auto !important;
+        }
+        .file {
+            height: 26px;
+        }
+
+        .page {
+            padding: 0;
+        }
+
+        .date_selector {
+            padding: 0;
+        }
+
+        #ImportAssetInfo {
+            margin: 10px 0;
+        }
+
+        #file_BasePool {
+            background: transparent;
+        }
+
+        .main {
+            padding: 15px 15px 20px 20px;
+        }
+
+        .main .h3 .title {
+            color: #5A77A9;
+            font-size: 16px;
+            border-bottom: 3px solid #D8D8D8;
+            padding: 8px 0;
+        }
+
+        .main h3 {
+            border-bottom: 2px solid #EAEAEA;
+            padding-bottom: 8px;
+        }
+        #lookDetails{
+            height:100px
+        }

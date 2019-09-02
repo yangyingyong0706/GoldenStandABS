@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>统计视图</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <link href="../../productManage/TrustManagement/ReportWizardEx/css/ReportWizardEx.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/img/icon.png" mce_href="../asset/img/icon.png" rel="icon">
+    <link href="../../../asset/style/reset.css" rel="stylesheet" />
+    <link href="../../assetFilter/css/chrome-tabs.css" rel="stylesheet" />
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="taskList-style.css" rel="stylesheet" />
+
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+        tbody > tr > td {
+            text-align: center;
+            vertical-align: middle !important;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="collectionOfPayment" v-cloak>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th width="150px">归集日</th>
+                    <th title="本金封包日还款计划">本金计划回款</th>
+                    <th title="本金该计划区间内已还">本金已回款</th>
+                    <th title="本金计划回款-已回款(根据每一期回款刷新)">本金应回款</th>
+                    <th title="本金实际回款">本金回款总额</th>
+                    <th title="利息封包日还款计划">利息计划回款</th>
+                    <th title="利息该计划区间内已还">利息已回款</th>
+                    <th title="利息计划回款-已回款(利息计划回款-已回款)">利息应回款</th>
+                    <th title="利息实际回款">利息回款总额</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="tableData in tableDatas" key="tableData.index">
+                    <td>{{ tableData.ReportingDate }}</td>
+                    <td>{{ tableData.Principalbackplan }}</td>
+                    <td>{{ tableData.Principalbacked }}</td>
+                    <td>{{ tableData.Principalshouldback }}</td>
+                    <td>{{ tableData.Principalbackamt }}</td>
+                    <td>{{ tableData.Interestbackplan }}</td>
+                    <td>{{ tableData.Interestbacked }}</td>
+                    <td>{{ tableData.Interestshouldback }}</td>
+                    <td>{{ tableData.Interestbackamt }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../asset/lib/config'], function (config) {
+            requirejs(['app/projectStage/StageList/collectionOfPayment']);
+        })
+    </script>
+</body>
+</html>
+
+
+
+
+
+

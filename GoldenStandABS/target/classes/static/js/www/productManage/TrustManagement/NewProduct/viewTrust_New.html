@@ -1,0 +1,165 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="overflow:hidden">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>新建产品向导</title>
+    <link href="../Common/css/trustWizard.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="../EventMaintain/css/maintain-huaneng.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../EventMaintain/css/reset-huaneng.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../../../asset/style/bootstrap.css" />
+    <link href="../../../productDesign/css/model.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../../../asset/lib/jquery/jquery-ui.css" />
+    <link rel="stylesheet" href="../../../../asset/lib/asyncbox/skins/default.css" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <style>
+        html,
+        body {
+            height: 100%;
+            font-family: 'Microsoft YaHei';
+        }
+        .page .aside {
+            top: -24px;
+        }
+        .work {
+        position:absolute;
+        width:100%;
+
+        }
+        #work {
+        margin:0 auto
+        }
+        .title_font_style{
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            padding: 0px;
+            padding-left: 23px;
+            font-size: 17px;
+            display:none;
+        }
+        .aside .step-box .step-head h2 {
+            line-height: 0px;
+            color: rgba(69,86,156,1);
+            font-size: 16px;
+            font-weight: normal;
+        }
+        .aside .step-box .step-head {
+            padding: 1px 16px;
+            height:39px;
+            position:relative;
+        }
+        .k-webkit.k-webkit61{
+            overflow:hidden;
+        }
+        .rightS {
+           padding-right: 48px;
+            position: relative;
+            z-index: 22;
+            top: 11px;
+        }
+        .rightS>a {
+            color:#777
+        }
+        .newAddIteam {
+            border:1px solid #ddd;
+        }
+        #main {
+            width:100%;
+        }
+        .page .aside {
+            height:100%;
+            width: 184px;
+        }
+        .page .work {
+            height:calc(100% - 30px);
+            padding-left: 184px;
+        }
+        .aside .step-box .step a .no {
+            /*margin-top:10px*/
+        }
+        .step-text>span {
+            font-size:14px;
+        }
+        div.page div.work.newAddIteam{
+            border-top:none;
+            padding: 0 0 0 182px;
+        }
+    </style>
+    <script src="../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/NewProduct/js/viewTrust_New']);
+        });
+    </script>
+
+</head>
+<body style="display:none">
+    <div id="selectLanguageDropdown_vtn" class="localizationTool" style="display:none"></div>
+    <div id="main" class="clearfixn">
+        <!--<div class="rightS pull-right">
+            <a href="javascript:void(0);" id="changeCols" data-col="3" class="changeCols">三栏布局</a>
+            <span class="attr">|</span>
+            <a href="javascript:void(0);" id="RemoveColButtomSH" class="RemoveColButtomSH">显示删除按钮</a>
+        </div>-->
+        <div class="page clearfix">
+            <div class="aside addNewItem">
+                <div class="step-box">
+                    <div class="step-head">
+                        <h2>
+                            <span data-bind="text: ModuleTitle"></span>
+                        </h2>
+                    </div>
+                    <div class="step" id="step" data-bind="foreach: Steps">
+                        <a data-bind="attr: { class: ($index() == 0 ? 'active' : ''), itemIndex: $index(), pageCode: Code }">
+                            <!--onclick="qwFrame.ChangeSetp(this)"-->
+                            <span class="no" data-bind="text: SeqNo"></span>
+                            <span class="flag"></span>
+                            <!--<h3 class="step-title"><span data-bind="text: Title"></span></h3>-->
+                            <!--<h3 class="step-title"></h3>-->
+                            <p class="step-text"><span data-bind="text: Description"></span></p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!--ko if: ShowRibbon-->
+            <!--<div class="ribbon">
+                <div class="frame-stepswitch">
+                    <button type="button" id="btnBack" onclick="qwFrame.StepNext(-1)" class="btn btn-default" disabled="disabled">
+                        <i class="icon icon-back"></i><span data-bind="text:Back"></span>
+                    </button>
+                    <button type="button" id="btnNext" onclick="qwFrame.StepNext(1)" class="btn btn-primary">
+                        <span data-bind="text:Next"></span><i class="icon icon-right"></i>
+                    </button>
+                </div>
+                <div class="frame-columns">
+                    <button type="button" class="btn btn-active" onclick="qwFrame.ChangeLayoutsColumns(this, 2)">
+                        <span class="bs bs2"></span>
+                        <span class="bs bs2"></span>
+                    </button>
+                    <button type="button" class="btn" onclick="qwFrame.ChangeLayoutsColumns(this, 3)">
+                        <span class="bs bs1"></span>
+                        <span class="bs bs1"></span>
+                        <span class="bs bs1"></span>
+                    </button>
+                </div>
+                <div class="switch-lang">
+                    <button type="button" onclick="switchLang()"><span data-bind="text: Switcher"></span></button>
+                </div>
+            </div>-->
+            <!--/ko-->
+            <div class="work newAddIteam" data-bind="foreach: Steps" style="width:100%">
+                <!-- ko if:IsLoaded -->
+                <iframe id="NewProduct" scrolling="no" frameborder="0" data-bind="attr: {class: ($index() == 0 ? '' : 'hidden'), id: 'mainContentDisplayer_' + $index() }"></iframe>
+                <!--/ko-->
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

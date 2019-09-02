@@ -1,0 +1,141 @@
+﻿{
+    "app": "productManageFunction",
+    "title": "产品管理",
+    "group": [
+        {
+            "module": "Index",
+            "title": "Product Management Center",
+            "elements": [
+                {
+                    "title": "Refresh",
+                    "type": "button",
+                    "icon": "icon icon-arrows-ccw",
+                    "linkname": "RefreshTrsustList",
+                    "linkurl": "javascript:RefreshTrsustList"
+                },
+               
+                 {
+                    "title": "Bottom investment management",
+                    "type": "button",
+                    "icon": "icon icon-list",
+                    "linkname": "AssetDetail",
+                    "linkurl": "javascript:AssetDetail"
+                },
+                {
+                    "title": "Investment management",
+                    "type": "button",
+                    "icon": "icon icon-gauge",
+                    "linkname": "InvestManagement",
+                    "linkurl": "javascript:InvestManagement"
+                },
+                 {
+                    "title": "Subscriber management",
+                    "type": "button",
+                    "icon": "icon icon-user-circle-o",
+                    "linkname": "SubscriberInfo",
+                    "linkurl": "javascript:SubscriberInfo"
+                },
+                {
+                    "title": "Duration document",
+                    "type": "button",
+                    "icon": "icon icon-file-word",
+                    "linkname": "ProductFilesManage",
+                    "linkurl": "javascript:ProductFilesManage"
+                },
+                 {
+                    "title": "Production document report",
+                    "type": "button",
+                    "icon": "icon icon-file-word",
+                    "linkname": "GenerationReport",
+                    "linkurl": "javascript:GenerationReport"
+                },
+                {
+                    "title": "Original owner Report",
+                    "type": "button",
+                    "icon": "icon icon-group",
+                    "linkname": "OriginalOwner",
+                    "linkurl": "javascript:OriginalOwner"
+                },
+                {
+                    "title": "Forecast results of cash flow",
+                    "type": "button",
+                    "icon": "icon icon-chart-pie",
+                    "linkname": "ShowCashFlowResult",
+                    "linkurl": "javascript:ShowCashFlowResult"
+                },
+                
+                {
+                    "title": "Income distribution model",
+                    "type": "button",
+                    "icon": "icon icon-cog-alt",
+                    "linkname": "OpenCashflow",
+                    "linkurl": "javascript:OpenCashflow"
+                },
+                {
+                    "title": "Income distribution calculation",
+                    "type": "button",
+                    "icon": "icon icon-chart-bar",
+                    "linkname": "TrustCollectionPickerPage",
+                    "linkurl": "javascript:TrustCollectionPickerPage"
+                },
+                {
+                    "title": "Historical record of income distribution",
+                    "type": "button",
+                    "icon": "icon icon-wenjian",
+                    "linkname": "ViewIncomeDistributionHistoryData",
+                    "linkurl": "javascript:ViewIncomeDistributionHistoryData"
+                },
+                {
+                    "title": "Forecast model of cash flow",
+                    "type": "button",
+                    "icon": "icon icon-chart-area",
+                    "linkname": "OpenCashflowAddMessage",
+                    "linkurl": "javascript:OpenCashflowAddMessage"
+                },
+               
+                {
+                    "title": "Circular purchase task",
+                    "type": "button",
+                    "icon": "icon icon-gauge",
+                    "linkname": "CyclesManage",
+                    "linkurl": "javascript:CyclesManage"
+                }
+                ,
+                {
+                    "title": "Management of new regulations",
+                    "type": "button",
+                    "icon": "icon icon-asset",
+                    "linkname": "AssetManageNewRules",
+                    "linkurl": "javascript:AssetManageNewRules"
+                },
+                {
+                    "title": "Release Document Management",
+                    "type": "button",
+                    "icon": "icon icon-floppy",
+                    "linkname": "DocumentManagement",
+                    "linkurl": "javascript:DocumentManagement"
+                },
+                {
+                    "title": "Flow view",
+                    "type": "button",
+                    "icon": "icon icon-chart-area",
+                    "linkname": "FlowChartSinger",
+                    "linkurl": "javascript:FlowChartSinger"
+                }, {
+                    "title": "Deleting special plans",
+                    "type": "button",
+                    "icon": "icon icon-trash-empty",
+                    "linkname": "DeleteTrust",
+                    "linkurl": "javascript:DeleteTrust"
+                },
+                {
+                    "title": "fileManagement",
+                    "type": "button",
+                    "icon": "icon icon-chart-area",
+                    "linkname": "FileManagement",
+                    "linkurl": "javascript:FileManagement"
+                }
+            ]
+        }
+    ]
+}

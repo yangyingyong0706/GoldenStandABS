@@ -1,0 +1,339 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title>审批流程权限管理</title>
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../asset/style/page.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+   
+    <style>
+        html,
+        body{
+            height: 100%;
+            width: 100%;
+            padding: 0px;
+        }
+        ul {
+            padding: 0;
+        }
+        .list-item {
+            height: 40px;
+            line-height: 40px;
+            padding: 0 13px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .list-item i {
+            margin-right: 5px;
+            color: #808080;
+        }
+        .table>tbody>tr>td{
+            border-top:none;
+        }
+        .list-item.active,.list-item:hover {
+            color: #45569c;
+            font-weight: 700;
+        }
+        .list-item.active i, .list-item:hover i {
+            color: #45569c;
+        }
+        .btn-wraper {
+            overflow: hidden;
+        }
+
+        .tool-btn {
+            float: left;
+            width: 50%;
+            box-sizing: border-box;
+            padding: 4px 0;
+            text-align: center;
+            border-bottom: 1px solid #dedede;
+        }
+
+        .rolelist {
+            float: left;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0 16px;
+            height: 40px;
+            line-height: 40px;
+            cursor: pointer;
+            color: rgba(69,86,156,1);
+            font-size: 16px;
+        }
+
+        .trustgrouptype {
+            float: left;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 16px;
+            line-height: 40px;
+            height: 40px;
+            border-bottom: 1px solid #dedede;
+            color: #45569c;
+            padding: 0 15px;
+        }
+        #btnAdd_govermentGroup {
+            color: #38941C;
+            cursor: pointer;
+        }
+
+            #btnAdd_govermentGroup:hover {
+                background-color: #F0F2FD;
+                background-image: -webkit-linear-gradient(top, #F0F2FD, #F0F2FD);
+                background-image: -ms-linear-gradient(top, #F0F2FD, #F0F2FD);
+            }
+
+        #btnRemove_govermentGroup {
+            border-left: 1px solid #ddd;
+            color: #e84646;
+            cursor: pointer;
+        }
+
+            #btnRemove_govermentGroup:hover {
+                background-color: #FBEBF0;
+                background-image: -webkit-linear-gradient(top, #FBEBF0, #FBEBF0);
+                background-image: -ms-linear-gradient(top, #FBEBF0, #FBEBF0);
+            }
+
+        #txtGovermentGroupName {
+            height: 36px;
+            border-color: transparent;
+            border-bottom-color: #ddd;
+            box-shadow: none;
+        }
+
+        #tabList {
+            position: absolute;
+            top: 0px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+        }
+
+        .sider_govermentGroup {
+            float: left;
+            height: 100%;
+            width: 184px;
+            overflow: auto;
+            background: rgba(230,233,245,1);
+        }
+
+        .govermentGroupList-wraper {
+            overflow: auto;
+        }
+
+        #govermentGroupList {
+            list-style: none;
+        }
+
+        .main {
+            float: right;
+            width: 80%;
+        }
+
+        .grid-wraper {
+            float: right;
+            height: 100%;
+            width: calc(100% - 184px);
+            overflow: auto;
+            padding: 15px;
+        }
+
+        .warning-text {
+            letter-spacing: .2em;
+        }
+
+        /*tabNav*/
+        header {
+            margin-top: 10px;
+        }
+
+        .nav {
+            padding-left: 0;
+            margin-bottom: 0;
+            list-style: none;
+        }
+
+            .nav:after {
+                display: table;
+                content: " ";
+                clear: both;
+            }
+
+        .nav-tabs > li {
+            float: left;
+            margin-bottom: -1px;
+        }
+
+        .nav > li {
+            position: relative;
+            display: block;
+        }
+
+            .nav > li:hover a {
+                color: #008bf5;
+            }
+
+        .nav-tabs > li.active > a {
+            color: #008bf5;
+            cursor: default;
+            background-color: #fff;
+            border: 1px solid #87d7ff;
+            border-bottom-color: transparent;
+        }
+
+        .nav > li > a {
+            position: relative;
+            display: block;
+            padding: 8px 20px;
+            text-decoration: none;
+            cursor: default;
+            outline: none;
+        }
+
+        .nav-tabs > li > a {
+            margin-right: 2px;
+            line-height: 1.42857143;
+            border: 1px solid transparent;
+            border-radius: 4px 4px 0 0;
+        }
+
+        #btnAdd > a {
+            cursor: pointer;
+        }
+
+        #btnAdd:hover .icon-plus {
+            background-color: #f4f4f4;
+        }
+
+        #btnAdd .icon-plus {
+            display: inline-block;
+            width: 28px;
+            height: 17px;
+            color: #73af8e;
+            line-height: 15px;
+            background: #fff;
+            border: 1px solid #bbb;
+            border-radius: 0 5px 0;
+            padding-left: 4px;
+            transform: skewX(10deg);
+        }
+
+        .cancel {
+            display: inline-block;
+            width: 13px;
+            height: 13px;
+            padding: 1px;
+            margin-left: 2px;
+            margin-top: -2px;
+            color: #1562b7;
+            line-height: 10px;
+            text-align: center;
+            font-size: 14px;
+            border: 1px solid transparent;
+            border-radius: 50%;
+            vertical-align: middle;
+            cursor: default;
+        }
+
+            .cancel:hover {
+                background-color: #fb1818;
+                color: #fff;
+            }
+
+        #dialogIframe {
+            border: 1px solid #ddd;
+            width: 100%;
+            background-color: #ffffff;
+        }
+        #product{
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+        }
+        #project .table,
+        #product .table{
+            margin: 0;
+        }
+
+        #project .table td,
+        #product .table td{
+            text-align:left;
+            padding: 0 0 0 17px;
+            height: 40px;
+        }
+
+        input[type=checkbox] {
+            margin: 0 10px 0 0;
+            vertical-align: middle;
+        }
+        #project .table span,
+        #AssignmentCommand .table span,
+        #product .table span{
+            cursor: pointer;
+            vertical-align: middle;
+        }
+        #tabList label {
+            font-size:14px;
+            color:#4d4d4d;
+            font-family: "Microsoft Yahei";
+            font-weight:normal;
+            margin-top: 5px;
+        }
+        .form-save{
+            display:flex;
+            justify-content:center;
+        }
+        .group {
+            margin-bottom: 15px;
+            border: 1px solid #dedede;
+        }
+    </style>
+</head>
+<body>
+    <!--<header>
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="home_li active">
+                <a herf="javascript:;">角色列表</a>
+            </li>
+        </ul>
+    </header>-->
+        <div id="tabList" class="public_font_style">
+            <div class="sider_govermentGroup">
+                <div class="btn-wraper">
+                    <div class="rolelist">
+                        <i class=""></i>
+                        <span>角色列表</span>
+                    </div>
+                </div>
+                <div class="govermentGroupList-wraper">
+                    <ul size="4" id="govermentGroupList" class="select1"></ul>
+                </div>
+            </div>
+            <div class="grid-wraper">
+                    <div class="" id="allpermission">
+                        <!-- Default panel contents -->
+                        <div id="project" class="group"></div>
+                        <div id="product" class="group"></div>
+                        <div id="AssignmentCommand" class="group"></div>
+                        <div class="form-save pr5 mt15">
+                            <button id="save" type="button" class="btn btn-default pull-right">
+                                保存信息
+                            </button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    <script src="../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../asset/lib/config'], function (config) {
+            requirejs(['app/roleManage/approvePermission/approvePermission']);
+        });
+    </script>
+</body>
+</html>

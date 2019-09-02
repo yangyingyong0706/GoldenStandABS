@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title></title>
+
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <style>
+        #getValue {
+       margin-top:3px;
+       float:right;
+             }
+        #grid {
+        margin-top:15px;
+        border-left:1px solid #dedede;
+        }
+         body{
+            padding:15px;
+        }
+        .k-multiselect-wrap li{
+            top:-2px;
+            border-radius: 5px;
+             background: #f1f1f1
+        }
+        .k-multiselect-wrap .k-input{
+            height:20px;
+        }
+        .k-clear-value{
+            margin-top:7px;
+        }
+        .k-i-loading{
+            margin-top:9px;
+        }
+        #btnAddRoles{
+            position:absolute;
+            right:0px;
+            top:0px;
+        }
+        .k-multiselect.k-header{
+            border: 1px solid #dedede;
+            width: calc(100% - 65px);
+        }
+        .page{
+            position:relative;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <div id="div">
+        <select id="Roles" class="add-roles" data-placeholder="请选择角色..."></select>
+        <input id="btnAddRoles" type="button" class="btn btn-default" style="float: right; margin-top: 2px; " value="添加" />
+    </div>
+<div id="grid"></div>
+</div>
+    <script src="../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../asset/lib/config'], function (common) {
+            requirejs(['app/roleManage/pathManage/pathRoles']);
+        });
+    </script>
+</body>
+</html>

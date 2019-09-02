@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>自动测试结果查看</title>
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <style>
+        body,html{
+            width:100%;
+            height:100%;
+            padding:0px;
+            margin:0px;
+        }
+        .layer{
+            width:100%;
+            height:100%;
+            box-sizing:border-box;
+            padding:15px;
+        }
+        #grid{
+            width:100%;
+            height:100%;
+        }
+        /*loading*/
+         #loading {
+            position: absolute;
+            top: 0px;
+            z-index: 1000000;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+        }
+
+        #loading > i {
+            color: rgb(107, 147, 216);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">
+        <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+    </div>
+    <div class="layer">
+        <div id="grid"></div>
+    </div>
+    <script type="text/javascript" src="../../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TaskListVerify/TaskListVerifyChild/EntrustedKendoGridPage']);
+        });
+    </script>
+</body>
+</html>

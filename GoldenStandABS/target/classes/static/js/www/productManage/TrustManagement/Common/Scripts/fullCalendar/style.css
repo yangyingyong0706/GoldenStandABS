@@ -1,0 +1,168 @@
+﻿
+/********TrustCalendar*********/
+
+/*.gsCalendarNotification{background-color:lightgreen; color:#fff;}*/
+#gsCalendar{min-width:580px; min-height:300px;}
+#script-warning {display: none;	background: #eee; border-bottom: 1px solid #ddd; padding: 0 5px; line-height: 40px;
+	text-align: center;	font-weight: bold; font-size: 12px;	color: red;}
+.event-detail-container{width:200px; min-width:200px; padding:0px 2px 0px 5px; vertical-align:top;}
+#gsCalendarEvent{border:1px solid #ccc; border-radius:3px; position:relative; width:194px;}
+#gsCalendarEvent .event-info{font-size:15px; padding:5px; text-align:center; background-color:#ccc; position:relative;}
+#gsCalendarEvent .event-info .closeDetail{width:22px; height:16px; font-size:12px; cursor:pointer; 
+    background-color:white; color:black; position:absolute; top:5px; right:5px; display:none;}
+#gsCalendarEvent .event-detail-content{display:none;}
+#gsCalendarEvent .event-detail-alert{text-align:center; padding:10px 0px;}
+#gsCalendarEvent .section-name{padding:5px 2px 2px 5px; font-weight:bold;}
+#gsCalendarEvent .event-content{padding:5px 2px; min-height:20px;}
+#gsCalendarEvent .content-wrap{white-space:normal; word-break:break-all; word-wrap:break-word;}
+#gsCalendarEvent .minheight{min-height:60px;}
+
+#trustChoice{padding:5px 0px 12px 0px;}
+#selTrustChoice{width:140px; height:25px; line-height:20px; border-radius:4px;}
+#selTrustChoice option{height:25px; line-height:20px;}
+
+.event-color-desc{border:1px solid #ccc; border-radius:3px; display:none;}
+.event-color-desc th{font-size:15px; padding:5px; text-align:center; background-color:#ccc; position:relative;}
+
+/*.fc-day{position:relative;}*/
+.addevent{ position:absolute; bottom:0px; right:0px; z-index:9999;}
+
+
+
+
+/********TrustEvents*********/
+
+.lst-view-tb {border-collapse: collapse; border-spacing: 0; padding: 0px; width:100%;
+            font-family: "Microsoft Yahei UI","Microsoft Yahei","微软雅黑",SimSun,"宋体", sans-serif;}
+.lst-view-tb td, th {border-bottom: 1px solid #ccc !important; color: black !important; text-align: left;}
+.lst-view-tb th {font-size: 12px; font-weight: 700; padding: 7px 5px 7px 10px;}
+.lst-view-tb td {font-size: 13px; min-height: 26px; vertical-align: middle; padding: 4px 4px 4px 10px;}
+.lst-view-tb ul {margin:0px; padding: 0px;}
+.lst-view-tb .list-view-emptymsgtr td{border:none !important;}
+.lst-view-tb td.lst-view-lasttd {border-bottom: none !important; text-align: right; padding-top: 15px; padding-right: 20%;}
+.lst-view-tb .minw150{min-width:150px; width:auto;}
+
+@keyframes blink{from {background-color:#FFFF77;}  to{background-color:#ffffff;}}
+@-webkit-keyframes blink {from {background-color:#FFFF77;}  to{background-color:#ffffff;}}
+@-moz-keyframes blink {from {background-color:#FFFF77;}  to{background-color:#ffffff;}}
+@-ms-keyframes blink {from {background-color:#FFFF77;}  to{background-color:#ffffff;}}
+@-o-keyframes blink {from {background-color:#FFFF77;}  to{background-color:#ffffff;}}
+.blink{
+    animation: blink 5s linear infinite;  
+    -webkit-animation: blink 5s linear infinite;
+    -moz-animation: blink 5s linear infinite;
+    -ms-animation: blink 5s linear infinite;
+    -o-animation: blink 5s linear infinite;
+    background-color:#FFFF77;
+}
+.match{color:#00AA00;}
+.warnStatus,.unmatch,.triggerWarn{color:red !important;}
+.modal-mask{
+    display:none;
+    position: fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    background-color: rgba(0,0,0,0.4);
+    z-index:9;
+}
+.modal-print{
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    width:500px;
+    height:280px;
+    margin:auto;
+}
+.modal-title{
+    height: 30px;
+    line-height: 30px;
+    font-size: 15px;
+    padding: 0px 10px;
+    color: rgb(255, 255, 255);
+    border-radius: 3px 3px 0px 0px;
+    background-image: linear-gradient(rgb(102, 114, 183), rgb(84, 93, 147));
+    background-color: rgb(84, 93, 147);
+}
+.modal-content{
+    position: absolute;
+    top:30px;
+    bottom:0;
+    left:0;
+    right:0;
+    padding: 25px;
+    background-color: #fff;
+}
+.modal-form-group{
+    margin-bottom: 20px;
+}
+.modal-content label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 12px;
+    font-weight: 700;
+}
+.modal-btn-wraper{
+    padding-top: 20px;
+}
+.modal-content .btn-block{
+    width:100%;
+    background-image: linear-gradient(rgb(102, 114, 183), rgb(84, 93, 147));
+}
+.modal-title-cancel{
+    float: right;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.print-calendar{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 50px;
+    background: #fff;
+    z-index: 9;
+}
+.table-title{
+    text-align: center;
+    font-size: 14px;
+}
+.table-title-name{
+    font-size: 15px;
+}
+.table-unit{
+    float: right;
+}
+.table-container .table > tbody > tr > td{
+    padding: 5px;
+    text-align: left;
+}
+.table-container .table > tbody > tr > td> div{
+    cursor: default;
+}
+.table-container .table > tbody > tr > td> div::before{
+    content:'*'
+}
+.btn-wraper{
+    padding-top: 10px;
+}
+.btn-wraper::after{
+    content:'';
+    display: table;
+    clear: both;
+}
+.print-btn,
+.cancel-btn{
+    margin-left: 5px;
+    font-size: 13px;
+}
+@media print {
+  .btn-wraper {
+      display: none;
+  }
+}

@@ -1,0 +1,530 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>资产支持证券认购协议与风险揭示书</title>
+    <link href="../../../../../asset/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../../../../../asset/style/common.css" rel="stylesheet" />
+    <style type="text/css">
+       table tr td.editTd input.red-border{border:1px solid #ff0000;}
+          input.red-border{border:1px solid #ff0000;}
+          h3{border-bottom:1px solid #ddd;padding-bottom:8px;}
+          .tit_top{color:#5a77a9;padding-bottom:5px; border-bottom:3px solid #e7e7e7; font-size:16px;}
+        .title { width:100%;height:35px;line-height:35px;font-size:30px;}
+        .promotTime { width:45%;margin-top:20px;overflow:hidden;float: left;}
+        .promotTime .times { width:24%;float:left;height:30px;line-height:30px;}
+        .SecuritiesPeo .times {  width:22%;}
+        .inputdate { width:45%;float:left;}
+        .Hierarchical { width:100%;clear：both;overflow:hidden;margin-top:20px;position:relative;}
+        .Hierarchical h3 { font-size:14px;margin-bottom:10px;font-weight:bold;}
+        table tr td.editTd { padding:0;margin:0; line-height:34px;}
+        table tr td.editTd input { width:100%;height:100%; border: none;text-align:center;}
+        p.editBtn { width:59px;height:18px;border:1px solid #ddd;border-radius:10%;margin:0 auto;}
+        .SecuritiesName,.SecuritiesPeo { margin-left:3%;}
+        .SecuritiesNum { margin-bottom:10px;}
+        .subBtn { width:140px;height:40px;text-align: center;line-height: 40px;font-size: 14px;background-color:#0094ff;color:#fff;position: absolute;top: 95px;right: 11px;cursor:pointer;}
+        .subBtnAll {width:140px;height:40px;text-align: center;line-height: 40px;font-size: 14px;background-color:#0094ff;color:#fff;cursor:pointer; }
+        .list_main{overflow:hidden;margin-top:20px; margin-left:3%;margin-right:3%;}
+        .list_each{overflow:hidden;margin-bottom:15px;}
+        .list_left,.list_right{float:left;width:45%;}
+        .info_font{width:24%;float:left;line-height:30px;}
+        .info_input{width:45%;line-height:30px;height:30px;}
+        .AllCheckDiv span{position: absolute;line-height:30px;height:20px;margin-left:10px;}
+        .buttonRight{position:absolute; right:10px; top:60px;}
+        #NewAddedFilingDocuments{position: absolute;line-height:30px;height:30px;margin-left:65px;}
+        .newButton{line-height: 18px;float: right;margin-right: 130px;}
+        table tr th{border-bottom: 2px solid #B2C3E2; background: #D4DFF3;vertical-align: middle; font-weight: bold; color: #5A77A9;}
+        table tr td{text-align: center; padding: 8px; line-height: 1.42857143; border: 1px solid #B2C3E2 !important;}
+        .Investor p span {font-size:18px; margin-right:20px;}
+        .Investor p{ line-height:30px; margin-bottom:10px;}
+        .Investor{padding-left:3%;}
+        .Investor ul li{ width:24%; border:1px solid #B2C3E2; float:left; height:40px; line-height:35px; padding-left:10px; list-style-type:none;}
+        .Investor ul li button{height:24px; line-height:14px; float:right; margin-right:8px;margin-top: 8px;}
+        .PopupBackground{display:none; position:fixed; left:0px; top:0px;width:100%; height:100%; z-index:999; background-color:#000000;filter:alpha(opacity=50);-moz-opacity:0.5;opacity:0.5;}
+        .Popup .centent{ width:40%; height:46%; margin:4% auto;background-color:#FFF;position:fixed;z-index:1000;left:30%; top:140px; padding:10px 20px; overflow-y:scroll;}
+        .Popup .closePopup{ position:absolute; right:20px; top:20px;z-index:2000}
+        .Popup{display:none;}
+        .Popup input,.Popup select{width:68%;height:30px;line-height:30px;float:left; margin-left:43px;}
+        .Popup span{float:left;height:30px;line-height:30px; }
+        .Popup div{clear:both; width:100%;margin-bottom:28px;padding-left:30px;}
+        .Popup #fileInvestor{width:46% !important; height:32px;position:absolute;z-index:100;margin-left:116px;filter:alpha(opacity=0); -moz-opacity:0; -khtml-opacity: 0;  opacity: 0; }
+        .Popup #fileBlockInvestor{width:46% !important;height:32px;position:absolute;z-index:0;margin-left:116px;}
+        .Popup #ImportInvestor{position:absolute; bottom:30px; right:20px;}
+        input[type=radio],.radioSpan{float:left;margin-right:8px;}
+        .radioSpan{line-height:30px;}
+        #file {width:300px; height:32px;position:absolute;z-index:100;margin-left:100px;filter:alpha(opacity=0); -moz-opacity:0; -khtml-opacity: 0;  opacity: 0; }
+        #fileBlock{width:300px; height:32px;position:absolute;z-index:0;margin-left:100px;}
+        .UploadDocuments{width:350px; height:32px;position:absolute;z-index:100;margin-left:100px;filter:alpha(opacity=0); -moz-opacity:0; -khtml-opacity: 0;  opacity: 0; }
+        .UploadDocumentsBlock{width:350px; height:32px;position:absolute;z-index:0;margin-left:100px;border: 1px solid; margin-top: 2px;}
+        .file_div{padding:20px 3% 0 3%;}
+        .file_div button,.file_div span,.file_div input{float:left;}
+        .saveButton{ position:absolute;left:5%;top:0;}
+        .radioSpan{line-height:30px;}
+        .preview .centent{ width:70%; height:86%; margin:4% auto;background-color:#FFF;position:fixed;z-index:1000;left:15%; top:0px; padding:10px 20px; overflow-y:scroll;}
+        .preview .closePopup{ position:absolute; right:20px; top:20px;z-index:2000}
+        .preview{display:none; }
+        .contract .centent{ width:70%; height:86%; margin:4% auto;background-color:#FFF;position:fixed;z-index:1000;left:15%; top:0px; padding:10px 20px; overflow-y:scroll;}
+        .contract .closePopup{ position:absolute; right:20px; top:20px;z-index:2000}
+        .contract{display:none; }
+		.HistoricalRecordsDivDIsplay .centent{ width:40%; height:46%; margin:4% auto;background-color:#FFF;position:fixed;z-index:1000;left:30%; top:140px; padding:10px 20px; overflow-y:scroll;}
+        .HistoricalRecordsDivDIsplay .closeHistoricalRecordsDivDIsplay{ position:absolute; right:20px; top:12px;z-index:2000}
+        .HistoricalRecordsDivDIsplay{display:none;}
+        .HistoricalRecordsDivDIsplay span{height:30px;margin:0 20px ; font-weight: bold;}
+        .HistoricalRecordsDivDIsplay div{clear:both; width:100%;margin:20px 0;padding-left:30px;}
+		.HistoricalRecordsDivDIsplay  label{font-weight: 100;}
+       
+    </style>
+</head>
+<body>
+
+    <div class="main" id="Risk">
+        <div class="title text-center" v-text="TrustName1"></div>
+		<div>
+			<button class="btn btn-primary" id='SubmitPreservation' @click="SubmitPreservation('submit')" style="margin-right:20px;">提交</button>
+            <button class="btn btn-primary btn_btn" id='Preservation' @click="SubmitPreservation('Verify')" style="margin-right:20px;">审核</button>
+			<button class="btn btn-primary btn_btn" id='HistoricalRecords' @click="HistoricalRecords()">历史纪录</button>
+            <span id="VerifyText" style="margin-left:20px;"></span>
+		</div>
+        <div class="Hierarchical">
+            <h3><span class="tit_top">基本信息导入：</span></h3>
+            <div class="list_left file_div" style="width:50%;">
+                <span class="info_font">文档信息：</span>
+                <input class="" id="file" data-valid="required" type="file" @change="agreementFileChange" />
+                <input class="form-control info_input" data-valid="required" type="text" id="fileBlock" />
+                <button class="btn btn-primary" style="margin-left:300px;margin-right:4px;" @click="browse">浏览</button>
+                <button class="btn btn-primary" style="margin-right:4px;" @click="ImportAgreement">导入</button>
+                <button class="btn btn-primary" style="" @click="DownLoanTempDocuments('内部填写信息.xlsx')">下载模板</button>
+            </div>
+            <div style="clear:both;width:41%;text-align:right; padding:30px 4px 0 4px;display:none">
+                <button class="btn btn-primary btn_btn" @click="OppenPreview">预览合同信息</button>
+            </div>
+        </div>
+        <div class="Hierarchical">
+            <h3><span class="tit_top">模板信息导入：</span></h3>
+            <table class="table table-bordered subscription" >
+                <tr>
+                    <th>附件序号</th>
+                    <th>模板名称</th>
+                    <th>是否已上传</th>
+                    <th>上传模板</th>
+                </tr>
+                <tr>
+                    <td>
+                        附件一
+                    </td>
+                    <td>
+                        专项计划基本情况
+                    </td>
+                    <td v-if="RiskInfo==''">
+                        否
+                    </td>
+                    <td v-else>
+                        是
+                    </td>
+                    <td>
+                        <input class="UploadDocuments" id="UploadDocuments0" data-valid="required" type="file" @change="UploadDocumentsChange(0)" />
+                        <input class="form-control info_input UploadDocumentsBlock" data-valid="required" type="text" id="" />
+                        <button class="btn btn-primary" style="margin-left:270px;" @click="browseUploadDocuments(0)">浏览</button>
+                        <button class="btn btn-primary" @click="UploadDocuments('BasicInfo',0)">上传</button>
+                        <button class="btn btn-primary" @click="DownLoanTempDocuments('附件一：专项计划基本情况.docx')">下载模板</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        附件二
+                    </td>
+                    <td>
+                        风险揭示
+                    </td>
+                    <td v-if="RiskInfo==''">
+                        否
+                    </td>
+                    <td v-else>
+                        是
+                    </td>
+                    <td>
+                        <input class="UploadDocuments" id="UploadDocuments1" data-valid="required" type="file" @change="UploadDocumentsChange(1)" />
+                        <input class="form-control info_input UploadDocumentsBlock" data-valid="required" type="text" id="" />
+                        <button class="btn btn-primary" style="margin-left:270px;" @click="browseUploadDocuments(1)">浏览</button>
+                        <button class="btn btn-primary"  @click="UploadDocuments('RiskInfo',1)">上传</button>
+                        <button class="btn btn-primary" @click="DownLoanTempDocuments('附件二：风险揭示.docx')">下载模板</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        附件十
+                    </td>
+                    <td>
+                        产品或服务风险等级评估表
+                    </td>
+                    <td v-if="ProductOrServiceRiskAssessment==''">
+                        否
+                    </td>
+                    <td v-else>
+                        是
+                    </td>
+                    <td>
+                        <input class="UploadDocuments" id="UploadDocuments2" data-valid="required" type="file" @change="UploadDocumentsChange(2)" />
+                        <input class="form-control info_input UploadDocumentsBlock" data-valid="required" type="text" id="" />
+                        <button class="btn btn-primary" style="margin-left:270px;" @click="browseUploadDocuments(2)">浏览</button>
+                        <button class="btn btn-primary"  @click="UploadDocuments('ProductOrServiceRiskAssessment',2)">上传</button>
+                        <button class="btn btn-primary" @click="DownLoanTempDocuments('附件十：产品或服务风险等级评估表.docx')">下载模板</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        附件十三
+                    </td>
+                    <td>
+                        普通投资者投资高风险产品特别警示
+                    </td>
+                    <td v-if="HighRiskSpecialWarning==''">
+                        否
+                    </td>
+                    <td v-else>
+                        是
+                    </td>
+                    <td>
+                        <input class="UploadDocuments" id="UploadDocuments3" data-valid="required" type="file" @change="UploadDocumentsChange(3)" />
+                        <input class="form-control info_input UploadDocumentsBlock" data-valid="required" type="text" id="" />
+                        <button class="btn btn-primary" style="margin-left:270px;" @click="browseUploadDocuments(3)">浏览</button>
+                        <button class="btn btn-primary"  @click="UploadDocuments('HighRiskSpecialWarning',3)">上传</button>
+                        <button class="btn btn-primary" @click="DownLoanTempDocuments('附件十三：普通投资者投资高风险产品特别警示.docx')">下载模板</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="Hierarchical">
+            <h3><span class="tit_top">投资人认购信息</span></h3>
+            <div class="Investor" style="display:none;">
+                <p><span>投资人</span></p>
+                <ul>
+                    <li v-for="(Investor,IIndex) in Investor">
+                        <span>{{Investor.InvestorName}}:<span v-for="Layered in Layered" v-if="Layered.TrustBondId==Investor.InvestorBondId">{{Layered.ShortName}}</span></span>
+                        <button class="btn btn-primary btn_btn" @click="OpenPopup(Investor.InvestorId)">编辑</button>
+                    </li>
+                </ul>
+            </div>
+            <div style="clear:both; height:0px;margin-bottom:24px;"></div>
+            <div class="Investor">
+                <p><span>投资人池</span><button class="btn btn-primary btn_btn" @click="OpenPopup(0,'',1)">新建投资人</button></p>
+                 <!--<ul>
+                    <li v-for="(ip,ipIndex) in InvestmentPool">
+                        <span>{{ip.InvestorName}}</span>
+                        <button class="btn btn-primary btn_btn" @click="RemovePool(ipIndex)">删除</button>
+                        <button class="btn btn-primary btn_btn" @click="OpenPopup(ip.InvestorId,ip.InvestorName,ip.InvestorType)">编辑</button>
+                        <button class="btn btn-primary btn_btn" @click="AddPool(ipIndex)">认购</button>
+                    </li>
+                </ul>--> 
+                <table class="table table-bordered subscription">
+                    <tr>
+                        <th>投资方</th>
+                        <th>投资方类型</th>
+                        <th>法人代表</th>
+                        <th>办公地址</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr v-for="(IP,IPIndex) in InvestmentPool">
+                        <td class="editTd">
+                            {{IP.InvestorName}}
+                        </td>
+                        <td class="editTd">
+                            {{IP.InvestorTypeDescription}}
+                        </td>
+                        <td class="editTd">
+                            {{IP.LegalRepresentativeName}}
+                        </td>
+                        <td class="editTd">
+                            {{IP.OfficeAddress}}
+                        </td>
+                        <td>
+                            <button class="btn btn-primary btn_btn" @click="RemovePool(IP.InvestorId,IPIndex)">删除</button>
+                            <button class="btn btn-primary btn_btn" @click="OpenPopup(IP.InvestorId,IP.InvestorName,IP.InvestorType)">编辑</button>
+                            <button class="btn btn-primary btn_btn" @click="AddPool(IPIndex)">认购</button>
+                        </td>
+                    </tr>
+                </table>    
+            </div>
+        </div>
+        <div class="Hierarchical">
+            <h3><span class="tit_top">认购信息</span></h3>
+            <button class="btn btn-primary saveButton" @click="saveAllItems()">保存认购信息</button>
+            <table class="table table-bordered subscription" v-if="Investor.length>0">
+                <tr>
+                    <th>投资人</th>
+                    <th>投资分层</th>
+                    <th>预期收益率</th>
+                    <th>认购单价</th>
+                    <th>认购份额</th>
+                    <th>认购总价</th>
+                    <th>操作</th>
+                </tr>
+                <tr v-for="(Investor,InvestorIndex) in Investor">
+                    <td class="editTd">
+                        {{Investor.InvestorName}}
+                    </td>
+                    <td class="editTd">
+                        <select v-model="Investor.InvestorBondId" @change="subscription(Investor.InvestorBondId)">
+                            <option v-for="Layered in Layered" v-bind:value="Layered.TrustBondId">{{Layered.ShortName}}</option>
+                        </select>
+                    </td>
+                    <td class="editTd">
+                        <span v-for="Layered in Layered" v-if="Layered.TrustBondId==Investor.InvestorBondId">{{Layered.CouponBasis}}</span>
+                    </td>
+                    <td class="editTd">
+                        {{Investor.EachSharePrice}}
+                    </td>
+                    <td><input type="text" v-model="Investor.SubscriptionShare"/></td>
+                    <td class="editTd" v-if="Investor.SubscriptionShare!=''&&Investor.SubscriptionShare!=null">{{Investor.SubscriptionShare*Investor.EachSharePrice}}</td>
+                    <td class="editTd" v-else>0</td>
+                    <td><button class="btn btn-primary btn_btn" @click="RemovePeople(InvestorIndex)">移除</button></td>
+                </tr>
+            </table>
+        </div>
+        <div class="Hierarchical">
+            <h3><span class="tit_top">本专项计划相关投资人认购协议下载：</span></h3>
+            <!--<div class="Investor">
+                <ul>
+                    <li v-for="(spd,spdIndex) in SubscriptionProtocolDownload">
+                        <span>{{spd.InvestorName}}</span>
+                        <button class="btn btn-primary btn_btn" @click="OppenContract(spd.InvestorType,spd.InvestorName)">预览</button>
+                        <button class="btn btn-primary btn_btn" @click="downloadFile(spd.InvestorId,spd.InvestorType,spd.InvestorName)">下载</button>
+                    </li>
+                </ul>
+            </div>-->
+            <table class="table table-bordered subscription" >
+                <tr>
+                    <th>投资方</th>
+                    <th>投资方类型</th>
+                    <th>法人代表</th>
+                    <th>办公地址</th>
+                    <th>操作</th>
+                </tr>
+                <tr v-for="(spd,spdIndex) in SubscriptionProtocolDownload">
+                    <td class="editTd">
+                        {{spd.InvestorName}}
+                    </td>
+                    <td class="editTd">
+                        {{spd.InvestorTypeDescription}}
+                    </td>
+                    <td class="editTd">
+                        {{spd.LegalRepresentativeName}}
+                    </td>
+                    <td class="editTd">
+                        {{spd.OfficeAddress}}
+                    </td>
+                    <td>
+                        <button class="btn btn-primary btn_btn" @click="OppenContract(spd.InvestorType,spd.InvestorName)">预览</button>
+                        <button class="btn btn-primary btn_btn" @click="downloadFile(spd.InvestorId,spd.InvestorType,spd.InvestorName)">下载</button>
+                    </td>
+                </tr>
+            </table>    
+        </div>
+        <div class="PopupBackground"></div>
+        <div class="Popup">
+            <div class="centent">
+                <span class="closePopup" @click="closePopup">X</span>
+                <div style="margin-top:50px;">
+                    <span>投资人名称：</span>
+                    <input type="text" class="form-control" id="InvestorName" />
+                </div>
+                <div style="padding-top:20px;">
+                    <span>投资人信息文档：</span>
+                    <input class="" id="fileInvestor" data-valid="required" type="file" @change="fileInvestorChange" />
+                    <input class="form-control" data-valid="required" type="text" id="fileBlockInvestor" />
+                    <button class="btn btn-primary" style="margin-left:62%" @click="browseInvestor">浏览</button>
+                </div>
+                <div>
+                    <span>投资人类型：</span>
+                    <select id="InvestorType" value="AlreadySelectedInvestorType">
+                        <option v-for="ITI in InvestorTypeInfo" v-bind:value="ITI.InvestorTypeId">{{ITI.InvestorTypeDescription}}</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" style="margin-right:60px;" id="ImportInvestor" @click="DownLoanTempDocuments('客户填写信息.zip')">下载模板</button>
+                <button class="btn btn-primary" id="ImportInvestor" @click="ImportInvestor">导入</button>
+            </div>
+        </div>
+		<div class="HistoricalRecordsDivDIsplay">
+            <div class="centent">
+				<span class="closeHistoricalRecordsDivDIsplay" @click="closeHistoricalRecordsDivDIsplay">X</span>
+                <div v-for='hr in HistoricalRecordsList'>
+				   <span>操作人:</span>{{hr.SubmitUser}};<span>操作:</span><label v-if='hr.OperationType=="Verify"'>审核</label><label v-if='hr.OperationType=="submit"'>提交</label><span>操作时间:</span>{{hr.SubmitTime}}
+				</div>
+                
+            </div>
+        </div>
+        <div class="Agreement" style="display:none;">
+            <div class="Hierarchical">
+                <div class="Investor">
+                    <p><span>基本信息</span></p>
+                    <div class="list_left" v-for="EI in EssentialInformation">
+                        <span>{{EI[0]}}:</span>
+                        <label>{{EI[1]}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="Hierarchical">
+                <div class="Investor">
+                    <p><span>风险信息评估表</span></p>
+                    <div class="list_left" v-for="RA in riskAssessment">
+                        <span>{{RA[0]}}:</span>
+                        <label>{{RA[1]}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contract">
+            <div class="centent">
+                <span class="closePopup" @click="closeContract">X</span>
+                <div class="Hierarchical">
+                    <div class="Investor">
+                        <p><span>合同正文投资者信息</span></p>
+                        <div class="list_left" v-for="contract in contract">
+                            <span>{{contract[0]}}:</span>
+                            <label>{{contract[1]}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="Hierarchical">
+                    <div class="Investor">
+                        <p><span>附件5投资者基本信息表（机构）</span></p>
+                        <div class="list_left" v-for="EM in EnclosureMechanism">
+                            <span>{{EM[0]}}:</span>
+                            <label>{{EM[1]}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="Hierarchical">
+                    <div class="Investor">
+                        <p><span>附件5投资者基本信息表（产品）（机构）</span></p>
+                        <div class="list_left" v-for="EP in EnclosureProduct">
+                            <span>{{EP[0]}}:</span>
+                            <label>{{EP[1]}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="Hierarchical" v-if="InvestorType=='NonFinancialProfessional'||InvestorType=='Ordinary'">
+                    <div class="Investor">
+                        <p><span>附件6机构税收居民身份声明文件</span></p>
+                        <div class="list_left" v-for="IT in InstitutionalTaxation">
+                            <span>{{IT[0]}}:</span>
+                            <label>{{IT[1]}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="Hierarchical" v-if="InvestorType=='NonFinancialProfessional'||InvestorType=='Ordinary'">
+                    <div class="Investor">
+                        <p><span>附件6控制人税收居民身份声明文件</span></p>
+                        <div class="list_left" v-for="CT in ControllerTax">
+                            <span>{{CT[0]}}:</span>
+                            <label>{{CT[1]}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="Hierarchical" v-if="InvestorType=='NonFinancialProfessional'||InvestorType=='Ordinary'">
+                    <div class="Investor">
+                        <p><span>附件7投资者申请书</span></p>
+                        <div class="list_left" v-for="Application in Application">
+                            <span>{{Application[0]}}:</span>
+                            <label>{{Application[1]}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="Hierarchical" v-if="InvestorType=='NonFinancialProfessional'">
+                    <div class="Investor">
+                        <p><span>附件8测试题</span></p>
+                        <div class="list_left" v-for="TQ in TestQuestions">
+                            <span>{{TQ[0]}}:</span>
+                            <label>{{TQ[1]}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="Hierarchical" v-if="InvestorType=='Ordinary'">
+                    <div class="Investor">
+                        <p><span>附件8投资者风险承受能力问卷</span></p>
+                        <div class="list_left" v-for="AQ in AbilityQuestionnaire">
+                            <span>{{AQ[0]}}:</span>
+                            <label>{{AQ[1]}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="Hierarchical" v-if="InvestorType=='Ordinary'">
+                    <div class="Investor">
+                        <p><span>附件11适当性评估结果确认书</span></p>
+                        <div class="list_left" v-for="COR in ConfirmationOfResults">
+                            <span>{{COR[0]}}:</span>
+                            <label>{{COR[1]}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="Hierarchical" v-if="InvestorType=='Ordinary'">
+                    <div class="Investor">
+                        <p><span>附件12产品或服务不适当警示及投资者确认书</span></p>
+                        <div class="list_left" v-for="IC in InvestorConfirmation">
+                            <span>{{IC[0]}}:</span>
+                            <label>{{IC[1]}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="preview">
+            <div class="centent">
+                <span class="closePopup" @click="closePreview">X</span>
+                <div class="Hierarchical">
+                    <div class="Investor">
+                        <p><span>基本信息</span></p>
+                        <div class="list_left" v-for="EI in EssentialInformation">
+                            <span>{{EI[0]}}:</span>
+                            <label>{{EI[1]}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="Hierarchical">
+                    <div class="Investor">
+                        <p><span>风险信息评估表</span></p>
+                        <div class="list_left" v-for="RA in riskAssessment">
+                            <span>{{RA[0]}}:</span>
+                            <label>{{RA[1]}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div id="taskIndicatorArea" style="display:none;width:480px; height:540px;">
+        <object id="TaskProcessCtl" data="data:application/x-silverlight-2," type="application/x-silverlight-2" style="display:block" width="100%" height="240px" class="ms-dlgDisable">
+            <param name="source" value="/TaskProcessEngine/ClientBin/UI.TaskProcessIndicator.xap" />
+            <param name="enablehtmlaccess" value="True" />
+        </object>
+    </div>
+    <script src="../../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/productManage/TrustManagement/documentManagement/saleDocument/list']);
+        });
+    </script>
+
+
+
+
+
+
+    <script src="../Common/Scripts/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script src="../Common/Scripts/common.js"></script>
+    <script src="../Common/Scripts/calendar.min.js"></script>
+    <script src="../Common/Scripts/GlobalVariable.js"></script>
+    <script src="../Common/Scripts/vue.js"></script>
+	<script src="/QuickFrame/Scripts/jquery.cookie.js"></script>
+    <script src="/QuickFrame/Scripts/roleOperate.js"></script>
+    <script src="../../../PoolCut/Scripts/TaskIndicatorScript.js"></script>
+    <script src="../../../PoolCut/Scripts/jquery.datagrid.js"></script>
+    <script src="../../../PoolCut/Scripts/jquery-ui-latest.js"></script>
+    <link href="../../../PoolCut/Scripts/jquery-ui.css" rel="stylesheet" />
+    <script src="../../Scripts/DataOperate.js"></script>
+    <script src="list.js"></script>
+</body>
+</html>

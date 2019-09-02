@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>合格投资人管理</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!--<link href="../Common/css/trustWizard.css" rel="stylesheet" />-->
+    <!--<link href="css/pagerlist-style.css" rel="stylesheet" />-->
+    <link href="../../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <style>
+        html {
+            height: 100%;
+        }
+        .public_font_style {
+            height: calc(100% - 35px);
+            background: #fafafa;
+            padding: 15px;
+        }
+        .body-container {
+            height: 100%;
+            overflow-y: auto;
+            background: #fff;
+        }
+
+        .main {
+            box-sizing: border-box;
+            padding: 15px;
+            padding-bottom: 0px;
+        }
+
+        .nominheight {
+            min-height: inherit !important;
+        }
+
+        .rowNoPadding {
+            padding: 5px 5px !important;
+            line-height: 1em !important;
+        }
+
+        .page-fun {
+            overflow: hidden;
+        }
+
+            .page-fun .pull-left {
+                position: relative;
+                top: 0px;
+            }
+
+            .page-fun .pull-right {
+                position: relative;
+                top: 0px;
+            }
+
+        .filterdiv {
+            padding: 5px 0 !important;
+        }
+
+        .pull-left select {
+            margin-left: 1px;
+            float: left;
+        }
+
+        .pull-left div {
+            float: left;
+        }
+
+        .pull-left button {
+            height: 20px;
+            float: left;
+            height: 26px;
+            margin-left: 2px;
+            margin-bottom: 5px;
+            font-size: 14px;
+            line-height: 10px;
+        }
+
+        .pull-left label {
+            float: left;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .date-filter {
+            height: 26px;
+            box-shadow: rgba(0, 0, 0, 0.075) 0px 1px 1px inset;
+            border-radius: 5px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: rgb(204, 204, 204);
+        }
+
+        #gridAssetDetail {
+            margin-top: 15px;
+        }
+
+        div.drop.form-panel.list-filters {
+            border-bottom: none;
+        }
+
+        .margin_styleby {
+            margin-bottom: 0px;
+        }
+        .margin_styleby .btn {
+            margin-left: 5px;
+        }
+        td.tight-cell.rowNoPadding {
+            text-align: center;
+        }
+
+        html.k-webkit.k-webkit61 {
+            overflow-y: hidden;
+        }
+
+        .loadpage {
+            position: absolute;
+            top: 46%;
+            left: 46%;
+            background: transparent;
+        }
+
+            .loadpage > i {
+                color: rgb(107, 147, 216);
+            }
+
+        body, button, input, select, textarea {
+            font: 13px 'Microsoft Yahei',tahoma,arial,\5b8b\4f53;
+            outline: 0;
+            resize: none;
+            font-weight: normal;
+            color: #555;
+        }
+
+        .table-header-cell k-header, .table-cell, .k-grid-header, .k-pager-wrap, .k-grid-pager, .k-widget, .k-floatwrap {
+            font-size: 13px !important;
+            color: #555;
+        }
+
+        .file-option > span {
+            font-size: 14px !important;
+        }
+
+        .k-grid tr td {
+            /*border-width: 0 0 1px 1px;*/
+            border-style: solid;
+            border-color: #e6e6e6 !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding: 0.45em 1.486em !important;
+            font-family: 'Microsoft YaHei';
+        }
+        .k-grid tr:hover {
+            background-color: #e2e0e0 !important;
+        }
+        #uploadSelect {
+            padding-top: 10px;
+        }
+
+        div.k-grid-content tr:last-child > td {
+            border-bottom-width: 1px;
+        }
+        i.fa {
+            margin-right: 5px;
+        }
+        .col-md-4, .col-md-8 {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+        .form-control {
+            border-radius: 0px;
+        }
+        .form .form-group label {
+            text-align: left;
+            padding: 0 0 0 30px;
+        }
+        .red-border{
+            border:1px solid red !important;
+        }
+        #gridAssetPoolList {
+            margin: 15px;
+        }
+    </style>
+</head>
+<body class="public_font_style container-fluid">
+    <div class="body-container form nobottom">
+        <div class="main">
+            <div id="investMain">
+                <div class="page-fun">
+                    <div class="pull-right margin_styleby">
+                        <button type="button" class="btn btn-default" id="btnCaculate" v-on:click="caculate"><i class="fa fa-gg"></i>计算收益分配</button>
+                        <button type="button" class="btn btn-default" id="btnAddInvest" v-on:click="addInvest"><i class="fa fa-pie-chart"></i>新增</button>
+                        <button type="button" class="btn btn-default" id="btnEditInvest" v-on:click="editInvest"><i class="fa fa-file-text-o"></i>编辑</button>
+                        <button type="button" class="btn btn-danger" id="btnDeleteInvest" v-on:click="deleteInvest"><i class="icon icon-trash-empty"></i>删除</button>
+                    </div>
+                </div>
+                <div class="form" id="investBound" style="display:none;padding:20px">
+                    <div class="form-body default">
+                        <div class="form-panel drop row">
+                            <div class="form-group col-md-12">
+                                <div class="col-md-4"><label>产品</label></div>
+                                <div class="col-md-8">
+                                    <input type="text" id="TrustId" disabled v-model.number="TrustId" class="form-control" data-valid="required" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <div class="col-md-4"><label>投资人名称</label></div>
+                                <div class="col-md-8">
+                                    <input type="text" id="InvestName" v-bind:disabled="isAdd==1" v-model="InvestName" class="form-control" data-valid="required" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <div class="col-md-4"><label>投资人代码</label></div>
+                                <div class="col-md-8">
+                                    <input type="text" id="InvestCode" v-bind:disabled="isAdd==1" v-model="InvestCode" class="form-control" data-valid="required" v-on:change="checkTurst($event)" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" v-cloak>
+                                <div class="col-md-4"><label>投资人账户</label></div>
+                                <div class="col-md-8">
+                                    <input type="text" id="txtPoolName" v-bind:disabled="isAdd==1" v-model="InvestAccount" class="form-control" data-valid="required" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" v-cloak>
+                                <div class="col-md-4"><label>账户名称</label></div>
+                                <div class="col-md-8">
+                                    <input type="text" id="AccountName" v-bind:disabled="isAdd==1" v-model="AccountName" class="form-control" data-valid="required" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" v-cloak>
+                                <div class="col-md-4"><label>开户银行</label></div>
+                                <div class="col-md-8">
+                                    <input type="text" id="BankAccount" v-bind:disabled="isAdd==1" v-model="BankName" class="form-control" data-valid="required" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" v-cloak>
+                                <div class="col-md-4"><label>账号</label></div>
+                                <div class="col-md-8">
+                                    <input type="text" id="Account" v-bind:disabled="isAdd==1" v-model="Account" class="form-control" data-valid="required" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" v-cloak>
+                                <div class="col-md-4"><label>投资债券代码</label></div>
+                                <div class="col-md-8">
+                                    <select id="txtPoolName" v-bind:disabled="isAdd==1" v-model="selectedTrustBondCode" class="form-control" data-valid="required">
+                                        <option v-bind:value="item.TrustBondCode" v-for="item in TrustBondCodeList">{{item.TrustBondCode}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" v-cloak>
+                                <div class="col-md-4"><label>投资债券名称</label></div>
+                                <div class="col-md-8">
+                                    <input type="text" id="txtPoolName" v-bind:disabled="isAdd==1" v-model="TrustBondName" class="form-control" data-valid="required" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" v-cloak>
+                                <div class="col-md-4"><label>投资金额</label></div>
+                                <div class="col-md-8">
+                                    <input type="text" id="txtPoolName" v-model="InvestAmount" class="form-control" data-valid="required" v-on:keyup="Tbadd(InvestAmount,1)" />
+
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" v-cloak>
+                                <div class="col-md-4"><label>投资份数</label></div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" v-model="InvestNumber" data-valid="required" v-on:keyup="Tbadd(InvestNumber,2)">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" v-cloak>
+                                <div class="col-md-4"><label>购买时间</label></div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control date-plugins" id="IssueDate"><!--v-bind:value="IssueDate"-->
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" v-cloak>
+                                <div class="col-md-4"><label>到期时间</label></div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control date-plugins" id="LegalMaturityDate"><!--v-bind:value="LegalMaturityDate"-->
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" v-cloak>
+                                <div class="col-md-4"><label>利率</label></div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" v-model="CouponBasis">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="buttons" style="width:100%;text-align:center">
+                            <button type="button" id="saveInvest" class="btn btn-primary" title="保存" v-on:click="saveInvest">保存</button>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-panel drop nobottom">
+                <div class="form-panel drop list-filters">
+                </div>
+
+                <div id="gridAssetDetail"></div>
+                <div id="gridAssetPoolList" style="display:none;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../../../asset/lib/require.js"></script>
+
+    <script type="text/javascript">
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/InvestManagement/InvestManagement']);
+        });
+    </script>
+</body>
+</html>

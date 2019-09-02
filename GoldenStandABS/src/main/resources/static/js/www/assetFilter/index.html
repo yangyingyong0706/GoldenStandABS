@@ -1,0 +1,79 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+
+    <title>资产池管理</title>
+    <link href="../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../asset/lib/metisMenu/dist/metisMenu.min.css" rel="stylesheet" />
+    <link href="../../asset/lib/goldenstand/uiFrame/css/gs-admin-2.css" rel="stylesheet" />
+    <link href="../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../asset/lib/asyncbox/skins/default.css" rel="stylesheet" />
+    <link href="../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="css/chrome-tabs.css" rel="stylesheet" />
+    <link href="css/chrome-tabs-dark-theme.css" rel="stylesheet" />
+    <link href="../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+
+</head>
+<body style="display:none">
+    <div id="selectLanguageDropdown_afhome" class="localizationTool" style="display:none"></div>
+    <div id="wrapper" style="padding-left: 0;">
+        <div id="tabs" class="nav-tabs">
+            <div id="DashBoard" class="ribbonBox" v-cloak=v-cloak>
+                <ul>
+                    <li class="ribbonGroup  nav_style_hander" v-for="group in obj.group">
+                        <span class="click_direction dot"><i v-bind:class="group.titleclass"></i>{{group.title}}<i class="icon icon-bottom" style="float: right;"></i></span>
+                        <!--<div class="hidden_area">
+                            <div v-for="item in group.elements" track-by="$index">
+                                <div v-if="item!=empty">
+                                    <a v-bind:href="creatLink(item.linkname,item.linkurl)" class="ribbonButton">
+                                        <i v-bind:class="item.icon"></i>
+                                        <span>{{item.title}}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>-->
+                    </li>
+                </ul>
+            </div>
+            <div class="fixed_control">
+                <i></i>
+            </div>
+        </div>
+        <div id="main" class="htmleaf-container">
+            <!-- ko foreach: tabs -->
+            <iframe class="iframe" data-bind="attr: { id:id,src: url },css: { hide: id != $parent.showId() }"></iframe>
+            <!-- /ko -->
+            <!--<iframe id="iframeMainContent" name="iframeMainContent" frameborder="0" scrolling="no" src="../components/assetPoolList/AssetPoolList.html" style="width:100%;height:100%;"></iframe>-->
+            <div class="chrome-tabs-shell" style="height:35px;position:fixed;bottom:0;z-index:2;width:100%">
+                <div class="chrome-tabs" data-bind="foreach: tabs">
+                    <div class="chrome-tab" data-bind="css: { active: id == $parent.showId() }, event: { click: $parent.changeShowId.bind($parent,$data) }">
+                        <div class="chrome-tab-title" data-bind="text:name,attr : {title : name}">Google</div>
+                        <!-- ko ifnot: disabledClose -->
+                        <div class="chrome-tab-close" data-bind="event: { click: $parent.closeShowId.bind($parent,$data) }"></div>
+                        <!-- /ko -->
+                        <div class="chrome-tab-curves">
+                            <div class="chrome-tab-curves-left-shadow"></div>
+                            <div class="chrome-tab-curves-left-highlight"></div>
+                            <div class="chrome-tab-curves-left"></div>
+                            <div class="chrome-tab-curves-right-shadow"></div>
+                            <div class="chrome-tab-curves-right-highlight"></div>
+                            <div class="chrome-tab-curves-right"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../asset/lib/config'], function (common) {
+            requirejs(['app/assetFilter/main']);
+        });
+    </script>
+</body>
+</html>

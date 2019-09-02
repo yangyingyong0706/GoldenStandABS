@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>信托日历</title>
+    <!-- 这里引入所有需要的资源 其他通过AJAX载入的页面就不再需要引入了 -->
+    <link href="../Common/css/trustWizard.css" rel="stylesheet" />
+    <link href="../Common/Scripts/fullCalendar/fullcalendar.min.css" rel="stylesheet" />
+    <link href="../Common/Scripts/fullCalendar/style.css" rel="stylesheet" />
+    <script src="../../../../asset/lib/require.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            //requirejs(['app/productManage/TrustManagement/common/Scripts/fullCalendar/GoldenStand.Calender']);
+            requirejs(['app/productManage/TrustManagement/TrustCalendar/trustCalendar']);
+        });
+    </script>
+
+    <div class='gs-calendar'>
+        <div id='script-warning'>Error occurred when loading calendar events.</div>
+        <table>
+            <tr>
+                <td><div id='gsCalendar'></div></td>
+                <td class="event-detail-container">
+                    <div id="trustChoice">
+                        <span>事件源：</span>
+                        <select id="selTrustChoice"></select>
+                    </div>
+                    <div id='gsCalendarEvent'>
+                        <div class="event-info">事件信息<span onclick="closeEventDetail()" class="closeDetail">X</span></div>
+                        <div class="event-detail-alert">选择事件，点击查看</div>
+                        <div class="event-detail-content">
+                            <div class="section-name">标题：</div>
+                            <div class="event-content content-wrap" data-name="title"></div>
+                            <div class="section-name">时间：</div>
+                            <div class="event-content" data-name="startDspl"></div>
+                            <div class="section-name">类型：</div>
+                            <div class="event-content content-wrap" data-name="eventType"></div>
+                            <div class="section-name">描述：</div>
+                            <div class="event-content content-wrap minheight" data-name="eventDesc"></div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="modal-mask">
+            <div class="modal-print">
+                <h5 class="modal-title">
+                    <span>打印日历</span>
+                    <span class="modal-title-cancel">&times;</span>
+                </h5>
+                <div class="modal-content">
+                    <div class="modal-form-group">
+                        <label>事件</label>
+                        <select class="modal-event-select form-control"></select>
+                    </div>
+                    <div class="modal-form-group">
+                        <label>年份</label>
+                        <select class="modal-year-select form-control"></select>
+                    </div>
+                    <div class="modal-btn-wraper">
+                        <button class="modal-sure-btn btn btn-primary btn-block">
+                            确定
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="print-calendar">
+        <div class="btn-wraper">
+            <button class="btn btn-default pull-right cancel-btn">
+                取消
+            </button>
+            <button class="btn btn-primary pull-right print-btn">
+                打印
+            </button>
+        </div>
+        <div class="table-title">
+            <div class="table-title-name"></div>
+            <div class="table-title-year"></div>
+        </div>
+        <div class="table-unit">月份</div>
+        <div class="table-container">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>7</td>
+                        <td>8</td>
+                        <td>9</td>
+                        <td>10</td>
+                        <td>11</td>
+                        <td>12</td>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

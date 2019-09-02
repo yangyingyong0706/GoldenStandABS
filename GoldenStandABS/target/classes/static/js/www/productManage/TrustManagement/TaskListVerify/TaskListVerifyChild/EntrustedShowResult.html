@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>资产导入向导数据展示页面</title>
+    <link href="../../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../taskList-style.css" rel="stylesheet" />
+    <link href="../../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <style>
+        body, html {
+            width: 100%;
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .layer {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            padding: 15px;
+        }
+        .table>tbody>tr>td{
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <div class="layer">
+        <div class="content">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>结果列表</th>
+                        <th width="120px">查看结果</th>
+                    </tr>
+                </thead>
+                <tbody id="dataList">
+                    <!--<tr>
+                        <td>专项计划配置对比结果</td>
+                        <td><a class="btn btn-link" id="showGridone">查看</a></td>
+                    </tr>-->
+                    <tr class="income">
+                        <td>收益分配对比结果</td>
+                        <td><a class="btn btn-link" id="showGridtwo">查看</a></td>
+                    </tr>
+                    <tr class="First">
+                        <td>报告向导一对比结果</td>
+                        <td><a class="btn btn-link" id="showGridthree">查看</a></td>
+                    </tr>
+                    <tr class="Second">
+                        <td>报告向导二对比结果</td>
+                        <td><a class="btn btn-link" id="showGridfour">查看</a></td>
+                    </tr>
+                    <tr class="Third">
+                        <td>报告向导三对比结果</td>
+                        <td><a class="btn btn-link" id="showGridfive">查看</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TaskListVerify/TaskListVerifyChild/EntrustedShowResult']);
+        });
+    </script>
+</body>
+</html>

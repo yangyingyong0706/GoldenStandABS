@@ -1,0 +1,178 @@
+﻿html {
+    height: 100%;
+}
+.public_font_style {
+    height: calc(100% - 35px);
+    background: #fafafa;
+    padding: 15px;
+}
+.body-container {
+    height: 100%;
+    overflow-y: auto;
+    background: #fff;
+}
+
+.main {
+    box-sizing: border-box;
+    padding: 15px;
+    padding-bottom: 0px;
+}
+
+.nominheight {
+    min-height: inherit !important;
+}
+
+.rowNoPadding {
+    padding: 5px 5px !important;
+    line-height: 1em !important;
+}
+
+.page-fun {
+    overflow: hidden;
+}
+
+    .page-fun .pull-left {
+        position: relative;
+        top: 0px;
+    }
+
+    .page-fun .pull-right {
+        position: relative;
+        top: 0px;
+    }
+
+.filterdiv {
+    padding: 5px 0 !important;
+}
+
+.pull-left select {
+    margin-left: 1px;
+    float: left;
+}
+
+.pull-left div {
+    float: left;
+}
+
+.pull-left button {
+    height: 20px;
+    float: left;
+    height: 26px;
+    margin-left: 2px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    line-height: 10px;
+}
+
+.pull-left label {
+    float: left;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.date-filter {
+    height: 26px;
+    box-shadow: rgba(0, 0, 0, 0.075) 0px 1px 1px inset;
+    border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(204, 204, 204);
+}
+
+#gridAssetDetail {
+    margin-top: 15px;
+}
+
+div.drop.form-panel.list-filters {
+    border-bottom: none;
+}
+
+.margin_styleby {
+    margin-bottom: 0px;
+}
+
+    .margin_styleby .btn {
+        margin-left: 5px;
+    }
+
+td.tight-cell.rowNoPadding {
+    text-align: center;
+}
+
+html.k-webkit.k-webkit61 {
+    overflow-y: hidden;
+}
+
+.loadpage {
+    position: absolute;
+    top: 46%;
+    left: 46%;
+    background: transparent;
+}
+
+    .loadpage > i {
+        color: rgb(107, 147, 216);
+    }
+
+body, button, input, select, textarea {
+    font: 13px 'Microsoft Yahei',tahoma,arial,\5b8b\4f53;
+    outline: 0;
+    resize: none;
+    font-weight: normal;
+    color: #555;
+}
+
+.table-header-cell k-header, .table-cell, .k-grid-header, .k-pager-wrap, .k-grid-pager, .k-widget, .k-floatwrap {
+    font-size: 13px !important;
+    color: #555;
+}
+
+.file-option > span {
+    font-size: 14px !important;
+}
+
+.k-grid tr td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0.45em 1.486em !important;
+    font-family: 'Microsoft YaHei';
+}
+
+#uploadSelect {
+    padding-top: 10px;
+}
+
+div.k-grid-content tr:last-child > td {
+    border-bottom-width: 1px;
+}
+
+i.fa {
+    margin-right: 5px;
+}
+
+.col-md-4, .col-md-8 {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.form-control {
+    border-radius: 0px;
+}
+
+.form .form-group label {
+    text-align: left;
+    padding: 0 0 0 30px;
+}
+
+.lable-text {
+    line-height: 50px !important;
+    height: 50px !important;
+    white-space: pre-wrap !important;
+}
+.form-input-style textarea{
+    height:50px;
+}
+
+
+/******/

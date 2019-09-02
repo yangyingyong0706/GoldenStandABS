@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>计划说明书管理</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link href="zTree/css/zTreeStyle/pagerlist-style.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/asyncbox/skins/default.css" rel="stylesheet" />
+    <!--<link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />-->
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="zTree/css/manageSpecification.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <style>
+        .buttongroup .btn {
+            margin-left: 5px;    
+        }
+    </style>
+
+    <script src="../../../../asset/lib/require.js"></script>
+
+    <script>
+    requirejs(['../../../../asset/lib/config'], function (config) {
+        require(['app/productManage/TrustManagement/documentManagement/zTree/js/manageSpecification'])
+    });
+    </script>
+</head>
+<body>
+    <div class="body-container form nobottom">
+        <div class="main">
+            <div class="list">
+                <div class="pull-right buttongroup">
+                    <input type="button" class="btn btn-default btn-single-default" id="btnUpdate" value="更新" />
+                    <input type="button" class="btn btn-default btn-single-default" id="SubmittDraftCreation" value="经办" />
+                    <input type="button" class="btn btn-default btn-single-default" id="ReviewDraftCreation" value="复核" />
+                    <input type="button" class="btn btn-default btn-single-default" id="OpenInstructionCreation" value="生成计划说明书" />
+                    <input type="button" class="btn btn-default btn-single-default" id="CompareWordHistory" value="Word历史版本比较" />
+                </div>
+                <h4 class="h4 titileinfo">
+                    <span class="title">计划说明书匹配规则列表</span>
+                </h4>
+                <hr />
+                <div class="form-panel drop nobottom">
+                    <div id="divDataList" class="list-container"></div>
+                </div>
+            </div>
+
+
+            <div class="default panel panel-default">
+                <div class="panel-body">
+
+                    <div class="default">
+                        <h4 class="h4">
+                            <span class="title">计划说明书规则明细</span>
+                        </h4>
+                        <div class="form-panel drop nobottom">
+                            <div id="divDefaultLists" class="list-container"></div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+                    
+                </div>
+            </div>
+
+</body>
+</html>

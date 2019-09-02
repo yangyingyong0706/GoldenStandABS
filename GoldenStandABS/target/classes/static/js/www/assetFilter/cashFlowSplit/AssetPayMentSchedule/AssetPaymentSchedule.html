@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+    <title>基础资产偿付现金流</title>
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!--<link href="../css/trustFollowUp.css" rel="stylesheet" />-->
+    <link href="../css/pagerlist-style.css" rel="stylesheet" />
+    <link href="../css/font/GoogleFontDosis.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+
+
+    <style type="text/css">
+        .radio-list {
+            font: "14px "Microsoft Yahei", tahoma, arial, 宋体";
+            resize: none;
+        }
+
+            .radio-list .radio-list-span {
+                display: inline-block;
+                min-width: 60px;
+                text-align: left;
+            }
+            .page{
+                padding-left:0px;
+            }
+            .page .main{
+                margin:15px !important;
+                border: 1px solid #dedede;
+            }
+            .main .step-title {
+                height: 40px;
+                line-height: 40px;
+                padding: 0 15px;
+            }
+         .main .step-title .titlecur{
+            color: rgba(69,86,156,1);
+            border-bottom: 2px solid rgba(69,86,156,1);
+        }
+        .main .step-title .title{
+            font-size: 14px;
+            height: 40px;
+            margin-right: 30px;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .main .step-title {
+            border-bottom:1px solid #dedede;
+        }
+        .form-panel.drop {
+            margin: 15px;
+        }
+        .table-td input {
+            border: 1px solid #dedede;
+            border-radius: 3px;
+        }
+        input[type='radio']:checked {
+            background: url(../../../../asset/lib/bootstrap/ischecked/icon@18px.png) no-repeat -133px 0px;
+        }
+        input[type=radio] {
+            width: 18px;
+            height: 18px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: url(../../../../asset/lib/bootstrap/ischecked/icon@18px.png) no-repeat -95px 0px;
+            outline: none;
+        }
+        .radio-list input[type=radio] {
+            vertical-align: middle;
+            margin: -2px 5px 0 0;
+        }
+        .loadpage { position: absolute; height: 100%; width: 100%; background: #FFFFFF; z-index: 9999;}  
+    </style>
+</head>
+<body>
+    <div id="loading" class="loadpage text-center"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+    <div class="page form public_font_style">
+        <div class="main">
+            <ul id="step-title" class="step-title">
+                <li class="title tab-switch titlecur" data-view="#listViewContainer">列表视图</li>
+                <li class="title tab-switch" data-view="#chartViewContainer">图表视图</li>
+                <!--<li class="title tab-switch" data-view="#downloadLinksContainer">现金流下载</li>
+                <li class="title tab-switch" data-view="#AssetPaymentStatistics_list" style="display:none;">实际还款计划</li>
+                <li class="title tab-switch" data-view="#AssetPaymentStatistics_view" style="display:none;">实际还款计划图示</li>-->
+            </ul>
+            <div class="form-panel drop nobottom">
+                <!--<div class="form-panel drop list-filters" id="main-bar" style="display:none;padding: 15px 0;">
+                    <div class="col-12 form-group">
+                        <label class="pull-left" style="width:120px">查看现金流</label>
+                        <select class="form-control pull-left" style="width:135px;margin-right:15px;" name="Purpose" id="selPayDateFilter">
+                            <option value="">请选择</option>
+                            <option value="0">备选池</option>
+                            <option value="1">已入池</option>
+                            <option value="2">全部</option>
+                            <option value="3">已入池和拟购买池</option>
+                        </select>
+                        <select class="form-control pull-left" id="reportingDate" style="width:120px;margin-right:15px;"></select>
+                        <select class="form-control pull-left" id="displayUnit" style="width:80px;margin-right:15px;">
+                            <option value="0">元</option>
+                            <option value="1">万元</option>
+                        </select>
+                        <div class="col-2 form-group">
+                            <button type="button" class="btn btn-default" id="btnSearch">检索</button> 
+
+                            <button type="button" class="btn btn-default btn-sm" id="btnReset">查询条件重置</button>
+                        </div>
+                        <div class="col-3-5 form-group" style="display:none;float:right">
+                            <button id="exportCashflow" class="btn btn-primary btn-sm">导出现金流</button>
+                            <a href="" style="color:#0094ff;border-bottom:solid 1px" id="downLoadCashFlowList">下载现金流报表</a>
+                        </div>
+                    </div>
+                </div>-->
+                <div style="margin-top:10px;">
+                    <div id="listViewContainer" class="list-container viewcontainer"></div>
+                    <div id="chartViewContainer" class="viewcontainer" style="display:none; max-width:100%; min-width: 93%; min-height:80%;"></div>
+                    <div id="downloadLinksContainer" class="viewcontainer list-container" style="display:none"></div>
+                    <div id="AssetPaymentStatistics_list" class="list-container viewcontainer" style="display:none;"></div>
+                    <div id="AssetPaymentStatistics_view" class="viewcontainer" style="display:none;">
+                        <div class="radio-list">
+                            <span class="radio-list-span">请选择：</span>
+                            <span class="radio-list-span"><input type="radio" name="Showtype" id="Showtype1" value="1" checked="checked" /><label for="Showtype1">本金</label></span>
+                            <span class="radio-list-span"><input type="radio" name="Showtype" id="Showtype2" value="2" /><label for="Showtype2">利息</label></span>
+                            <span class="radio-list-span"><input type="radio" name="Showtype" id="Showtype3" value="3" /><label for="Showtype3">总和</label></span>
+                        </div>
+                        <div id="AssetPaymentStatistics_view_chart" style="min-width:95%; min-height:80%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/assetFilter/cashFlowSplit/AssetPayMentSchedule/AssetPayMentSchedule']);
+        });
+    </script>
+</body>
+</html>

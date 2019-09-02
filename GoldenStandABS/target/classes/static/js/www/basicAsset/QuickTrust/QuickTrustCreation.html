@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" style="padding:20px;overflow:hidden">
+<head>
+    <title>快速新建产品</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+
+    <link href="../style/style.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../../../asset/lib/toast/toast.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <!--<link href="../../productManage/TrustManagement/Common/css/trustWizard.css" rel="stylesheet" />-->
+    <script src="../../../asset/lib/require.js"></script>
+
+    <script type="text/javascript">
+
+        requirejs(['../../../asset/lib/config.js'], function (config) {
+
+            requirejs(['app/basicAsset/QuickTrust/QuickTrustCreation']);
+
+        });
+    </script>
+
+    <style>
+        .main {
+            position: relative;
+            height: 100%;
+            padding-bottom: 0px;
+        }
+
+        .col-12 {
+            width: 100%;
+        }
+
+        .info_title {
+            width: calc(100% + 40px);
+            border-bottom: 1px solid rgba(230,233,245,1);
+            margin-left: -20px;
+            position: relative;
+            top: -20px;
+            height: 40px;
+            line-height: 40px;
+            padding-left: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .col-12 {
+                width: 45%;
+            }
+
+            .col-9 {
+                width: 60%;
+            }
+
+            .col-3 {
+                width: 40%;
+            }
+
+            .form .col-12.form-group:nth-child(odd) {
+                margin-right: auto;
+            }
+
+            .form .col-12.form-group:nth-child(even) {
+                margin-right: 0px;
+            }
+        }
+    </style>
+</head>
+<body style=" display:none">
+    <div id="selectLanguageDropdown_qcl" class="localizationTool" style="display:none"></div>
+    <div class="main">
+        <div id="loading" class="loadpage text-center" style="background: rgba(0,0,0,0);top: 40%;">
+            <i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i>
+        </div>
+        <div class="info_title" style="display: none;"><span style="font-size:16px;color:#45569C">新建产品</span></div>
+        <div class="form" id="QuickTrustCreation">
+            <div class="form-body default">
+                <div class="form-panel" id="gold-form-panel">
+                    <div class="col-12 form-group">
+                        <div class="col-3"><label id="trustCode_qcl" class="gold-group-addon">产品代码</label></div>
+                        <div class="col-9">
+                            <input type="text" id="trustCode" v-model="trustCode" class="form-control gold-form-control" data-valid="required" onchange="CheckStyle(this)" />
+                        </div>
+                    </div>
+                    <div class="col-12 form-group">
+                        <div class="col-3"><label id="trustName_qcl" class="trustName_qcl gold-group-addon">产品全称</label></div>
+                        <div class="col-9">
+                            <input type="text" id="trustName" v-model="trustName" class="form-control gold-form-control" data-valid="required" />
+                        </div>
+                    </div>
+                    <div class="col-12 form-group">
+                        <div class="col-3"><label id="assetType_qcl" class="gold-group-addon">资产类型</label></div>
+                        <div class="col-9">
+                            <select class="form-control gold-form-control" id="AssetType" v-model="otype">
+                                <option v-for="i in types" v-bind:value="i.AssetType">{{i.AssetTypeDesc}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-12 form-group">
+                        <div class="col-3"><label id="assetOrigin_qcl" class="gold-group-addon">资产来源</label></div>
+                        <div class="col-9">
+                            <select class="form-control gold-form-control" id="OrganisationCode" v-model="ocode">
+                                <option v-for="i in items" v-bind:value="i.OrganisationCode">{{i.OrganisationDesc}}</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <!--添加专项计划状态-->
+                    <div class="col-12 form-group" style="margin-bottom:0px">
+                        <div class="col-3"><label id="SpecialPlanState" class="SpecialPlanState_qcl  gold-group-addon ">产品状态</label></div>
+                        <div class="col-9">
+                            <select class="form-control gold-form-control" id="SpecialPlanStateData" v-model="OSPS">
+                                <option v-for="i in SPS" v-bind:value="i.SpecialPlanState">{{i.SpecialPlanState}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div style="visibility:hidden"> &nbsp;</div>
+    </div>
+    <div style="width:100%;text-align:center;margin-top:20px">
+        <button id="submit_qcl" type="button" class="btn btn-primary" title="提交" onclick="SubmitNew()">提交</button>
+    </div>
+
+</body>
+</html>

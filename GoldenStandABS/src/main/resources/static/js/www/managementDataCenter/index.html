@@ -1,0 +1,151 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+
+    <title>资管数据中心</title>
+    <link href="../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../asset/lib/metisMenu/dist/metisMenu.min.css" rel="stylesheet" />
+    <link href="../../asset/lib/goldenstand/uiFrame/css/gs-admin-2.css" rel="stylesheet" />
+    <!--<link href="../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />-->
+    <link href="../../asset/lib/asyncbox/skins/default.css" rel="stylesheet" />
+    <link href="../assetFilter/css/chrome-tabs.css" rel="stylesheet" />
+    <link href="../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../asset/font/font-icon/css/iconfont_pro.css" rel="stylesheet" />
+    <!--<link href="../../asset/font/fontello/css/fontello.css" rel="stylesheet" />-->
+    <script src="../../asset/lib/require.js"></script>
+    <style>
+        .icon-xiangmujieduan{
+            display: inline-block;
+            position: absolute;
+            top: -2px;
+            width: 18px;
+            height: 18px;
+            left: 30px;
+        }
+        .nav-tabs .ribbonBox .ribbonGroup .ribbonButton i {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            padding: 0;
+            color: #808080;
+            font-style: normal;
+            text-align: center;
+            line-height: 20px;
+        }
+          .nav-tabs .ribbonBox .ribbonGroup .ribbonButton i.indexCircle {
+            border: 1px solid #808080;
+            border-radius: 50%;
+        }
+        .nav-tabs .ribbonBox .ribbonGroup .ribbonButton:hover i {
+            color: rgba(69,86,156,1);
+        }
+
+        .nav-tabs .ribbonBox .ribbonGroup .ribbonButton.active i {
+            color: rgba(69,86,156,1);
+        }
+        .nav-tabs .ribbonBox .ribbonGroup .ribbonButton:hover i.indexCircle {
+            color: #fff;
+            background: #45569c;
+        }
+
+        .nav-tabs .ribbonBox .ribbonGroup .ribbonButton.active i.indexCircle {
+            color: #fff;
+            background: #45569c;
+        }
+        .ribbonGroup.hideClass span.click_direction {
+            display: none;
+        }
+
+        .nav-tabs .ribbonBox .ribbonGroup.hideClass .ribbonButton {
+            padding-left: 26px;
+        }
+
+        .ribbonGroup.hideClass a.ribbonButton span {
+            font-size: 14px;
+        }
+        .nav-tabs .ribbonBox .ribbonGroup>span {
+            font-size: 14px;
+        }
+        .nav-tabs .ribbonBox .iconfont {
+            font-size: 14px;
+        }
+        [v-cloak] {
+            display: none;
+        }
+        .hid {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body style="display:none">
+    <div id="selectLanguageDropdown_bal" class="localizationTool" style="display:none"></div>
+    <div id="wrapper">
+        <div id="tabs" class="nav-tabs  content_border_style">
+            <div id="DashBoard" class="ribbonBox" v-cloak=v-cloak>
+                <ul>
+                    <li class="ribbonGroup  nav_style_hander" v-for="group in obj.group" v-bind:class="group.hideClass">
+                        <span class="click_direction dot"><i v-bind:class="group.titleclass"></i>{{group.title}}</span>
+                        <div class="hidden_area" v-bind:class="group.hiddenOr">
+                            <div v-for="item in group.elements" track-by="$index">
+                                <div v-if="item!=empty">
+                                    <a v-bind:href="'javascript:ChangeIframe(\''+item.linkname+'\')'" class="ribbonButton" v-bind:data-action="item.linkname" v-bind:class="{ active: item.linkname=='productList' }">
+                                        <i class="indexCircle" v-if="item.parent!='1'">{{item.index}}</i>
+                                        <i v-bind:class="item.icon" v-if="item.parent=='1'"></i>
+                                        <span>{{item.title}}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="fixed_control">
+                <i></i>
+            </div>
+        </div>
+        <div id="main" style="height: calc(100% - 35px)">
+            <!-- ko foreach: tabs -->
+            <iframe class="iframe" scrolling="no" data-bind="attr: { id:id,src: url },css: { hide: id != $parent.showId() }"></iframe>
+            <!-- /ko -->
+            <div class="chrome-tabs-shell" style="height:35px;position:fixed;bottom:0;z-index:2;">
+                <div class="chrome-tabs" data-bind="foreach: tabs">
+                    <div class="chrome-tab" data-bind="css: { active: id == $parent.showId() }, event: { click: $parent.changeShowId.bind($parent,$data) }">
+                        <div class="chrome-tab-title" data-bind="text:name,attr : {title : name}">Google</div>
+                        <!-- ko ifnot: disabledClose -->
+                        <div class="chrome-tab-close" data-bind="event: { click: $parent.closeShowId.bind($parent,$data) }"></div>
+                        <!-- /ko -->
+                        <div class="chrome-tab-curves">
+                            <div class="chrome-tab-curves-left-shadow"></div>
+                            <div class="chrome-tab-curves-left-highlight"></div>
+                            <div class="chrome-tab-curves-left"></div>
+                            <div class="chrome-tab-curves-right-shadow"></div>
+                            <div class="chrome-tab-curves-right-highlight"></div>
+                            <div class="chrome-tab-curves-right"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="taskIndicatorArea" style="display:none;width:480px; height:540px;">
+        <object id="TaskProcessCtl" data="data:application/x-silverlight-2," type="application/x-silverlight-2" style="display:block" class="ms-dlgDisable">
+            <param name="source" value="/TaskProcessEngine/ClientBin/UI.TaskProcessIndicator.xap" />
+            <param name="enablehtmlaccess" value="True" />
+        </object>
+    </div>
+    <script>
+        requirejs(['../../asset/lib/config.js'], function (config) {
+            requirejs(['app/managementDataCenter/main']);
+        });
+    </script>
+
+</body>
+</html>

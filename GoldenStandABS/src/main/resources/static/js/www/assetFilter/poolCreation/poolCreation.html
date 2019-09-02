@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>基础资产池</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../Contents/style.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Microsoft YaHei';
+        }
+    </style>
+    <script data-main="./poolCreation.js" src="../../../asset/lib/require.js"></script>
+</head>
+<body>
+    <div class="main">
+        <div class="form" id="AssetPoolCreationForm" style="border-top:1px solid #ededed;">
+            <div class="form-body default">
+                <div class="form-panel drop">
+                    <div class="col-12 form-group">
+                        <div class="col-3"><label>资产池名称：</label></div>
+                        <div class="col-9">
+                            <input type="text" id="txtPoolName" class="form-control" data-valid="required" />
+                        </div>
+                    </div>
+                    <div class="col-12 form-group">
+                        <div class="col-3"><label>针对机构：</label></div>
+                        <div class="col-9">
+                            <select class="form-control" id="OrganisationCode"></select>
+                        </div>
+                    </div>
+                    <div class="col-12 form-group">
+                        <div class="col-3"><label>资产类型</label></div>
+                        <div class="col-9">
+                            <select class="form-control" id="AssetType"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-12 form-group">
+                        <div class="col-3"><label>报告日期：</label></div>
+                        <div class="col-9">
+                            <input type="text" id="txtRDate" class="form-control date-plugins" data-valid="required date" />
+                        </div>
+                    </div>
+                    <div class="col-12 form-group">
+                        <div class="col-3"><label>专项计划</label></div>
+                        <div class="col-9">
+                            <select class="form-control" id="TrustId"></select>
+                        </div>
+                    </div>
+                    <div class="col-12 form-group" style="display:none">
+                        <div class="col-3"><label>资产池类型：</label></div>
+                        <div class="col-9">
+                            <select id="selPoolType" class="form-control">
+                                <option value="PoolBase">基础资产池</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 form-group" style="display:none">
+                        <div class="col-3"><label>创建方式：</label></div>
+                        <div class="col-9">
+                            <select id="selPoolCutType" class="form-control">
+                                <option value="New">创建新资产池</option>
+                                <option value="TopUp">创建循环结构资产池</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 buttons pull-right">
+                    <button type="button" id="createpool" class="btn btn-primary" title="创建" >创建</button>
+                    <button type="button" id="cancelcreation" class="btn btn-default" title="取消" >取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

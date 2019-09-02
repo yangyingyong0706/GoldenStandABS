@@ -1,0 +1,580 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>基础资产利息调整</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+    <link rel="stylesheet" href="css/trustFollowUp.css" />
+
+
+    <script src="../../../../asset/lib/jquery/jquery-1.7.2.min.js"></script>
+
+    <script src="../../../../config/globalVariable.js"></script>
+
+    <script src="../../../../asset/lib/knockout/knockout-3.4.0.js"></script>
+    <script src="../../../../asset/lib/knockout/knockout.mapping-latest.js"></script>
+
+    <script src="../Common/Scripts/common.js"></script>
+    <script src="../Common/Scripts/calendar.min.js"></script>
+    <script src="../wcfProxy.js"></script>
+
+    <script type="text/javascript">
+        var trustId, accountNo, svcUrl, assetStart, assetEnd;
+        var dataModel = {
+            AdjustmentList: [],
+        };
+        var viewModel = {};
+
+        $(function () {
+            trustId = getQueryString('trustId');
+            accountNo = getQueryString('accountNo');
+            assetStart = getQueryString('start');
+            assetEnd = getQueryString('end');
+
+            if (!trustId || !accountNo || !assetStart || !assetEnd) { return; }
+
+            svcUrl = GlobalVariable.DataProcessServiceUrl+"CommonExecuteGet?";
+            var listData = GetSourceData();
+
+            dataModel.AdjustmentList = listData;
+
+            var listNode = document.getElementById('tbInterestAdjustList');
+            viewModel = ko.mapping.fromJS(dataModel);
+            ko.applyBindings(viewModel, listNode);
+
+            $('#lbAssetStartEndPeriod').html(assetStart + '&nbsp; - &nbsp;' + assetEnd);
+            $('#dateEnd').val(assetEnd);
+            $('.date-plugins').date_input();
+            $('#divDetailForm .form-control').change(function () {
+                validControlValue($(this));
+                var tmp = ["AdjustEffectType", "InterestAdjustDate", "InterestAdjustType"]
+                if ($.inArray($(this).attr("data-attr"), tmp) >= 0) {
+                    SetStartDate();
+                }
+            });
+            $('#btnSave').click(function () {
+                var haveError = false;
+                $('#divDetailForm .form-control').each(function () {
+                    var $this = $(this);
+                    if (!validControlValue($this)) { haveError = true; }
+                });
+                if (haveError) return;
+
+                var editIndex = $('#detailFormTitle').attr('editIndex');
+                if (editIndex) {
+                    UpdateExistedAdjustment(editIndex);
+                } else {
+                    AddNewAdjustment();
+                }
+                var index = editIndex ? editIndex : (viewModel.AdjustmentList().length - 1);
+                if (index > 0) {
+                    //TODO: 修改上一条记录的结束时间为该记录的 开始时间-1天
+                    var prevModel = viewModel.AdjustmentList()[index - 1];
+                    var curModel = viewModel.AdjustmentList()[index];
+                    var date = stringToDate(curModel.StartDate());
+
+                    prevModel.EndDate(dateToString(new Date(date.setDate(date.getDate() - 1))));
+                }
+            });
+            $('#btnCancel').click(function () {
+                $('#detailFormTitle').html('添加利息偿付方式').removeAttr('editIndex');
+                $('#divDetailForm .form-control').each(function () {
+                    var $this = $(this);
+                    var attr = $this.attr('data-attr');
+                    if (attr == 'EndDate')
+                        $this.val(assetEnd);
+                    else
+                        $this.val('');
+                });
+            });
+
+            var isFirstShow = false;
+            $('#inputPrincipalPaymentType,#inputInterestPaymentType').click(function () {
+                isFirstShow = true;
+                var $this = $(this);
+                if ($this.val() == '') { $this.next('.hiddenUl').show(); }
+                else { $this.next('.hiddenUl').hide(); }
+            });
+            $('.hiddenUl li').click(function () {
+                var $this = $(this);
+                $this.parent('ul').prev('input.form-control').val($this.html());
+                $this.parent('ul').hide();
+            });
+            $("body").click(function () {
+                if (isFirstShow == true)
+                    isFirstShow = false;
+                else
+                    $('.hiddenUl').hide();
+            });
+        });
+        function SetStartDate() {
+            //调整时间+利息调整方式 = 新利息预开始时间  ->  新利息预开始时间 + 兑付日 + 调整方式 = 开始时间
+            //生效方式 AdjustEffectType 调整时间 InterestAdjustDate 调整方式 InterestAdjustType
+            //1
+            var AdjustEffectTypeStr = $("select[data-attr='AdjustEffectType']").val();
+            var InterestAdjustDateStr = $("input[data-attr='InterestAdjustDate']").val();
+            var InterestAdjustTypeStr = $("select[data-attr='InterestAdjustType']").val();
+            if (!AdjustEffectTypeStr || !InterestAdjustDateStr || !InterestAdjustTypeStr) return;
+            var newET = GetAdjustEffectTypeDate(InterestAdjustDateStr, AdjustEffectTypeStr);
+            //2 assetStart
+            newET = dateToString(GetInterestAdjustTypeDate(newET, assetStart, InterestAdjustTypeStr));
+            $("input[data-attr='StartDate']").val(newET);
+        }
+        function ControlDate(date, iMonth) {
+            if (date.getMonth() == (iMonth > 11 ? iMonth % 12 : (iMonth < 0 ? iMonth + 12 : iMonth)))
+                return date;
+            else
+                return ControlDate(new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1), iMonth);
+        }
+        function GetInterestAdjustTypeDate(newET, assetStart, InterestAdjustTypeStr) {
+            var dfr = stringToDate(assetStart).getDate();
+            var iMonth;
+            switch (InterestAdjustTypeStr) {
+                case "前置":
+                    iMonth = newET.getDate() >= dfr ? newET.getMonth() : newET.getMonth() - 1;
+                    newET = new Date(newET.getFullYear(), iMonth, dfr);
+                    break;
+                case "后置":
+                    iMonth = newET.getDate() <= dfr ? newET.getMonth() : newET.getMonth() + 1;
+                    newET = new Date(newET.getFullYear(), iMonth, dfr);
+                    break;
+                default:
+                    break;
+            }
+            return ControlDate(newET, iMonth);
+        }
+        function GetAdjustEffectTypeDate(InterestAdjustDateStr, AdjustEffectTypeStr) {
+            var newET = stringToDate(InterestAdjustDateStr);
+            var iMonth;
+            switch (AdjustEffectTypeStr) {
+                case "次年对月对日":
+                    iMonth = newET.getMonth();
+                    newET = new Date(newET.getFullYear() + 1, newET.getMonth(), newET.getDate());
+                    break;
+                case "下一季对日":
+                    var jiArray = [0, 3, 6, 9, 12];
+                    iMonth = jiArray[parseInt(newET.getMonth() / 3) + 1];
+                    newET = new Date(newET.getFullYear(), iMonth, newET.getDate());
+                    break;
+                case "下一月对日":
+                    iMonth = newET.getMonth() + 1;
+                    newET = new Date(newET.getFullYear(), iMonth, newET.getDate());
+                    break;
+                case "次年第一天":
+                    iMonth = 0;
+                    newET = new Date(newET.getFullYear() + 1, iMonth, 1);
+                    break;
+                default:
+                    break;
+            }
+            return ControlDate(newET, iMonth);
+        }
+        function GetSourceData() {
+            var executeParam = {
+                SPName: 'usp_GetAssetInterestAdjustment', SQLParams: [
+                    { Name: 'trustId', value: trustId, DBType: 'int' },
+                    { Name: 'accountNo', value: accountNo, DBType: 'string' }
+                ]
+            };
+            return ExecuteRemoteData(executeParam);
+        }
+        function ExecuteRemoteData(executeParam) {
+            var executeParams = encodeURIComponent(JSON.stringify(executeParam));
+            var sourceData = [];
+            $.ajax({
+                cache: false,
+                type: "GET",
+                async: false,
+                url: svcUrl + 'appDomain=TrustManagement&executeParams=' + executeParams + '&resultType=commom',
+                dataType: "json",
+                contentType: "application/xml;charset=utf-8",
+                data: {},
+                success: function (response) {
+                    if (typeof response === 'string') { sourceData = JSON.parse(response); }
+                    else { sourceData = response; }
+                },
+                error: function (response) { alert('Error occursed while requiring the remote source data!'); }
+            });
+            return sourceData;
+        }
+        function AddNewAdjustment() {
+            var obj = { trustId: trustId, accountNo: accountNo };
+            $('#divDetailForm .form-control').each(function () {
+                var $this = $(this);
+                var attr = $this.attr('data-attr');
+                obj[attr] = $this.val();
+                if (attr == 'EndDate')
+                    $this.val(assetEnd);
+                else
+                    $this.val('');
+            });
+            if (viewModel.AdjustmentList().length == 0) {
+                var obsObjFirst = ko.mapping.fromJS(obj);
+                var startdate = stringToDate(obsObjFirst.StartDate());
+                obsObjFirst.EndDate(dateToString(new Date(startdate.setDate(startdate.getDate() - 1))));
+                obsObjFirst.StartDate(assetStart);
+                viewModel.AdjustmentList.push(obsObjFirst);
+            }
+            else {
+                obj.PrincipalPaymentAmt = viewModel.AdjustmentList()[0].PrincipalPaymentAmt;
+            }
+            var obsObj = ko.mapping.fromJS(obj);
+            viewModel.AdjustmentList.push(obsObj);
+        }
+        function EditExistedAdjustment(obj) {
+            var i = $(obj).attr('itemIndex');
+            $('#detailFormTitle').html('编辑利息偿付方式').attr('editIndex', i);
+
+            var dataObsObj = viewModel.AdjustmentList()[i];
+            var dataObj = ko.mapping.toJS(dataObsObj);
+            $('#divDetailForm .form-control').each(function () {
+                var $this = $(this);
+                var attr = $this.attr('data-attr');
+                $this.val(dataObj[attr]);
+            });
+        }
+        function DeleteExistedAdjustment(obj) {
+            if (!confirm('确定删除？')) { return; }
+            var $obj = $(obj);
+            var i = $obj.attr('itemIndex');
+            var obsObj = viewModel.AdjustmentList()[i];
+            viewModel.AdjustmentList.remove(obsObj);
+        }
+        function UpdateExistedAdjustment(i) {
+            var editObj = viewModel.AdjustmentList()[i];
+            $('#divDetailForm .form-control').each(function () {
+                var $this = $(this);
+                var attr = $this.attr('data-attr');
+                if (typeof editObj[attr] === 'function') {
+                    editObj[attr]($this.val());
+                }
+                if (attr == 'EndDate')
+                    $this.val(assetEnd);
+                else
+                    $this.val('');
+            });
+            $('#detailFormTitle').html('添加利息偿付方式').removeAttr('editIndex');
+        }
+        function SubmitAdjustmentChanges() {
+            if (viewModel.AdjustmentList().length <= 0) {
+                alert("请输入偿付方式");
+                return false;
+            }
+            dataModel = ko.mapping.toJS(viewModel);
+            var items = '<items>';
+            $.each(dataModel.AdjustmentList, function (i, v) {
+                items += '<item>';
+                items += '<TrustId>' + trustId + '</TrustId>';
+                items += '<AccountNo>' + accountNo + '</AccountNo>';
+                items += '<StartDate>' + v.StartDate + '</StartDate>';
+                items += '<EndDate>' + v.EndDate + '</EndDate>';
+                items += '<InterestAdjustDate>' + v.InterestAdjustDate + '</InterestAdjustDate>';
+                items += '<InterestRate>' + v.InterestRate + '</InterestRate>';
+                items += '<InterestRateType>' + v.InterestRateType + '</InterestRateType>';
+                items += '<PrincipalPaymentType>' + v.PrincipalPaymentType + '</PrincipalPaymentType>';
+                items += '<AdjustEffectType>' + v.AdjustEffectType + '</AdjustEffectType>';
+                items += '<InterestPaymentType>' + v.InterestPaymentType + '</InterestPaymentType>';
+                items += '<InterestAdjustType>' + v.InterestAdjustType + '</InterestAdjustType>';
+                items += '<PrincipalPaymentAmt>' + ((v.PrincipalPaymentAmt) ? v.PrincipalPaymentAmt : 0) + '</PrincipalPaymentAmt>';
+                items += '</item>';
+            });
+            items += '</items>';
+
+            var executeParam = {
+                SPName: 'usp_UpdateAssetInterestAdjustment', SQLParams: [
+                    { Name: 'trustId', value: trustId, DBType: 'int' },
+                    { Name: 'accountNo', value: accountNo, DBType: 'string' },
+                    { Name: 'items', value: items, DBType: 'xml' }
+                ]
+            };
+            var result = ExecuteRemoteData(executeParam);
+            if (result[0].Result) {
+                alert('保存成功！');
+                //TODO: 弹出TaskProcess运行调息存储过程的任务
+                if (window.parent.AssetDetailKO.SaveCallBack)
+                    window.parent.AssetDetailKO.SaveCallBack();
+            } else {
+                alert('数据提交保存时出现错误！');
+            }
+        }
+
+        var TrustMngmtRegxCollection = {
+            int: /^([-]?[1-9]+\d*$|^0)?$/,
+            decimal: /^([-]?[1-9]+\d*(\.{1}\d+){0,1}$|^[-]{1}0\.\d*[1-9]\d*$|^0(\.\d+)?)?$/,
+            date: /^((\d{4})-(\d{2})-(\d{2}))?$/,
+            datetime: /^((\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2}))?$/
+        };
+        function validControlValue(obj) {
+            var $this = $(obj);
+            var objValue = $this.val();
+            var valids = $this.attr('data-valid');
+
+            //无data-valid属性，不需要验证
+            if (!valids || valids.length < 1) { return true; }
+
+            //如果有必填要求，必填验证
+            if (valids.indexOf('required') >= 0) {
+                if (!objValue || objValue.length < 1) {
+                    $this.addClass('red-border');
+                    return false;
+                } else {
+                    $this.removeClass('red-border');
+                }
+            }
+            //暂时只考虑data-valid只包含两个值： 必填和类型
+            var dataType = valids.replace('required', '').toLocaleLowerCase().trim();
+
+            //通过必填验证，做数据类型验证
+            var regx = TrustMngmtRegxCollection[dataType];
+            if (!regx) { return true; }
+
+            if (!regx.test(objValue)) {
+                $this.addClass('red-border');
+                return false;
+            } else {
+                $this.removeClass('red-border');
+            }
+            return true;
+        }
+    </script>
+    <style type="text/css">
+        .btn-remove {
+            display: none;
+        }
+
+        .hiddenUl {
+            position: absolute;
+            display: none;
+            border: 1px solid black;
+            padding: 2px;
+            z-index: 999999;
+            background-color: white;
+        }
+
+            .hiddenUl li {
+                padding: 5px;
+                cursor: pointer;
+            }
+
+                .hiddenUl li:hover {
+                    background-color: #ccc;
+                }
+    </style>
+</head>
+<body>
+    <div class="page" style="padding:0px;">
+        <div class="main form">
+            <div class="form-panel item">
+                <h3 class="h3"><span class="title">资产调息</span></h3>
+                <table class="table" style="margin-top:10px;" id="tbInterestAdjustList">
+                    <thead>
+                        <tr>
+                            <th>开始时间</th>
+                            <th>结束时间</th>
+                            <th>本金偿付方式</th>
+                            <th>利息偿付方式</th>
+                            <th>利率形式</th>
+                            <th>利息调整方式</th>
+                            <th>利息调整时间</th>
+                            <th>利率浮动</th>
+                            <th>调息方式</th>
+                            <th width="110">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: AdjustmentList">
+                        <tr>
+                            <td data-bind="text: StartDate"></td>
+                            <td data-bind="text: EndDate"></td>
+                            <td data-bind="text: PrincipalPaymentType"></td>
+                            <td data-bind="text: InterestPaymentType"></td>
+                            <td data-bind="text: InterestRateType"></td>
+                            <td data-bind="text: AdjustEffectType"></td>
+                            <td data-bind="text: InterestAdjustDate"></td>
+                            <td data-bind="text: InterestRate"></td>
+                            <td data-bind="text: InterestAdjustType"></td>
+                            <td>
+                                <button type="button" class="btn btn-primary btn-sm" data-bind="attr: { itemIndex: $index }" onclick="EditExistedAdjustment(this)">
+                                    编辑
+                                </button>
+                                <button type="button" class="btn btn-delete btn-sm delete" data-bind="attr: { itemIndex: $index }" onclick="DeleteExistedAdjustment(this)">
+                                    删除
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-panel item">
+                <div class="form-panel item">
+                    <div class="pull-right buttons">
+                        <input type="button" class="btn btn-default btn-sm" id="btnCancel" value="取消" />
+                        <input type="button" class="btn btn-primary btn-sm" id="btnSave" value="保存" />
+                    </div>
+                    <h3 class="h3">
+                        <span class="title" id="detailFormTitle">添加利息偿付方式</span>
+                        <span class="normal">（资产开始至到期期限：<label id="lbAssetStartEndPeriod"></label>）</span>
+                    </h3>
+                    <div class="form-panel drop nobottom">
+                        <!--<div class="col-12 form-group">
+                            <div class="col-3">
+                                <select class="form-control" data-bind="foreach: SelectCompulsory">
+                                    <option data-bind="attr: {value: ItemCode}, text: ItemAliasValue"></option>
+                                </select>
+                            </div>
+                            <div class="col-2">
+                                <button type="button" class="btn btn-plus" onclick="TrustBondModule.CreateCompulsory()"><i class="icon icon-add"></i></button>
+                            </div>
+                        </div>-->
+
+                        <div class="form-panel item" id="divDetailForm">
+                            <div class="col-6 form-group autoLayout-plugins">
+                                <div class="col-4">
+                                    <label>开始时间</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" class="form-control date-plugins" id="dateStart"
+                                           data-attr="StartDate" data-valid="required date" disabled="disabled" />
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-remove"><i class="icon icon-remove"></i></button>
+                                </div>
+                            </div>
+                            <div class="col-6 form-group autoLayout-plugins">
+                                <div class="col-4">
+                                    <label>结束时间</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" class="form-control date-plugins" id="dateEnd"
+                                           data-attr="EndDate" data-valid="required date" disabled="disabled" />
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-remove"><i class="icon icon-remove"></i></button>
+                                </div>
+                            </div>
+                            <div class="col-6 form-group autoLayout-plugins">
+                                <div class="col-4">
+                                    <label>本金偿付方式</label>
+                                </div>
+                                <div class="col-6" style="position:relative;">
+                                    <input type="text" class="form-control" id="inputPrincipalPaymentType"
+                                           data-attr="PrincipalPaymentType" data-valid="required" style="position:relative;" />
+                                    <ul class="hiddenUl">
+                                        <li>前N个月按月还息，自第N+1个月按月等额本息</li>
+                                        <li>按月结息，到期一次性还本</li>
+                                        <li>本金分期摊还</li>
+                                        <li>分期还本，按月付息</li>
+                                        <li>按双月等额本息</li>
+                                        <li>按月结息，按季等额本金</li>
+                                        <li>按月等额本息</li>
+                                    </ul>
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-remove"><i class="icon icon-remove"></i></button>
+                                </div>
+                            </div>
+                            <div class="col-6 form-group autoLayout-plugins">
+                                <div class="col-4">
+                                    <label>利息偿付方式</label>
+                                </div>
+                                <div class="col-6" style="position:relative;">
+                                    <input type="text" class="form-control" id="inputInterestPaymentType"
+                                           data-attr="InterestPaymentType" data-valid="required" style="position:relative;" />
+                                    <ul class="hiddenUl">
+                                        <li>只还利息</li>
+                                        <li>前N个月按月还息，自第N+1个月按月等额本息</li>
+                                        <li>按月结息，到期一次性还本</li>
+                                        <li>按月付息</li>
+                                        <li>分期还本，按月付息</li>
+                                        <li>按双月等额本息</li>
+                                        <li>按月结息，按季等额本金</li>
+                                        <li>按月等额本息</li>
+                                    </ul>
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-remove"><i class="icon icon-remove"></i></button>
+                                </div>
+                            </div>
+                            <div class="col-6 form-group autoLayout-plugins">
+                                <div class="col-4">
+                                    <label>利率形式</label>
+                                </div>
+                                <div class="col-6">
+                                    <select class="form-control" data-attr="InterestRateType">
+                                        <option value="">请选择</option>
+                                        <option value="固定">固定</option>
+                                        <option value="浮动">浮动</option>
+                                    </select>
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-remove"><i class="icon icon-remove"></i></button>
+                                </div>
+                            </div>
+                            <div class="col-6 form-group autoLayout-plugins">
+                                <div class="col-4">
+                                    <label>利息调整方式</label>
+                                </div>
+                                <div class="col-6">
+                                    <select class="form-control" data-valid="required" data-attr="AdjustEffectType">
+                                        <option value="">请选择</option>
+                                        <!--<option value="当天">次日</option>-->
+                                        <option value="次年对月对日">次年对月对日</option>
+                                        <option value="下一季对日">下一季对日</option>
+                                        <option value="下一月对日">下一月对日</option>
+                                        <option value="次年第一天">次年第一天</option>
+                                    </select>
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-remove"><i class="icon icon-remove"></i></button>
+                                </div>
+                            </div>
+                            <div class="col-6 form-group autoLayout-plugins">
+                                <div class="col-4">
+                                    <label>利息调整时间</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" class="form-control date-plugins" id="dateRateEffective"
+                                           data-attr="InterestAdjustDate" data-valid="required date" />
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-remove"><i class="icon icon-remove"></i></button>
+                                </div>
+                            </div>
+                            <div class="col-6 form-group autoLayout-plugins">
+                                <div class="col-4">
+                                    <label>利率浮动</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" class="form-control" data-attr="InterestRate" data-valid="required decimal" />
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-remove"><i class="icon icon-remove"></i></button>
+                                </div>
+                            </div>
+                            <div class="col-6 form-group autoLayout-plugins">
+                                <div class="col-4">
+                                    <label>调息方式</label>
+                                </div>
+                                <div class="col-6">
+                                    <select class="form-control" data-attr="InterestAdjustType">
+                                        <option value="">请选择</option>
+                                        <option value="前置">前置</option>
+                                        <option value="后置">后置</option>
+                                    </select>
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-remove"><i class="icon icon-remove"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary btn-sm" onclick="SubmitAdjustmentChanges()" style="margin:10px auto; display:block;">
+            提交
+        </button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>资产出入池</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        ul,li {
+            list-style: none;
+            padding: 0;
+        }
+        html,body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .main {
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            padding-top: 0;
+        }
+        .downloadTemplate {
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+            .downloadTemplate li {
+                display: inline-block;
+                cursor: pointer;
+                margin-right: 15px;
+                padding: 10px 0;
+                margin-bottom: -1px;
+            }
+
+        .activeBorderBottom {
+            color: #45569c;
+            border-bottom: 2px solid #45569c;
+        }
+
+        .clear::after {
+            content: '';
+            width: 0;
+            height: 0;
+            display: block;
+            clear: both;
+        }
+
+        .downloadTemplateContent {
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+
+            .downloadTemplateContent li {
+                float: left;
+                padding: 7px;
+            }
+
+            .downloadTemplateContent ul {
+                background: rgb(243, 245, 250);
+            }
+
+            .downloadTemplateContent li:nth-child(2) {
+                float: right;
+                margin-right: 50px;
+            }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <ul class="downloadTemplate">
+            <li id="downloadTemplate" class="activeBorderBottom">模板下载</li>
+        </ul>
+        <div class="downloadTemplateContent">
+            <ul class="clear">
+                <li>计划现金流导入模板</li>
+                <li id="downLoadPCFIT2"></li>
+            </ul>
+        </div>
+    </div>
+    <script src="../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/productDesign/quickStresstest/CashflowImport/DownloadTemplate']);
+        });
+    </script>
+</body>
+</html>

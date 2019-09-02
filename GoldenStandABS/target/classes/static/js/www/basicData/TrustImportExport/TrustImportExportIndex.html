@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" style="overflow:hidden">
+<head>
+    <title>产品导入导出</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+
+    <!--<link href="../style/style.css" rel="stylesheet" />-->
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <!--<link href="../style/bootstrap-responsive.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/bwizard/bwizard.min.css" rel="stylesheet" />-->
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <script src="../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+
+        requirejs(['../../../asset/lib/config.js'], function (config) {
+
+            requirejs(['app/basicData/TrustImportExport/TrustImportExportIndex']);
+
+        });
+    </script>
+
+    <style>
+        html, body {
+            height: 100%;
+            font-family: 'Microsoft YaHei';
+        }
+
+        .nav_left {
+            width: 200px;
+            height: 100%;
+            background: rgba(230,233,245,1);
+            float: left;
+        }
+
+        ol {
+            list-style: none;
+            padding: 0px;
+            left: 0px;
+        }
+
+        .show_content {
+            width: calc(100% - 200px);
+            height: 100%;
+            float: left;
+        }
+
+        .nav_left li {
+            padding-left: 20px;
+            margin-bottom: 24px;
+            cursor: pointer;
+        }
+
+            .nav_left li span {
+                width: 21px;
+                height: 21px;
+                display: inline-block;
+                border: 1px solid rgba(153,153,153,1);
+                color: #999999;
+                font-size: 14px;
+                text-align: center;
+                border-radius: 50%;
+                margin-right: 10px;
+                position: relative;
+            }
+
+            .nav_left li.active span {
+                width: 21px;
+                height: 21px;
+                display: inline-block;
+                border: 1px solid #45569C;
+                background: #45569C;
+                color: #fff;
+                font-size: 14px;
+                text-align: center;
+                border-radius: 50%;
+                margin-right: 10px;
+                position: relative;
+            }
+
+            .nav_left li.active {
+                color: #45569C;
+            }
+
+            .nav_left li:not(.active):hover span {
+                color: #45569C;
+                border-color: #45569C;
+            }
+
+            .nav_left li:not(.active):hover {
+                color: #45569C;
+            }
+
+            .nav_left li span::after {
+                content: "";
+                position: absolute;
+                height: 22px;
+                width: 1px;
+                border: 0.5px solid rgba(153,153,153,1);
+                left: 9px;
+                top: 21px;
+            }
+
+            .nav_left li.active span::after {
+                border: 0.5px solid rgba(69,86,156,1);
+            }
+
+            .nav_left li:last-child span:after {
+                display: none;
+            }
+    </style>
+</head>
+<body style="height:100%">
+    <div class="container" style="width:100%;height:100%;padding:0px;margin:auto" id="app">
+        <div id="wizard" style="width:100%;height:100%">
+            <div class="nav_left">
+                <div style="width:100%;padding-left:20px;margin:20px 0px"><span style="font-size:16px;color:#45569C">产品导入导出</span></div>
+                <ol>
+                    <li class="active" id="exportin" @click="changeUrl($event)"><span>1</span>产品导出</li>
+                    <li class="" id="exportout" @click="changeUrl($event)"><span>2</span>产品导入</li>
+                </ol>
+            </div>
+            <div class="show_content">
+                <iframe v-bind:src="url" frameborder="0" width="100%" height="100%"></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

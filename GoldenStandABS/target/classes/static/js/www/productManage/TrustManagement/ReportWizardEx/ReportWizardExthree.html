@@ -1,0 +1,63 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title>报告向导3</title>
+    <link href="css/ReportWizardEx.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+</head>
+<body id="app">
+    <div class="layer">
+        <div class="left_nav_style">
+            <div class="step-head">
+                <h2>
+                    <span>向导三</span>
+                </h2>
+            </div>
+            <ul>
+                <li id="undergroundIn" class="current_li" v-on:click="changeIframe($event)">
+                    <span class="mar_dis">1</span>
+                    <span>底部资产数据导入</span>
+                    <span class="flag"></span>  
+                </li>
+                <li id="splitcash" v-on:click="changeIframe($event)">
+                    <span class="mar_dis">2</span>
+                    <span>现金流拆分</span>
+                    <span class="flag"></span>  
+                </li>
+                <li id="cashback_1" v-on:click="changeIframe($event)">
+                    <span class="mar_dis">3</span>
+                    <span>还款计划</span>
+                    <span class="flag"></span>  
+                </li>
+                <li id="cashback_2" v-on:click="changeIframe($event)">
+                    <span class="mar_dis">4</span>
+                    <span>回款数据</span>
+                    <span class="flag"></span>
+                </li>
+                <li id="comRepet" v-on:click="changeIframe($event)">
+                    <span class="mar_dis">5</span>
+                    <span>收益分配</span>
+                    <span class="flag"></span>  
+                </li>
+                <li id="Specialview" v-on:click="changeIframe($event)">
+                    <span class="mar_dis">6</span>
+                    <span>产品统计视图</span>
+                    <span class="flag"></span>  
+                </li>
+            </ul>
+        </div>
+        <div class="iframe_content">
+            <iframe v-bind:src="url" frameborder="0" class="extend_father"></iframe>
+        </div>
+    </div>
+    <script src="../../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/productManage/TrustManagement/ReportWizardEx/ReportWizardExthree']);
+        });
+    </script>
+</body>
+</html>

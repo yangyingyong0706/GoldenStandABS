@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title>存续期信用风险管理报告</title>
+    <link href="../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="ReportGrid.css" rel="stylesheet" />
+    <script src="../../asset/lib/goldenstand/Kendo/jszip.js"></script>
+</head>
+<body>
+    <div id="loading" class="loadpage text-center"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+    <div id="reportGetTrustDiv" class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 header">
+                <span class="title">
+                    <i class="icon icon-align-right"></i>
+                    存续期信用风险管理报告
+                </span>
+                <button id="exportData" type="button" class="btn btn-default btn-sm font12 pull-right">
+                    <i class="icon icon-export"></i>
+                    <span>导出Excel</span>
+                </button>
+                <!--<select id="dateSelect" class="pull-right"></select>-->
+                <hr />
+            </div>
+            <div id="tabList" class="col-md-12">
+                <div id="reportGetTrustGrid"></div>
+            </div>
+        </div>
+    </div>
+    <script src="../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../asset/lib/config.js'], function (config) {
+            requirejs(['app/report/TrustDurationRiskReport']);
+        });
+    </script>
+</body>
+</html>

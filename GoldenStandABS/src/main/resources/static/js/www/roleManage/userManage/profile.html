@@ -1,0 +1,101 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title></title>
+    <!--<link href="../css/bootstrap.css" rel="stylesheet" />-->
+    <!--<link href="../../basicAsset/style/style.css" rel="stylesheet" />-->
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <style>
+        .main label {
+            font-weight:normal;
+        }
+         .main label {
+            font-weight:normal;
+        }
+        .form-horizontal .control-label{
+            text-align: center;
+            background: #f3f5fa;
+            height: 30px;
+            box-sizing: border-box;
+            line-height: 30px;
+            margin: 0px;
+            padding: 0px;
+            font-weight: normal;
+        }
+         .main{
+            padding:15px;
+            padding-right:0px;
+        }
+          .form-horizontal .form-group{
+           margin-left:0px;
+           margin-right:0px;
+        }
+        .btn-group{
+            width:100%;
+            text-align:center;
+        }
+         input[type=radio]{
+            height: 20px;
+            position: relative;
+            top: 5px;
+        }
+        .date_selector{
+            width:auto;
+        }
+        .date_selector table{
+            width:auto;
+        }
+        [class^=col] {
+            padding: 0;
+        }
+         .col-sm-4 {
+             padding-right: 15px;
+         }
+    </style>
+</head>
+<body>
+
+    <div id="ItemDiv" class="main public_font_style" style="border-top:1px solid #eee;">
+        <div class="form-panel">
+            <div class="col-sm-12 form-row form-horizontal" data-bind="foreach:DataItems">
+                <div class="col-12 form-row autoLayout-plugins">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">姓</label>
+                        <div class="col-sm-4">
+                            <input id="firstName" type="text" class="form-control" />
+                        </div>
+                        <label class="col-sm-2 control-label">名</label>
+                        <div class="col-sm-4">
+                            <input id="lastName" type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">年龄</label>
+                        <div class="col-sm-4">
+                            <input id="age" type="text" class="form-control" />
+                        </div>
+                        <label class="col-sm-2 control-label">最新修改日期</label>
+                        <div class="col-sm-4">
+                            <input id="lastUpdatedDate" type="text" class="form-control date-plugins" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="group" aria-label="..." style="bottom: 10px;display:block;text-align: center;">
+            <button type="button" id="btnSave" class="btn btn-default">保存</button>
+        </div>
+    </div>
+    <script src="../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../asset/lib/config'], function (common) {
+            requirejs(['app/roleManage/userManage/profile']);
+        });
+    </script>
+</body>
+</html>
+

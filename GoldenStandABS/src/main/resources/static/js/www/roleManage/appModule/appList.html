@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title></title>
+   
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/style/page.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+
+     <style>
+
+    .btn-link {
+        padding: 0;
+    }
+    .list-filters{
+            height:46px;
+        }
+    .btn-default{
+        margin-right: 5px;
+    }
+    html{
+        overflow:hidden;
+    }
+    body{
+        padding:0px 15px 15px;
+    }
+</style>
+    
+</head>
+
+<body>
+    <div id="appList">
+        <div class="operateNav">
+            <div class="list-filters form-inline pt20 pb20">             
+                <div class="form-group pull-right">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <button class="btn btn-default btn-sm" id="btnAppAdd" type="button"  data-balloon-pos="up"><i class="icon-plus"></i></button>
+                    </div>
+
+                </div>
+            </div>
+            <div id="grid"></div>
+
+        </div>
+    </div>
+    <script src="../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../asset/lib/config'], function (common) {
+            requirejs(['app/roleManage/appModule/appList']);
+        });
+    </script>
+
+</body>
+
+</html>

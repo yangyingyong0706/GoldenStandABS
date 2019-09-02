@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>资产详细信息</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-compatible" content="IE=edge,chrome=1">
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../basicAsset/style/list.css" rel="stylesheet" />
+    <link href="../../basicAsset/style/detail.css" rel="stylesheet" />
+    <link href="../../basicAsset/style/loan.css" rel="stylesheet" />
+    <script src="../../../asset/lib/require.js" data-main="loanDetails.js"></script>
+    <link href="../../basicAsset/style/loading.css" rel="stylesheet" />
+    <style>
+        body, html {
+            font-family: "Microsoft YaHei";
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        .big_box {
+            width: 100%;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div id="loanDetails" class="big_box" v-cloak>
+        <div class="leftImage">
+            <div style="margin:15px 0;" class="btn btn-default" @click="goBack">
+                <i class="icon icon-chexiao"></i>
+                返回
+            </div>
+            <div class="page_box " v-for='(loanInfo,index) in loanDetails'>
+                <p @click="flexAnimation">
+                    <span>{{loanInfo.name}}</span>
+                    <i class="icon icon-bottom"></i>
+                </p>
+                <div class="page ">
+                    <div class="content">
+                        <div class="line" v-for='(value,index) in loanInfo.info'>
+                            <div v-if="index=='资产编号'||index=='客户编号'||index=='移动电话'"><span>{{index+'：'}}</span><span>{{'  '+value}}</span></div>
+                            <div v-else><span>{{index+'：'}}</span><span>{{'  '+value | numFormt}}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

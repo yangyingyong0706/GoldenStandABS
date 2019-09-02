@@ -1,0 +1,292 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>Trust Config</title>
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!--<link href="../Common/css/trustWizard.css" rel="stylesheet" />-->
+    <link href="../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../Common/css/trustWizard.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/toast/toast.css" rel="stylesheet" />
+    <style>
+        .main {
+            padding: 0 15px;
+        }
+
+        [class^=col] {
+            padding: 0px;
+        }
+
+        #step-title {
+            font-size: 16px !important;
+            color: rgba(59,62,93,0.8);
+            font-weight: normal;
+            padding-bottom: 0px;
+            height: 40px;
+            line-height: 40px;
+            margin: 0 -15px;
+            padding: 0 15px;
+        }
+
+        .mask {
+            position: absolute;
+            top: 0px;
+            filter: alpha(opacity=60);
+            background-color: #777;
+            z-index: 1002;
+            left: 0px;
+            opacity: 0.1;
+            -moz-opacity: 0.1;
+        }
+
+        .loadpage {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background: #FFFFFF;
+            z-index: 9999;
+            padding-top: 12%;
+        }
+
+            .loadpage > i {
+                color: rgb(107, 147, 216);
+            }
+
+        .categoryList .fileCateNameDiv .filesList {
+            line-height: 30px;
+        }
+
+        .form .form-group label {
+            background: white;
+        }
+
+            .form .form-group label.file-linkname-label {
+                border: none;
+            }
+
+        body {
+            overflow: hidden;
+        }
+
+        .file_name {
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            width: calc(100% - 80px);
+            box-sizing: border-box;
+            padding-left: 10px;
+            border: 1px solid rgba(0,0,0,0.2);
+            margin-top: -5px;
+        }
+
+        .doc_error {
+            height: 300px;
+            text-align: center;
+            font-size: 14px;
+            line-height: 300px;
+            display: none;
+            color: #808080;
+        }
+
+        .form .form-panel.item .h3 .title {
+            font-size: 14px;
+            font-weight: normal;
+            padding: 6px 0;
+            color: #4d4d4d;
+            border: none;
+        }
+
+        .main .col-md-12 h3 {
+            border-left: none;
+            background: #fafafa;
+        }
+
+        .main .h3 {
+            border-bottom: 1px solid #dedede;
+            text-align: left;
+            height: 40px;
+            line-height: 40px;
+            color: rgba(59,62,93,.8);
+            margin: 0;
+        }
+
+        .categoryList .fileCateNameDiv {
+            border-bottom: 1px solid #ededed;
+        }
+
+        .form .form-group {
+            margin-bottom: 15px;
+            vertical-align: middle;
+        }
+
+        .categoryList .fileCateNameDiv .filesList {
+            border-top: 1px solid #eaeaea;
+            padding-top: 10px;
+        }
+
+        .form-button {
+            text-align: center;
+        }
+
+        .form .form-group label {
+            text-align: left;
+        }
+
+        .caret {
+            border-top: 6px dashed;
+            border-top: 6px solid\9;
+            border-right: 6px solid transparent;
+            border-left: 6px solid transparent;
+            margin-top: 6px;
+            color: #999999;
+        }
+
+            .caret.color-caret {
+                color: #45569c;
+            }
+
+        .btn.btn-link {
+            padding: 4px;
+        }
+    </style>
+    <script src="../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/ViewTrustAttatchedFiles/viewTrustAttatchedFiles']);
+        });
+    </script>
+</head>
+<body style="display:none">
+    <div id="selectLanguageDropdown_vtaf" class="localizationTool" style="display:none"></div>
+    <div id="mask" class="mask"></div>
+    <div id="loading" class="loadpage text-center"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+    <div class="main">
+        <div style="border-bottom: 1px solid #dedede;height: 40px;">
+            <div style="width:30%;float:left">
+                <h3 id="step-title" class="h3 vtaf_TransactionDocuments">交易文档</h3>
+            </div>
+            <div class="progress" style="width:70%;display:none;position:absolute;left:10%;top:10px;">
+                <div class="progress-bar"><span id="spanprogress"></span></div>
+            </div>
+        </div>
+        <div class="form" style="overflow-y:auto;height:calc(100% - 135px);clear:both;">
+            <!-- 交易文档 -->
+            <div class="form-body" id="step0">
+                <div id="TrustAttatchedFileNoTrustDiv" class="doc_error vtaf_DocumentsError">
+                    信托信息未创建，请先创建信托信息后再维护相关文档。
+                </div>
+                <div id="TrustAttatchedFilesDiv" style="display:none;">
+                    <!--<div class="form-panel drop">
+                        <div class="col-12 form-group">
+                            <div class="col-1" style="min-width:85px !important;">
+                                <button type="button" class="btn btn-primary" onclick="TrustAttatchedFileModel.UploadNewFiles()">批量上传</button>
+                            </div>
+                        </div>
+                    </div>-->
+                    <div class="form-panel item">
+                        <div class="col-md-12" style="margin: 20px 0;">
+                            <div class="col-md-1">
+                                <h3 class="h3"><span class="title">&nbsp;</span></h3>
+                            </div>
+                            <div class="col-md-3">
+                                <h3 class="h3"><span class="title">文件类型</span></h3>
+                            </div>
+                            <div class="col-md-1">
+                                <h3 class="h3"><span class="title">是否必备</span></h3>
+                            </div>
+                            <div class="col-md-1">
+                                <h3 class="h3"><span class="title">文件格式</span></h3>
+                            </div>
+                            <div class="col-md-5">
+                                <h3 class="h3"><span class="title">文件名称</span></h3>
+                            </div>
+                            <div class="col-md-1">
+                                <h3 class="h3" style="text-align: right;padding-right: 10px;"><span class="title">操作</span></h3>
+                            </div>
+                        </div>
+                        <div class="form-panel item categoryList" data-bind="foreach: TrustAttatchedFileCategories">
+                            <div class="col-md-12 form-group fileCateNameDiv">
+                                <div class="col-md-12 cateOriginalName form-group">
+                                    <div class="col-md-10">
+                                        <div class="col-md-1" style="cursor:pointer;text-align: center;" onclick="TrustAttatchedFileModel.ToogleCateFiles(this)">
+                                            <!--<i class="icon icon-folder"></i>-->
+                                            <span class="caret"></span>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div data-bind="text: ($index()+1)+'&nbsp;&nbsp;&nbsp;'+ FileCategory(), attr:{cateName: FileCategory()}" class="cateName"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 cateFilesDiv " data-bind="foreach: $parent.TrustAttatchedFiles">
+                                    <!-- ko if: FileCategory()==$parent.FileCategory() -->
+                                    <div class="col-md-12  form-group filesList" style="margin-bottom:10px !important;">
+                                        <div class="col-md-1">&nbsp;</div>
+                                        <div class="col-md-3">
+                                            <div><span data-bind="text: ($parentContext.$index()+1)+'-'+ subCateIndex()+'&nbsp;&nbsp;&nbsp;'+SubCategory()"></span></div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div data-bind="text: (IsCompulsory()?'是':'否')"></div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div data-bind="text: FileType()"></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="col-md-12 file-item">
+                                                <!-- ko if: FilePath() -->
+                                                <div class="col-md-10">
+                                                    <label class="file-linkname-label" style="height:auto !important;"><a data-bind="attr:{href: FilePathLink()}"><span data-bind="text:FileName"></span></a></label>
+                                                    <div class="file-updateexited-input" style="display:none;margin-top:7px;">
+                                                        <span class="file_name" data-bind="text:FileName"></span>
+                                                        <label data-bind="attr: { for: 'newAddedFileToUpload_' + $index(), itemIndex: $index() }" style="margin-top:-5px;display: inline-block; width:80px;font-weight:normal;background:#f3f5fa;color:#808080;border:1px solid #dedede;border-left: none;text-align: center;float: right;">
+                                                            <input type="file" data-bind="attr: { id: 'newAddedFileToUpload_' + $index(), itemIndex: $index() }" onchange="TrustAttatchedFileModel.ModifyNewFileName(this)" />
+                                                            <span>重新选择</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2  buttons" style="float: right;text-align: right;">
+                                                    <button type="button" class="btn btn-link btnUpd" title="更新文档" data-bind="attr: { itemIndex: $index() }" onclick="TrustAttatchedFileModel.GoingUpdateExitedFile(this, true)"><i class="icon icon-edit"></i></button>
+                                                    <button type="button" class="btn btn-link btnDel" style="color: #d00000;font-size: 16px;" title="删除文档" data-bind="attr: { itemIndex: $index() }" onclick="TrustAttatchedFileModel.DeleteUploadedFiel(this)"><i class="fa fa-trash-o fa-fw"></i></button>
+                                                    <button type="button" class="btn btn-link btnRev" title="返回" data-bind="attr: { itemIndex: $index() }" onclick="TrustAttatchedFileModel.GoingUpdateExitedFile(this, false)" style="display:none;"><i class="icon icon-chexiao"></i></button>
+                                                </div>
+                                                <!-- /ko -->
+                                                <!-- ko ifnot: FilePath() -->
+                                                <div style="border:none;margin-top:7px;" class="col-md-10">
+                                                    <span class="file_name"></span>
+                                                    <label class="input_file_style" data-bind="attr: { for: 'newAddedFileToUpload_' + $index(), itemIndex: $index() }" style="margin-top:-5px;width:80px;display:inline-block;font-weight:normal;background:#f3f5fa;color:#808080;border:1px solid #dedede;border-left: none;text-align: center;">
+                                                        <input type="file" data-bind="attr: { id: 'newAddedFileToUpload_' + $index(), itemIndex: $index() }" onchange="    TrustAttatchedFileModel.ModifyNewFileName(this)" />
+                                                        <span>选择文件</span>
+                                                    </label>
+                                                    <button class="inputdefer_style" onclick="TrustAttatchedFileModel.InputFileClick(this)" style="display:none">取消选择</button>
+                                                </div>
+                                                <!-- /ko -->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+
+                                        </div>
+                                    </div>
+                                    <!-- /ko -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<button type="button" onclick="TrustAttatchedFileModel.showJson()">Show JSON</button>-->
+                    <!--<div id="divTrustAttatchedFilesJS"></div>-->
+                </div>
+            </div>
+        </div>
+        <div class="form-button" style="padding-top:22px;">
+            <button id="next-step" type="button" class="btn btn-primary"><span class="vtaf_finished">完成</span></button>
+        </div>
+    </div>
+</body>
+</html>

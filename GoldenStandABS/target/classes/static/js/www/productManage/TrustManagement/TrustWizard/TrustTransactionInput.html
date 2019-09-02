@@ -1,0 +1,418 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <!--<title>交易现金流信息</title>-->
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!--<link href="../TrustFollowUp/css/trustFollowUp.css" rel="stylesheet" />-->
+
+    <link href="../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+
+    <script src="../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TrustWizard/TrustTransactionInput']);
+        });
+    </script>
+
+	<style type="text/css">
+        .col-assetTip {
+            width: 8%;
+            float: left;
+            height: 30px;
+            border-left: none;
+            text-align: center;
+        }
+        .clearfix:after {
+            content: " "; 
+            display: block; 
+            clear: both; 
+            visibility: hidden; 
+            line-height: 0; 
+        }
+        .clearfix{
+            *zoom:1;
+        }
+     html{overflow-x:hidden}
+	.marginb6{margin-bottom:6px !important;}
+	.marginb8{margin-bottom:8px !important;}
+	.paddingt3{padding-top: 3px !important;}
+    .paddingb0{padding-bottom: 0px !important;}
+	#label1, #gold-lable {
+        background-color: #ebeef5;
+        color: #777777;
+        height: 30px;
+        line-height: 30px;
+        padding-left: 10px;
+        box-sizing: border-box;
+        border:1px solid  #dce0ee;
+        border-radius: 2px 0px 0px 2px;
+        border-right:0 none;
+	}
+    #divDataList{
+        border: 1px solid #dedede;
+    }
+    .nav_list_style{
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 14px;
+        transition: all .2s;
+        border: none;
+        position: relative;
+        line-height: 40px;
+        min-width: 65px;
+        text-align: center;
+        cursor: pointer;
+        margin-right: 30px;
+    }
+    .divbox1, .divbox2, .divbox3, .divbox4, .divbox5,.divbox6 {
+        position:relative;
+        padding-left:15px;
+    }
+    .divboxfont1, .divboxfont2, .divboxfont3, .divboxfont4, .divboxfont5{
+        display: inline-block;
+        width: 567px;
+        background: rgb(54,61,93);
+        position: relative;
+        left: -20px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        color: #fff;
+        margin-bottom: 20px;
+    }
+    .li_active{
+        color: rgba(69,86,156,1);
+        border-bottom: 2px solid rgba(69,86,156,1);
+    }
+
+    .form-panel.item>div{
+        display:none;
+    }
+    .warning{
+        border:1px solid #ffe711;
+    }
+    .position_r {
+        position: relative;
+    }
+    .TransactionDateDiv {
+        width: 100%;
+        display: block;
+        height: 30px;
+        border: 1px solid  #dce0ee;
+        border-radius:0px 2px 2px 0px;
+    }
+    .TransactionDateDiv:focus,.form-control:focus{
+        border-color: #45569c;
+        box-shadow: inset 0 0px 0px #45569c, 0 0 4px #45569c;
+    }
+    .TransactionDateDiv>i {
+        position: absolute;
+        right: -1px;
+        top: 6px;
+    }
+    #TransactionDateSpan {
+        display: inline-block;
+        width: 90%;
+        height: 28px;
+        line-height: 28px;
+        color: #777777;
+        font-size: 14px;
+        padding: 0 0 0 10px;
+    }
+    #TransactionDateUl {
+        position: absolute;
+        top: 30px;
+        left: 0;
+        z-index: 99;
+        width: 100%;
+        background: #ffffff;
+        height: 300px;
+        overflow:auto;
+        padding: 0;
+        display: none;
+    }
+    #TransactionDateUl li {
+        padding: 0 10px;
+        line-height: 30px;
+        border-bottom: 1px solid #dce0ee;
+        cursor: pointer;
+    }
+    #TransactionDateUl li:hover {
+        background: #f3f5fa;
+    }
+    #TransactionDateUl li:last-child {
+        border-bottom: none;
+    }
+    [class^=col-] {
+	   padding: 0;
+    }
+    .row {
+        margin: 0;
+    }
+    .form-control {
+        border-bottom: 1px solid #dce0ee;
+        border-radius:0px 2px 2px 0px;
+        box-shadow: none;
+        border-color:#dce0ee;
+    }
+    #changeli {
+        display:flex;
+        height:40px;
+        border-bottom:1px solid #dce0ee;
+        padding: 0 15px;
+        margin: 0;
+    }
+    .field-details {
+        position: relative;
+    }
+    .field-details .field-detail-box { 
+        position: absolute; 
+        left: -105px; 
+        width: 165px; 
+        background: #fff; 
+        border: 1px solid #4078d8; 
+        padding: 10px; 
+        z-index: 99; 
+        box-shadow: 0 5px 10px rgba(0,0,0,.1); 
+        color: #333; 
+        display: none;
+    }
+    .field-details .field-detail-box:before { 
+        position: absolute; 
+        content: ""; 
+        top: -12px; 
+        left: 111px; 
+        border: 5px solid transparent; 
+        border-bottom-width: 7px; 
+        border-bottom-color: #4078d8;
+    }
+    .field-details .field-detail-box:after { 
+        position: absolute; 
+        content: ""; 
+        top: -10.5px; 
+        left: 111px; 
+        border: 5px solid transparent; 
+        border-bottom-width: 7px; 
+        border-bottom-color: #fff;
+    }
+    .field-details:hover .field-detail-box { 
+        display: block; 
+    }
+	</style>
+</head>
+<body>
+    <div class="body-container form nobottom container-fluid" style="padding:15px;">
+        <div class="main row" id="TrustTransactionInputDiv">
+            <!--<div class="pull-right">
+            <a href="javascript:void(0);" onclick="RemoveColButtomSHClick(this);">显示删除按钮</a>
+        </div>
+        <h3 class="h3" style="font-size: 100%;">
+            <span class="title paddingb0">交易现金流信息</span>
+        </h3>-->
+            <div class="form-panel drop nobottom paddingt3 clearfix">
+                <div class="form-panel drop list-filters paddingt3">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="col-sm-1 col-md-1 form-group" style="display:none">
+                            <div class="col-md-8" id="TrustTransactionInputTarget1">
+
+                            </div>
+                            <div class="col-md-2 col-md-2">
+                                <button type="button" class="btn btn-plus" onclick="AddTransaction(this);"><i class="icon icon-add"></i></button>
+                            </div>
+                        </div>
+                        <div class="col-sm-5 col-md-5 form-group">
+                            <div class="col-md-5 col-sm-5">
+                                <label id="gold-lable">兑付日期</label>
+                            </div>
+                            <div class="col-sm-7 col-md-7 position_r">
+                                <div class="TransactionDateDiv">
+                                    <span id="TransactionDateSpan"></span>
+                                    <i class="icon icon-bottom"></i>
+                                    <ul class="filter eq form-control" id="TransactionDateUl"></ul>
+                                </div>
+                                <!--<select  onchange="InitData();"></select>-->
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-sm-5 form-group" style="float: right;">
+                            <div class="col-md-5 col-sm-5">
+                                <label id="gold-lable">客户</label>
+                            </div>
+                            <div class="col-md-7 col-sm-7">
+                                <input type="text" class="filter like form-control" id="InputSource" data-valid="required" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div id="divDataList" class="list-container clearfix">
+                <div class="nav_left">
+                    <ul  id="changeli">
+                        <li class="nav_list_style li_active">上期转存</li>
+                        <li class="nav_list_style">当期现金流入</li>
+                        <li class="nav_list_style">历史账户结转</li>
+                        <li class="nav_list_style">资产池情况</li>
+                        <li class="nav_list_style">循环购买情况</li>
+                        <li class="nav_list_style">下期预测</li>
+                    </ul>
+                </div>
+                <div class="form nobottom">
+                    <div class="form-body" style="display:block;padding-top: 20px;">
+                        <div class="form-panel item">
+                            <div class="divbox1" style="display:block">
+                                <!--<span class="divboxfont1">上期转存</span>-->
+                                <div class="col-md-12 col-sm-12" data-bind="foreach:typeone" id="TrustTransactionInputTarget">
+                                </div>
+                            </div>
+                            <div class="divbox2">
+                                <!--<span class="divboxfont2">当期资金流入</span>-->
+                                <div class="col-md-12 col-sm-12" data-bind="foreach:typetwo" id="TrustTransactionInputTarget2">
+                                </div>
+                            </div>
+                            <div class="divbox3">
+                                <!--<span class="divboxfont3">历史账户结转</span>-->
+                                <div class="col-md-12 col-sm-12" data-bind="foreach:typethree" id="TrustTransactionInputTarget3">
+                                </div>
+                            </div>
+                            <div class="divbox4">
+                                <!--<span class="divboxfont4">资产池情况</span>-->
+                                <div class="col-md-12 col-sm-12" data-bind="foreach:typefour" id="TrustTransactionInputTarget4">
+                                </div>
+                            </div>
+                            <div class="divbox5">
+                                <!--<span class="divboxfont5">循环购买情况</span>-->
+                                <div class="col-md-12 col-sm-12" data-bind="foreach:typefive" id="TrustTransactionInputTarget5">
+                                </div>
+                            </div>
+                            <div class="divbox6">
+                                <div class="col-md-12 col-sm-12" data-bind="foreach:typeSix" id="TrustTransactionInputTarget6">
+                                </div>
+                            </div>
+                        </div>
+                        <div style="text-align: center;margin-bottom: 20px;">
+                            <button type="button" class="btn btn-primary" id="SaveTransactionInput" onclick="SaveTransactionInputClick();">保存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<di style="display:none;" id="TrustTransactionInputTemplate1">
+            <select class="form-control" data-bind="foreach:UnDataList">
+                <option data-bind="text:Name,attr:{dataIndex: $index}"></option>
+            </select>
+        </di>-->
+        <div style="display:none; " id="TrustTransactionInputTemplate" class=" clearfix">
+            <div class="col-md-12 col-sm-12" data-bind="attr:{dataIndex: $index}">
+                <div class="col-md-12 col-sm-12 form-group autoLayout-plugins marginb8">
+                    <div class="col-md-3 col-sm-3">
+                        <label data-bind="text: Name" id="label1"></label>
+                    </div>
+                    <div class="col-md-7 col-sm-7">
+                        <div class="col-md-12 col-sm-12">
+                            <input type="text" class="form-control dataFormat" data-bind="value:Amount" data-valid="required decimal" />
+                        </div>
+                    </div>
+                    <div class="col-assetTip">
+                        <div class="field-details field1" style="display:inline-block;">
+                            <i class="icon icon-asset" style="margin-top: 4px;display: block;color:rgba(69,86,156,1);"></i>                          
+                        </div>
+                    </div>
+                    <!--收入账户上期转存 备注-->
+                    <!--ko if: Code() =="InterestAccount_OpeningBalance_Input"-->
+                    <div class="col-md-1 col-sm-1 ">
+                        <div class="field-details" title="请检查该项是否需要手动调整">
+                            <i class="icon icon-help" style="margin-top: 4px;display: block;color:rgba(69,86,156,1);"></i>
+                        </div>
+                    </div>
+                    <!--/ko-->
+                    <!--本金账户上期转存 备注-->
+                    <!--ko if: Code() =="PrincipalAccount_OpeningBalance_Input"-->
+                    <div class="col-md-1 col-sm-1 field-details" title="请检查该项是否需要手动调整">
+                        <i class="icon icon-help" style="margin-top: 4px;display: block;color:rgba(69,86,156,1);"></i>
+                    </div>
+                    <!--/ko-->
+                    <!--ko if: Code() =="TrustPlanAccount_Interest_Collected"-->
+                    <div class="col-md-1 col-sm-1 field-details" title="若不区分收入账与本金账，则所有资金均作为利息回收款，请将回收款数值填入此项">
+                        <i class="icon icon-help" style="margin-top: 4px;display: block;color:rgba(69,86,156,1);"></i>
+                    </div>
+                    <!--/ko-->
+                    <!--ko if: Code() =="TopUpDifference_ToInterest_Input"-->
+                    <div class="col-md-1 col-sm-1 field-details" title="循环购买的资产在循环购买基准日到循环购买日的利息回收款(如有)">
+                        <i class="icon icon-help" style="margin-top: 4px;display: block;color:rgba(69,86,156,1));"></i>
+                    </div>
+                    <!--/ko-->
+                    <!--ko if: Code() =="TopUpDifference_ToPrincipal_Input"-->
+                    <div class="col-md-1 col-sm-1 field-details" title="循环购买的资产在循环购买基准日到循环购买日的本金回收款(如有)">
+                        <i class="icon icon-help" style="margin-top: 4px;display: block;color:rgba(69,86,156,1);"></i>
+                    </div>
+                    <!--/ko-->
+                    <!--往期本金账补收入账 备注-->
+                    <!--ko if: Code() =="Previous_Supplement_Input"-->
+                    <div class="col-md-1 col-sm-1 field-details" title="请检查该项是否需要手动调整">
+                        <i class="icon icon-help" style="margin-top: 4px;display: block;color:rgba(69,86,156,1);"></i>
+                    </div>
+                    <!--/ko-->
+                    <!--往期收入账返本金账 备注-->
+                    <!--ko if: Code() =="Previous_Carryover_Input"-->
+                    <div class="col-md-1 col-sm-1 field-details" title="请检查该项是否需要手动调整">
+                        <i class="icon icon-help" style="margin-top: 4px;display: block;color:rgba(69,86,156,1);"></i>
+                    </div>
+                    <!--/ko-->
+                    <!--往期资产违约额 备注-->
+                    <!--ko if: Code() =="PreviousAssetDefault_Input"-->
+                    <div class="col-md-1 col-sm-1 field-details" title="请检查该项是否需要手动调整">
+                        <i class="icon icon-help" style="margin-top: 4px;display: block;color:rgba(69,86,156,1);"></i>
+                    </div>
+                    <!--/ko-->
+                    <!--当期资产违约额 备注-->
+                    <!--ko if: Code() =="CurrentAssetDefault_Input"-->
+                    <div class="col-md-1 col-sm-1 field-details" title="请检查该项是否需要手动调整">
+                        <i class="icon icon-help" style="margin-top: 4px;display: block;color:rgba(69,86,156,1);"></i>
+                    </div>
+                    <!--/ko-->
+                    <!--资产池未还本金总额 备注-->
+                    <!--ko if: Code() =="TrustPlanAccount_AssetPoolBalance"-->
+                    <div class="col-md-1 col-sm-1 field-details" title="请检查该项是否需要手动调整">
+                        <i class="icon icon-help" style="margin-top: 4px;display: block;color:rgba(69,86,156,1);"></i>
+                    </div>
+                    <!--/ko-->
+                    <!--当期循环购买支付价款 备注-->
+                    <!--ko if: Code() =="TopUpAmount_Real"-->
+                    <div class="col-md-1 col-sm-1 field-details" title="确定循环购买价款后，需要再执行一遍当期的收益分配计算">
+                        <i class="icon icon-help" style="margin-top: 4px;display: block;color:rgba(69,86,156,1);"></i>
+                    </div>
+                    <!--/ko-->
+                    <!--//添加金额提示-->
+                    <!--<div id='field1' class='field-details pull-right' style='position:relative;max-width:50px;left:80%;bottom:28px;'>
+            <i class='icon icon-asset' style='margin-top: 4px;display: inline-block;color:#4174cb;'></i>
+            <div id='fieldtip' class='field-detail-box' style='width:200px;font-size:12px;display: inline-block;position:absolute;top:10px;left:35px'>
+            </div>
+        </div>-->
+                </div>
+                <div class="col-md-6 col-sm-6 form-group autoLayout-plugins marginb8">
+                    <div class="col-md-4 col-sm-4">
+                        <!--
+                    <label>是否自动计算</label>
+                        -->
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="col-md-11 col-sm-11">
+                            <!--
+                        <input type="checkbox" data-bind="checked:ToPaid" />
+                            -->
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-2" data-bind="if:!IsCompulsory()">
+                        <button type="button" class="btn btn-remove" onclick="RemoveTransaction(this);"><i class="icon icon-remove"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

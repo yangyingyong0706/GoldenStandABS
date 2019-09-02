@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<title>运行资产池</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+		<meta name="renderer" content="webkit" />
+		<link href="../Contents/style.css" rel="stylesheet" />
+		<link href="../Contents/pagerlist-style.css" rel="stylesheet" />
+		<link href="../../../asset/style/bootstrap.css" rel="stylesheet" />
+        <link href="../../../asset/lib/toast/toast.css" rel="stylesheet" />
+		<link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+		<link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+		<link href="./calculator.css" rel="stylesheet" />
+        <link href="../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+
+        <style>
+            #tips {
+                float: right;
+                font-size: 14px;
+                color: rgb(128, 128, 128);
+                font-size: 12px;
+                line-height: 20px;
+                background: #fdf9eb;
+                color: #a79e9e;
+                padding: 0 20px;
+                float: right;
+                margin-right: -15px;
+                text-align: right;
+            }
+            #tips p {
+                margin: 0;
+            }
+            #tips p>span {
+                display: inline-block;
+                text-align: left;
+                width: 168px;
+            }
+        </style>
+
+	</head>
+
+	<body>
+		<div class="mainDiv" id="mainDiv">
+			<div id="loading" v-show="pointerEventsBoolean"><i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i></div>
+			<div class="sub-mainDiv" v-cloak>
+				<div class="title">归集时间计算器</div>
+				<!--基础配置-->
+				<div class="basicsAllocation">
+					<div class="basicsAllocation-title" :style="basicsAllocationBoolean?'':'border: none;'">
+						基础配置<!--<i class="fa" :class="basicsAllocationBoolean?'fa-angle-down': 'fa-angle-up'"></i>-->
+                        <div id="tips">
+                            <p>
+                                <span style="margin: 0 0px 0 0px;width: 132px;">切片日期: <span style="margin: 0 0px 0 10px">{{SliceDateArr.ReportingDate}}</span></span>
+                                <span style="margin: 0 0px 0 40px">最早计划还款日: <span style="margin: 0 0px 0 10px">{{SliceDateArr.MinDueDate}}</span></span>
+                                <span style="margin: 0 0px 0 40px">最晚计划还款日: <span style="margin: 0 0px 0 10px">{{SliceDateArr.MaxDueDate}}</span></span>
+                            </p>
+                            <p>
+                                <span style="margin: 0 0px 0 40px">最早实际回款日: <span style="margin: 0 0px 0 10px">{{SliceDateArr.MinPaidDate}}</span></span>
+                                <span style="margin: 0 0px 0 40px">最晚实际回款日: <span style="margin: 0 0px 0 10px">{{SliceDateArr.MaxPaidDate}}</span></span>
+                            </p>
+                        </div>
+					</div>
+                    <div class="basicsAllocation-content clear" v-if="basicsAllocationBoolean" style="color: #555;" id="gold-form-panel">
+                        <div class="col-4 col_style">
+                            <div class="col-12 form-group autoLayout-plugins">
+                                <div class="col-5"><label class="gold-group-addon">首次日期:</label></div>
+                                <div class="col-6">
+                                    <div class="col-12 baseInfo_wrap">
+                                        <input onchange="formatData(this)" onfocus="inputNull(this)" id="FirstDate" type="text" class="form-control date-plugins gold-form-control" v-bind:class="{active: basicsAllocationForm[0].Style}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 col_style">
+                            <div class="col-12 form-group autoLayout-plugins">
+                                <div class="col-5"><label class="gold-group-addon">间隔期长(月):</label></div>
+                                <div class="col-6">
+                                    <div class="col-12 baseInfo_wrap">
+                                        <input v-model="basicsAllocationForm[1].ItemValue" v-bind:class="{active: basicsAllocationForm[1].Style}" type="text" class="form-control gold-form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 col_style">
+                            <div class="col-12 form-group autoLayout-plugins">
+                                <div class="col-5"><label class="gold-group-addon">归集结束日:</label></div>
+                                <div class="col-6">
+                                    <div class="col-12 baseInfo_wrap">
+                                        <input onchange="formatData(this)" onfocus="inputNull(this)" id="ClosureDate" type="text" v-bind:class="{active: basicsAllocationForm[2].Style}" class="form-control date-plugins gold-form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 col_style">
+                            <div class="col-12 form-group autoLayout-plugins">
+                                <div class="col-5"><label class="gold-group-addon">工作日调整:</label></div>
+                                <div class="col-6">
+                                    <div class="col-12 baseInfo_wrap">
+                                        <select class="form-control gold-form-control" v-model="basicsAllocationForm[3].ItemValue" v-bind:class="{active: basicsAllocationForm[3].Style}">
+                                            <option value="-1" id="pre">向前</option>
+                                            <option value="1" id="next">向后</option>
+                                            <option value="0" id="none">不调整</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-8 col_style">
+                            <div class="col-6 form-group autoLayout-plugins">
+                                <div class="col-4"><label class="gold-group-addon">工作日历:</label></div>
+                                <div class="col-6">
+                                    <div class="col-12 baseInfo_wrap">
+                                        <select class="form-control gold-form-control" v-model="basicsAllocationForm[4].ItemValue" v-bind:class="{active: basicsAllocationForm[4].Style}">
+                                            <option value="WorkingDay" id="pre">工作日</option>
+                                            <option value="TradingDay" id="next">交易日</option>
+                                            <option value="NaturalDay" id="none">自然日</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 col_style">
+                            <div class="col-12 form-group autoLayout-plugins">
+                                <div class="col-5"><label class="gold-single-addon">基准条件:</label></div>
+                                <div class="col-6">
+                                    <div class="col-12 baseInfo_wrap">
+                                        <input v-model="basicsAllocationForm[5].ItemValue" v-bind:class="{active: basicsAllocationForm[5].Style}" @change="basicChange(basicsAllocationForm[5].ItemValue)" type="checkbox" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-8 col_style">
+                            <div class="col-6 form-group autoLayout-plugins">
+                                <div class="col-3">
+                                    <select class="form-control gold-form-control" style="border-radius:2px 0px 0px 2px;border-right:0 none;" v-model="basicsAllocationForm[6].ItemValue" v-bind:class="{active: basicsAllocationForm[6].Style}" v-bind:disabled="!basicsAllocationForm[5].ItemValue">
+                                        <option value="BeginingOfMonth" id="pre">月初</option>
+                                        <option value="EndOfMonth" id="pre">月末</option>
+                                    </select>
+                                </div>
+                                <div class="col-1"><div class="col-12 baseInfo_wrap"><label class="gold-group-addon" style="text-align:center;padding:0px 3px;border-radius:0px;">{{basicsAllocationForm[6].ItemValue == 'BeginingOfMonth'?'后': '前'}}</label></div></div>
+                                <div class="col-1"><div class="col-12 baseInfo_wrap"><label class="gold-group-addon" style="text-align:center;padding:0px 3px;border-radius:0px;">第</label></div></div>
+                                <div class="col-2"><input v-model="basicsAllocationForm[7].ItemValue" class="form-control gold-form-control" style="border-radius:0px;border-right:0 none;" v-bind:class="{active: basicsAllocationForm[7].Style}" v-bind:disabled="!basicsAllocationForm[5].ItemValue" type="text" value="1" /></div>
+                                <div class="col-1"><div class="col-12 baseInfo_wrap"><label class="gold-group-addon" style="text-align:center;padding:0px 3px;border-radius:0px;">个</label></div></div>
+                                <div class="col-3">
+                                    <select class="form-control gold-form-control" style="border-radius:0px 2px 2px 0px;" v-bind:disabled="!basicsAllocationForm[5].ItemValue" v-bind:class="{active: basicsAllocationForm[8].Style}" v-model="basicsAllocationForm[8].ItemValue">
+                                        <option value="WorkingDay" id="pre">工作日</option>
+                                        <option value="TradingDay" id="next">交易日</option>
+                                        <option value="NaturalDay" id="none">自然日</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+					<div v-if="basicsAllocationBoolean" @click="submitDate" class="timeShow-save" style="margin-top: 30px;margin-bottom: 35px;">生成时间轴</div>
+				</div>
+				<!--归集时间展示-->
+				<div class="timeShow">
+					<div class="timeShow-title">归集时间展示</div>
+					<!--时间轴列表-->
+					<div class="timeShow-timeLine">
+						<div class="timeLine-title">时间轴</div>
+						<div class="timeLine-content">
+                            <div class="scrollTimeLine" id="scrollTimeLine">
+                                <div class="clearfix ul">
+                                    <div class="timeLine">
+                                        <div v-for="(item,index) in timeLastJson" class="dotDiv">
+                                            <span class="prev-dot" v-bind:style="{'left':item.leftIndex * item.widthOx + 'px'}" v-bind:index="index"></span>
+                                            <span class="dotTime" v-bind:style="{'left':item.leftIndex * item.widthOx + 'px'}">{{item.date}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+					</div>
+					<!--归集时间列表-->
+					<div class="timeShow-timeList">
+						<div class="timeLine-title timeList-title">时间轴列表</div>
+						<div class="timeList-content">
+							<table border="1" cellspacing="0" cellpadding="0">
+								<thead>
+									<tr>
+										<th><i @click="addTimeShow" class="icon icon-add"></i></th>
+										<th>期数</th>
+										<th>开始日期</th>
+										<th>结束日期</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr v-for="(item, index) in timeShowList" :key="index">
+										<td><i @click="removeTimeShow(index)" class="icon icon-remove"></i></td>
+										<td>{{1 + index}}</td>
+										<td><input v-model="item.StartDate" type="text"  class="form-control date-plugins StartDate gold-form-control" v-bind::class="{active: item.StyleOne}" /></td>
+										<td><input v-model="item.EndDate" type="text" class="form-control date-plugins EndDate gold-form-control" v-bind::class="{active: item.StyleTwo}" /></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="timeShow-save" @click="saveTimeLine">保存时间轴</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="../../../asset/lib/require.js"></script>
+		<script type="text/javascript">
+			requirejs(['../../../asset/lib/config'], function(config) {
+				requirejs(['app/assetFilter/calculatorDimensionality/calculator']);
+			});
+		</script>
+	</body>
+
+</html>

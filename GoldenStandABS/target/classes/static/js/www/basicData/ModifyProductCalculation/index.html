@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>修改产品计算</title>
+    <!--<link href="../../components/viewDateSet/css/trustWizard.css" rel="stylesheet" />-->
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            font-family: 'Microsoft YaHei';
+            font-size: 14px;
+            color: #4d4d4d;
+        }
+        body {
+            padding: 15px;
+            box-sizing: border-box;
+        }
+        #showTable h2 {
+            font-size: 16px;
+            font-weight: 400;
+            margin: 0;
+            line-height: 30px;
+        }
+        #rootBox {
+            height: 100%;
+        }
+        p {
+            margin: 0;
+        }
+        .clear:after {
+            visibility: hidden;
+            display: block;
+            font-size: 0;
+            content: " ";
+            clear: both;
+            height: 0;
+        }
+        #itemSelect label {
+            background: #f3f5fa;
+            border: none;
+            text-align: center;
+        }
+        .form {
+            min-height: 80px;
+            border-bottom: none;
+        }
+        #showTable {
+            height: calc(100% - 100px);
+            overflow: auto;
+            margin-top: 15px;
+            position: relative;
+        }
+        #showTable table {
+            width: 100%;
+            border: 1px solid #dedede;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        #showTable table tr td {
+            padding: 5px 10px;
+            border: 1px solid #dedede;
+            text-align: center;
+        }
+        #showTable table tr:first-child td {
+            background: #f3f5fa;
+        }
+        .nowSelectProduct {
+            text-align: center;
+        }
+        .nowSelectProduct table {
+            width: 100%;
+            border: 1px solid #dedede;
+        }
+        .nowSelectProduct table tr td {
+            border: 1px solid #dedede;
+            padding: 7px 5px;
+        }
+        .nowSelectProduct table tr:first-child td {
+            background: #f1f1f1;
+        }
+        [v-cloak] { 
+            display: none;
+        }
+        .EditInput {
+            width: 60%;
+            display: block;
+            margin: 0 auto;
+        }
+        .no-data {
+            display: block;
+            width: 200px;
+            margin: 100px auto;
+            padding-top: 140px;
+            background: url(../../../asset/img/no_ata.png) no-repeat;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        table .no-data {
+            margin: 15px auto;
+        }
+        .wrap-box,
+        #showTable {
+            padding: 15px;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+        }
+        .form {
+            min-height: 0;
+        }
+        .form .form-group {
+            margin-bottom: 0px;
+        }
+        [class^=col] {
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="rootBox">
+        <div id="itemSelect" class="form">
+            <div class="wrap-box clear">
+                <div class="form-group col-md-6">
+                    <div class="col-md-4">
+                        <label>请选择需要改动的产品</label>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-12">
+                            <select class="form-control" v-model="TrustId" @change="SelectChange(TrustId)">
+                                <option v-for="(product,index) in ProductArr" name="product" v-bind:value="product.TrustId" v-text="product.TrustCode"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-5">
+                    <div class="col-md-5">
+                        <label>请选择需要改动的兑付日</label>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="col-md-11">
+                            <select class="form-control" v-model="ReportingDate">
+                                <option v-show="Periods.length===0">当前产品没有兑付日期</option>
+                                <option v-for="period in Periods" name="period" v-bind:value="period.EndDate" v-cloak>{{period.EndDate}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-primary pull-right" @click="loadProductMessage()">查询结果</button>
+                </div>
+            </div>
+        </div>
+        <div id="showTable">
+            <div v-show="Show" style="display:none;">
+                <div><h2>产品信息</h2></div>
+                <div class="col-md-12 nowSelectProduct" v-show="Show" style="display:none;">
+                    <table>
+                        <tr>
+                            <td>
+                                <p>产品编号</p>
+                            </td>
+                            <td>
+                                <p>产品代码</p>
+                            </td>
+                            <td>
+                                <p>产品名称</p>
+                            </td>
+                            <td>
+                                <p>兑付日</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>{{NowProduct.TrustId}}</p>
+                            </td>
+                            <td>
+                                <p>{{NowProduct.TrustCode}}</p>
+                            </td>
+                            <td>
+                                <p>{{NowProduct.TrustName}}</p>
+                            </td>
+                            <td>
+                                <p>{{ReportingDate}}</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="clear"><h2 class="pull-left">计算结果</h2><button class="btn btn-primary pull-right" @click="SaveEdit()">保存修改</button></div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>类型</td>
+                            <td>对象</td>
+                            <td>当期未偿金额</td>
+                            <td>操作</td>
+                        </tr>
+                        <!--{ItemCode: "Accounting_Fee_1_Leftover", ClassType: "税费", Name: "会计费", Value: "0"}-->
+                        <tr v-for="(item,index) in ProductMessage">
+                            <td>{{item.ClassType}}</td>
+                            <td>{{item.Name}}</td>
+                            <td>
+                                <span>{{item.Value}}</span>
+                                <p style="display: none;"><input type="text" v-model="item.Value" class="form-control EditInput" @keyup="CheckNum" v-on:blur="BlurEvent" /></p>
+                            </td>
+                            <td><button class="btn btn-default changeValue" @click="EditValue($event,index);" v-bind:index="index">修改</button></td>
+                        </tr>
+                        <tr v-show="DataOr" style="display: none;">
+                            <td colspan="4">
+                                <div class="no-data">当前所选没有数据</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div v-show="!Show" class="no-data" >暂无数据，请选择查询条件</div>
+        </div>
+    </div>
+    <script src="../../../asset/lib/require.js" data-main="index"></script>
+</body>
+</html>

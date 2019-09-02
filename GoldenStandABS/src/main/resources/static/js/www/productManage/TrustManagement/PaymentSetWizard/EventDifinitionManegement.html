@@ -1,0 +1,307 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>专项事件</title>
+    <link href="../Common/css/TrustStudio.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../../../asset/lib/jquery/jquery-ui.css" />
+    <link href="../../../productDesign/css/model.css" rel="stylesheet" />    <link href="../Common/css/trustWizard.css" rel="stylesheet" />
+    <link href="../Common/css/trustWizard.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <style type="text/css">
+        .mask {
+            position: absolute;
+            top: 0px;
+            filter: alpha(opacity=60);
+            background-color: #777;
+            z-index: 1002;
+            left: 0px;
+            opacity: 0.1;
+            -moz-opacity: 0.1;
+        }
+
+        @keyframes blink {
+            from {
+                background-color: #FFFF77;
+            }
+
+            to {
+                background-color: #ffffff;
+            }
+        }
+
+        @-webkit-keyframes blink {
+            from {
+                background-color: #FFFF77;
+            }
+
+            to {
+                background-color: #ffffff;
+            }
+        }
+
+        @-moz-keyframes blink {
+            from {
+                background-color: #FFFF77;
+            }
+
+            to {
+                background-color: #ffffff;
+            }
+        }
+
+        @-ms-keyframes blink {
+            from {
+                background-color: #FFFF77;
+            }
+
+            to {
+                background-color: #ffffff;
+            }
+        }
+
+        @-o-keyframes blink {
+            from {
+                background-color: #FFFF77;
+            }
+
+            to {
+                background-color: #ffffff;
+            }
+        }
+
+        .blink {
+            animation: blink 5s linear infinite;
+            -webkit-animation: blink 5s linear infinite;
+            -moz-animation: blink 5s linear infinite;
+            -ms-animation: blink 5s linear infinite;
+            -o-animation: blink 5s linear infinite;
+            background-color: #FFFF77;
+        }
+
+        .page .main {
+            padding: 10px 20px !important;
+        }
+
+        .table-scroll {
+            overflow: auto;
+        }
+
+        .condition-checking-false {
+            color: red !important;
+        }
+
+        .scenarioName {
+            float: right;
+            /* width: auto; */
+            height: 29px;
+            background: white;
+            margin-top: -25px;
+            color: black;
+            padding: 6px;
+            line-height: 14px;
+            border: 1px solid gainsboro;
+        }
+
+        .isCurrentScenario {
+            background: #ececec;
+        }
+
+        .main {
+            padding:15px;
+            padding-bottom:0px;
+            height: calc(100% - 15px);
+        }
+
+        .table > thead > tr > th{
+            border: 1px solid #dce0ee;
+            background: #fafafa;
+            vertical-align: middle;
+            font-weight: normal;
+            color: #777777;
+            font-size: 14px;
+        }
+        #tbListView>tbody>tr>td{
+            font-size:14px;
+            padding:0px;
+            border:1px solid #dce0ee;
+        }
+        .layer_span{
+            display: block;
+            width: 100%;
+            border-bottom: 1px solid #dce0ee;
+            height: 45px;
+            line-height: 45px;
+            box-sizing: border-box;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .layer_span .gold-f-btn{
+            border:1px solid #dce0ee;
+            background-color: #fff;
+            border-radius:2px;
+        }
+        .date_selector{
+            right:10px
+        }
+        .date_selector .month_nav,.date_selector .year_nav{
+            height:25px;
+        }
+        .date_selector .month_name, .date_selector .year_name{
+            position: relative;
+            top: -10px;
+        }
+        #app{
+            position:relative;
+        }
+        #loading {
+            position: absolute;
+            top: 0px;
+            z-index: 1002;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+        }
+        #loading > i {
+            color: rgb(107, 147, 216);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+        }
+        input{
+            border: 1px solid #dedede;
+            height: 23px;
+            border-radius: 2px;
+            width: 75%;
+            font-size: 13px;
+            padding-left: 10px;
+        }
+        html,body,#app{
+            height:100%
+        }
+        .layer_img{
+            width:100%;
+            height:100%;
+            position:relative;
+        }
+        .no_data{
+            display: block;
+            width: 200px;
+            height: 130px;
+            background: url(../../../../asset/img/no_ata.png) no-repeat;
+            position: absolute;
+            left:50%;
+            top:40%;
+            transform:translate(-50%,-50%)
+        }
+        .info_tips{
+            display: block;
+            position: absolute;
+            left: calc(50% - 15px);
+            top: calc(40% + 90px);
+            transform: translate(-50%,-50%);
+            color: white;
+            background: rgba(59,62,93,0.8);
+            padding: 5px;
+            border: 1px solid #dedede;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div id="mask" class="mask"></div>
+    <div id="app">
+        <div id="loading">
+            <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+        </div>
+        <div class="main .public_font_style">
+            <div class="form-body" id="formbody" v-if="eventConditions.length>0">
+                <!-- <div><button type="button" class="btn normal_small_button" id="scenarioName" data-bind="text:ScenarioName,attr:{class:ScenarioClass}">循环期</button></div>-->
+                <div class="table-scroll">
+                    <table id="tbListView" class="lst-view-tb table" style="width:100%">
+                        <thead style="background:#eee">
+                            <tr>
+                                <th style="width:20%">触发事件</th>
+                                <th style="width:30%;text-align:center; padding-right:15px;">触发条目</th>
+                                <th style="width:20%">触发时间</th>
+                                <th style="width:15%">操作</th>
+                                <th style="width:15%">撤销日期</th>
+                            </tr>
+                        </thead>
+                        <tbody id="TrustEventList" class="lst-view-tbody">
+                            <tr v-for="eventName in eventList">
+                                <td style="border-bottom:1px solid #ccc">{{eventName}}</td>
+                                <td>
+                                    <table class="conditionDetils" style="width:100%">
+                                        <tr v-for="(ConditionItem,index) in eventConditions">
+                                            <td v-if="ConditionItem.ConditionType=='定性条件' && ConditionItem.EventName==eventName">
+                                                <span class="layer_span">{{ConditionItem.ConditionDetails}}</span>
+                                            </td>
+                                            <td v-if="ConditionItem.ConditionType=='定量条件' && ConditionItem.EventName==eventName">
+                                                <span class="layer_span">当前累计违约率:当前值为{{ConditionItem.CurrentValue}}{{ConditionItem.Operation}}阀值{{ConditionItem.ThresholdValue}}</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table class="conditionDate" style="width:100%">
+                                        <tr v-for="ConditionItem in eventConditions">
+                                            <td v-if="ConditionItem.ConditionType=='定性条件'&&ConditionItem.EventName==eventName">
+                                                <span class="layer_span">{{ConditionItem.StartDate}}</span>
+                                            </td>
+                                            <td v-if="ConditionItem.ConditionType=='定量条件' && ConditionItem.EventName==eventName">
+                                                <span class="layer_span">{{ConditionItem.StartDate}}</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table class="conditionBtn" style="width:100%">
+                                        <tr v-for="ConditionItem in eventConditions">
+                                            <td v-if="ConditionItem.ConditionType=='定性条件'&&ConditionItem.EventName==eventName" style="display:block;height:45px;line-height:45px">
+                                                <span class="layer_span"><button class="normal_small_button gold-f-btn" @click="cancelEvent(ConditionItem.StartDate,ConditionItem.ConditionId)">解除触发</button></span>
+                                            </td>
+                                            <td v-if="ConditionItem.ConditionType=='定量条件' && ConditionItem.EventName==eventName">
+                                                <span class="layer_span">--</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table class="conditionTime" style="width:100%">
+                                        <tr v-for="ConditionItem in eventConditions">
+                                            <td v-if="ConditionItem.ConditionType=='定性条件'&&ConditionItem.EventName==eventName" id="single-form">
+                                                <span class="layer_span"><input type="text" name="name" v-bind:id="ConditionItem.ConditionId" class="date-plugins gold-single-input" autocomplete="off" /></span>
+                                            </td>
+                                            <td v-if="ConditionItem.ConditionType=='定量条件' && ConditionItem.EventName==eventName">
+                                                <span class="layer_span">--</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="layer_img" v-else>
+                <div class="no_data"></div>
+                <span class="info_tips">当前没有触发事件</span>
+            </div>
+        </div>
+    </div>
+    <script src="../../../../asset/lib/require.js"></script>
+
+    <script type="text/javascript">
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/PaymentSetWizard/EventDifinitionManegement']);
+        });
+    </script>
+</body>
+</html>

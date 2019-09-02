@@ -1221,6 +1221,7 @@ define(['jquery', 'App.Global', 'gsUtil', 'app/components/Layered/js/formatNumbe
             var oReq = new XMLHttpRequest();
             //var desPath = "E:\\TSSWCFServices\\PoolCut\\Files\\AssetTypeTemplates\\资产导入模板_信用卡.xlsx";
             var uriHostInfo = location.protocol + "//" + location.host;
+            
             var url = uriHostInfo + "/GoldenStandABS/service/DataProcessService.svc/jsAccessEP/" + "getStream?" + 'filePath=' + filePath;
             oReq.open("POST", url, true);
             oReq.responseType = "blob";

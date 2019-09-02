@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <style>
+        .k-grid td {
+            padding-top:0.45rem;
+             padding-bottom:0.45rem
+        }
+        body{
+            padding:15px;
+        }
+        html{
+            overflow:hidden;
+        }
+    </style>
+</head>
+<body>
+    <div style="margin-bottom: 15px;"><a class="btn btn-default" href="javascript:window.history.go(-1);"><span class="icon icon-chexiao"></span>返回</a></div>
+    <div id="grid"></div>
+
+    <script src="../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../asset/lib/config'], function (common) {
+            requirejs(['app/roleManage/ApproveListManagement/ApproveListOperationHistory']);
+        });
+    </script>
+</body>
+</html>

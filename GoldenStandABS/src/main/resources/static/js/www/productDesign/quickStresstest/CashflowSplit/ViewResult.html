@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>查看结果</title>
+    <script data-main="ViewResult" src="../../../../asset/lib/require.js"></script>
+    <link href="../../css/pagerlist-style.css" rel="stylesheet" />
+    <link href="../../css/trustFollowUp.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <style>
+        .combo {
+            float:left;
+            margin:0px 20px 10px 0;
+            display: flex;
+            justify-content: space-between;
+            width:calc(100% - 20px);
+        }
+        .combo_Left {
+            float: left;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .combo_Right {
+            float:right;
+            /*margin: 0 20px;*/
+            padding-top:5px;
+        }
+        .chk_span {
+            border: 1px solid #eaeaea;
+            margin:0 0 5px 15px;
+            padding:5px;
+            height:27.6px;  
+            line-height:27.6px;    
+            display:flex;     
+        }
+        .chk_element {
+            zoom:130%;
+            margin-right:5px;
+            vertical-align:middle; 
+            margin-top:5px;
+        }
+        .switch {
+            margin:15px;
+        }
+        .content {
+            margin:20px 20px 0 20px;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+        .main .h3 .titlecur{
+            color:rgba(59,62,93,1);
+            border-bottom:none;
+            border: 1px solid #ccc;
+        }
+        .main .h3 .title{
+            font-size: 14px;
+            display: inline-block;
+            border-bottom:none;
+            padding: 8px;
+        }
+        .main .h3{
+            border-bottom:1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="public_font_style">
+        <div class="combo">
+            <div id="chkCombo" v-show="!isInLastCombo" class="combo_Left">
+                <span class="chk_span" v-for="item in chkOptions">
+                    <input type="checkbox" class="chk_element" v-bind:value="item.id" v-model="hchartCombo" v-cloak />{{item.type}}：{{item.text}}
+                    <select v-model="item.sel" @change="selChange(item.id)" class="public_font_style" style="margin-left: 8px;">
+                        <option v-for="sta in poolStatus" v-bind:value="sta.value">{{sta.text}}</option>
+                    </select>
+                </span>
+            </div>
+            <div v-show="isInLastCombo" class="combo_Left">
+                <span class="chk_span"v-for="item in chkLastComboOptions">
+                    <input type="checkbox" class="chk_element" v-bind:value="item.id" v-model="lastHchartCombo" v-cloak />{{item.type}}：{{item.text}}
+                    <select v-model="item.sel" @change="selChange(item.id)" class="public_font_style" style="margin-left: 8px;">
+                        <option v-for="sta in poolStatus" v-bind:value="sta.value">{{sta.text}}</option>
+                    </select>
+                </span>
+            </div>
+            <div class="combo_Right"> 
+                <button type="button" class="normal_small_button" id="btnConfirm" v-show="!isInLastCombo" @click="confirmCombo">选定</button>
+                <button type="button" class="normal_small_button" id="btnViewLast" @click="viewOrbackLastCombo">{{btnViewOrbackText}}</button>
+            </div>
+        </div>
+        <div class="main">
+            <div class="h3 switch">
+                <span class="title tab-switch titlecur" data-view="#hCharts">图表视图</span>
+                <span class="title tab-switch " data-view="#hChartsList">列表视图</span>
+            </div>
+            <div class="content">
+                <div id="hCharts" class="viewcontainer"></div>
+                <div id="hChartsList" class="list-container viewcontainer" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

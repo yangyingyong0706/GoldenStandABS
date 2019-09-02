@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-compatible" content="IE=edge,chrome=1">
+		<title></title>
+		<link href="../../basicAsset/style/list.css" rel="stylesheet" />
+		<link href="../../basicAsset/style/style.css" rel="stylesheet" />
+		<link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+		<link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+		<link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+        <link href="../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+		<style>
+			#loading {
+				position: absolute;
+				left: 0;
+				top: 0;
+				height: 100%;
+				width: 100%;
+				background: #FFFFFF;
+				z-index: 9999;
+			}
+			#loading>i {
+				color: rgb(107, 147, 216);
+                left: 50%;
+                top: 50%;
+                position: absolute;
+                transform: translate(-50%,-50%);
+			}
+			.AssetDocumentMatching {
+				padding: 15px;
+			}
+			.fileUpload {
+				min-height: 120px;
+				padding: 15px;
+				padding-bottom: 0;
+				box-shadow:0px 2px 6px 0px rgba(88,104,217,0.2);
+			}
+			.gridTable {
+				margin-top: 15px;
+				box-shadow:0px 2px 6px 0px rgba(88,104,217,0.2);
+			}
+			.gridTable_title {
+				height: 40px;
+				line-height: 40px;
+				padding: 0 15px;
+				border-bottom: 1px solid #E6E9F5;
+				color: #4D4D4D;
+				font-size: 16px;
+			}
+			.grid {
+				padding: 13px 15px;
+			}
+			#uploadinfo {
+				padding-top: 5px;
+			}
+			.progress {
+				height: 12px;
+				margin-bottom: 10px;
+				overflow: hidden;
+				background-color: #f5f5f5;
+				border-radius: 4px;
+				-webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+				box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+			}
+			
+			.progress>.progress-bar {
+				float: left;
+				width: 0;
+				height: 100%;
+				font-size: 12px;
+				line-height: 12px;
+				text-align: right;
+				background: #6c78bd;
+				color: #fff;
+				background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+				background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+				background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+				-webkit-transition: width .6s ease;
+				-o-transition: width .6s ease;
+				-webkit-background-size: 40px 40px;
+				background-size: 40px 40px;
+				-webkit-animation: progress-bar-stripes 2s linear infinite;
+				-o-animation: progress-bar-stripes 2s linear infinite;
+				animation: progress-bar-stripes 2s linear infinite;
+			}
+			.file_name {
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				width: calc(100% - 90px);
+			}
+			
+			.checkbox-position {
+				top: 4px;
+			}
+			.btn.btn-primary {
+				background-color: #45569C;
+				border-color: #45569C;
+			}
+			
+			.btn.btn-primary:hover {
+				background-color: RGBA(69, 86, 156, 1);
+				opacity: 0.9;
+			}
+			
+			#grid td {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			
+			#grid th {
+				font-size: 13px;
+				height: 25px;
+			}
+			
+			.k-grid-header th.k-header {
+				padding: 0.468em 1.3em !important
+			}
+        input[type='radio']:checked {
+            background: url(../../../asset/lib/bootstrap/ischecked/icon@18px.png) no-repeat -134px 0px;
+        }
+        input[type=radio]{
+             outline: none;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: url(../../../asset/lib/bootstrap/ischecked/icon@18px.png) no-repeat -96px 0px;
+            width: 19px;
+            height: 19px;
+            border: none;
+            cursor:pointer;
+        }
+        input[type=radio]:active,input[type=radio]:focus,input[type=checkbox]:active,input[type=checkbox]:focus{
+            outline:none
+        }
+        @media (min-width: 768px) {
+             .col-5 {
+                width: 50%;
+            }
+        }
+        #loadingSmall {
+			position: fixed;
+		    top: 50%;
+		    left: 50%;
+		    width: 100px;
+		    height: 100px;
+		    margin-left: -50px;
+		    margin-top: -50px;
+		    text-align: center;
+            z-index: 1;
+		    display: none;
+		}
+		#loadingSmall i {
+			color: rgb(107, 147, 216);
+		}
+		.pointerEvents {
+			pointer-events:none;
+		}
+		</style>
+	</head>
+
+	<body>
+		<div id="loading"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+		<div id="loadingSmall"><i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i></div>
+		<div id="AssetDocumentMatching" class="AssetDocumentMatching">
+			<div class="fileUpload form-body form default">
+                <div class="drop" id="gold-form-panel">
+                    <div class="col-5 form-group">
+                        <div class="col-3"><label id="uploadFile_ail" class="gold-group-addon">外部数据文件</label></div>
+                        <div class="col-8">
+                            <span class="file_name gold-file-name"></span>
+                            <label class="input_file_style gold-form-file" for="fileUploadFileU1" style="width:90px;">
+                                <input type="file" id="fileUploadFileU1" class="form-control file" data-valid="required" />
+                                <span class="EnterFile_ail">选择文件</span>
+                            </label>
+                        </div>
+                        <div id="test_progress1" class="progress" style="width:91.67%;position:relative;top:5px;margin:0px;display:none">
+                            <div class="progress-bar"><span></span></div>
+                        </div>
+                    </div>
+                    <div class="col-5 form-group">
+                        <div class="checkbox" style="display:flex;margin:0px" id="cashgoback">
+                            <div><label class="gold-single-addon" for="IsBasedOnReportingDate" style="padding:0px 20px;">外部数据文件是否包含英文表头</label></div>
+                            <div id="IsBasedOnReportingDateinfo" style="margin-left:20px">
+                                <input type="radio" name="IsBasedOnReportingDate" value="1" id="IsBasedOnReportingDate" checked />
+                                <span style="margin-left:10px;margin-right:20px;position:relative;top:-2px">是</span>
+                                <input type="radio" name="IsBasedOnReportingDate" value="0" id="IsBasedOnReportingDate01" />
+                                <span style="margin-left:10px;position:relative;top:-2px">否</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-5 form-group">
+                        <div class="col-3"><label id="uploadFile_ail" class="gold-group-addon">系统模板文件</label></div>
+                        <div class="col-8">
+                            <span class="file_name gold-file-name"></span>
+                            <label class="input_file_style gold-form-file" for="fileUploadFileU2" style="width:90px;">
+                                <input type="file" id="fileUploadFileU2" class="form-control file" data-valid="required" />
+                                <span class="EnterFile_ail">选择文件</span>
+                            </label>
+                        </div>
+                        <div id="test_progress2" class="progress" style="width:91.67%;position:relative;top:5px;margin:0px;display:none">
+                            <div class="progress-bar"><span></span></div>
+                        </div>
+                    </div>
+                    <div class="col-2 form-group">
+                        <div class="buttons">
+                            <button id="upload_ail" type="button" class="btn btn-primary">匹配</button>
+                        </div>
+                    </div>
+                </div>
+			</div>
+			<div class="gridTable">
+				<div class="gridTable_title">匹配文件</div>
+				<div class="grid">
+					<div id="grid"></div>
+				</div>
+			</div>
+		</div>
+		<script src="../../../asset/lib/require.js"></script>
+		<script>
+			requirejs(['../../../asset/lib/config.js'], function(config) {
+				requirejs(['app/basicAsset/AssetDocumentMatching/AssetDocumentMatching']);
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,21 @@
+﻿{
+    "app": "DashBoard",
+    "title": "资产筛选",
+    "group": [
+        {
+            "module": "Index",
+            "title": "Business Guide",
+            "titleclass": "icon-directionLeft01",
+            "elements": [
+                {
+                    "title": "New asset pool",
+                    "type": "button",
+                    "icon": "iconfont icon-zichanzu1",
+                    "linkname": "OpenPoolCreationPage",
+                    "linkurl": "javascript:OpenPoolCreationPage"
+                }
+                 
+            ]
+        }
+    ]
+}

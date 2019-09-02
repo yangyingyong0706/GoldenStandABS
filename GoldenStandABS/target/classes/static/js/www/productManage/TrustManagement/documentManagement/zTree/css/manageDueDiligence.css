@@ -1,0 +1,23 @@
+﻿        .list {
+            float: left;
+            width: 100%;
+        }
+
+        .default {
+            float: left;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .buttongroup{
+            padding-top: 15px;
+        }
+
+        .titileinfo{
+            padding-top: 11px;
+        }
+
+        .title{
+            color:rgb(54,61,93);
+            font-size:16px;
+        }

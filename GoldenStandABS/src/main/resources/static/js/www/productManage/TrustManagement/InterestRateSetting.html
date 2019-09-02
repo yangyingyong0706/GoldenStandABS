@@ -1,0 +1,377 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>利率设置</title>
+    <!-- 这里引入所有需要的资源 其他通过AJAX载入的页面就不再需要引入了 -->
+
+    <link href="TrustWizard/trustWizard.css" rel="stylesheet" />
+    <link href="TrustFollowUp/css/pagerlist-style.css" rel="stylesheet" />
+
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <script src="../../../asset/lib/jquery/jquery-1.7.2.min.js"></script>
+    <script src="../../../config/globalVariable.js"></script>
+
+    <script src="Common/Scripts/calendar.min.js"></script>
+
+    <script src="../../../asset/lib/jquery/jquery-ui-latest.js"></script>
+
+    <script src="../../../asset/lib/knockout/knockout-3.4.0.js"></script>
+    <script src="../../../asset/lib/knockout/knockout.binding.rendercontrol.js"></script>
+    <script src="../../../asset/lib/knockout/knockout.mapping-latest.js"></script>
+
+    <!--<script src="Common/Scripts/format.number.js"></script>-->
+    <script src="Common/Scripts/format.number_copy.js"></script>
+    <script src="Common/Scripts/common.js"></script>
+    <script src="Common/Scripts/anyDialog.js"></script>
+    <script src="Common/Scripts/showModalDialog.js"></script>
+    <!--<script src="../UIFrame/js/permission.js"></script>-->
+</head>
+<body>
+    <div class="topbar">
+        <div class="navbar">
+            <span class="menu"><i class="icon icon-list"></i></span>
+            <h2>利率设置</h2>
+        </div>     
+    </div>
+    <div id="html" class="page">
+        <div class="body-container form nobottom">
+            <div class="main">
+                <div class="pull-right">
+                    <!--<input type="radio" class="" id="searchItem1" value="按类型" />-->                                       
+                    <button type="button" class="btn btn-default btn-sm" id="btnAddNew">新增</button>
+                    <button type="reset" class="btn btn-default btn-sm" id="btnUpdate">修改</button>
+                    <button type="button" class="btn btn-primary btn-sm" id="btnSearch">检索（按时间）</button>
+                    <button type="button" class="btn btn-primary btn-sm" id="btnSearch2">检索（按期数）</button>
+                    </div>
+                <h3 class="h3">
+                    <span class="title">利率设置</span>
+                </h3>
+                <div class="form-panel drop nobottom">
+                    <div class="form-panel drop list-filters">
+                        <div class="col-12">
+                            <div class="col-3 form-group">
+                                <div class="col-4">
+                                    <label>公布时间(查询时历史匹配到上一个发布日)：</label>
+                                </div>
+                                <div class="col-7">
+                                    <input id ="rateDate" type="text" class="form-control date-plugins"
+                                           data-attr="Date" data-valid="required date" />
+                                </div>
+                            </div>                            
+                            <div class="col-3 form-group">                         
+                                <div class="col-4">
+                                    <label>类型：</label>
+                                </div>
+                                <div class="col-7">
+                                    <select id="rateType" onchange="periodsChange()" class="filter <> form-control" name="isnull(IsCashFlowForeCastRequired,0)">
+                                        <option value="loan">贷款</option>
+                                        <option value="deposit">存款</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-3 form-group">
+                                <div class="col-4">
+                                    <label>期数：</label>
+                                </div>
+                                <div class="col-7">
+                                    <select id="periods" class="filter <> form-control" name="">
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--详细的利率信息-->
+                <div id="detailRate">
+                   
+                </div>
+                    <div id="divDataList" class="list-container"></div>
+                </div>
+            </div>  
+        </div>
+    </div>     
+
+    <script>      
+        $(function () {
+            //默认显示最新的利率    
+            $('.date-plugins').date_input();          
+            var date = new Date();
+            var today=dateToString(date);
+            var type;
+            $("#rateDate").val(today);
+            type = $.trim($("#rateType").val());
+            periodsChange();
+            render(today, type);
+
+            $("#btnSearch").click(function () {
+                search();
+            })
+            
+            $("#btnSearch2").click(function () {
+                var table = '<table class="table"><th>Id</th><th>期数描述</><th>期数code</><th>基准利率</th><th>类型</th><th>日期</th><th>操作</th>'
+                var type = $.trim($("#rateType").val());
+                var periods = $.trim($("#periods").val());
+               // console.log("type:" + type + " " + "periods:" + periods);
+                getRate2('', type, periods, function (list) {
+                    var lineStr = '<tr>';
+                    $.each(list, function (i, item) {
+                        lineStr += '<td>' + item.Id + '</td><td>' + item.SubCategory + '</td><td>' + item.SubCategoryCode + '</td><td>' + item.BaseRate + '</td><td>' + item.type + '</td><td>' +getStringDate(item.PubDate).dateFormat("yyyy-MM-dd") + '</td><td><button class="operation btn btn-primary btn-sm">操作</button></td></tr>'
+                    })
+                    lineStr += '</tr>';
+                    table += lineStr;
+                })             
+                $("#detailRate").html(table);
+                $('.operation').click(function () {                    
+                    var Detaildate = $.trim($($(this).parent("td").parent("tr").children()[5]).text());
+                    var Detailtype = $.trim($($(this).parent("td").parent("tr").children()[4]).text());
+                    var Detailperiods = $.trim($($(this).parent("td").parent("tr").children()[2]).text());
+                    console.log("date:" + Detaildate + " type:" + Detailtype + " periods:" + Detailperiods);
+                    getRate2(Detaildate, Detailtype, Detailperiods, function (data) {
+                        show(data);
+                        $("#rateDate").val(Detaildate);
+                        $("#rateType").val(Detailtype);
+                    });
+                    
+                })
+            })
+
+            $("#btnAddNew").click(function () {
+                add();
+            })
+            
+            $("#btnUpdate").click(function () {
+                console.log("length:" + $("#detailRate").children.length);
+                $("#detailRate .col-3 .col-7 input").removeAttr("readonly");
+                $("#updateSubmit").show(); 
+                $("#updateSubmit").click(function () {
+                    var date = $("#rateDate").val().trim();
+                    var type = $("#rateType").val().trim();
+                    var categoryArray = new Array();                   
+                    $.each($("#detailRate .col-3 .col-7 input"), function (i, item) {
+                        var category;
+                        var subCategoryCode;
+                        var subCategory;
+                        var rate;
+                        categoryArray = categoryChange(i+1,type);                        
+                        //console.log(categoryChange(i+1));
+                        //console.log(categoryArray);
+                        category = categoryArray[0];
+                        subCategoryCode = categoryArray[1];
+                        subCategory = categoryArray[2];
+                        rate = $(item).val().trim();
+                        console.log("Category:" + category);
+                        update($(item).attr("data-id"), category, subCategoryCode, subCategory, date, type, rate);
+                        render(date, type);
+                    })
+                })
+            })
+        })
+       
+        function getRate2(date, type, periodCode, callback) {
+            var executeParam = {
+                SPName: 'usp_GettblPBCInterests', SQLParams: [
+                    { Name: 'periods', value: periodCode, DBType: 'string' },
+                    { Name: 'date', value: date, DBType: 'string' },
+                    { Name: 'type', value: type, DBType: 'string' }
+                ]
+            };
+            var svcUrl = GlobalVariable.DataProcessServiceUrl + "CommonExecuteGet?";
+            var data = ExecuteGetData(false, svcUrl, 'TrustManagement', executeParam);
+            callback(data);
+        }
+
+        function getRate(date, type, callback) {
+            var executeParam = {
+                SPName: 'usp_GettblPBCRatesByFilter', SQLParams: [
+                    { Name: 'date', value: date, DBType: 'date' },
+                    { Name: 'type', value: type, DBType: 'string' }
+                ]
+            };
+            var svcUrl = GlobalVariable.DataProcessServiceUrl + "CommonExecuteGet?";
+            var data = ExecuteGetData(false, svcUrl, 'TrustManagement', executeParam);
+            callback(data);
+        }
+
+        //查询所有的历史利率
+       
+
+        function render(date, type) {
+            getRate(date, type, function (list) {
+                show(list);
+            })
+        }
+
+        function show(list) {
+            if (!list || list.length == 0) {
+                alert("没查到相关信息");
+                $("#detailRate").html(null);
+            }
+            else {
+                var pubDate;
+                var domStr = '';
+                $.each(list, function (i, item) {
+                    domStr += '<div class="col-3 form-group"><div class="col-4"><label>' + item.SubCategory + ':' +
+                    '</label></div><div class="col-7"><input type="text" class="form-control filter" value=' + item.BaseRate + ' data-id=' + item.Id + ' readonly="readonly"></div></div>'
+                    pubDate = item.PubDate;
+                    // console.log(item);
+                    //console.log("pubDate:"+getStringDate(pubDate).dateFormat('yyyy-MM-dd'));
+                })
+                domStr += '<div class="col-7"><button type="button" class="btn btn-primary btn-sm" id="updateSubmit">提交</button></div>';
+                $("#detailRate").html(domStr);
+                $("#updateSubmit").hide();
+            }
+        }
+
+        function search() {
+            var date = $("#rateDate").val().trim();
+            var type = $("#rateType").val().trim();
+            render(date, type);
+        }
+
+        function add() {
+            var domStr;
+            //alert("录入利率前请先设置好时间和类型！");
+            if ($("#rateType").val().trim() == 'loan') {
+                 domStr= '<div class="col-3 form-group"><div class="col-4"><label>不满6个月：</lable></div>' +
+                    '<div class="col-7"><input id="rate1" type="text" class="form-control filter"/></div></div>' +
+                    '<div class="col-3 form-group"><div class="col-4"><label>6个月到一年：</lable></div>' +
+                    '<div class="col-7"><input id="rate2" type="text" class="form-control filter"/></div></div>' +
+                    '<div class="col-3 form-group"><div class="col-4"><label>一年到三年：</lable></div>' +
+                    '<div class="col-7"><input id="rate3" type="text" class="form-control filter"/></div></div>' +
+                    '<div class="col-3 form-group"><div class="col-4"><label>三年到五年：</lable></div>' +
+                    '<div class="col-7"><input id="rate4" type="text" class="form-control filter"/></div></div>' +
+                    '<div class="col-3 form-group"><div class="col-4"><label>五年以上：</lable></div>' +
+                    '<div class="col-7"><input id="rate5" type="text" class="form-control filter"/></div></div>' +
+                    '<div class="col-7"><button type="button" class="btn btn-primary btn-sm" id="addSubmit">提交</button></div>';
+            }
+            if ($("#rateType").val().trim() == 'deposit') {
+                domStr = '<div class="col-3 form-group"><div class="col-4"><label>3个月：</lable></div>' +
+                   '<div class="col-7"><input id="rate1" type="text" class="form-control filter"/></div></div>' +
+                   '<div class="col-3 form-group"><div class="col-4"><label>半年：</lable></div>' +
+                   '<div class="col-7"><input id="rate2" type="text" class="form-control filter"/></div></div>' +
+                   '<div class="col-3 form-group"><div class="col-4"><label>一年：</lable></div>' +
+                   '<div class="col-7"><input id="rate3" type="text" class="form-control filter"/></div></div>' +
+                   '<div class="col-3 form-group"><div class="col-4"><label>两年：</lable></div>' +
+                   '<div class="col-7"><input id="rate4" type="text" class="form-control filter"/></div></div>' +
+                   '<div class="col-3 form-group"><div class="col-4"><label>三年：</lable></div>' +
+                   '<div class="col-7"><input id="rate5" type="text" class="form-control filter"/></div></div>' +
+                   '<div class="col-3 form-group"><div class="col-4"><label>五年以上：</lable></div>' +
+                   '<div class="col-7"><input id="rate6" type="text" class="form-control filter"/></div></div>' +
+                   '<div class="col-7"><button type="button" class="btn btn-primary btn-sm" id="addSubmit">提交</button></div>';
+            }
+            $("#detailRate").html(domStr);
+            $("#addSubmit").click(function () {
+                //alert("aa");
+                var date = $("#rateDate").val().trim();
+                var type = $("#rateType").val().trim();
+                var depositDom;
+                depositDom = $("#rate6").val();
+                insert(1, date, type, $.trim($("#rate1").val()));
+                insert(2, date, type, $.trim($("#rate2").val()));
+                insert(3, date, type, $.trim($("#rate3").val()));
+                insert(4, date, type, $.trim($("#rate4").val()));
+                insert(5, date, type, $.trim($("#rate5").val()));
+                console.log("depositDom");
+                console.log(depositDom);
+                if (depositDom&&depositDom!='')                    
+                    insert(6, date, type, $.trim($("#rate6").val()));
+                render(date, type);
+            })
+        }
+                //插入一条利率信息
+        function insert(i, date, type, rate) {          
+                console.log("i:" + i);
+                var categoryArray = new Array();
+                categoryArray = categoryChange(i, type);               
+                        var executeParam = {
+                            SPName: 'usp_addtblPBCRates', SQLParams: [
+                                { Name: 'Category', value: categoryArray[0], DBType: 'string' },
+                                { Name: 'subCategoryCode', value: categoryArray[1], DBType: 'string' },
+                                { Name: 'subCategory', value: categoryArray[2], DBType: 'string' },
+                                { Name: 'rate', value: rate, DBType: 'string' },
+                                { Name: 'type', value: type, DBType: 'string' },
+                                { Name: 'pubdate', value: date, DBType: 'date' },
+                            ]
+                        };
+                        var svcUrl = GlobalVariable.DataProcessServiceUrl + "CommonExecutePost?";
+                        var result = ExecutePostData(false, svcUrl, 'TrustManagement', executeParam);                        
+                }                
+            
+        function categoryChange(i,type) {
+            var array = new Array();
+            switch (i) {
+                case 1:
+                    array[0] =(type=='loan'? '短期贷款':'短期存款');
+                    array[1] =(type=='loan'?'within6months':'3months');
+                    array[2] =(type=='loan'?'不满6个月(含)':'三个月');
+                    break;
+                case 2:
+                    array[0] = (type == 'loan' ? '短期贷款' : '短期存款');
+                    array[1] = (type=='loan'?'6MonthsTo1Years':'6months');
+                    array[2] = (type=='loan'?'六个月至一年（含）':'六个月');
+                    break;
+                case 3:
+                    array[0] = (type == 'loan' ? '中长期贷款' : '短期存款');
+                    array[1] = (type == 'loan' ? '1YearsTo3Years' : '1Year'); 
+                    array[2] = (type == 'loan' ? '一至三年（含)' : '一年'); 
+                    break;
+                case 4:
+                    array[0] = (type == 'loan' ? '中长期贷款' : '中期存款'); 
+                    array[1] = (type == 'loan' ? '3YearsTo5Years' : '2Years'); 
+                    array[2] = (type == 'loan' ? '三至五年（含)' : '两年'); 
+                    break;
+                case 5:
+                    array[0] = (type == 'loan' ? '中长期贷款' : '中长期存款'); 
+                    array[1] = (type == 'loan' ? 'MoreThan5Years' : '3Years');
+                    array[2] = (type == 'loan' ? '五年以上' : '三年');
+                    break;
+                case 6:
+                    array[0] = '长期存款';
+                    array[1] = '5Years';
+                    array[2] = '五年';
+                default:
+                    break;
+                }
+                    return array;
+            }
+
+        function update(id, category, subCategoryCode, subCategory, date, type, rate) {
+                var executeParam = {
+                    SPName: 'usp_updatetblPBCRates', SQLParams: [
+                        { Name: 'id', value: id, DBType: 'int' },
+                        { Name: 'Category', value: category, DBType: 'string' },
+                        { Name: 'subCategoryCode', value: subCategoryCode, DBType: 'string' },
+                        { Name: 'subCategory', value: subCategory, DBType: 'string' },
+                        { Name: 'rate', value: rate, DBType: 'string' },
+                        { Name: 'type', value: type, DBType: 'string' },
+                        { Name: 'pubdate', value: date, DBType: 'date' },
+                    ]
+                };
+                var svcUrl = GlobalVariable.DataProcessServiceUrl + "CommonExecutePost?";
+                var result = ExecutePostData(false, svcUrl, 'TrustManagement', executeParam);
+                console.log(result);
+        }
+
+        function periodsChange() {
+            $("#periods").html('');
+            var type = $.trim($("#rateType").val());           
+            var loanPeriodsArray = new Array('within6months', '6MonthsTo1Years', '1YearsTo3Years', '3YearsTo5Years', 'MoreThan5Years','');
+            var loanPeriodsArrayDesc = new Array('不满6个月（含）', '六个月至一年（含）', '一至三年（含)', '三至五年（含)', '五年以上','任意期数');
+            var depositPeriodsArray = new Array('3months', '6months', '1Year', '2Years', '3Years', '5Years','');
+            var depositPeriodsArrayDesc = new Array('三个月', '六个月', '一年', '两年', '三年', '五年', '任意期数');
+            if (type == 'loan')
+                $.each(loanPeriodsArray, function (i, item) {
+                    $("#periods").append('<option value=' + loanPeriodsArray[i] + '>' + loanPeriodsArrayDesc[i] + '</option>');
+                })
+            if (type == 'deposit') {
+                $.each(depositPeriodsArray, function (i, item) {
+                    $("#periods").append('<option value=' + depositPeriodsArray[i] + '>' + depositPeriodsArrayDesc[i] + '</option>');
+                })
+            }
+        }
+    </script>
+</body>
+</html>

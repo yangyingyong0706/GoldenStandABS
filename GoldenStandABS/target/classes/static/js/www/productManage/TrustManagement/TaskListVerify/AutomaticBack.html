@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>自动回测结果</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="taskList-style.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <script src="../../../../asset/lib/require.js"></script>
+    <style>
+        html{
+            overflow:hidden;
+        }
+        .table>tbody>tr>td{
+            text-align:center;
+        }
+        .curpoint_style{
+            cursor:pointer;
+            color:#2573d4
+        }
+        .content_td{
+            color: #555;
+            border: 1px solid #ddd;
+        }
+        .hiddenbox{
+            width: 100%;
+            background: #f1f1f1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .content_row_span{
+            display: inline-block;
+            width: 50%;
+            text-align: center;
+            border-right: 1px solid #f1f1f1;
+        }
+        .content_row_span_color,.content_row_span_color1{
+            display: inline-block;
+            width: 25%;
+            text-align: center;
+            cursor: pointer;
+            color: blue;
+        }
+        .content_row{
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            box-shadow: 0px 0px 0px 1px #fff;
+            background: #fff;
+            display: flex;
+        }
+        .table>tbody>tr>td.redColor{
+            color:red;
+        }
+        .table>tbody>tr>td.greenColor{
+            color:green;
+        }
+        .main{
+            padding:15px
+        }
+    </style>
+</head>
+<body>
+    <!-- 分页所需变量-->
+    <div class="main" id="app">
+        <h3 class="h3"><span class="title">自动回测结果</span></h3>
+        <div class="content">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>日期</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="dataList">
+                    <tr v-for="(item,$index) in dataList">
+                        <td>{{$index+1}}</td><!--序号--->
+                        <td>{{item.createdate}}</td><!--日期--->
+                        <td v-bind:class="item.status=='不通过'?'redColor':'greenColor'">{{item.status}}</td><!--状态--->
+                        <td><div class="curpoint_style" v-on:click="appendView($event)">查看</div></td><!--操作--->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="page_navigation">
+            <a class="previous_link" v-on:click="ChangePagePrev()">上一页</a>
+            <a class="page_link active_page">{{page}}</a>
+            <a class="next_link" v-on:click="ChangePageNext()">下一页</a>
+            <a >共{{totalPages}}页</a>
+        </div>
+    </div>
+    <script>
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TaskListVerify/AutomaticBack']);
+        })
+    </script>
+</body>
+</html>

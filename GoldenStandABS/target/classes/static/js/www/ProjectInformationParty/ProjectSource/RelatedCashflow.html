@@ -1,0 +1,296 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>收益分配历史数据</title>
+    <link href="../../productManage/TrustManagement/TrustWizard/trustWizard.css" rel="stylesheet" />
+    <link href="../../productManage/TrustManagement/IncomeDistributionHistoryData/index.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+
+    <style>
+        body {
+            overflow-x: hidden;
+        }
+        .trustIdTab ul {
+            padding: 0 15px;
+        }
+        .catalog-content {
+            height: calc(100% - 255px);
+            padding: 20px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        .trustIdTab {
+            height: 40px;
+        }
+        .trustIdTab ul {
+            width: 100%;
+            float: left;
+            overflow-x: auto;
+            height: 40px;
+            border-bottom: 1px solid #dedede;
+        }
+        .trustIdTab ul li.active {
+            color: rgba(69,86,156,1);
+            border-bottom: 2px solid rgba(69,86,156,1);
+        }
+
+        .trustIdTab ul li {
+            display: inline-block;
+            height: 38px;
+            line-height: 40px;
+            margin-right: 30px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .data_no {
+            height: calc(100% - 42px);
+            top: 41px;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="PageMainContainer" class="main-content" v-cloak>
+        <div class="data_no" v-show="Periods.length==0">
+            <div class="content_nodata">
+                <span class="nodata_img"></span>
+                <span class="nodata_text">当前还没有数据哦！</span>
+            </div>
+        </div>
+        <div style="position: absolute;width:100%;height: 100%;background:#ffffff;z-index: 9;" v-show="loading">
+            <div id="loading" class="loadpage text-center">
+                <i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i>
+            </div>
+        </div>
+        <div class="trustIdTab">
+            <ul>
+                <li v-for="(item,index) in allTrustId" @click="ChangeTrustId(item.TrustId,index,$event)">产品标识：{{item.TrustId}}</li>
+            </ul>
+        </div>
+        <div class="inline-block-container" v-if="Periods.length>0" v-cloak>
+            <ul id="DC_TimeLine" class="timeline">
+                <li v-for="(period,index) in Periods" @click="ShowPeriodDetail($event, index, period); GetAllData(period.EndDate)">
+                    <div class="upside">
+                        <div class="time">
+                            {{period.StartDate}}~{{period.EndDate}}
+                        </div>
+                        <div class="points">
+                            <span class="f-left">第{{index+1}}期</span>
+                        </div>
+                    </div>
+                    <div class="underside">
+                        计息天数{{DaysArr[index] + 2}}天
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="catalog-content" v-show="Periods.length > 0">
+            <div v-if="AccountInfo.length>0">
+                <div>
+                    <span class="title_span_style">储备账户互转明细</span>
+                </div>
+                <table class="table CashInflowTable">
+                    <tbody>
+                        <tr v-for="(AccountInfo,index) in AccountInfo">
+                            <td style="font-weight:bold;">
+                                <span>{{AccountInfo.TrustAccountDisplayName | NameStart}}</span>
+                            </td>
+                            <td>{{AccountInfo.OpeningBalance | FormatMoney}}</td>
+                            <td style="font-weight:bold;">
+                                <span>{{AccountInfo.TrustAccountDisplayName | NameEnd}}</span>
+                            </td>
+                            <td>{{AccountInfo.ClosingBalance|FormatMoney}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div v-if="PeriodCashInflows.length>4">
+                <div>
+                    <span class="title_span_style">现金交易流明细</span>
+                    <span class="verify-res f-right" v-bind:class="ValidationValue<=0.01? 'success':''">
+                        <span class="display" v-if='ValidationValue<=0.01' v-html='ValidationSuccess'></span>
+                        <span class="display" v-if='ValidationValue>0.01' v-html='ValidationFail'></span>
+                    </span>
+                </div>
+                <table class="table CashInflowTable">
+                    <tbody>
+                        <tr v-for="(periodCashInflow,index) in PeriodCashInflows">
+                            <td style="font-weight: bold;">
+                                <span>{{periodCashInflow.source[0].DisplayName}}</span>
+                                <div class="help">
+                                    <i class="icon icon-help"></i>
+                                    <div class="tip-box" data-bind="html:source[0].help">{{periodCashInflow.source[0].Help}}</div>
+                                </div>
+                            </td>
+                            <td>{{periodCashInflow.source[0].Amount}}</td>
+                            <td style="font-weight: bold;">
+                                <span>{{periodCashInflow.source[1].DisplayName}}</span>
+                                <div class="help">
+                                    <i class="icon icon-help"></i>
+                                    <div class="tip-box" data-bind="html:source[0].help">{{periodCashInflow.source[1].Help}}</div>
+                                </div>
+                            </td>
+                            <td>{{periodCashInflow.source[1].Amount}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div v-if="TrustTransactionFee.length > 0">
+                <div><span class="title_span_style">收益分配明细</span></div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="font_weight">对象</th>
+                            <th class="font_weight">类型</th>
+                            <th class="font_weight">账户类型</th>
+                            <th class="font_weight">应分配金额</th>
+                            <th class="font_weight">实际分配金额</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr template v-for="(item,index) in TrustTransactionFeeTrue">
+                            <td style="width: 25%; font-weight: bold;">
+                                <span>{{item.DisplayName}}</span>
+                                <div class="help" v-if="item.FeeType != '证券本金'">
+                                    <i class="icon icon-help"></i>
+                                    <div class="tip-box" v-html="item.Help"></div>
+                                </div>
+                            </td>
+                            <td style="width: 10%" data-bind="text: feeType">{{item.FeeType}}</td>
+                            <td style="width: 25%" data-bind="text: accountType">{{item.AccountType}}</td>
+                            <td style="width: 20%" data-bind="text: feeDueAmount">{{item.FeeDue}}</td>
+                            <td data-bind="text: feePaidAmount">{{item.FeePaid}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div v-if="BondBalanceParam.length>0">
+                <div><span class="title_span_style">本金兑付情况</span></div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="font_weight">对象</th>
+                            <th class="font_weight">类型</th>
+                            <th class="font_weight">账户类型</th>
+                            <th class="font_weight">当前执行利率(%)</th>
+                            <th class="font_weight">期初证券余额</th>
+                            <th class="font_weight">期末证券余额</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(item,index) in BondBalanceParam">
+                            <td style="width: 25%; font-weight: bold;" data-bind="text: displayName">{{item.DisplayName}}</td>
+                            <td style="width: 10%" data-bind="text: type">{{item.Type}}</td>
+                            <td style="width: 25%" data-bind="text: accountType">{{item.AccountType}}</td>
+                            <td style="width: 12%" data-bind="text: currentRate">{{item.CurrentRate}}</td>
+                            <td style="width: 13%" data-bind="text: openingBalance">{{item.OpeningBalance}}</td>
+                            <td data-bind="text: closingBalance">{{item.ClosingBalance}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div v-if="PaymentDetails.length>0">
+                <div><span class="title_span_style">投资人兑付明细</span></div>
+                <div class="TrustBondCodeBox">
+                    <!--<span class="TrustBondCodeTitle">证券代码：</span>-->
+                    <ul class="TrustBondCode">
+                        <li v-for="item in TrustBondCode" @click="GetInfoForBondCode(item.TrustBondCode,$event)">证券：{{item.TrustBondCode}}</li>
+                    </ul>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="font_weight">投资人代码</th>
+                            <th class="font_weight">投资人名称</th>
+                            <th class="font_weight">偿付本金</th>
+                            <th class="font_weight">支付利息</th>
+                            <th class="font_weight">剩余本金</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(item,index) in nowPaymentDetails">
+                            <td style="width: 20%; font-weight: bold;" data-bind="text: displayName">{{item.InvestCode}}</td>
+                            <td style="width: 20%" data-bind="text: type">{{item.InvestName}}</td>
+                            <td style="width: 20%" data-bind="text: accountType">{{item.Principal_Paid}}</td>
+                            <td style="width: 20%" data-bind="text: currentRate">{{item.Interest_Paid}}</td>
+                            <td style="width: 20%" data-bind="text: openingBalance">{{item.RemainPrinciple}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div v-if="TrustTransactionFee.length>0">
+                <!--添加收益分配历史计算-->
+                <div style="text-align: center;">
+                    <a href="#" @click="IsShowValidation()" v-bind:class="ValidationValue<=0.01? 'success':''" class="readmore">
+                        <span v-if='ValidationValue<=0.01' v-html='ValidationSuccess'></span>
+                        <span v-if='ValidationValue>0.01' v-html='ValidationFail'></span>，点击查看校验明细
+                    </a>
+                </div>
+                <div v-if="ShowValidation" class="showValidation">
+                    <span class="title_span_style">校验明细</span>
+                    <table class="M_table">
+                        <thead style="border-left: 1px solid #ededed; border-right: 1px solid #ededed">
+                            <tr style="border-bottom: 1px solid #ededed">
+                                <th style="width: 15%"></th>
+                                <th style="width: 30%">收入分账户</th>
+                                <th style="width: 30%">本金分账户</th>
+                                <th style="width: 15%">总计</th>
+                            </tr>
+                        </thead>
+                        <tbody style="border-left: 1px solid #ededed; border-right: 1px solid #ededed">
+                            <tr v-for="(Item,index) in ValidationDetail">
+                                <td style="vertical-align: middle; width: 15%; text-align: center;">
+                                    <strong data-bind="text:Summary[0].displayName">{{Item.Summary[0].DisplayName}}</strong>
+                                </td>
+                                <td style="padding: 0; width: 30%">
+                                    <table class="M_table" style="margin: 0; border-bottom: 1px solid #ededed;">
+                                        <tbody data-bind="foreach: InterstAccount">
+                                            <tr v-for="(item,index) in Item.InterstAccount">
+                                                <td style="width: 50%" data-bind="text:displayName">{{item.DisplayName}}</td>
+                                                <td style="width: 50%" data-bind="text:money">{{item.Money}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td style="padding: 0; width: 30%">
+                                    <table class="M_table" style="margin: 0; border-bottom: 1px solid #ededed;">
+                                        <tbody data-bind="foreach: PrincipalAccount">
+                                            <tr v-for="(item,index) in Item.PrincipalAccount">
+                                                <td style="width: 50%" data-bind="text:displayName">{{item.DisplayName}}</td>
+                                                <td style="width: 50%" data-bind="text:money">{{item.Money}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td style="vertical-align: middle; width: 15%;" data-bind="text:Summary[0].money">{{Item.Summary[0].Money}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="color: #999; margin-top: 10px; margin-bottom: 20px;">注：校验规则为 期初账户余额+当期收入汇总=当期支出汇总+期末账户余额。当前差值为：<strong v-text='ValidationValue' data-bind="text:validationValue().toFixed(2)"></strong></p>
+                </div>
+                <!--添加收益分配历史计算  end-->
+            </div>
+            <div v-show="TrustTransactionFee.length===0">
+                <div class="data_no" style="margin-top: 170px;">
+                    <div class="content_nodata" style="top: 35%;">
+                        <span class="nodata_img"></span>
+                        <span class="nodata_text">当前还没有数据哦！</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../asset/lib/config'], function (config) {
+            requirejs(['app/ProjectInformationParty/ProjectSource/RelatedCashflow']);
+        });
+    </script>
+</body>
+</html>

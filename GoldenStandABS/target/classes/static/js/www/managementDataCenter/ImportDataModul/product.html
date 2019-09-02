@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>产品列表</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <style>
+        .loadpage {
+            position: absolute;
+            top: 46%;
+            left: 46%;
+            background: transparent;
+        }
+        .loadpage > i {
+            color: rgb(107, 147, 216);
+        }
+
+        html {
+            height: 100%;
+        }
+        body {
+            font-size: 13px;
+            color: #4d4d4d;
+            font-family: "Microsoft Yahei";
+            font-weight: normal;
+            padding: 15px;
+            background: #fafafa;
+        }
+        .k-grid tr td {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .k-grid-header-locked {
+            height: 36px;
+        }
+        a {
+            text-decoration: none !important;
+        }
+        .main {
+            background: #fff;
+            padding: 15px;
+        }
+    </style>
+    <script src="../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/managementDataCenter/ImportDataModul/product']);
+        });
+    </script>
+
+</head>
+<body style="height:100%">
+    <div class="main">
+        <div id="grid" style="clear:both"></div>
+    </div>
+</body>
+</html>

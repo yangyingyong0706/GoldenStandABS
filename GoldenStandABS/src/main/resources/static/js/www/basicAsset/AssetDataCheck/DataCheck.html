@@ -1,0 +1,274 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" style="width:calc(100% - 30px);margin:auto;height:100%;overflow:hidden">
+<head>
+    <title>数据校验</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!--<link href="../style/style.css" rel="stylesheet" />-->
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/style/reset.css" rel="stylesheet" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/toast/toast.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <style>
+        body {
+            height: calc(100% - 20px);
+        }
+
+        .k-grid-header, .k-grid-header-wrap.k-auto-scrollable {
+            height: auto !important;
+        }
+
+        input[type="checkbox"] {
+            margin-top: 0px;
+        }
+
+        .check-main {
+            margin-top: 20px;
+            height: 100%;
+        }
+
+        .check-upload {
+            margin-bottom: 15px;
+        }
+        .check-upload-btn {
+            position: relative;
+            width: 20%;
+            cursor: pointer;
+            background-color:#ebeef5;
+        }
+        .check-upload-btn input[type=file] {
+             position: absolute;
+             top: 0;
+             width: 100%;
+             height: 30px;
+             bottom: 0;
+             left: 0;
+             right: 0;
+             opacity: .0;
+             font-size: 0;
+             cursor: pointer;
+         }
+         .check-upload-btn button[type=button] {
+              width: 100%;
+              border: 0 none;
+              background: none;
+         }
+
+        .check-select {
+            width: 18%;
+        }
+
+        .check-group-btns{
+            width: 12%;
+            text-align:right;
+        }
+        .btn-default{
+            color:red;
+        }
+        .normal_small_button[disabled] {
+            opacity: .4;
+            cursor: not-allowed;
+        }
+
+        .bbtn.b1 {
+            background-color: #6c78bd;
+            /*color: #fff;*/
+        }
+
+        .bbtn.b1:hover {
+            color: #fff !important;
+        }
+
+        .run-task {
+            background-color: #f1f8ff;
+            border: 1px solid #c8e1ff;
+            padding: 3px 5px;
+            border-radius: 2px;
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+
+        .progress {
+            height: 20px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+        }
+
+            .progress > .progress-bar {
+                float: left;
+                width: 0;
+                height: 100%;
+                font-size: 12px;
+                line-height: 20px;
+                text-align: right;
+                background: #6c78bd;
+                background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                -webkit-transition: width .6s ease;
+                -o-transition: width .6s ease;
+                -webkit-background-size: 40px 40px;
+                background-size: 40px 40px;
+                -webkit-animation: progress-bar-stripes 2s linear infinite;
+                -o-animation: progress-bar-stripes 2s linear infinite;
+                animation: progress-bar-stripes 2s linear infinite;
+            }
+
+                .progress > .progress-bar > span {
+                    color: #fff;
+                    padding: 0 10px;
+                }
+
+        @-webkit-keyframes progress-bar-stripes {
+            from {
+                background-position: 40px 0;
+            }
+
+            to {
+                background-position: 0 0;
+            }
+        }
+
+        @-o-keyframes progress-bar-stripes {
+            from {
+                background-position: 40px 0;
+            }
+
+            to {
+                background-position: 0 0;
+            }
+        }
+
+        @keyframes progress-bar-stripes {
+            from {
+                background-position: 40px 0;
+            }
+
+            to {
+                background-position: 0 0;
+            }
+        }
+
+        #mask {
+            position: fixed;
+            top: 0px;
+            width: 100%;
+            bottom: 0;
+            background-color: #fff;
+            z-index: 1002;
+            left: 0px;
+            text-align: center;
+        }
+
+            #mask i {
+                position: absolute;
+                left: 50%;
+                top: 42%;
+                transform: translate(-50%,-42%);
+                color: rgb(107, 147, 216);
+            }
+
+        .noData {
+            text-align: center;
+            height: calc(100% - 65px);
+        }
+
+            .noData img {
+                display: block;
+                width: 150px;
+                margin: 0 auto;
+            }
+
+            .noData p {
+                color: rgba(0,0,0,.3);
+                margin: 20px 0;
+            }
+
+            .noData > div {
+                position: absolute;
+                left: 50%;
+                top: 53%;
+                transform: translate(-50%,-50%);
+            }
+            .check-file{
+                width:70%;
+                display:flex;
+            }
+            .check-file-name{
+                width:36%;
+                margin-left:15px;
+                border-radius:2px 0px 0px 2px;
+                overflow:hidden;
+                text-overflow:ellipsis;
+                white-space:nowrap;
+            }
+            .check-btn-edit{
+                margin-left:15px;
+            }
+    </style>
+
+    <script src="../../../asset/lib/require.js"></script>
+
+    <script type="text/javascript">
+        requirejs(['../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/basicAsset/AssetDataCheck/DataCheck']);
+        });
+    </script>
+
+
+</head>
+<body style="display:none">
+    <div id="selectLanguageDropdown_dcl" class="localizationTool" style="display:none"></div>
+    <div id="app" class="check-main">
+        <div id="mask" v-show="loading">
+            <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+        </div>
+        <div class="check-upload" id="gold-form-panel">
+            <div class="check-select">
+                <select id="dcAssetType" class="form-control gold-form-control" v-model="selected" style="border-radius:2px;">
+                    <option v-for="v in options" v-text="v.AssetTypeDesc" v-bind:value="v.AssetType"></option>
+                </select>
+            </div>
+            <div class="check-file">
+                <div class="check-file-name gold-file-name" :title="filename">{{filename}}</div>
+                <div class="check-upload-btn gold-form-file" role="button">
+                    <input id="fileUploadFile" type="file" name="file" v-on:change="selectFile" v-bind:disabled="!uploadBtnDisable" style="display:block!important" />
+                    <button id="selectFile_dcl" type="button" class="bbtn public_font_style" v-if="filename == ''" v-text="'选择文件'"></button>
+                    <button id="selectedFile_dcl" type="button" class="bbtn public_font_style" v-else v-text="'已选中文件'" v-bind:disabled="!uploadBtnDisable"></button>
+                </div>
+                <div class="check-btn-edit">
+                    <button type="button" class="btn btn-primary" v-on:click="uploadFile" v-text="uploadBtn" v-bind:disabled="uploadBtnDisable"></button>
+                    <button id="cancel_dcl" type="button" class="btn btn-danger" v-on:click="cancel">取消</button>
+                </div>
+            </div>
+            <div class="check-group-btns">
+                <button class="btn btn-default" v-on:click="removeItem" id="removeItem">删除</button>
+            </div>
+            <div class="clearfix" v-bind:vuex="states"></div>
+        </div>
+        <div class="progress" v-show="percent>0" style="display:none">
+            <div class="progress-bar" v-bind:style="{width:percent + '%'}"><span id="spanprogress" v-text="percent + '%'"></span></div>
+        </div>
+        <div class="check-history" v-show="!show">
+            <div id="grid"></div>
+        </div>
+        <div class="noData" v-show="show">
+            <div>
+                <img src="../../../asset/img/no_ata.png" />
+                <p>暂无数据！</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+﻿{
+    "app": "DashBoard",
+    "title": "投后管理",
+    "group": [    
+        {
+            "elements": [
+                 {
+                    "active": true,
+                    "title": "投后总览",
+                    "titleclass": "icon icon-chart-bar",
+                    "type": "button",
+                    "linkname": "RiskDashBoard",
+                    "linkurl": "../riskManagement/riskDashboard.html"
+                },
+                {
+                    "active": false,
+                    "title": "投后数据",
+                    "titleclass": "icon icon-data-science",
+                    "type": "button",
+                    "linkname": "RiskReportDashboard",
+                    "linkurl": "../report/ReportDarshboard.html"
+                },
+                {
+                    "active": false,
+                    "title": "投后检查",
+                    "titleclass": "icon icon-roundcheck",
+                    "type": "button",
+                    "linkname": "RiskCheck",
+                    "linkurl": "../riskManagement/CreditRiskCheck/CreditRiskCheckList.html"
+                },
+                {
+                    "active": false,
+                    "title": "信息披露",
+                    "titleclass": "icon icon-note",
+                    "type": "button",
+                    "linkname": "InfoPublish",
+                    "linkurl": "../riskManagement/InfomationPublish/InfomationPublishList.html"
+                },
+                {
+                    "active": false,
+                    "title": "风险预警",
+                    "titleclass": "icon icon-warning",
+                    "type": "button",
+                    "linkname": "RiskEarlyWarning",
+                    "linkurl": "../riskManagement/RiskEarlyWarning/RiskEarlyWarning.html"
+                }
+            ]
+        }
+    ]
+}

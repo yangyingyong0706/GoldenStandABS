@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="zTree/css/ReviewDocumentManagement.css" rel="stylesheet" />
+    <!--<link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />-->
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../asset/style/page.css" rel="stylesheet" />
+    <link href="zTree/css/zTreeStyle/pagerlist-style.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <script src="../../../../asset/lib/require.js"></script>
+
+    <style>
+        .buttongroup .btn {
+            margin-left: 5px;
+        }
+        span.order {
+            width: auto !important;
+        }
+    </style>
+
+
+</head>
+<body>
+    <div id="page_main_container" class="main">
+        <div class="p10 archive1" id="single-form">
+            <div class="archive2 pull-left mt-5"><span class="title">文件路径:</span></div>
+            <div class="archive3 col-5 pull-left mt-5">
+                <input type="text" class="form-control gold-single-input" id="path" value="E:\TSSWCFServices\TrustManagementService\TrustFiles" />
+            </div>
+        </div>
+        <div class="p10 archive1">
+            <div class="archive2 pull-left mt-5"><span class="title">文件功能:</span></div> 
+            <div class="pull-left ml-10 buttongroup">
+                <input type="button" class="btn btn-default btn-single-default" id="refreshPath" value="刷新" />
+                <input type="button" class="btn btn-default btn-single-default" id="ValidityCheck" value="有效性检验" />
+                <input type="button" class="btn btn-default btn-single-default" id="exportExcel" value="导出索引" />
+                <input type="button" class="btn btn-default btn-single-default" id="downLoadPackage" value="打包下载" />
+            </div>
+        </div>
+        <dv class="p10 archive1">
+            <div class="col-12 form-item">
+                <div class="col-9 file-title">
+                    <label>历史版本</label>
+                </div>
+            </div>
+            <div class="form-panel drop nobottom">
+                <div id="divDataList" class="list-container"></div>
+            </div>
+        </dv>
+        <div class="p10 archive1">
+            <div class="col-12 form-item">
+                <div class="col-9 file-title">
+                    <label>文件目录</label>
+                </div>
+            </div>
+            <div id="divDemo" class="col-12"></div>
+        </div>
+    </div>
+    <script id="tmplDirectoryInfo" type="text/html">
+        <ul>
+            <li>
+                {{if Level>0}}
+                <input type="checkbox" class="ckb" filefullpath="{{FileFullPath}}" />
+                <span class="order" style="width:{{placeholderLength | placeholder}}px;display:inline-block;">{{Index}}</span>
+                {{if EntityType == 0}}
+                <img src="../documentManagement/zTree/img/foldered.png" class="folderClass foldered" style="vertical-align:middle" />
+                <img src="../documentManagement/zTree/img/folder-open.png" style="vertical-align:middle" />
+                {{else}}
+                <span class="zhanwei"></span>
+                <img src="../documentManagement/zTree/img/{{Name | iconShow}}.png" style="vertical-align:middle" />
+                {{/if}}
+                {{else}}
+                {{if EntityType == 0}}
+                <img src="../documentManagement/zTree/img/foldered.png" class="folderClass foldered" style="vertical-align:middle" />
+                <img src="../documentManagement/zTree/img/folder-open.png" style="vertical-align:middle">
+                {{else}}
+                <span class="zhanwei"></span>
+                <img src="../documentManagement/zTree/img/file.png" style="vertical-align:middle">
+                {{/if}}
+                {{/if}}
+
+                <span>{{Name}}</span>
+
+                {{if Children.length>0}}
+                {{each Children as data}}
+                {{include 'tmplDirectoryInfo' data}}
+                {{/each}}
+                {{/if}}
+            </li>
+        </ul>
+    </script>
+    <script>
+    requirejs(['../../../../asset/lib/config'], function (config) {
+        require(['app/productManage/TrustManagement/documentManagement/zTree/js/ReviewDocumentManagement'])
+    });
+    </script>
+
+</body>
+</html>

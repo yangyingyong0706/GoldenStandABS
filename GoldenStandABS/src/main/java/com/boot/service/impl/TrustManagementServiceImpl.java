@@ -25,8 +25,15 @@ public class TrustManagementServiceImpl implements TrustManagementService{
 		return trustManagementMapper.GetTrustInfoFromWizardMap(TrustId);
 	}
 	
+	public Map<String,Object> getABSversion(){
+		return trustManagementMapper.getABSversion();
+	}
 	
 	public List<Trust>  GetTrust(){
 		return trustManagementMapper.GetTrust();
 	}
+	public List<Map<String,Object>> GetAllCodeDictionary(String aliasSetName){
+		return trustManagementMapper.GetAllCodeDictionary(aliasSetName);
+	}
+	
 }

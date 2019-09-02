@@ -1,0 +1,126 @@
+﻿html {
+    height: calc(100% - 35px);
+}
+body {
+    height: 100%;
+    background: #fafafa;
+    padding: 15px;
+}
+.main-content {
+    height: 100%;
+}
+.loading { 
+    position: fixed; 
+    top: 0px; 
+    width: 100%; 
+    bottom: 0; 
+    background-color: #fff; 
+    z-index: 1002; 
+    left: 0px; 
+    text-align: center; 
+}
+.btn-link,.btn-link:hover{
+    color:#45569c;
+}
+.loading i { 
+    position: absolute; 
+    left: 50%; 
+    top: 50%; 
+    transform: translate(-50%,-50%); 
+    color: rgb(107, 147, 216);
+}
+.data_have {
+    padding: 15px;
+    background: #fff;
+    height: 100%;
+}
+.form-group .col-md-3,
+.form-group .col-xs-3 {
+    padding-right: 0px;
+}
+.form-group .col-md-5,
+.form-group .col-xs-5 {
+    padding-left: 0px;   
+}
+.form-panel.drop .col-xs-3,
+.form-panel.drop .col-xs-9,
+.form-panel.drop .col-md-3,
+.form-panel.drop .col-md-9 {
+    padding: 0px;
+}
+.file_name{
+    display: inline-block;
+    height: 30px;
+    line-height: 30px; 
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: calc(100% - 90px);
+    box-sizing: border-box;
+    padding-left: 10px;
+    border:1px solid #dce0ee;
+    border-right:0px;
+}
+#uploadFileWindow, #UpdateFileWindow, #UpdateFileWindowForDoc {
+    height: 100%;
+    padding: 30px 15px;
+    background: #ffffff;
+    box-sizing: border-box;
+    position: relative;
+}
+#uploadFileWindow .row,
+#UpdateFileWindow .row,
+#UpdateFileWindowForDoc .row {
+    margin: 0px 0px 15px;
+}
+.buttons {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    bottom: 20px;
+}
+#historyData {
+    margin: 15px;
+}
+.k-grid-header th.k-header:not(:first-child) {
+    padding-left: 5px;
+}
+#historyData td {
+    padding-top: 0.45em;
+    padding-bottom: 0.45em;
+}
+.domain {
+    text-align: right;
+    margin: 0 0 15px 0;
+}
+.top_message {
+    height: 30px;
+}
+#ProjectNameNow{
+    float: left;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4d4d4d;
+    line-height: 30px;
+}
+#ProjectNameNow label {
+    font-weight: 400;
+}
+button i.fa-trash-o {    
+    font-size: 16px;
+    float: left;
+    margin-top: 1px;
+}
+button i.icon-upload {    
+    float: left;
+    margin-top: -2px;
+}
+.red-border {
+    border: 1px solid #f56c6c !important;
+}
+.beyondHidden {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

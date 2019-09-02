@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>专项计划导入导出</title>
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        html,body{
+            padding:0px;
+            margin:0px;
+            width:100%;
+            height:100%;
+            font-family: 'Microsoft YaHei';
+        }
+        .UpFile_layer {
+            width: 100%;
+            height: auto;
+            text-align:center
+        }
+        .label_title {
+            background: rgba(243,245,250,1);
+            border: 1px solid rgba(220,224,238,1);
+            text-align: center;
+            box-sizing: border-box;
+            line-height: 30px;
+            color: #555;
+            padding: 0 3px;
+            height: 30px;
+            overflow: hidden;
+            display: block;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: 14px;
+            width: 30%;
+            margin-bottom: 0px;
+            line-height: 30px;
+            font-weight: normal;
+            border-right: 0;
+        }
+        .layer_b {
+            width: 100%;
+            border: 1px solid rgba(230,233,245,1);
+            box-sizing: border-box;
+        }
+        .layer_each {
+            display: flex;
+            padding:20px;
+         }
+            .progress {
+            height: 20px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+        }
+
+        .progress > .progress-bar {
+            float: left;
+            width: 0;
+            height: 100%;
+            font-size: 12px;
+            line-height: 20px;
+            text-align: right;
+            background: #6c78bd;
+            background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+            background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+            background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+            -webkit-transition: width .6s ease;
+            -o-transition: width .6s ease;
+            -webkit-background-size: 40px 40px;
+            background-size: 40px 40px;
+            -webkit-animation: progress-bar-stripes 2s linear infinite;
+            -o-animation: progress-bar-stripes 2s linear infinite;
+            animation: progress-bar-stripes 2s linear infinite;
+        }
+        .file_name {
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            width:calc(69% - 190px);
+            box-sizing: border-box;
+            padding-left: 10px;
+            border: 1px solid rgba(0,0,0,0.2);
+            font-size: 12px;
+        }
+        #app{
+            width:100%;
+            height:100%;
+            padding:15px;
+            box-sizing:border-box
+        }
+        .div_title{
+            width:100%;
+            border-bottom:1px solid rgba(220,224,238,1);
+            height:40px;
+            line-height:40px;
+            padding-left:20px;
+            box-sizing:border-box;
+            text-align:left;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="UpFile_layer">
+            <div class="layer_b">
+                <div class="div_title"><span style="font-size:16px;color:#45569C">导出产品</span></div>
+                <div class="layer_each">
+                    <label class="label_title">选择产品</label>
+                    <select style="width:calc(100% - 120px);border: 1px solid rgba(220,224,238,1);padding-left:20px" v-model="TrustId">
+                        <option v-for="(product,index) in productList" v-bind:value="product.id" v-text="product.id+'_'+product.name"></option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn btn-primary" style="width:auto;font-size: 14px;margin-top:20px" id="ExportSpecialPlan" @click="ExportSpecialPlan()">导出产品</button>
+            <!--<div class="layer_b">
+                <div class="layer_each">
+                    <label class="label_title">导入产品文件</label>
+                    <span class="file_name"></span>
+                    <label for="ImportTrustPlanDocument" class="input_file_style" style="box-sizing:border-box;height:30px">
+                        <input type="file" id="ImportTrustPlanDocument" />
+                        <span>选择文件</span>
+                    </label>
+                    <button class="normal_small_button" style="width:120px;font-size: 14px;margin-left: 1%;" id="UpImportTrustPlan" @click="UpImportTrustPlan()">导入产品</button>
+                </div>
+                <div class="progress" style="width:100%;position:relative;top:-20px;margin:0px;display:none">
+                    <div class="progress-bar"><span></span></div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+    <script src="../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../asset/lib/config'], function (config) {
+            requirejs(['app/basicData/TrustImportExport/TrustImportExport']);
+    });
+    </script>
+</body>
+</html>

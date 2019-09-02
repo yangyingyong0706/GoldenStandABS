@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <title>报表总览</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <link href="../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="ReportGrid.css" rel="stylesheet" />
+    <script src="../../asset/lib/require.js" data-main="ReportDarshboard.js"></script>
+    <script src="../../asset/lib/goldenstand/JSLINQ.js"></script>
+    <style>
+        body,html{
+            height:100%;
+            padding:0px;
+            background-color:rgba(243,245,250,1);
+        }
+        .loadpage{
+            margin:0px;
+        }
+        .selectLabel {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading" class="loadpage text-center"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+    <div id="reportMapDiv" class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 header">
+                <span class="title">
+                    <i class="icon icon-align-right"></i>
+                    投后数据
+                </span>
+                <button id="exportData" type="button" class="btn btn-default btn-sm font12 pull-right">
+                    <i class="icon icon-export"></i>
+                    <span>下载月度监测报告</span>
+                </button>  
+                <select id="dateSelect" class="pull-right"></select>
+                <span class="pull-right selectLabel">生成日期：</span>
+                <button id="dataReady" type="button" class="btn btn-default btn-sm font12 pull-right">
+                    <i class="icon icon-cog-alt"></i>
+                    <span>数据准备</span>
+                </button>
+            </div>
+            <div class="col-md-12">
+                <!--ko foreach:ReportGroups-->
+                <dl class="report-list" style="display:none;">
+                    <dt><span data-bind="text:ReportGroupName"></span><i class="icon icon-bottom pull-right"></i></dt>
+                    <dd>
+                        <!--ko foreach:Reports-->
+                        <div class="col-md-3">
+                            <div class="ReportContentRoom" data-bind="attr:{url:ReportUrl,showId:ReportId}">
+                                <p>
+                                    <svg t="1541751727576" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="20285" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><defs><style type="text/css"></style></defs><path d="M64 85.504h896c14.336 0 21.504 7.168 21.504 21.504 0 14.336-7.168 21.504-21.504 21.504h-896c-14.336 0-21.504-7.168-21.504-21.504 0-14.336 7.168-21.504 21.504-21.504z" p-id="20286"></path><path d="M170.496 128v512c0 23.552 18.944 42.496 42.496 42.496h597.504c23.552 0 42.496-18.944 42.496-42.496V128H170.496zM128 85.504h768V640c0 47.104-38.4 85.504-85.504 85.504H213.504c-47.104 0-85.504-38.4-85.504-85.504V85.504zM149.504 896h725.504c14.336 0 21.504 7.168 21.504 21.504 0 14.336-7.168 21.504-21.504 21.504H149.504c-14.336 0-21.504-7.168-21.504-21.504 0-14.336 7.168-21.504 21.504-21.504z" p-id="20287"></path><path d="M362.496 682.496c14.336 0 21.504 7.168 21.504 21.504v213.504c0 14.336-7.168 21.504-21.504 21.504-14.336 0-21.504-7.168-21.504-21.504v-213.504c0.512-14.336 7.68-21.504 21.504-21.504zM661.504 682.496c14.336 0 21.504 7.168 21.504 21.504v213.504c0 14.336-7.168 21.504-21.504 21.504-14.336 0-21.504-7.168-21.504-21.504v-213.504c0-14.336 7.168-21.504 21.504-21.504zM814.08 408.064l-122.368-174.592c-8.704-13.824-24.576-12.288-31.744-4.608-3.072 3.072-3.072 3.584-6.656 8.704L487.936 502.272 373.76 366.592c-2.56-3.072-4.608-5.12-7.168-8.192-4.608-4.608-9.216-6.656-13.824-6.144-6.144-0.512-11.776 2.56-16.384 8.704-2.048 2.56-2.56 3.584-4.608 7.168l-111.616 174.08c-7.68 11.776-5.632 22.016 6.656 29.696 11.776 7.68 22.016 5.632 29.696-6.656l99.328-155.136 114.176 136.704c1.536 2.56 3.584 5.12 6.144 7.168 4.608 4.608 9.728 6.656 14.848 6.656 6.656 0.512 12.288-3.072 17.408-10.24 1.536-1.536 2.56-3.072 3.072-4.608l163.84-262.144 104.448 148.992c8.192 11.776 17.92 13.312 29.696 5.12 11.264-7.68 12.8-17.92 4.608-29.696z" p-id="20288"></path></svg>
+                                    <span data-bind="text:ReportName"></span>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                    </dd>
+                </dl>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

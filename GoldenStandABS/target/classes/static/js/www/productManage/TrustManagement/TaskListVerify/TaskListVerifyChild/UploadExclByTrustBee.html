@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>受托报告上传文件</title>
+    <link href="../../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../taskList-style.css" rel="stylesheet" />
+    <link href="../../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <style>
+        .layer_each {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .progress {
+            height: 20px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+        }
+
+    .progress > .progress-bar {
+        float: left;
+        width: 0;
+        height: 100%;
+        font-size: 12px;
+        line-height: 20px;
+        text-align: right;
+        background: #6c78bd;
+        background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+        background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+        background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+        -webkit-transition: width .6s ease;
+        -o-transition: width .6s ease;
+        -webkit-background-size: 40px 40px;
+        background-size: 40px 40px;
+        -webkit-animation: progress-bar-stripes 2s linear infinite;
+        -o-animation: progress-bar-stripes 2s linear infinite;
+        animation: progress-bar-stripes 2s linear infinite;
+    }
+    input[type=file]{
+        display:none
+    }
+    .container-fluid{
+        padding: 15px;
+        margin: 15px;
+    }
+    .input_file_style span{
+        font-weight:normal;
+    }
+    .input-right-layer{
+        width: calc(100% - 200px);
+    }
+    .select-area{
+        margin-bottom:20px;
+    }
+    #trustChoice{
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 2px;
+            padding-left: 10px;
+            border: 1px solid #dedede;
+    }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <!--<div class="select-area">
+            <select id="trustChoice"></select>
+        </div>-->
+        <div class="layer_each">
+            <label class="col-sm-4">shouldbe验证数据上传</label>
+            <div class="input-right-layer col-sm-8" style="padding: 0;">
+                <span class="file_name"></span>
+                <label for="ImportCashFlowOAAccounts" class="input_file_style form" style="box-sizing:border-box;height:30px">
+                    <input type="file" id="ImportCashFlowOAAccounts" />
+                    <span>选择文件</span>
+                </label>
+            </div>
+        </div>
+        <div class="progress" style="width:100%;position:relative;top:-10px;margin:0px;display:none">
+            <div class="progress-bar"><span></span></div>
+        </div>
+        <div class="row" style="text-align:center">
+            <button class="btn btn-primary" id="UpTrustBeeExcl">上传</button>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TaskListVerify/TaskListVerifyChild/UploadExclByTrustBee']);
+        });
+    </script>
+</body>
+</html>

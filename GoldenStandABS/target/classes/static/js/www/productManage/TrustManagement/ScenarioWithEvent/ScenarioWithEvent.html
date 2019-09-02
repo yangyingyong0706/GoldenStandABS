@@ -1,0 +1,250 @@
+﻿<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>偿付情景管理</title>
+
+    <link href="../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+
+    <!--<link href="../../../../asset/style/bootstrap.css" rel="stylesheet" />-->
+    <!--<link href="../EventMaintain/css/bootstrap.css" rel="stylesheet" />-->
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../EventMaintain/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+
+    <link href="../../../../asset/style/common.css" rel="stylesheet" />
+    <link href="../../../../asset/style/page.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <style>
+         ::-ms-clear{display: none;}
+        body {
+            margin:0;
+            padding:0;
+        }
+         #ItemsDropdownDiv {
+             font-size: 14px;
+         }
+
+          #ItemListDiv {
+             width: 750px;
+             margin: 30px auto 10px;
+         }
+
+         .role-container,
+         .permission-container {
+             position: relative;
+             float: left;
+             width: 300px;
+         }
+         .permission-container {
+             padding-top: 40px;
+         }
+         .role-container {
+            margin-right: 40px;
+         }
+
+         .addpermission-wraper{
+            display:none;
+            position: absolute;
+            top: -10px;
+            right: 100%;
+            width: 180px;
+        }
+
+        .role-list,
+        .flow-list,
+        .addpermission-list,
+        .permission-list{
+            border: 1px solid #ccc;
+            background:#fff;
+        }
+
+         .role-item,
+         .flow-item,
+         .addpermission-item,
+         .permission-item {
+             padding: 0 5px;
+             line-height: 30px;
+             border-bottom: 1px solid #ccc;
+         }
+
+        .flow-list{
+            display:none;
+             position: absolute;
+             top: 40px;
+             right: 0;
+             z-index: 3;
+             width: 180px;
+             background: #fff;
+        }
+        .flow-list,
+        .addpermission-list{
+             box-shadow: 1px 2px 8px 0 rgba(0,0,0,.2);
+        }
+        .flow-item{
+            position: relative;
+        }
+
+         .role-list,
+         .permission-list{
+             height: 380px;
+             overflow: auto;
+         }
+
+        .flow-list,
+        .addpermission-list{
+            border-radius: 3px;
+        }
+
+         .flow-item:hover .addpermission-wraper{
+             display: block;
+         }
+
+         .flow-item:last-child{
+             border-bottom-color: transparent;
+         }
+         .role-item,
+         .addpermission-item{
+             cursor: pointer;
+         }
+         .role-item i{
+             display: none;
+             float: right;
+             font-size: 16px;
+             color: #555;
+         }
+         .flow-item a{
+             color: #333;
+             cursor: default;
+         }
+         .flow-item i{
+             display:none;
+         }
+         .flow-item:hover i{
+             display:inline;
+         }
+         .addpermission-item a{
+             cursor: pointer;
+         }
+         .flow-item a:hover{
+             text-decoration: none;
+         }
+         .role-item:hover,
+         .flow-item:hover,
+         .addpermission-item:hover,
+         .permission-item:hover {
+             background-color: #f5f5f5;
+         }
+         .role-item.active{
+             background-color: #eee;
+         }
+
+         .role-item.active i{
+             display: inline;
+         }
+
+         .dropdown{
+             position: relative;
+         }
+         .btn-remove {
+             float: right;
+             vertical-align: top;
+         }
+
+         .icon-double{
+             display:none;
+            position: absolute;
+             top: 0;
+             bottom: 0;
+             left: 100%;
+             width: 40px;
+             height: 20px;
+             margin: auto;
+             text-align: center;
+             font-size: 18px;
+             color: #555;
+        }
+        ul {
+            padding:0;
+        }
+        .role-item i {
+            font-size:10px
+        }
+
+        body.padding_b{
+            padding-bottom:0px;
+        }
+        .mask {       
+            position: absolute; top: 0px; filter: alpha(opacity=60); background-color: #777;     
+            z-index: 1002; left: 0px;     
+            opacity:0.1; -moz-opacity:0.1;     
+        }  
+    </style>
+</head>
+<body class="main padding_b">
+    <div id="mask" class="mask"></div>
+    <div id="ItemsDropdownDiv">
+        <div style="padding-top:7px;">
+            <span class="title" style="padding:2%;">偿付情景设置</span>
+            <div class="dropdown pull-right" style="top: -7px;">
+                <!--<button class="normal_small_button" id="AddNewScenario" style="height:30px;">
+                    <span class="font12">添加情景</span>
+                </button>-->
+                <button class="normal_small_button dropdown-btn" style="height:30px;">
+                    <span class="font12">添加事件</span>
+                    <i class="icon-down-dir"></i>
+                </button>
+                <ul class="flow-list" data-bind="foreach:EventListInTrust">
+                    <li class="flow-item" data-bind="event: {click:$parent.addEvent.bind($data)}">
+                        <a data-bind="html:$data.EventName"></a>
+                        <i class="icon-right-open-1 pull-right"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="ItemListDiv" class="clearfix">
+            <div class="role-container">
+                <div class="input-group input-group-sm mb10">
+                    <div class="input-group-btn">
+                        <button class="btn btn-primary search-btn">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </div>
+                    <input type="text" id="dropDownItemName" class="form-control" placeholder="搜索偿付情景">
+                </div>
+                <ul class="role-list" data-bind="foreach:ScenarioList">
+                    <li class="role-item" data-bind="event: {click:$parent.selectScenario.bind($data,$parentContext.$index)}">
+                        <span data-bind="html:ScenarioName"></span>
+                        <button type="button" class="btn btn-remove" style="display:none;" data-bind="event: {click: $parent.removeScenario.bind($data)}">
+                            <i class="icon-cancel font12"></i>
+                        </button>
+                    </li>
+                </ul>
+                <i class="icon-angle-double-right icon-double"></i>
+            </div>
+
+            <div class="permission-container">
+                <ul class="permission-list" data-bind="foreach:EventListInScenario">
+                    <li class="permission-item">
+                        <span data-bind="html:EventName"></span>
+                        <button type="button" class="btn btn-remove" data-bind="event: {click: $parent.deleteEventInScenario.bind($data)}">
+                            <i class="icon-cancel font12" style="font-size:10px;"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="../../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/productManage/TrustManagement/ScenarioWithEvent/ScenarioWithEvent']);
+        });
+    </script>
+</body>
+</html>
+<div id="dialog-confirm" title="确认删除？">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>您确定删除该事件吗？</p>
+</div>

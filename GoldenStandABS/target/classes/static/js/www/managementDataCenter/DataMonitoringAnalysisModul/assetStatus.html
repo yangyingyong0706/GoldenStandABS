@@ -1,0 +1,536 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" style="background:#fff">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+
+    <title>资产池情况及分析</title>
+    <style>
+        body {
+            padding: 15px;
+        }
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            list-style: none;
+        }
+        html,body {
+            height: 100%;
+        }
+        #app {
+            height: calc(100% - 30px);
+        }
+        .pageBox {
+            height: calc(100% - 85px);
+        }
+        .tabMain {
+            height: 100%;
+            overflow: auto;
+        }
+        #loading {
+            position: absolute;
+            top: 0px;
+            z-index: 1002;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+        }
+        #loading > i {
+            color: rgb(107, 147, 216);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+        }
+        #showDate {
+            display: inline-block;
+            margin-left: 10px;
+            vertical-align: -2px;
+            color: #555;  
+        }
+        [v-cloak] {
+            display: none;
+        }
+        .detailsBox .mainTable table {
+            width: 100%;
+            border: 1px solid #dedede;
+        }
+        .detailsBox .mainTable table td,  .detailsBox .mainTable table th {
+            padding: 8px 15px 8px 30px;
+            border: 1px solid #dedede;
+            font-weight: 400;
+            color: #555;
+        }
+        .detailsBox .mainTable thead {
+            background-color: rgba(243,245,250,1);
+        }
+        .k-grid td {
+            padding: .55em 1.286em;
+        }
+
+        .filter_box{ 
+            width:100%; 
+            top:47px; 
+            left: 0; position: absolute;
+            background: #fff;
+            z-index: 99;
+            border: 1px solid #ccc; 
+            box-sizing: border-box;   
+            padding: 20px 15px;
+            box-shadow: 0px 3px 3px 0px #E6E6E6;
+        }
+        .list_box .filter_box >.div_box { height:auto;}
+        .list_box .filter_box >.div_box>div{height:40px;display:inline-block;float:left;}
+        .list_box .filter_box >.div_box{box-sizing:border-box;}
+        .list_box .filter_box >.div_box>div{margin-bottom:20px; white-space:nowrap;}
+        .list_box .filter_box >.div_box>div>label {
+            font-size: 14px;
+            font-weight: 400;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            color: #777777!important;
+            display: inline-block;
+            border: 1px solid #efecec;
+            border-right: none;
+            float: left;
+            background-color: #e6e9f5;
+        }
+        .list_box .filter_box select,.list_box .filter_box input[type=text]{
+            width: 60%;
+            height: 40px;
+            border: 1px solid #ebebeb;
+            color: #555;
+        }
+        .list_box .filter_box input[type=text] {
+            width: 90%;
+        }
+        .list_box .filter_box >.div_box>div.storageTime>input{width:101px;height:29px;margin-right:5px;}
+        .list_box .filter_box >.div_box>div.storageTime>input:nth-child(3){margin-left:5px;}
+
+        .list_box .filter_box >div.fiterBtn{display:inline-block;height:auto; float:left;box-sizing:border-box;width:100%;position:relative;text-align: center;}
+        .list_box .filter_box >div.fiterBtn>input{width: 58px; height: 35px; margin-right: 15px;}
+        .list_box .filter_box >div.fiterBtn>i{cursor:pointer;}
+        .list_box {
+            box-sizing: border-box;
+            padding: 0 15px 15px 15px;
+            position: static;
+            border-bottom: 1px solid #dedede;
+            margin: 0 -15px;
+        }
+        .filter_box {
+            width: calc(100% - 30px);
+            left: 15px;
+        }
+        .tabTitle .tabTitleUl {
+            height: 40px;
+            line-height: 38px;
+            background:rgba(243,245,250,1);
+            padding: 0 30px;
+            margin: 15px 0;
+        }
+        .tabTitle .tabTitleUl .tabTitleLi {
+            float: left;
+            margin-right: 30px;
+            cursor:pointer;
+        }
+        .tabTitle .tabTitleUl .tabTitleLi.active {
+            color: #45569C;
+            border-bottom: 2px solid #45569C;
+        }
+        select:disabled{ 
+            background-color: #dddddd;
+        }
+        tr > :first-child {
+            position: relative;
+        }
+
+        .k-grid tr:hover {
+            background: #f8f8f8;
+        }
+
+        .k-detail-cell {
+            position: relative;
+        }
+
+        .k-webkit .k-pager-numbers .k-current-page .k-link {
+            border: 1px solid #ccc;
+        }
+
+        .k-state-selected, .k-grid tr.k-state-selected {
+            background-color: #f1f1f1;
+            color: #000;
+        }
+
+            .k-grid tr.k-state-selected > td {
+                border-color: #cbcecf;
+            }
+
+            .k-grid tr.k-state-selected:hover td {
+                background-color: #f1f1f1;
+            }
+
+        .k-grid .k-hierarchy-cell .k-icon {
+            outline: none;
+        }
+
+        .k-icon.k-i-expand {
+            background: url(../../../asset/lib/Kendo/styles/Material/sprite.png) no-repeat 0px -17px;
+        }
+
+        .k-icon.k-i-collapse {
+            background: url(../../../asset/lib/Kendo/styles/Material/sprite.png) no-repeat 0px -34px;
+        }
+
+        .k-icon.k-i-reload {
+            background: url(../../../asset/lib/Kendo/styles/Material/sprite.png) no-repeat -32px -112px;
+        }
+
+        .content {
+            border: 1px solid #dedede;
+            padding: 15px;
+            color: #808080;
+        }
+
+        .page_box {
+            height: calc(100% - 30px);
+        }
+
+        .tabMain {
+            height: calc(100% - 55px);
+            overflow: auto;
+        }
+
+        .content .line {
+            height: 30px;
+            line-height: 30px;
+        }
+
+        #cashflowChart {
+            margin: 0 auto;
+        }
+
+        .list_box .filter_box input {
+            height: 40px;
+        }
+
+        .gridChange, .chartChange {
+            text-align: right;
+            margin-bottom: 10px;
+            color: #45569c;
+        }
+
+            .gridChange span, .chartChange span {
+                margin-left: 25px;
+                cursor: pointer;
+            }
+
+        .showDivFields input[type=checkbox] {
+            vertical-align: -4px;
+            margin-right: 10px;
+        }
+
+        .showDivFields .divFields {
+            margin: 5px 0 0 0;
+        }
+
+        .columsSelect .btnGroup {
+            padding: 0 15px;
+            margin-top: 5px;
+            text-align: right;
+        }
+
+            .columsSelect .btnGroup .btn {
+                margin-left: 5px;
+            }
+
+        .d_popup {
+            width: 256px;
+            height: 320px;
+            background: #FFFFFF;
+            display: none;
+            box-sizing: border-box;
+            padding: 20px 15px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            right: 100px;
+            z-index: 9;
+        }
+
+        .popup {
+            display: inline-block;
+            width: 89px;
+            height: 40px;
+            position: absolute;
+            box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+            border-bottom: none;
+            font-size: 13px;
+            line-height: 40px;
+            color: #5E5E5E;
+            text-align: center;
+            font-family: "\5FAE\8F6F\96C5\9ED1";
+            background: #fff;
+            right: -1px;
+            top: -40px;
+            z-index: 10;
+            /*display: none;*/
+        }
+
+        .chartBox {
+            width: 100%;
+            height: 36px;
+            margin-bottom: 30px;
+        }
+
+        .sty {
+            color: #45569c;
+            border-bottom: 3px solid #45569c;
+            box-shadow: 0px 5px 1px #E4F0FF;
+        }
+
+        .histogram {
+            margin-right: 28px;
+        }
+
+        .pieChart, .histogram {
+            display: inline-block;
+            line-height: 36px;
+            cursor: pointer;
+            font-size: 13px;
+            color: rgb(94, 94, 94);
+            font-family: 微软雅黑;
+        }
+
+        #box {
+            width: 100%;
+            height: auto;
+            font-size: 12px;
+        }
+
+        .c_p select, .s_p select, .z_p select {
+            width: 170px;
+            height: 30px;
+            border: 1px solid #dedede;
+            float: right;
+            outline: none;
+        }
+
+        .two_btn {
+            text-align: right;
+            box-sizing: border-box;
+            padding: 20px 0px 0px 0px;
+        }
+
+        .c_p .c_span, .s_p .s_span, .z_p .z_span {
+            display: inline-block;
+            font-family: 微软雅黑;
+            font-size: 12px;
+            color: rgb(94, 94, 94);
+            line-height: 32px;
+        }
+
+        .s_p .s_span {
+            margin-left: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="loading" v-show="loading">
+            <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+        </div>
+        <div class="list_box">
+            <div>
+                <span class="btn btn-default seachShow" @click="searchShow">
+                    <i class="icon iconfont icon-jiansuo"></i>
+                    检索
+                </span>
+                <span v-show="filterModelReportingDateId" id="showDate">切片日期 {{filterModelReportingDateId}}</span>
+                <!--filterBox_hider-->
+                <div class="filter_box" v-show="filterOr">
+                    <div class="div_box row">
+                        <div style="position:relative;" class="col-md-6">
+                            <label class="col-md-4">报表日</label>
+                            <select class="col-md-8" v-model="filterModelReportingDateId" id="ReportingDate">
+                                <option value="">请选择...</option>
+                                <option v-for="item in filterData.ReportingDate" v-bind:value="item.SliceDate">{{item.SliceDate}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-md-4">产品</label>
+                            <select class="col-md-8" v-model="filterModelTrustCode" id="TrustCode">
+                                <option value="">请选择...</option>
+                                <option v-for="item in filterData.Trust" v-bind:value="item.TrustCode">{{item.TrustName}}</option>
+                            </select>
+                        </div>
+                        <!--<div class="col-md-6">
+                            <label class="col-md-4">资产类型</label>
+                            <select class="col-md-8" v-model="filterModelAssetType" id="AssetType">
+                                <option value="">请选择...</option>
+                                <option v-for="item in filterData.AssetType" v-bind:value="item.AssetType">{{item.AssetTypeDescription}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-md-4">机构名称</label>
+                            <select class="col-md-8" v-model="filterModelOrganisationId" id="OrganisationCode">
+                                <option value="">请选择...</option>
+                                <option v-for="item in filterData.OrganisationCode" v-bind:value="item.OrganisationID">{{item.OrganisationDesc}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-md-4">数据源</label>
+                            <select class="col-md-8" v-model="filterModelDataSource" id="DataSource">
+                                <option value="">请选择...</option>
+                                <option v-for="item in filterData.DataSource" v-bind:value="item.DataSourceID">{{item.DataSourceName}}</option>
+                            </select>
+                        </div>-->
+                    </div>
+                    <div class="fiterBtn">
+                        <input class="btn btn-default" type="button" @click="dataFilter" value="确定" />
+                        <input class="btn btn-default" type="button" @click="clearFilter" value="清除" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page_box" v-cloak>
+            <div class="tabTitle">
+                <ul class="tabTitleUl">
+                    <li class="tabTitleLi">底层资产维度分析</li>
+                </ul>
+            </div>
+            <div class="tabMain">
+                <div class="detailsBox">
+                    <div class="page clearfix" v-for="distribution in distributions" style="margin-bottom:20px">
+                        <div style="width:calc(100% - 316px);margin-bottom:10px;float: left;">
+                            <div style="margin-bottom:10px;color:#666;font-size: 15px;"><b>{{distribution.nameAlias}}</b></div>
+                            <div class="gridChange">
+                                <span class="gridSpread" @click="gridSpread($event)">展开</span>
+                                <span class="editGrid" @click="showFieldsSelect($event)">编辑</span>
+                            </div>
+                            <div v-bind:id="distribution.name" style="width:100%;"></div>
+                        </div>
+                        <div style="width:280px;margin-right:10px;margin-bottom:10px;float: right;margin-top: 30px;">
+                            <div class="chartChange">
+                                <span class="downloadChart" @click="downloadChart($event)">下载</span>
+                                <span class="editChart" @click="editChart($event)">编辑</span>
+                            </div>
+                            <div v-bind:id="distribution.chartName"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="columsSelect" style="display: none;" v-for="item in distributions" v-bind:id="'columsSelect'+item.name">
+            <div class="showDivFields" style="display:inline-block;height:auto;overflow-y:auto;width:100%;text-align:left;padding:15px 0;">
+                <!--<div class="divFields col-sm-6" v-for="item in nowFields">
+                    <input type="checkbox" name="colum" v-model="item.IsChecked"><label>{{item.name}}</label>
+                </div>-->
+                <div class="divFields col-sm-6">
+                    <input type="checkbox" name="colum" checked><label>笔数</label>
+                </div>
+                <div class="divFields col-sm-6">
+                    <input type="checkbox" name="colum" checked><label>笔数占比(%)</label>
+                </div>
+                <div class="divFields col-sm-6">
+                    <input type="checkbox" name="colum" checked><label>剩余本金金额</label>
+                </div>
+                <div class="divFields col-sm-6">
+                    <input type="checkbox" name="colum" checked><label>剩余本金金额占比(%)</label>
+                </div>
+                <div class="divFields col-sm-6">
+                    <input type="checkbox" name="colum" checked><label>合同金额</label>
+                </div>
+                <div class="divFields col-sm-6">
+                    <input type="checkbox" name="colum" checked><label>合同金额占比(%)</label>
+                </div>
+            </div>
+            <div class="btnGroup">
+                <span class="tips" style="display: none;color: #dd0000;">请至少选择一项</span>
+                <span class="btnResetFields btn btn-default" @click="btnReset">重置</span>
+                <span class="btnSaveFields btn btn-default" @click="btnSaveField($event)">确定</span>
+            </div>
+        </div>
+        <div class="d_popup" style="display:none;float:right;">
+            <span class="popup">编辑</span>
+            <div class="chartBox">
+                <span class="histogram" @click="curIndex=0" v-bind:class="{sty:curIndex==0}">柱状图</span>
+                <span class="pieChart" @click="curIndex=1" v-bind:class="{sty:curIndex==1}">饼状图</span>
+            </div>
+            <div id="box">
+                <div class="histogram_box" v-show="curIndex==0">
+                    <div class="z_axis">
+                        <p class="z_p">
+                            <span class="z_span">主坐标轴</span>
+
+                            <span class="iconDown">
+                                <i class="icon icon-down"></i>
+                                <select id="primarySelect">
+                                    <option value="0"> 请选择</option>
+                                </select>
+                            </span>
+                        </p>
+                        <p class="d_radio" style="padding: 0 0 0 53px;">
+                            <input type="radio" name="z" checked value="column">
+                            <span style="display: inline-block;margin: 0px 5px;vertical-align: 4px;">柱状</span>
+                            <input type="radio" name="z" value="spline">
+                            <span style="display: inline-block;margin: 0px 5px;vertical-align: 4px;">折线</span>
+                        </p>
+                        <p class="c_p">
+                            <span class="c_span">次坐标轴</span>
+                            <span class="iconDown">
+                                <i class="icon icon-down"></i>
+                                <select id="secondarySelect" name="请选择">
+                                    <option value="0"> 请选择</option>
+                                </select>
+                            </span>
+                        </p>
+                        <p class="c_radio" style="padding: 0 0 0 53px;">
+                            <input type="radio" name="c" value="column">
+                            <span style="display: inline-block;margin: 0px 5px;vertical-align: 4px;">柱状</span>
+                            <input type="radio" name="c" checked value="spline">
+                            <span style="display: inline-block;margin: 0px 5px;vertical-align: 4px;">折线</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="histogram_box" v-show="curIndex==1">
+                    <div class="b_box">
+                        <p class="s_p">
+                            <span class="s_span">数值</span>
+                            <span class="iconDown">
+                                <i class="icon icon-down"></i>
+                                <select id="pieSelect" name="请选择">
+                                    <option value="0"> 请选择</option>
+                                </select>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="two_btn">
+                <a id="chartSave" class="btn btn-primary" @click="chartSave($event)">确认</a>
+                <a id="chartCancel" class="btn btn-default" style="margin-left: 5px;" @click="chartCancel">取消</a>
+            </div>
+        </div>
+    </div>
+    <script src="../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../asset/lib/config'], function (config) {
+            requirejs(['app/managementDataCenter/DataMonitoringAnalysisModul/assetStatus']);
+            requirejs(['app/managementDataCenter/js/manageData_interface']);
+        });
+    </script>
+</body>
+</html>

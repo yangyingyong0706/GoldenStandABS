@@ -1,0 +1,38 @@
+﻿{
+    "app": "DashBoard",
+    "title": "资管方数据中心",
+    "group": [
+        {
+            "module": "productList",
+            "title": "产品列表",
+            "hideClass": "hideClass",
+            "titleclass": "icon-directionLeft01",
+            "elements": [
+                {
+                    "parent": "1",
+                    "title": "产品列表",
+                    "index": "1",
+                    "icon": "icon iconfont icon-zonglan",
+                    "linkname": "productList",
+                    "linkurl": "javascript:productList"
+                }
+            ]
+        },
+        {
+            "module": "assetDetailsRecord",
+            "title": "资产查询",
+            "hideClass": "hideClass",
+            "titleclass": "icon-directionLeft01",
+            "elements": [
+                {
+                    "parent": "1",
+                    "title": "资产查询",
+                    "index": "1",
+                    "icon": "icon iconfont icon-yilan",
+                    "linkname": "assetDetailsRecord",
+                    "linkurl": "javascript:assetDetailsRecord"
+                }
+            ]
+        }
+            ]
+        }

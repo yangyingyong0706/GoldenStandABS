@@ -1,0 +1,21 @@
+﻿{
+    "app": "DashBoard",
+    "title": "资产筛选",
+    "group": [
+        {
+            "module": "Index",
+            "title": "业务向导",
+            "titleclass": "icon-directionLeft01",
+            "elements": [
+                {
+                    "title": "新建资产池向导",
+                    "type": "button",
+                    "icon": "iconfont icon-zichanzu1",
+                    "linkname": "OpenPoolCreationPage",
+                    "linkurl": "javascript:OpenPoolCreationPage"
+                }
+                 
+            ]
+        }
+    ]
+}

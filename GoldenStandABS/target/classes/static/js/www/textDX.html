@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="../asset/lib/devExtreme/style/dx.common.css" rel="stylesheet" />
+    <link href="../asset/lib/devExtreme/style/dx.light.css" rel="stylesheet" />
+    <link href="../asset/lib/devExtreme/style/dx.spa.css" rel="stylesheet" />
+    <style>
+        html, body {
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        }
+
+        .demo-container {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+            min-height: 100%;
+            width:80%;
+            margin:auto;
+            margin-top:20px;
+        }
+
+        .dx-theme-generic .demo-container {
+            min-height: 450px;
+        }
+
+        .dx-theme-generic.TabletPortrait .demo-container,
+        .dx-theme-generic.TabletLandscape .demo-container {
+            min-height: 100%;
+        }
+
+        .dx-color-scheme-dark .options,
+        .dx-color-scheme-contrast .options {
+             background-color: #363636;
+        }
+
+        .dx-color-scheme-dark .selected-data,
+        .dx-color-scheme-contrast .selected-data {
+            background: #363636;
+        }
+
+        .dx-color-scheme-dark #events,
+        .dx-color-scheme-contrast #events {
+            background: #363636;
+        }
+
+        .dx-color-scheme-dark #events ul li,
+        .dx-color-scheme-contrast #events ul li {
+            border-bottom: 1px solid #4d4d4d;
+        }
+
+        body:not(.dx-theme-generic) .options {
+            left: 0;
+            top: auto;
+            width: auto;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            margin: 0;
+        }
+
+        body:not(.dx-theme-generic) .widget-container {
+            margin-right: 0;
+        }
+
+        body:not(.dx-theme-generic) #calendar-demo .options,
+        body:not(.dx-theme-generic) #list-api-demo .options,
+        body:not(.dx-theme-generic) #list-demo .options,
+        body:not(.dx-theme-generic) #form-demo .options {
+            position: static;
+            margin-top: 20px;
+        }
+        /*layer*/
+        #demo td {
+            vertical-align: middle;
+        }
+
+        #demo .chart-cell {
+        overflow: visible;
+        }
+
+        #demo span.current-value {
+        display: inline-block;
+        position: relative;
+        }
+
+        #demo span.diff {
+        float: right;
+        }
+
+        #demo .inc span.diff {
+        color: #2ab71b;
+        }
+
+        #demo .inc span.diff:before {
+        content: '+';
+        }
+
+        #demo .dec span.diff:before {
+        content: '-';
+        }
+
+        #demo .dec span.diff {
+        color: #f00;
+        }
+
+        #demo .inc span.current-value:after,
+        #demo .dec span.current-value:after {
+        content: '';
+        display: block;
+        height: 10px;
+        width: 10px;
+        position: absolute;
+        right: -12px;
+        top: 5px;
+        background-repeat: no-repeat;
+        background-size: 10px 10px;
+        }
+
+        #demo .inc span.current-value:after {
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADKSURBVHjaYtTaLs1ABEiG0nPRJa56PEHhsxBhmCUQT4OyrwHxcXyKmQgYJgHE64CYDYrXQcXIMhCbAcgWkGzgNKh38QUB0QamIUUErkhKI9ZAGyCeTERkTYaqxWsgKA2txhdG6GGsvUNGGpeBRMUiGhCFGsqGzUBQQJsxkA5AemaiG5hDIBIIgQSgK0FmMDACs549kN5FZLjhA7+A2A2U9YSAOBeLAk4gnoBDczoOcSFGPIUDPxB/wCHHiKtwYGKgMhg1cBAaCBBgAJTUIL3ToPZfAAAAAElFTkSuQmCC');
+        }
+
+        #demo .dec span.current-value:after {
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADJSURBVHjaYvzPgBfgkhYA4o8QFahKmBioDEYNHIQGsgBxIBCLkqgvAYi/g1mMjMjir0EJzR6If/6HpChKMMgMe3DKBeIcKhiY8x/MYoDj+RQYNgdkGLqBbEB8kgzDToL1YjEQhKWB+BUJhj0H64Eahs1AELYhMpJ+gtUiGYbLQBBOI8LANLBaIg1kAAc0vkiAqSPBQFAkHcNi2DGoHMkGgrAENOCRI0ECRQ2JBoKwJTQCfkLZDPgMZPxPXN5NhtJzMSsJVBMAAgwAyWSY2svfmrwAAAAASUVORK5CYII=');    
+        }
+    </style>
+</head>
+
+<body>
+    <div class="demo-container">
+        <div id="demo"></div>
+    </div>
+    <script src="../asset/lib/require.js"></script>
+    <script>
+    requirejs(['../asset/lib/config'], function (common) {
+        requirejs(["app/weekdaydata"]);
+        requirejs(['app/textDX']);
+    });
+    </script>
+</body>
+</html>

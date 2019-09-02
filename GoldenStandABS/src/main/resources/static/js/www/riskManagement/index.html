@@ -1,0 +1,85 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>风险管理</title>
+    <!-- Custom CSS -->
+    <!--<link href="UIFrame/css/gs-admin-2.css" rel="stylesheet" />-->
+    <link href="../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../asset/lib/metisMenu/dist/metisMenu.min.css" rel="stylesheet" />
+    <link href="../../asset/lib/goldenstand/uiFrame/css/gs-admin-2.css" rel="stylesheet" />
+    <link href="../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../asset/lib/asyncbox/skins/default.css" rel="stylesheet" />
+    <link href="../assetFilter/css/chrome-tabs.css" rel="stylesheet" />
+    <link href="../assetFilter/css/chrome-tabs-dark-theme.css" rel="stylesheet" />
+    <link href="../../asset/font/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="main.css" rel="stylesheet" />
+    <!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+        <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script src="../../asset/lib/require.js"></script>
+</head>
+
+<body style="display:none">
+    <div id="riskWrapper">
+        <div id="tabs" class="nav-tabs">
+            <div id="DashBoard" class="ribbonBox" v-cloak=v-cloak>
+                <ul>
+                    <li class="ribbonGroup  nav_style_hander" v-for="group in obj.group" v-if="!!group.elements">
+                        <!--<span class="click_direction dot"><i v-bind:class="group.titleclass"></i>{{group.title}}<i class="icon icon-bottom" style="float: right;"></i></span>-->
+                        <div class="hidden_area">
+                            <div v-for="item in group.elements" track-by="$index">
+                                <a v-if="item!=empty" v-bind:href="openBottomTabIframe(item.linkurl,item.linkname,item.title)" @click="changeActive(item.linkname)" class="ribbonButton" v-bind:data-action="item.linkname" v-bind:class="{ active: item.active}">
+                                    <i v-bind:class="item.icon"></i>
+                                    <span>{{item.title}}</span>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="fixed_control">
+                <i></i>
+            </div>
+        </div>
+        <div id="main">
+            <!-- ko foreach: tabs -->
+            <iframe class="iframe" scrolling="no" data-bind="attr: { id:id,src: url },css: { hide: id != $parent.showId() }"></iframe>
+            <!-- /ko -->
+            <div class="chrome-tabs-shell" style="height:35px;position:fixed;bottom:0;z-index:2;">
+                <div class="chrome-tabs" data-bind="foreach: tabs">
+                    <div class="chrome-tab" data-bind="css: { active: id == $parent.showId() }, event: { click: $parent.changeShowId.bind($parent,$data) }">
+                        <div class="chrome-tab-title" data-bind="text:name,attr : {title : name}">Google</div>
+                        <!-- ko ifnot: disabledClose -->
+                        <div class="chrome-tab-close" data-bind="event: { click: $parent.closeShowId.bind($parent,$data) }"></div>
+                        <!-- /ko -->
+                        <div class="chrome-tab-curves">
+                            <div class="chrome-tab-curves-left-shadow"></div>
+                            <div class="chrome-tab-curves-left-highlight"></div>
+                            <div class="chrome-tab-curves-left"></div>
+                            <div class="chrome-tab-curves-right-shadow"></div>
+                            <div class="chrome-tab-curves-right-highlight"></div>
+                            <div class="chrome-tab-curves-right"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        requirejs(['../../asset/lib/config'], function (config) {
+            requirejs(['app/riskManagement/main']);
+        });
+    </script>
+</body>
+
+
+
+</html>

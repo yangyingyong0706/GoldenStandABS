@@ -1,0 +1,615 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>导入专项计划资产</title>
+    <link href="../../../asset/style/bootstrap.css" rel="stylesheet" />
+    <link href="../../productManage/TrustManagement/TrustFollowUp/css/trustFollowUp.css" rel="stylesheet" />
+    <link href="../../productManage/TrustManagement/TrustFollowUp/css/pagerlist-style.css" rel="stylesheet" />
+    <link href="../../productManage/TrustManagement/TrustFollowUp/css/font/GoogleFontDosis.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <style>
+        html {
+            background: #fcfcfc;
+            height: 100%;
+        }
+
+        body {
+            height: calc(100% - 15px);
+        }
+
+        #app {
+            height: 100%;
+        }
+
+        #more-options {
+            height: calc(100% - 45px);
+        }
+
+        .checkbox {
+            margin-bottom: 5px;
+            display: none;
+        }
+
+            .checkbox label {
+                margin-right: 10px;
+            }
+
+        .btn-options {
+            background: #fff;
+            /*background-image: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f3f3f3));
+                background-image: -webkit-linear-gradient(top, #f8f8f8, #f3f3f3);
+                background-image: -moz-linear-gradient(top, #f8f8f8, #f3f3f3);
+                background-image: -o-linear-gradient(top, #f8f8f8, #f3f3f3);
+            background-image: linear-gradient(to bottom, #f8f8f8, #f3f3f3);*/
+            border: 1px solid #dedede;
+            border-top: none;
+            padding: 3px 8px;
+            color: #666;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 0 0 3px 3px;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+
+            .btn-options:hover {
+                border-color: #ccc;
+            }
+
+            .btn-options i {
+                font-size: 10px;
+                font-style: normal;
+                color: #888;
+                font-weight: 300;
+                margin-left: 3px;
+            }
+
+        .checkbox > select option {
+            color: #555 !important;
+        }
+
+        .divChk {
+            border-top: 1px solid #ededed;
+            border-bottom: 1px solid #ededed;
+            margin-bottom: 5px;
+        }
+
+        .chkOptions {
+            margin-top: 5px;
+            margin-left: 4px;
+        }
+
+        input[type='checkbox'], input[type='radio'] {
+            vertical-align: middle;
+        }
+
+        .getReportingDate {
+            margin: 2px 5px 0 0;
+        }
+
+        .options_list {
+            height: 100%;
+        }
+
+            .options_list > li {
+                padding: 20px;
+                background: #fcfcfc;
+                cursor: pointer;
+                border-bottom: 1px solid #ddd;
+                border-top: 1px solid #ddd;
+            }
+
+                .options_list > li:nth-child(2) {
+                    border-top: none;
+                    border-bottom: none;
+                }
+
+        .splitRuleOption, .CollectionRuleOption, .assetAttributesOption {
+            /*margin:3px;
+             padding:2px;*/
+            padding: 0 2px;
+            display: none;
+        }
+
+        .OptionActive {
+            display: inline-block;
+            width: 100%;
+        }
+
+        .OptionsContext {
+            margin-left: 130px;
+        }
+
+        .splitRuleOptionList > li {
+            float: left;
+            margin: 0 3px;
+            padding: 0 2px;
+        }
+
+        .listActive {
+            background: rgba(59,62,93,0.8) !important;
+            color: #fff;
+        }
+
+        .radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {
+            margin-left: 0;
+        }
+
+        .radio + .radio, .checkbox + .checkbox {
+            margin-top: 2px;
+        }
+
+        .radio label, .checkbox label {
+            padding-left: 3px;
+        }
+
+        #more-options {
+            /*display:none;*/
+            padding: 0 15px;
+        }
+
+        .options_list {
+            border-radius: 1px;
+            border: 1px solid #ddd;
+            border-top: none;
+        }
+
+        .btnBgColor {
+            background: #d4dff3;
+        }
+
+        .table > thead > tr > th {
+            border-top: 2px solid #ededed !important;
+        }
+
+        .btnsList {
+            /*position:fixed;*/
+            left: 110px;
+            top: auto;
+            padding: 0;
+        }
+
+        .change_li:after {
+            position: absolute;
+            left: 0;
+            top: 0;
+            content: '';
+            width: 100%;
+            height: 41px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #ddd;
+            border-bottom-color: #fff;
+            border-radius: 2px 2px 0 0;
+            box-sizing: border-box;
+            pointer-events: none;
+        }
+
+        .assetAttributesOptionList {
+            width: 100%;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .btn.current_li {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 14px;
+            transition: all .2s;
+            border: none;
+            position: relative;
+            line-height: 40px;
+            min-width: 65px;
+            padding: 0 15px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .splitRuleOptionList, .CollectionRuleOptionList {
+            height: 41px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .current_btn {
+            background: rgba(59,62,93,0.8) !important;
+            color: white;
+        }
+
+        .btn.current_btn:focus {
+            color: white;
+            outline: none;
+        }
+
+        .IsShowBtn {
+            display: none;
+        }
+
+        .btn {
+            outline: none;
+        }
+        /*.optionsBody{
+            position:relative;
+            padding:10px
+        }*
+        .btnsList {
+            position:fixed;
+            left:0;
+            top:0
+        }*/
+        /*.ModelAssetDetailTable {
+            margin-top:60px;
+            height:130px
+        }
+        .ModelAssetDetailTable tr { float:left; -webkit-transform:rotate(90deg); -moz-transform:rotate(90deg);height:100px}
+        .ModelAssetDetailTable td { -webkit-transform: rotate(-90deg); -moz-transform:rotate(-90deg);width:60px}
+        .ModelAssetDetailTable th { -webkit-transform: rotate(-90deg); -moz-transform:rotate(-90deg);}*/
+        .table > tbody > tr > td{
+            font-size:12px;
+        }
+        .table > thead > tr > th{
+            font-size:12px;
+        }
+        #AssetSplitOptions{
+            height: calc(100% - 276px);
+            overflow: auto;
+        }
+    </style>
+
+</head>
+<body class="public_font_style">
+    <div class="optionsBody" id="app">
+        <div class="btnsList">
+            <!--<div style="text-align:right;margin-top:-21px;">
+                <button type="button" id="show-options-btn" class="btn-options">拆分规则配置<i>▲</i></button>
+            </div>-->
+            <!--<div style="margin-bottom:5px;">
+                <strong><label>日期：</label></strong>
+                <select class="form-control" id="ReportingDate"></select>
+            </div>-->
+            <div style="margin:15px;">
+                <div class="getReportingDate" style="float:left">
+                    <label>基础资产快照日期：</label>
+                    <select class="date-filter" id="ReportingDate"></select>
+                    <!--<button type="button" class="normal_small_button" id="btnFilterAssetList">查询</button>-->
+                </div>
+                <!--<button type="button" class="btn normal_small_button btnBgColor" id="btnSubmitOption">配置相关规则</button>-->
+                <button type="button" class="btn normal_small_button" id="btnSubmit">运行拆分归集任务</button>
+                <!-- 控制显示图例及样例结果 -->
+                <button type="button" class="btn normal_small_button" id="IsShowOpionContext">显示图例及样例结果</button>
+            </div>
+        </div>
+        <div id="more-options">
+            <ul class="options_list pull-left  nav_style_hander">
+                <li class="listActive">资产属性计算</li>
+                <li>拆分规则配置</li>
+                <li>归集规则配置</li>
+            </ul>
+            <div class="OptionsContext">
+                <!--资产属性计算-->
+                <div id="assetAttributesOption" class="assetAttributesOption OptionActive">
+                    <ul class="assetAttributesOptionList">
+                        <li class="btn btn-sm current_li change_li">资产剩余期数计算</li>
+                        <li class="btn btn-sm current_li">现金流还款期限计算</li>
+                    </ul>
+                    <div class="checkbox">
+                        <label for="PeriodsCalRule">现金流期限计算方法:</label>
+                        <select id="PeriodsCalRule">
+                            <option value="0">反向</option>
+                            <option value="1">正向</option>
+                        </select>
+                        <select id="Direction">
+                            <option value="1">从资产到期日开始往前推算，资产到期日到前一还款日的区间作为单独一期</option>
+                            <option value="2">从资产到期日开始往前推算，资产到期日到前一还款日的区间不作为单独一期</option>
+                            <option value="3">从资产到期日开始往前推算，资产到期日所在月的还款日为最后一期还款日</option>
+                        </select>
+                    </div>
+                    <div class="checkbox">
+                        <label for="CalculateRTBySystem">系统计算剩余期限:</label>
+                        <input type="checkbox" id="CalculateRTBySystem" />
+                    </div>
+                    <div class="checkbox divChk" id="RTCalculationRule-Options" style="display:none;">
+                        <label for="RTCalculationRule">请选择剩余期限计算方式:</label>
+                        <p class="chkOptions"><input type="radio" name="RTCalculationRule" value="1" checked /> <span>资产到期日的后一还款日为最后一期还款日，数据日期的下一个还款日为第一个还款日，从第一个还款日到最后一个还款日的个数为剩余期数</span></p>
+                        <p class="chkOptions"><input type="radio" name="RTCalculationRule" value="2" /> 资产到期日的前一还款日为最后一期还款日，数据日期的下一个还款日为第一个还款日，从第一个还款日到最后一个还款日的个数为剩余期数</pclass>
+                        <p class="chkOptions"><input type="radio" name="RTCalculationRule" value="3" /> 资产到期日所在月的还款日为最后一期还款日，数据日期的下一个还款日为第一个还款日，从第一个还款日到最后一个还款日的个数为剩余期数</p>
+                    </div>
+                </div>
+                <!--拆分规则配置-->
+                <div id="splitRuleOption" class="splitRuleOption">
+                    <ul class="splitRuleOptionList">
+                        <li class="btn btn-sm current_li change_li">等额本息</li>
+                        <li class="btn btn-sm current_li">等额本金</li>
+                        <li class="btn btn-sm current_li">等本等息</li>
+                        <li class="btn btn-sm current_li">按计划还款</li>
+                        <li class="btn btn-sm current_li">按期付息,到期一次性还本</li>
+                        <li class="btn btn-sm current_li">到期一次性还本付息</li>
+                    </ul>
+                    <div style=" clear:both"></div>
+                    <div>
+                        <div class="checkbox">
+                            <label for="IsBaseOnLoanTerm">请选择本金计算规则:</label>
+                            <select id="IsBaseOnLoanTerm">
+                                <option value="0" selected>按剩余金额</option>
+                                <option value="1">按合同金额</option>
+                            </select>
+                        </div>
+                        <div class="checkbox">
+                            <label for="CalculateHeadInterestByDay">请选择头部利息计算规则:</label>
+                            <select id="CalculateHeadInterestByDay">
+                                <option value="0" selected>按期</option>
+                                <option value="1">按天</option>
+                            </select>
+                        </div>
+                        <div class="checkbox">
+                            <label for="CalculateInterestByDays">请选择每期利息计算规则:</label>
+                            <select id="CalculateInterestByDays">
+                                <option value="0" selected>按期</option>
+                                <option value="1">按天</option>
+                            </select>
+                        </div>
+                        <div class="checkbox">
+                            <label for="CountLastInterestPeriodByDay">请选择尾部利息计算规则:</label>
+                            <select id="CountLastInterestPeriodByDay">
+                                <option value="0" selected>按期</option>
+                                <option value="1">按天</option>
+                            </select>
+                        </div>
+                        <div class="checkbox">
+                            <label for="TrailPeriodsCalRule">等本等息的尾差调整规则:</label>
+                            <select id="TrailPeriodsCalRule">
+                                <option value="0" selected>将尾差计算在最后一个还款期间</option>
+                                <option value="1">将尾差计算在下一个还款期间</option>
+                            </select>
+                        </div>
+                        <div class="checkbox">
+                            <label for="AdjustLastPaymentBalance">计算零头是否补到尾期:</label>
+                            <select id="AdjustLastPaymentBalance">
+                                <option value="0" selected>补</option>
+                                <option value="1">不补</option>
+                            </select>
+                        </div>
+                        <div class="checkbox">
+                            <label for="AdjustBalaceDirection">尾差调整方向:</label>
+                            <select id="AdjustBalaceDirection">
+                                <option value="0">反向</option>
+                                <option value="1" selected>正向</option>
+                            </select>
+                        </div>
+                        <div class="checkbox">
+                            <label for="AdjustBalacePosition">尾差调整位置:</label>
+                            <select id="AdjustBalacePosition">
+                                <option value="0">尾部</option>
+                                <option value="1" selected>头部</option>
+                            </select>
+                        </div>
+
+                        <button type="button" class="btn IsShowBtn" id="btnShowImg" style="display:none">图例说明</button>
+                        <button type="button" class="btn IsShowBtn" id="btnShowData" style="display:none">样例结果</button>
+                    </div>
+                </div>
+                <!--归集规则配置-->
+                <div id="CollectionRuleOption" class="CollectionRuleOption">
+                    <ul class="CollectionRuleOptionList">
+                        <li class="btn btn-sm current_li change_li">定义归集区间</li>
+                        <li class="btn btn-sm current_li">过滤归集数据</li>
+                    </ul>
+                    <div class="checkbox">
+                        <label for="IsBasedOnReportingDate">现金流归集是否从数据日期开始归集:</label>
+                        <input type="radio" name="IsBasedOnReportingDate" value="1" id="IsBasedOnReportingDate" checked />是 <input type="radio" name="IsBasedOnReportingDate" value="0" id="IsBasedOnReportingDate" />否
+                    </div>
+                    <div class="checkbox">
+                        <label for="IsRidPrepaid">是否剔除早偿资产:</label>
+                        <select id="IsRidPrepaid">
+                            <option value="0">否</option>
+                            <option value="1">是</option>
+                        </select>
+                    </div>
+                    <div class="checkbox divChk">
+                        <label for="IsNormalAsset">现金流归集资产:</label>
+                        <div class="chkOptions" id="IsNormalAsset">
+                            <p><span style="width:80%;display:inline-block">排除用户状态非正常资产</span><input type="checkbox" name="IsUserStatusNormal" id="IsUserStatusNormal" /></p>
+                            <p><span style="width:80%;display:inline-block">排除五级分类非正常资产</span><input type="checkbox" name="IsLoanGradeLevelNormal" id="IsLoanGradeLevelNormal" /></p>
+                            <p><span style="width:80%;display:inline-block">排除当期逾期天数非0资产</span><input type="checkbox" name="IsNotInArrears" id="IsNotInArrears" /></p>
+                            <p><span style="width:80%;display:inline-block">排除数据日期之前已到期资产</span><input type="checkbox" name="IsNotMatured" id="IsNotMatured" /></p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="AssetSplitOptions" style="display:none;padding:0 5px">
+                    <!--样例图-->
+                    <div id="AssetReferenceImg" style="display:none;">
+                        <!--<span style="color:#555;font-weight:bold">图例:</span>-->
+                        <div id="main" style="margin:5px 0 20px 0;">
+                            <!--<div id="main" style="margin:5px 0 20px 0;width:1100px;height:360px">-->
+                            <!--暂时先用图片代替-->
+                            <img v-bind:src="imgUrl[0]" style="color:red;padding:1px;background: lightgray;" alt="样例不存在" width="90%" height="90%" />
+                            <!--<img src="Img/按剩余金额头部按天.png" width="100%" height="100%" />-->
+                            <!--<img src="./Img/等额本息：组合3.png" alt="AssetReferenceImg" width="80%" height="80%" />-->
+                        </div>
+                    </div>
+                    <!--资产详情-->
+                    <div id="AssteRuleType" style="display:none">
+                        <span style="color:#555;font-weight:bold">资产详情:</span>
+                        <!--<div v-if="AssteRuleTypeData[0].length>0">-->
+                        <table class="table" style="margin-top:5px">
+                            <thead>
+                                <tr>
+                                    <th>数据日期</th>
+                                    <th>贷款编号</th>
+                                    <th>贷款金额</th>
+                                    <th>贷款起始日</th>
+                                    <th>贷款期数（月）</th>
+                                    <th>贷款到期日</th>
+                                    <th>贷款利率（%）</th>
+                                    <th>还款方式</th>
+                                    <th>还款计划</th>
+                                    <th>还款日</th>
+                                    <th>计息频率</th>
+                                    <th>计息基准</th>
+                                    <th>本金余额</th>
+                                    <th>剩余期数（月）</th>
+                                    <th>下一还款日</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="AssteRuleTypeDatalLIst in AssteRuleTypeData[0]">
+                                    <td>{{AssteRuleTypeDatalLIst.AssetDate}}</td>
+                                    <td>{{AssteRuleTypeDatalLIst.AccountNo}}</td>
+                                    <td>{{AssteRuleTypeDatalLIst.ApprovalAmount|formatCurrency}}</td>
+                                    <td>{{AssteRuleTypeDatalLIst.LoanStartDate}}</td>
+                                    <td>{{AssteRuleTypeDatalLIst.LoanTerm}}</td>
+                                    <td>{{AssteRuleTypeDatalLIst.LoanMaturityDate }}</td>
+                                    <td>{{AssteRuleTypeDatalLIst.CurrentRate}}</td>
+                                    <td>{{AssteRuleTypeDatalLIst.PaymentType }}</td>
+                                    <td>{{AssteRuleTypeDatalLIst.PaymentSchedule }}</td>
+                                    <td>{{AssteRuleTypeDatalLIst.PaymentDay }}</td>
+                                    <td>{{AssteRuleTypeDatalLIst.InterestPaymentType }}</td>
+                                    <td>{{AssteRuleTypeDatalLIst.InterestBasis }}</td>
+                                    <td>{{AssteRuleTypeDatalLIst.CurrentPrincipalBalance|formatCurrency }}</td>
+                                    <td>{{AssteRuleTypeDatalLIst.RemainingTerm }}</td>
+                                    <td>{{AssteRuleTypeDatalLIst.NextPaymentDate }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!--</div>
+                        <div v-else>
+                            <p style="color:red;padding:20px">对不起，该拆分规则不存在！</p>
+                        </div>-->
+                    </div>
+
+                    <!--结果样例-->
+                    <div id="ModelAssetDetail" style="display:none;overflow:auto">
+                        <span style="color:#555;font-weight:bold">结果样例:</span>
+                        <!--<div v-if="ModelAssetDetailData[0].length>0">-->
+                        <table class="ModelAssetDetailTable table" style="margin:5px 0 20px 0">
+                            <thead>
+                                <tr>
+                                    <th>还款日</th>
+                                    <th>本金</th>
+                                    <th>利息</th>
+                                    <th>本息和</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="ModelAssetDetailLIst in ModelAssetDetailData[0]">
+                                    <td>{{ModelAssetDetailLIst.RepaymentDate}}</td>
+                                    <td>{{ModelAssetDetailLIst.Corpus|formatCurrency}}</td>
+                                    <td>{{ModelAssetDetailLIst.Interest|formatCurrency}}</td>
+                                    <td>{{ModelAssetDetailLIst.CorpusAndInterest|formatCurrency}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!--</div>
+                        <div v-else>
+                            <p style="color:red;padding:20px">对不起，该拆分规则不存在！</p>
+                        </div>-->
+                    </div>
+                </div>
+                <!--<div v-else>
+                    <p style="color:red;padding:20px">对不起，该拆分规则不存在！</p>
+                </div>-->
+            </div>
+        </div>
+    </div>
+    <!--<div id="more-options" style="border-bottom:1px solid #dedede;background:#f8f8f8;padding:10px 20px;display:block;">
+
+        <div class="checkbox">
+            <label for="IsBaseOnLoanTerm">请选择本金计算规则:</label>
+            <select id="IsBaseOnLoanTerm">
+                <option value="0" selected>按剩余金额</option>
+                <option value="1">按合同金额</option>
+            </select>
+        </div>
+        <div class="checkbox">
+            <label for="CalculateHeadInterestByDay">请选择头部利息计算规则:</label>
+            <select id="CalculateHeadInterestByDay">
+                <option value="0">按期</option>
+                <option value="1" selected>按天</option>
+            </select>
+        </div>
+        <div class="checkbox">
+            <label for="CalculateInterestByDays">请选择每期利息计算规则:</label>
+            <select id="CalculateInterestByDays">
+                <option value="0">按期</option>
+                <option value="1">按天</option>
+            </select>
+        </div>
+        <div class="checkbox">
+            <label for="CountLastInterestPeriodByDay">请选择尾部利息计算规则:</label>
+            <select id="CountLastInterestPeriodByDay">
+                <option value="0">按期</option>
+                <option value="1">按天</option>
+            </select>
+        </div>
+        <div class="checkbox">
+            <label for="IsBasedOnReportingDate">现金流归集是否从数据日期开始归集:</label>
+            <input type="radio" name="IsBasedOnReportingDate" value="1" id="IsBasedOnReportingDate" checked />是 <input type="radio" name="IsBasedOnReportingDate" value="0" id="IsBasedOnReportingDate" />否
+        </div>
+        <div class="checkbox">
+            <label for="PeriodsCalRule">现金流期限计算方法:</label>
+            <select id="PeriodsCalRule">
+                <option value="0">反向</option>
+                <option value="1">正向</option>
+            </select>
+            <select id="Direction">
+                <option value="1">从资产到期日开始往前推算，资产到期日到前一还款日的区间作为单独一期</option>
+                <option value="2">从资产到期日开始往前推算，资产到期日到前一还款日的区间不作为单独一期</option>
+                <option value="3">从资产到期日开始往前推算，资产到期日所在月的还款日为最后一期还款日</option>
+            </select>
+        </div>
+
+        <div class="checkbox">
+            <label for="IsRidPrepaid">是否剔除早偿资产:</label>
+            <select id="IsRidPrepaid">
+                <option value="0">否</option>
+                <option value="1">是</option>
+            </select>
+        </div>
+        <div class="checkbox divChk">
+            <label for="IsNormalAsset">现金流归集资产:</label>
+            <div class="chkOptions">
+                <p><span style="width:30%;display:inline-block">排除用户状态非正常资产</span><input type="checkbox" name="IsUserStatusNormal" id="IsUserStatusNormal" /></p>
+                <p><span style="width:30%;display:inline-block">排除五级分类非正常资产</span><input type="checkbox" name="IsLoanGradeLevelNormal" id="IsLoanGradeLevelNormal" /></p>
+                <p><span style="width:30%;display:inline-block">排除当期逾期天数非0资产</span><input type="checkbox" name="IsNotInArrears" id="IsNotInArrears" /></p>
+                <p><span style="width:30%;display:inline-block">排除数据日期之前已到期资产</span><input type="checkbox" name="IsNotMatured" id="IsNotMatured" /></p>
+            </div>
+        </div>
+        <div class="checkbox">
+            <label for="CalculateRTBySystem">系统计算剩余期限:</label>
+            <input type="checkbox" id="CalculateRTBySystem"/>
+        </div>
+        <div class="checkbox divChk" id="RTCalculationRule-Options" style="display:none;">
+            <label for="RTCalculationRule">请选择剩余期限计算方式:</label>
+            <p class="chkOptions"><input type="radio" name="RTCalculationRule" value="1" checked /> <span>资产到期日的后一还款日为最后一期还款日，数据日期的下一个还款日为第一个还款日，从第一个还款日到最后一个还款日的个数为剩余期数</span></p>
+            <p class ="chkOptions"><input type="radio" name="RTCalculationRule" value="2" /> 资产到期日的前一还款日为最后一期还款日，数据日期的下一个还款日为第一个还款日，从第一个还款日到最后一个还款日的个数为剩余期数</pclass>
+            <p class="chkOptions"><input type="radio" name="RTCalculationRule" value="3" /> 资产到期日所在月的还款日为最后一期还款日，数据日期的下一个还款日为第一个还款日，从第一个还款日到最后一个还款日的个数为剩余期数</p>
+        </div>
+    </div>-->
+    <!--<div style="padding:20px;">
+        <!--<div style="text-align:right;margin-top:-21px;">
+            <button type="button" id="show-options-btn" class="btn-options">拆分规则配置<i>▲</i></button>
+        </div>-->
+    <!--<div style="margin-bottom:5px;">
+        <strong><label>日期：</label></strong>
+        <select class="form-control" id="ReportingDate"></select>
+    </div>-->
+    <!--<div style="text-align:left;margin-top:10px;">
+        <div class="getReportingDate">
+            <label>基础资产快照日期：</label>
+            <select class="date-filter" id="ReportingDate"></select>-->
+    <!--<button type="button" class="normal_small_button" id="btnFilterAssetList">查询</button>-->
+    <!--</div>
+            <button type="button" class="btn btn-primary btn-sm" id="btnSubmitOption">配置相关规则</button>
+            <button type="button" class="btn btn-primary btn-sm" id="btnSubmit">运行拆分归集任务</button>
+        </div>
+    </div>-->
+
+    <script src="../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../asset/lib/config'], function (config) {
+            requirejs(['app/components/CashflowSplit/CashflowSplit']);
+        });
+    </script>
+</body>
+</html>

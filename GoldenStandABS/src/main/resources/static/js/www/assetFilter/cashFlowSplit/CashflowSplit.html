@@ -1,0 +1,409 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" style="overflow: hidden;">
+<head>
+    <title>现金流拆分</title>   
+    <link href="../../productDesign/css/pagerlist-style.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!--<link href="../../css/trustFollowUp.css" rel="stylesheet" />-->
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/common.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <script data-main="CashflowSplit" src="../../../asset/lib/require.js"></script>
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        .k-pager-numbers.k-reset li {
+            list-style: none;
+        }
+
+        .checkbox {
+            margin-bottom: 5px;
+        }
+
+            .checkbox label {
+                width: 250px
+            }
+
+        .btn-options {
+            background: #fff;
+            border: 1px solid #dedede;
+            border-top: none;
+            padding: 3px 8px;
+            color: #666;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 0 0 3px 3px;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+
+            .btn-options:hover {
+                border-color: #ccc;
+            }
+
+            .btn-options i {
+                font-size: 10px;
+                font-style: normal;
+                color: #888;
+                font-weight: 300;
+                margin-left: 3px;
+            }
+
+        .checkbox > select option {
+            color: #555 !important;
+        }
+
+        .divChk {
+            border-top: 1px solid #ededed;
+            border-bottom: 1px solid #ededed;
+            margin-bottom: 5px;
+        }
+
+        .chkOptions {
+            margin-top: 5px;
+            margin-left: 30px;
+        }
+
+        input[type='checkbox'], input[type='radio'] {
+            vertical-align: middle;
+        }
+
+        .filterDiv {
+            margin-top: 10px;
+            width: 75%;
+        }
+
+        .filterControl1 {
+            float: left;
+            width: 38%;
+        }
+
+        .filterControl2 {
+            float: left;
+            padding-left: 3%;
+            width: 52%;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+  
+        .assetDetail {
+            margin: 15px;
+            width: calc(100% - 30px);
+            box-sizing: border-box;
+        }
+
+        .assetOptions {
+            display: flex;
+            justify-content: space-between;
+            float: left;
+            margin: 30px 10px 10px 10px;
+        }
+
+            .assetOptions button {
+                margin: 5px 3px;
+            }
+
+        .assetbtn_left {
+            float: left;
+        }
+
+        .assetbtn_right {
+            float: left;
+            margin-left: 50px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #grid {
+            font-size: 13px;
+        }
+
+        .menuContent {
+            z-index: 99;
+        }
+
+        .option_right {
+            margin: 0 0 10px 10px;
+        }
+
+        .k-grid tr td {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        div.k-grid-content tr:last-child > td {
+            border-bottom-width: 1px;
+        }
+
+        .label {
+            background: #f3f5fa;
+            border: 1px solid #efecec;
+            text-align: center;
+            box-sizing: border-box;
+            line-height: 30px;
+            color: #555;
+            padding: 0 3px;
+            height: 30px;
+            overflow: hidden;
+            display: inline-block;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: 14px;
+        }
+
+        .checkbox select {
+            height: 30px;
+            position: absolute;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        #selectAeest {
+            padding: 0 15px;
+            display:none;
+        }
+        #selectAeest ul li {
+            font-size: 12px;
+        }
+        #selectAeest h3 {
+            font-size: 16px;
+            color: rgba(69,86,156,1);
+            font-weight: 400;
+            margin: 15px 0;
+        }
+        #selectAeest .assetDate, #selectAeest .assetSelect {
+            border: 1px solid #dedede;
+            padding: 15px;
+        }
+        #selectAeest .assetDate ul li {
+            display: inline-block;
+            width: 33.333%;
+            text-align: left;
+        }
+        #selectAeest .assetSelect ul li {
+            display: inline-block;
+            width: 47%;
+            text-align: left;
+            white-space: nowrap;
+            padding-right: 20px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        #selectAeest .assetSelect ul li:nth-child(2n+1) {
+            margin-right: 5%;
+        }
+        .saveDiv {
+            text-align: right;
+            margin: 15px 0;
+        }
+        #app {
+            padding: 15px;
+            background: #ffffff;
+        }
+        #app .contanerMain {
+            border: 1px solid #dedede;
+        }
+        #app .contanerMain .wrapTitle {
+            height: 40px;
+            padding: 0 15px;
+        }
+        #app .contanerMain .wrapTitle .btn {
+            margin: 5px 0 5px 5px;
+            line-height: 20px;
+        }
+        #app .contanerMain h2 {
+            font-size: 16px;
+            color: rgba(69,86,156,1);
+            font-weight: 400;
+            margin: 0; 
+            float: left;
+            line-height: 40px;
+        }
+        #app .contanerMain .wrapTitle div {
+            float: right;
+        } 
+        .assetArea {
+        }
+        .assetArea .wrap_selected {
+            width: calc(100% - 30px);
+            margin: 0 15px;
+            overflow: auto hidden;
+        }
+        .assetArea .wrap_selected::-webkit-scrollbar {        
+            width: 4px;                        
+            height: 8px;
+            border-radius: 8px;
+        }
+        .assetArea .wrap_selected::-webkit-scrollbar-thumb {  
+            border-radius: 8px;
+            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+            background: rgba(0,0,0,0.1);
+        }
+        .assetArea .wrap_selected::-webkit-scrollbar-track {    
+            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+            border-radius: 0;
+            background: rgba(0,0,0,0.05);
+        }
+        .assetArea .wrap_selected ul {
+            min-width: 100%;
+            height: 32px;
+            margin: 20px 0 5px;
+            border-bottom: 1px solid #dedede;
+            white-space: nowrap;
+        }
+        .assetArea .wrap_selected ul li {
+            display: inline-block;
+            margin: 0 30px 0 0;
+            padding: 5px 0;
+            cursor: pointer;
+            height: 32px;
+        }
+        .assetArea .wrap_selected ul li.active {
+            color: rgba(69,86,156,1);
+            border-bottom: 2px solid rgba(69,86,156,1);
+        }
+        input[type=checkbox], input[type=radio] {
+            margin: 0;
+        }
+         .tips {
+            height: 30px;
+            line-height: 30px;
+            background: rgba(243,245,250,1);
+            box-sizing: border-box;
+            padding: 0px 12px;
+            border-radius: 2px;
+            display: none;
+            float: left;
+            /*margin-left: 10px;*/
+        }
+
+        #infomation {
+            color: rgba(69,86,156,1);
+        }
+
+        #opration {
+            color: rgba(215,69,69,1);
+            cursor: pointer;
+        }
+        .loadpage { 
+            position: absolute; 
+            height: 100%; 
+            width: 100%; 
+            background: #FFFFFF; 
+            z-index: 9999;
+        } 
+         .content{
+            width: calc(100% - 30px);
+            border: 1px solid #ccc;
+            margin: 15px;
+            box-sizing: border-box;
+         }
+         .content .changeArea ul li{
+             float:left;
+             list-style:none;
+             cursor:pointer;
+         }
+          
+         .changeArea ul{
+                height: 40px;
+                line-height: 40px;
+                border-bottom: 1px solid #ccc;
+                padding-left: 15px;
+         }
+         .changeArea ul li.active{
+                color: rgba(69,86,156,1);
+                border-bottom: 2px solid rgba(69,86,156,1);
+          }  
+
+    </style>
+
+</head>
+<body class="public_font_style">
+    <div id="selectLanguageDropdown_qcl" class="localizationTool" style="display:none"></div>
+    <div id="app">
+        <div id="loading" class="loadpage text-center" v-show="isShow"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+        <div class="contanerMain">
+            <div class="wrapTitle">
+                <h2>资产池选择</h2>
+                <div>
+                    <button class="btn btn-default btn-single-default" id="Add" @click="selectAdd">添加</button>
+                    <button class="btn btn-default btn-single-default" id="newBtnSplit" @click="newBtnSplit">拆分</button>
+                    <button class="btn btn-default btn-single-default hidden" id="btnViewResult" @click="btnViewResult">查看结果</button>
+                </div>
+            </div>
+            <div class="content">
+                <div class="changeArea">
+                    <ul>
+                        <li @click="Changebox($event,1)" class="active" style="margin-right:30px"><span>计划现金流拆分</span></li>
+                        <li @click="Changebox($event,2)"><span>信用卡抛账拆分</span></li>
+                    </ul>
+                </div>
+                <!--计划现金流拆分-->
+                <div class="assetArea one" v-show="showThis">
+                    <div class="wrap_selected">
+                        <ul>
+                            <li id="basePool" v-if="selected&&selected!=''&&selected!=tip&&selected!='无'" @click="selectAsset()">基础池：{{selected}}</li>
+                            <li id="pool" v-for="item in asset" @click="selectAsset(item)">资产池：{{item}}</li>
+                        </ul>
+                    </div>
+                    <div class="assetDetail">
+                        <div id="grid"></div>
+                    </div>
+                </div>
+                <!--信用卡抛账拆分-->
+                <div class="assetArea two" v-show="!showThis">
+                    <div class="wrap_selected">
+                        <ul>
+                            <li id="pool" v-for="item in assetEX" @click="selectAssetTwo(item)">资产池：{{item}}</li>
+                        </ul>
+                    </div>
+                    <div class="assetDetail">
+                        <div id="girdDomId"></div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+        <div id="selectAeest">
+            <!--<div>
+                <h3>可选快照日期</h3>
+                <div class="assetDate">
+                    <ul v-if="source!=''">
+                        <li v-for="item in source">
+                            <input type="radio" v-bind:value="item.ReportingDate" name="assetDate" v-model="selected" />
+                            <i class="icon icon-calendar"></i>
+                            <label>{item.ReportingDate}}</label>
+                        </li><li>
+                            <input type="radio" v-bind:value="item.ReportingDate" name="assetDate" v-model="selected" />
+                            <i class="icon icon-calendar"></i>
+                            <label>无</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>-->
+            <div>
+                <h3>可选资产池</h3>
+                <div class="assetSelect">
+                    <ul>
+                        <li v-for="item in AllAsset" title="{{item.poolid}}:{{item.PoolDescription}}">
+                            <input type="checkbox" name="assetSelect" v-model="asset" v-bind:value="item.poolid" />
+                            <!--<input type="checkbox" name="assetSelect" v-model="asset" v-bind:value="{id:item.poolid, DimReportingDateID: item.DimReportingDateID}" />-->
+                            <label>{{item.poolid}}:{{item.PoolDescription}}</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="saveDiv">
+                <button class="btn btn-primary" @click="saveDateAsset">保存</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

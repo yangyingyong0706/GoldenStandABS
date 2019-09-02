@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>任务设置</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link href="../Common/css/pagerlist-style.css" rel="stylesheet" />
+    <link href="../Common/css/trustWizard.css" rel="stylesheet" />
+
+    <script src="../../../asset/lib/require.js"></script>
+    <script src="../../../asset/lib/config.js"></script>
+    <script>
+        requirejs(['app/basicData//SystemSettings/TrustTaskConfigList']);
+    </script>
+</head>
+<body>
+    <div class="body-container form nobottom">
+        <div class="main">
+            <div class="pull-right">
+                <button type="button" class="btn btn-default btn-sm" id="btnAddNew">新增</button>
+                <button type="reset" class="btn btn-default btn-sm" id="btnReset">重置</button>
+                <button type="button" class="btn btn-primary btn-sm" id="btnSearch">检索</button>
+            </div>
+            <h3 class="h3">
+                <span class="title">任务设置</span>
+            </h3>
+            <div class="form-panel drop nobottom">
+                <div class="form-panel drop list-filters">
+                    <div class="col-12">
+                        <div class="col-3 form-group">
+                            <div class="col-4">
+                                <label>专项计划代码：</label>
+                            </div>
+                            <div class="col-7">
+                                <input class="filter like form-control" name="TrustCode" />
+                            </div>
+                        </div>
+                        <div class="col-3 form-group">
+                            <div class="col-4">
+                                <label>任务代码：</label>
+                            </div>
+                            <div class="col-7">
+                                <input class="filter like form-control" name="TaskCode" />
+                            </div>
+                        </div>
+                        <div class="col-3 form-group">
+                            <div class="col-4">
+                                <label>允许计算现金流：</label>
+                            </div>
+                            <div class="col-7">
+                                <select class="filter <> form-control" name="isnull(IsCashFlowForeCastRequired,0)">
+                                    <option value="">所有</option>
+                                    <option value="1">是</option>
+                                    <option value="0">否</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divDataList" class="list-container"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

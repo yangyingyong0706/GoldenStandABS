@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ribbon>
+  <tab app="DashBoard" title="基础资产">
+    <group module="Index" title="数据">
+      <element title="数据模板" type="button" icon="fa fa-cloud-download fa-fw" linkname="DownAssetTemplates" linkurl="javascript:DownAssetTemplates"></element>
+      <element title="数据校验" type="button" icon="fa fa-jsfiddle fa-fw" linkname="OpenDataCheckPage" linkurl="javascript:OpenDataCheckPage"></element>
+      <element title="导入数据" type="button" icon="fa fa-cloud-upload fa-fw" linkname="OpenUploadPage" linkurl="javascript:OpenUploadPage"></element>
+      <element title="导入循环购买资产" type="button" icon="fa fa-recycle fa-fw" linkname="OpenUploadTrustPage" linkurl="javascript:OpenUploadTrustPage"></element>
+      <element title="透视报表" type="button" icon="fa fa-table fa-fw" linkname="DownloadReport" linkurl="javascript:DownloadReport" linkurltarget="_blank"></element>
+    </group>
+ <!--  <group module="Index" title="文档">
+      <element title="项目计划书" type="button" icon="fa fa-file-word-o fa-fw" linkname="GenerateDoc" linkurl="javascript:GenerateDoc" linkurltarget="_blank"></element>
+      <element title="现金流日历" type="button" icon="fa fa-calendar fa-fw" linkname="OpenCashflowPage" linkurl="javascript:OpenCashflowPage" linkurltarget="_blank" ></element>
+    </group>
+    <group module="Index" title="管理">
+      <element title="基础资产池" type="button" icon="fa fa-plus-circle fa-fw" linkname="OpenPoolCreationPage" linkurl="javascript:OpenPoolCreationPage" ></element>
+      <element title="目标资产池" type="button" icon="fa fa-indent fa-fw" linkname="OpenPoolTargetingPage" linkurl="javascript:OpenPoolTargetingPage"></element>
+      <element title="可销售资产池" type="button" icon="fa fa-yen fa-fw" linkname="OpenSalablePoolPage" linkurl="javascript:OpenSalablePoolPage"></element>
+      <element title="预销售" type="button" icon="fa fa-sign-out fa-fw" linkname="PreSales" linkurl="javascript:PreSales"></element>
+      <element title="删除" type="button" icon="fa fa-remove fa-fw" linkname="DeleteAssetPool" linkurl="javascript:DeleteAssetPool" ></element>
+    </group>
+    -->
+    </tab>
+</ribbon>

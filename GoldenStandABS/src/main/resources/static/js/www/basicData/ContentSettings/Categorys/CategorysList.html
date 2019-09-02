@@ -1,0 +1,234 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>类别设置</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link href="../../Common/css/demo.css" rel="stylesheet" />
+    <link href="../css/zTreeStyle.css" rel="stylesheet" />
+    <link href="../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <script src="../../../../asset/lib/require.js"></script>
+    <script src="../../../../asset/lib/config.js"></script>
+    <script>
+        requirejs(['app/basicData//ContentSettings/Categorys/CategorysList'])
+    </script>
+    <style>
+        html,body{
+            height:100%
+        }
+        ul.ztree {
+            margin-top: 10px;
+            border: none;
+            background: rgba(230,233,245,1);
+            height:auto;
+            overflow-x:auto;
+            overflow-y: hidden;
+            position:absolute;
+        }
+        div#rMenu {position:absolute; visibility:hidden; top:0; background-color: #555;text-align: left;padding: 2px;}
+        div#rMenu ul li{
+	        margin: 1px 0;
+	        padding: 0 5px;
+	        cursor: pointer;
+	        list-style: none outside none;
+	        background-color: #DFDFDF;
+        }
+        #btnGroup {
+            margin-top:-10px;
+        }
+        .main .h3 .title{
+            color: #4d4d4d;
+        }
+        .btn.btn-plus{
+            color:rgba(59,62,93,0.8)
+        }
+        .main {
+            padding: 15px;
+        }
+        .main .h3{
+            margin: -15px -15px 15px;
+            padding: 0 15px;
+            font-size: 16px;
+            height: 40px;
+            line-height: 40px;
+            border-bottom:1px solid #dedede;
+        }
+        [class^=col] {
+            padding: 0;
+        }
+        .mytable {border-collapse: collapse; width:100%;}
+        .mytable .table-th { 
+            background-color: #f3f5fa; 
+        }    
+        .mytable .table-td,.mytable .table-th {
+            height: 30px;
+            padding: 0 8px;
+            text-align: center;
+            border: 1px solid #dedede;
+            font-family: '微软雅黑';
+            color: #4d4d4d;
+            font-weight: 400;
+        }
+
+        .nobottom{border-bottom:none !important;}
+        a:hover,.btn-link:focus, .btn-link:hover {
+            text-decoration: none;
+        }
+        #btnReset,#btnSearch {
+            margin-left: 5px;
+        }
+        .pager .next>a, .pager .next>span {
+            float: inherit;
+        }
+        .pager li > a, .pager li > span {
+            padding: 1px 8px;
+            margin: 0 10px;
+            border: 1px solid #dedede;
+            cursor: pointer;
+        }
+        .pager {
+            text-align: right;
+        }
+        #addbtn {
+            background: #fff;
+            border: none;
+            padding: 4px 20px;
+            color: #4d4d4d;
+            margin: 0 15px;
+            border-radius: 5px;
+        }
+        #addbtn:hover {
+            background: rgba(69,86,156,1);
+            color: #fff;
+        }
+        #main {
+            height: 100%;
+            overflow: hidden;
+        }
+        #main .left-div {
+            width: 230px;
+            float: left;
+            height: 100%;
+            background: rgba(230,233,245,1);
+            padding-top: 20px;
+        }
+         #main .right-div {
+             width: calc(100% - 230px);
+            float: left;
+            height: 100%;
+            overflow-y: auto;
+        }
+         ul.ztree::-webkit-scrollbar {          /*滚动条整体样式*/
+            width: 4px;                         /*高宽分别对应横竖滚动条的尺寸*/
+            height: 8px;
+            border-radius: 4px;
+        }
+        ul.ztree::-webkit-scrollbar-thumb {    /*滚动条里面小方块*/
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+            background: rgba(0,0,0,0.1);
+        }
+        ul.ztree::-webkit-scrollbar-track {    /*滚动条里面轨道*/
+            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+            border-radius: 0;
+            background: rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div class="left-div">
+            <button type="button" id="addbtn" class="">
+                <i class="icon icon-add"></i>
+                字段类别
+            </button>
+            <ul id="treeDemo" class="ztree"></ul>
+        </div>
+        <div class="right-div">
+            <div class="main">
+                <div id="btnGroup" class="pull-right">
+                    <button type="button" class="btn btn-default" id="btnAddNew">新增</button>
+                    <button type="reset" class="btn btn-default" id="btnReset">重置</button>
+                    <button type="button" class="btn btn-default" id="btnSearch">检索</button>
+                </div>
+                <h3 class="h3">
+                    <span class="title">内容设置</span>
+                </h3>
+                <div class="form-panel drop nobottom form">
+                    <div class="form-panel drop list-filters">
+                        <div class="col-md-12">
+                            <div class="col-md-3 form-group">
+                                <div class="col-md-4">
+                                    <label>语言</label>
+                                </div>
+                                <div class="col-md-7">
+                                    <select class="filter eq form-control" name="ItemAliasSetName">
+                                        <option value="zh-CN">中文</option>
+                                        <option value="en-US">英文</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <div class="col-md-4">
+                                    <label>编码</label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input class="filter like form-control" name="ItemCode" />
+                                </div>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <div class="col-md-4">
+                                    <label>中文名称</label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input class="filter like form-control" name="ItemAliasValue" />
+                                </div>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <div class="col-md-5">
+                                    <label title="是否关联存续期">是否关联存续期</label>
+                                </div>
+                                <div class="col-md-7">
+                                    <select class="filter eq form-control" name="IsRequired">
+                                        <option value="">所有</option>
+                                        <option value="1">是</option>
+                                        <option value="0">否</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divDataList" class="list-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!--<table>
+        <tr>
+            <td style="vertical-align:top;width:10%;">
+                <div style="vertical-align:top;margin-top:30px;width:230px">
+                                      
+                 </div>
+            </td>           
+            <td style="width:90%;">
+                <div style="vertical-align:top" class="body-container form nobottom;width:100%;">
+                    
+                </div>
+            </td>
+        </tr>
+    </table>-->
+    <div id="rMenu">
+        <ul>
+            <!--<li id="m_add" onclick="addTreeNode();">增加节点</li>-->
+            <li id="m_del" onclick="removeTreeNode();">删除类型</li>
+            <!--<li id="m_check" onclick="checkTreeNode(true);">Check节点</li>
+            <li id="m_unCheck" onclick="checkTreeNode(false);">unCheck节点</li>
+            <li id="m_reset" onclick="resetTree();">恢复zTree</li>-->
+        </ul>
+    </div>
+</body>
+</html>

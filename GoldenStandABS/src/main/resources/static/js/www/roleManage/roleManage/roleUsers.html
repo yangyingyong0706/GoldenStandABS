@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title></title>
+   
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+
+
+   
+    <style>
+         body{
+            padding:15px;
+        }
+        .k-multiselect-wrap li{
+            top:-2px;
+        }
+        .k-multiselect-wrap .k-input{
+            height:20px;
+        }
+        .k-clear-value{
+            margin-top:7px;
+        }
+        .k-i-loading{
+            margin-top:9px;
+        }
+        #btnAddUsers{
+            position: absolute;
+            right: 0px;
+            top: 2px;
+        }
+        #grid{
+            border-left:1px solid #dedede;
+            margin-top: -17px;
+        }
+        .page{
+            position:relative;
+        }
+        .k-multiselect-wrap.k-floatwrap{
+            border:1px solid #dedede;
+        }
+        .k-widget.k-multiselect.k-header.add-roles{
+            width:calc(100% - 65px)
+        }
+        .k-multiselect-wrap li{
+              border-radius: 5px;
+             background: #f1f1f1
+        }
+        
+        .k-hidden{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+    <div class="page public_font_style">
+        <div style="margin-bottom:33px;"> 
+            <select id="Users" class="add-roles" data-placeholder="请选择用户..."></select>
+            <input id="btnAddUsers" type="button" class="btn btn-default" value="添加" />   
+        </div>
+
+        <div id="grid"></div>
+    </div>
+    <script src="../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../asset/lib/config'], function (common) {
+            requirejs(['app/roleManage/roleManage/roleUsers']);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>任务列表</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="taskList-style.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    
+
+
+    <link href="../Common/css/trustWizard.css" rel="stylesheet" />
+    <!--<link href="css/pagerlist-style.css" rel="stylesheet" />-->
+    <link href="../../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+
+    <style>
+         .taskdesc {
+            word-break:break-all;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="main">
+        <div class="pull-right">
+            <button type="button" class="normal_small_button" id="btnGenerateNext">添加</button>
+        </div>
+        <h3 class="h3"><span class="title" id="taskTitle"></span></h3>
+        <div class="content">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th width="30px">序号</th>
+                        <th width="200px">任务名称</th>
+                        <th>任务描述</th>
+                        
+                        <th width="50px">状态</th>
+                        <th width="130px">完成时间</th>
+                        <th width="150px">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="divProcessStatusList"></tbody>
+                <tfoot id="tfootNewSession" style="display:none;">
+                    <tr>
+                        <td>&nbsp;&nbsp;</td>
+                        <td>
+                            <input type="text" id="TaskName" style="width:100%" class="date-plugins form-control" data-valid="required" />
+                        </td>
+                        <td>
+                            <input type="text" id="TaskDes" style="width:100%" class="date-plugins form-control" data-valid="required" />
+                        </td>
+                        <td>&nbsp;&nbsp;</td>
+                        <td>&nbsp;&nbsp;</td>
+                        <td class="center">
+                            <button type="button" class="normal_small_button" id="confirm">确认</button>
+                        </td>
+                    </tr>
+                </tfoot> 
+            </table>
+        </div>
+    </div>
+    <div id="divVariablesList" style="display:none; padding:10px; overflow-y:auto;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th width="30px">序号</th>
+                    <th width="180px">变量名称</th>
+                    <th>变量值</th>
+                </tr>
+            </thead>
+            <tbody id="tbodyVariablesList"></tbody>
+
+        </table>
+    </div>  
+  
+    <div class="form clearfix " id="assetTaskBound" style="display:none;padding:20px">
+        <div class="form-body default">
+            <div class="form-panel drop">
+                <div class="col-12 form-group">
+                    <div class="col-3"><label>序号：</label></div>
+                    <div class="col-9">
+                        <input type="text" id="AssetTaskrowNum" class="form-control" data-valid="required" />
+                    </div>
+                </div>
+                <div class="col-12 form-group">
+                    <div class="col-3"><label>名称：</label></div>
+                    <div class="col-9">
+                        <input type="text" id="AssetTaskName"  class="form-control" data-valid="required" />
+                    </div>
+                </div>
+                <div class="col-12 form-group">
+                    <div class="col-3"><label>描述：</label></div>
+                    <div class="col-9">
+                        <input type="text" id="AssetTaskDescription"  class="form-control" data-valid="required" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="buttons pull-right">
+                <button type="button" id="saveAssetTask" class="normal_small_button" title="保存">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="run-loading" id="divLoading">
+        <div class="loading">
+            <div class="rect"></div>
+            <div class="rect rect2"></div>
+            <div class="rect rect3"></div>
+            <div class="rect rect4"></div>
+        </div>
+    </div>
+    <script src="../../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/AssetManageNewRules/AssetManageNewRulesTaskList']);
+        })
+    </script>
+
+</body>
+</html>

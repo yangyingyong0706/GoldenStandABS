@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>日期周期</title>
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/lib/fullCalendar/fullcalendar.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../WorkBench/WorkBench.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <style>
+        *{
+            margin:0px;
+            padding:0px;
+        }
+        html,body{
+            width:100%;
+            height:100%
+        }
+        body{
+            padding:15px;
+        }
+        .layer{
+            width:100%;
+            height:100%;
+            box-sizing:border-box;
+        }
+        .loadpage { position: absolute; height: 100%; width: 100%; background: #FFFFFF; z-index: 9999;}   
+          .loadpage i {
+        position: absolute; 
+        left: 50%; 
+        top: 40%; 
+        transform: translate(-50%,-40%); 
+        color: rgb(107, 147, 216);
+    }
+              .table>tbody>tr>td, .table>tfoot>tr>td, .table>thead>tr>th {
+	        height: 30px;
+            line-height: 30px;
+            padding: 0;
+            box-sizing: border-box;
+            color:#4d4d4d;
+	        border: 1px solid #dce0ee;
+            color: #4d4d4d;
+            font-size: 14px;
+            vertical-align: middle;
+            text-align:left;
+            padding-left:20px;
+    }
+    .table{
+        margin-bottom:0;
+    }
+    .table>caption+thead>tr:first-child>td, .table>caption+thead>tr:first-child>th, .table>colgroup+thead>tr:first-child>td, .table>colgroup+thead>tr:first-child>th, .table>thead:first-child>tr:first-child>td, .table>thead:first-child>tr:first-child>th {
+         border-top: 1px solid #dce0ee;
+    }
+    .table td.center {text-align:center;}
+    .table td.right {text-align:right;}
+    .table > thead > tr > th {
+        text-align: left;
+        background: #fafafa;
+        vertical-align: middle;
+        color: #4d4d4d;
+        font-size: 14px;
+        font-weight:normal;
+        padding-left: 20px;
+        height: 40px;
+        line-height: 40px
+    }
+
+   .date-plugins{
+        height: 25px;
+        font-size: 14px;
+        color: #555;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .04);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .04);
+        box-sizing: border-box;
+        padding-left: 15px;
+        width: auto;
+    }
+   .icon-edit{
+       cursor:pointer;
+
+   }
+   .icon-trash-empty{
+      color:#D00000;
+        cursor:pointer;
+   }
+   .changeTab{
+       height:40px;
+   }
+   .theDate{
+       box-sizing: border-box;
+        height: 30px;
+        line-height: 30px;
+        border: 1px solid #e6e9f5;
+        margin-right: 20px;
+   }
+
+   #tb{
+        height: calc(100% - 45px);
+        overflow: auto;
+        overflow-x: hidden;
+        border: 1px solid #ddd;
+        border-left: none;
+   }
+   ul{
+       list-style:none;
+       height: 30px;
+     border-bottom: 1px solid #ccc;
+   }
+   ul li{
+       float:left;
+       margin-right:20px;
+       height:30px;
+       cursor:pointer
+   }
+   .actve{
+     color: #45569C;
+    border-bottom: 2px solid #45569C;
+   }
+    </style>
+</head>
+<body>
+    <div id="loading" class="loadpage text-center"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+    <div class="layer" id="app">
+        <div class="changeTab">
+            <ul>
+                <li v-for="items in changeTab" @click="changeli(items.Code)" v-bind:class="code==items.Code?'actve':''"><span>{{items.DisplayName}}</span></li>
+            </ul>
+        </div>
+        <div id="tb">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>期数</th>
+                        <th>开始时间</th>
+                        <th>结束时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="items in tableData" v-show="code=='CollectionDate_NW'">
+                        <td v-show="items.Code=='CollectionDate_NW'">{{items.Id}}</td>
+                        <td v-show="items.Code=='CollectionDate_NW'">{{items.StartDate}}</td>
+                        <td v-show="items.Code=='CollectionDate_NW'">{{items.EndDate}}</td>
+                    </tr>
+                    <tr v-for="items in tableData" v-show="code=='PaymentDate_CF'">
+                        <td v-show="items.Code=='PaymentDate_CF'">{{items.Id}}</td>
+                        <td v-show="items.Code=='PaymentDate_CF'">{{items.StartDate}}</td>
+                        <td v-show="items.Code=='PaymentDate_CF'">{{items.EndDate}}</td>
+                    </tr>
+                    <tr v-for="items in tableData" v-show="code=='PaymentDate_DF'">
+                        <td v-show="items.Code=='PaymentDate_DF'">{{items.Id}}</td>
+                        <td v-show="items.Code=='PaymentDate_DF'">{{items.StartDate}}</td>
+                        <td v-show="items.Code=='PaymentDate_DF'">{{items.EndDate}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../asset/lib/config'], function (config) {
+            requirejs(['app/components/viewDateSet/SeePerid']);
+        });
+    </script>
+</body>
+</html>

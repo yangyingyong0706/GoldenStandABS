@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>文件上传</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+
+    <link href="../Contents/style.css" rel="stylesheet" />
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+
+
+    <script data-main="./assignTrust.js" src="../../../asset/lib/require.js"></script>
+    <style>
+        html {
+            overflow:hidden;
+        }
+        .main{
+                width: 524px;
+                margin: auto;
+                padding: 0px;
+                padding-top: 11px;
+        }
+        .main .h3{
+            border:none;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h3 id="step-title" class="h3"><span id="spanPageTitle" class="title"></span></h3>
+        <div class="form" id="AssetPoolCreationForm">
+            <div class="form-body default">
+                <div class="form-panel drop">
+                    <div class="col-12 form-group">
+                        <div class="col-3"><label>选择专项计划：</label></div>
+                        <div class="col-9">
+                            <select class="form-control" id="selAssociatedTrust"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 buttons pull-right" style="width:100%;text-align:center;">
+                    <button type="button" class="normal_small_button" title="提交" id="btnSubmit">提交</button>
+                    <button type="button" class="delet_normal_small_button" title="取消" id="cancel">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

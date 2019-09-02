@@ -1,0 +1,497 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title>附加信息</title>
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../css/style.css" rel="stylesheet">
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet">
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/goldDefined.css" rel="stylesheet">
+    <style type="text/css">
+        html,body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        .form .form-group input[type="checkbox"] {
+            margin-top: 5px;
+        }
+        #loading {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background: #FFFFFF;
+            z-index: 9999;
+            padding-top: 12%;
+        }
+        #loading i {
+            position: absolute;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%,-40%);
+            color: rgb(107, 147, 216);
+        }
+        [class^=col] {
+            padding: 0;
+        }
+        [v-cloak] {
+            display: none;
+        }
+        .clear::after{
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            clear: both;
+        }
+        .icon {
+            font-size: 16px;
+        }
+        .date_selector table {
+            width: auto;
+        }
+        .date_selector .nav {
+            width: 100%;
+        }
+        .red-border {
+            border: 1px solid red !important;
+        }
+        .App {
+            padding-top: 20px;
+        }
+        /*上传、下载模板*/
+        .upload {
+            padding: 0 20px;
+        }
+        .progress {
+			height: 12px;
+			margin-bottom: 10px;
+			overflow: hidden;
+			background-color: #f5f5f5;
+			border-radius: 4px;
+			-webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+			box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+		}	
+		.progress>.progress-bar {
+			float: left;
+			width: 0;
+			height: 100%;
+			font-size: 12px;
+			line-height: 12px;
+			text-align: right;
+			background: #6c78bd;
+			color: #fff;
+			background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+			background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+			background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+			-webkit-transition: width .6s ease;
+			-o-transition: width .6s ease;
+			-webkit-background-size: 40px 40px;
+			background-size: 40px 40px;
+			-webkit-animation: progress-bar-stripes 2s linear infinite;
+			-o-animation: progress-bar-stripes 2s linear infinite;
+			animation: progress-bar-stripes 2s linear infinite;
+		}
+        .file_name {
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            width: calc(100% - 90px);
+            box-sizing: border-box;
+            padding-left: 10px;
+            border: 1px solid rgba(220,224,238,1);
+            border-right: 0px;
+            overflow: hidden;
+        }
+        /*付息计划，还本计划，利率计划*/
+        .Plans ul {
+            border-bottom: 1px solid #DCE0EE;
+            padding: 0 20px;
+            position: relative;
+        }
+        .Plans ul li {
+            float: left;
+            font-size: 14px;
+            color: #4D4D4D;
+            margin-right: 40px;
+            padding-bottom: 12px;
+            cursor: pointer;
+            position: relative;
+        }
+        .Plans ul li:last-child {
+            position: absolute;
+            right: 20px;
+            margin-right: 0;
+            color: #45569C;
+        }
+        .tabsActive{
+            color: #45569C !important;
+        }
+        .tabsActive::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -1.6px;
+            width: 100%;
+            height: 2px;
+            background: #45569C;
+        }
+        .Plans .main {
+            padding: 20px;
+        }
+        .PayInterest {
+        	width: 100%;
+            overflow-y: auto;
+        }
+        .PayInterest>table {
+        	border: 1px solid #dce0ee;
+        }
+        .PayInterest>table>thead>tr>th {
+        	background: #FAFAFA;
+        	font-weight: normal;
+        	color: #666;
+        }
+        .PayInterest table tbody tr td input {
+        	text-align: center;
+        	width: 100%;
+            display:inline-block;
+        }
+        .PayInterest>table>thead>tr>th,.PayInterest>table>tbody>tr>td {
+        	height: 40px;
+            box-sizing: border-box;
+        	border: 1px solid #dce0ee;
+            font-size: 14px;
+            padding: 0 15px;
+            position: relative;
+        }
+        .PayInterest table .icon-edit {
+        	cursor: pointer;
+        }
+        .field-details {
+            position: relative;
+        }
+        .field-details .field-detail-box {
+            position: absolute;
+            left: -10px;
+            width: 200px;
+            background: #fff;
+            border: 1px solid #4078d8;
+            padding: 10px;
+            z-index: 99;
+            box-shadow: 0 5px 10px rgba(0,0,0,.1);
+            color: #555;
+            display: none;
+        }
+        .field-details .field-detail-box:before {
+            position: absolute;
+            content: "";
+            top: -12px;
+            left: 12px;
+            border: 5px solid transparent;
+            border-bottom-width: 7px;
+            border-bottom-color: #4078d8;
+        }
+        .field-details .field-detail-box:after {
+            position: absolute;
+            content: "";
+            top: -10.5px;
+            left: 12px;
+            border: 5px solid transparent;
+            border-bottom-width: 7px;
+            border-bottom-color: #fff;
+        }
+        .field-details:hover .field-detail-box {
+            display: block;
+        }
+        .field-details .field-detail-box.special {
+            bottom: 25px;
+        }
+        .field-details .field-detail-box.special:before {
+            top: inherit;
+            left: 300px;
+            bottom: -7px;
+            border-top-width: 7px;
+            border-top-color: #4078d8;
+            border-bottom-width: 0;
+        }
+        .field-details .field-detail-box.special:after {
+            top: inherit;
+            left: 300px;
+            bottom: -5px;
+            border-top-width: 7px;
+            border-top-color: #fff;
+            border-bottom-width: 0;
+        }
+        .save {
+            text-align: center;
+            margin-top: 20px;
+        }
+        /*手动修改已生效按钮*/
+        .takeEffect {
+            position: relative;
+            width: 120px;
+            text-align: left !important;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        .takeEffect span {
+            position: absolute;
+            left: 27px;
+            top: 1px;
+        }
+       .table-th-css {
+	        position: relative !important;
+	        top: 0;
+            z-index: 999;
+	    }
+    </style>
+</head>
+<body>
+    <div id="App" class="App" v-cloak>
+        <div id="loading" v-if="loading"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+        <!--上传、下载模板-->
+        <div class="upload form-panel form clear" v-show="!isSystemCalculate" id="gold-form-panel">
+            <div class="col-7 form-group">
+                <div class="col-3"><label id="uploadFile_ail gold-group-addon">上传债券计划</label></div>
+                <div class="col-9">
+                    <span class="file_name gold-file-name"></span>
+                    <label class="input_file_style gold-form-file" for="fileUpload" style="width:90px;float:right;">
+                        <input type="file" id="fileUpload" class="form-control file" data-valid="required" />
+                        <span class="EnterFile_ail">选择文件</span>
+                    </label>
+                </div>
+                <div id="test_progress" class="progress" style="width:100%;position:relative;top:5px;margin:0px;display:none;">
+                    <div class="progress-bar"><span></span></div>
+                </div>
+            </div>
+            <div class="form-group" style="float: left;margin-left: 10px;">
+                <button type="button" class="btn btn-primary" @click="uploadFileClick">上传</button>
+            </div>
+            <div class="form-group" style="float: left;margin-left: 10px;">
+                <button type="button" class="btn btn-primary" @click="downLoad">下载模板</button>
+            </div>
+            <!--<div class="form-group" style="float: left;margin-left: 10px;">
+            <label class="takeEffect">
+                <input type="checkbox" v-model="takeEffect" @change="selectChange(takeEffect)" />
+                <span>手动修改生效</span>
+            </label>
+        </div>-->
+        </div>
+        <!--付息计划，还本计划，利率计划-->
+        <div class="Plans" id="single-form">
+            <ul class="clear">
+                <li @click="tabsClick(index)" v-bind:class="{tabsActive: tabsActiveB == index}" v-for="(item, index) in TabsTitle">{{item}}</li>
+                <li @click="lookSystemData(isSystemData)">
+                    <i class="fa fa-exchange fa-fw"></i>
+                    {{isSystemData}}
+                </li>
+            </ul>
+            <!--系统计算-->
+            <div class="main" v-show="isSystemCalculate">
+                <!--还本计划-->
+                <div class="PayInterest debtPlan" id="debtPlan" v-show="tabsActiveB == 0" v-bind:style="{'height': a}">
+                    <table align="center" width="100%">
+                        <thead>
+                            <tr>
+                                <th class="table-th-css">支付日</th>
+                                <th class="table-th-css">还本金额（元）</th>
+                                <th class="table-th-css">类型</th>
+                                <th class="table-th-css" width="76" v-show="PaymentConvention == '1'"><i @click="addinfos" class="icon icon-add" style="color:#45569c; cursor: pointer;"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item, index) in debtPlan" v-bind:key="index">
+                                <td>
+                                    <input v-bind:disabled="PaymentConvention != '1'" @change="formatData($event)" @focus="inputNull($event, item)" v-bind:class="{'red-border': item.PaymentDateNull}" class="date-plugins form-control SystemPlan gold-single-input" v-model="item.PaymentDate" />
+                                </td>
+                                <td>
+                                    <input v-bind:disabled="PaymentConvention != '1'" v-on:keyup="isNumber(item.Amount, item)" @focus="inputNull($event, item)" v-bind:class="{'red-border': item.AmountNull}" type="text" class="form-control gold-single-input" v-model="item.Amount" style="width: 85%;" />
+                                    <div id="field2" class="field-details" style="display:inline-block;" data-toggle="tooltip" data-placement="bottom" onmouseover="hoverin(this)">
+                                        <i class="icon icon-asset" style="margin-top: 4px;display: block;color:rgba(69,86,156,1);"></i>
+                                    </div>
+                                </td>
+                                <td>发生</td>
+                                <td width="76" v-show="PaymentConvention == '1'">
+                                    <div class="removeinfos" @click="removeinfos(index)"><i class="icon icon-remove"></i></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--付息计划-->
+                <div class="PayInterest" v-show="tabsActiveB == 1" id="payInterestPlan" v-bind:style="{'height': a}">
+                    <table align="center" width="100%">
+                        <thead>
+                            <tr>
+                                <th class="table-th-css">付息日</th>
+                                <th class="table-th-css">计息金额</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item, index) in payInterestPlan" v-bind:key="index">
+                                <td>{{item.PaymentDate}}</td>
+                                <td>{{item.Amount}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--利率计划-->
+                <div class="InterestRate PayInterest" v-show="tabsActiveB == 2" id="ratePlan" v-bind:style="{'height': a}">
+                    <table align="center" width="100%">
+                        <thead>
+                            <tr>
+                                <th class="table-th-css">开始时间</th>
+                                <th class="table-th-css">结束时间</th>
+                                <th class="table-th-css">利率(%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item, index) in ratePlan" v-bind:key="index">
+                                <td>{{item.StartDate}}</td>
+                                <td>{{item.EndDate}}</td>
+                                <td>{{item.Amount}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="save">
+                    <button type="button" @click="saveSystemCalculate" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+            <!--客户上传-->
+            <div class="main" v-show="!isSystemCalculate">
+                <!--还本计划-->
+                <div class="PayInterest" id="debtPlanUpload" v-show="tabsActiveB == 0" v-bind:style="{'height': b}">
+                    <table align="center" width="100%">
+                        <thead>
+                            <tr>
+                                <th class="table-th-css" width="140">期数</th>
+                                <th class="table-th-css">支付日</th>
+                                <th class="table-th-css">还本金额（元）</th>
+                                <th class="table-th-css">类型</th>
+                                <th class="table-th-css" width="76"><i @click="addDebt" class="icon icon-add" style="color:#45569c; cursor: pointer;"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item, index) in debtPlanUpload" v-bind:key="index">
+                                <td>
+                                    <input v-model="item.Period" v-on:keyup="isNumber2(item.Period, item)" @focus="inputNull($event, item)" v-bind:class="{'red-border': item.PeriodNull}" class="form-control gold-single-input" />
+                                </td>
+                                <td>
+                                    <input v-model="item.PaymentDate" @change="formatData($event)" @focus="inputNull($event, item)" v-bind:class="{'red-border': item.PaymentDateNull}" class="date-plugins form-control SystemPlan gold-single-input" />
+                                </td>
+                                <td>
+                                    <input v-on:keyup="isNumber(item.Amount, item)" @focus="inputNull($event, item)" v-bind:class="{'red-border': item.AmountNull}" type="text" class="form-control gold-single-input" v-model="item.Amount" style="width: 85%;" />
+                                    <div id="field2" class="field-details" style="display:inline-block;" data-toggle="tooltip" data-placement="bottom" onmouseover="hoverin(this)">
+                                        <i class="icon icon-asset" style="margin-top: 4px;display: block;color:rgba(69,86,156,1);"></i>
+                                    </div>
+                                </td>
+                                <td>发生</td>
+                                <td width="76">
+                                    <div class="removeinfos" @click="removeDebt(index)"><i class="icon icon-remove"></i></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--付息计划-->
+                <div class="PayInterest" id="payInterestPlanUpload" v-show="tabsActiveB == 1" v-bind:style="{'height': b}">
+                    <table align="center" width="100%">
+                        <thead>
+                            <tr>
+                                <th class="table-th-css" width="140">期数</th>
+                                <th class="table-th-css" width="20%">付息日</th>
+                                <th class="table-th-css">计息基准期数</th>
+                                <th class="table-th-css" width="18%">计息基准</th>
+                                <th class="table-th-css">计息区间</th>
+                                <th class="table-th-css" width="8%">发生</th>
+                                <th class="table-th-css" width="8%">兑付</th>
+                                <th class="table-th-css" width="70"><i @click="addPayInterest" class="icon icon-add" style="color:#45569c; cursor: pointer;"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item, index) in payInterestPlanUpload" v-bind:key="index">
+                                <td>
+                                    <input v-model="item.Period" v-on:keyup="isNumber2(item.Period, item)" @focus="inputNull($event, item)" v-bind:class="{'red-border': item.PeriodNull}" class="form-control gold-single-input" />
+                                </td>
+                                <td>
+                                    <input v-model="item.PaymentDate" @change="formatData($event)" @focus="inputNull($event, item)" v-bind:class="{'red-border': item.PaymentDateNull}" class="date-plugins form-control gold-single-input" />
+                                </td>
+                                <td>
+                                    <input v-model="item.InterestBasePeriod" class="form-control gold-single-input" />
+                                </td>
+                                <td>
+                                    <input v-model="item.InterestCaculateCode" class="form-control gold-single-input" />
+                                </td>
+                                <td>
+                                    <input v-model="item.InterestCaculatePeriods" class="form-control gold-single-input" />
+                                </td>
+                                <td>
+                                    <input v-model="item.IsEffective" class="form-control gold-single-input" />
+                                </td>
+                                <td>
+                                    <input v-model="item.ToBePaid" class="form-control gold-single-input" />
+                                </td>
+                                <td>
+                                    <div class="removeinfos" @click="removePayInterest(index)"><i class="icon icon-remove"></i></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--利率计划-->
+                <div class="InterestRate PayInterest" id="ratePlanUpload" v-show="tabsActiveB == 2" v-bind:style="{'height': b}">
+                    <table align="center" width="100%">
+                        <thead>
+                            <tr>
+                                <th class="table-th-css">开始时间</th>
+                                <th class="table-th-css">结束时间</th>
+                                <th class="table-th-css">利率(%)</th>
+                                <th class="table-th-css" width="76"><i @click="addRate" class="icon icon-add" style="color:#45569c; cursor: pointer;"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item, index) in ratePlanUpload" v-bind:key="index">
+                                <td>
+                                    <input v-model="item.StartDate" @change="formatData($event)" @focus="inputNull($event, item)" v-bind:class="{'red-border': item.StartDateNull}" class="date-plugins form-control gold-single-input" />
+                                </td>
+                                <td>
+                                    <input v-model="item.EndDate" @change="formatData($event)" @focus="inputNull($event, item)" v-bind:class="{'red-border': item.EndDateNull}" class="date-plugins form-control gold-single-input" />
+                                </td>
+                                <td>
+                                    <input v-model="item.Amount" v-on:keyup="isNumber(item.Amount, item)" @focus="inputNull($event, item)" v-bind:class="{'red-border': item.AmountNull}" type="text" class="form-control gold-single-input" />
+                                </td>
+                                <td width="76">
+                                    <div class="removeinfos" @click="removeRate(index)"><i class="icon icon-remove"></i></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="save">
+                    <button type="button" @click="saveClientCalculate" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/components/Layered/subjoinInformation/subjoinInformation']);
+        });
+    </script>
+</body>
+</html>

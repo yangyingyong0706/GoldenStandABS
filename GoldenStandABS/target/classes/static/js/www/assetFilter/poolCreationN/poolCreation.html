@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>基础资产池</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../Contents/style.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/style/jquery.searchableSelect.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <script data-main="./poolCreation.js" src="../../../asset/lib/require.js"></script>
+    <style>
+        body{
+            padding:15px;
+            font-family: 'Microsoft YaHei';
+        }
+        .main{
+            padding:0px;
+        }
+        .btn.btn-primary{
+            margin-right: 10px;
+            margin-left: 20px;
+        }
+        .pull-right{
+            width: 100%;
+            text-align: center;
+        }
+        .pull-right button{
+            margin-left:auto
+        }
+        .form .form-panel.drop .form-group{
+            margin-bottom:20px;
+        }
+        @media (min-width: 768px){
+            .col-9{width:75%}
+            .col-3{width:25%}
+            .col-12{width:45%}
+        }
+        .col-12.form-group:nth-child(even){
+            margin-left:auto;
+        }
+       
+        #loading { 
+            position: fixed; 
+            top: 0px; 
+            width: 100%; 
+            bottom: 0; 
+            background-color: #fff; 
+            z-index: 1002; 
+            left: 0px; 
+            text-align: center; 
+        }
+        #loading i { 
+            position: absolute; 
+            left: 50%; 
+            top: 46%; 
+            transform: translate(-50%,-46%); 
+            color: rgb(107, 147, 216);
+        }        .searchable-select-items {
+            max-height: 150px;
+        }
+    </style>
+</head>
+<body style="display:none">
+    <div id="selectLanguageDropdown_qcl" class="localizationTool" style="display:none"></div>
+    <div class="main">
+        <div class="form" id="AssetPoolCreationForm">
+            <div class="form-body default">
+                <div class="form-panel" id="gold-form-panel">
+                    <div class="col-12 form-group">
+                        <div class="col-3"><label id="pool_name" class="gold-group-addon">资产池名称</label></div>
+                        <div class="col-9">
+                            <input type="text" id="txtPoolName" v-model="PoolName" class="form-control gold-form-control" data-valid="required" />
+                        </div>
+                    </div>
+                    <div class="col-12 form-group" v-cloak>
+                        <div class="col-3"><label id="special_plan" class="gold-group-addon">产品</label></div>
+                        <div class="col-9">
+                            <select class="form-control gold-form-control" id="TrustId" v-model="TrustId" @change="selectVal">
+                                <option v-for="i in items" v-bind:value="i.TrustId">{{i.TrustCode}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 form-group" v-cloak>
+                        <div class="col-3"><label id="report_date" class="gold-group-addon">报告日期</label></div>
+                        <div class="col-9">
+                            <select class="form-control gold-form-control" id="txtRDate" v-model="RDate">
+                                <option v-for="i in rditems" v-bind:value="i.DId">{{i.DDesc}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 form-group" v-cloak>
+                        <div class="col-3"><label id="defind_company" class="gold-group-addon">针对机构</label></div>
+                        <div class="col-9">
+                            <div class="col-12"><label class="gold-form-onlyready">{{OrganisationCode}}</label></div>
+
+                        </div>
+                    </div>
+                    <div class="col-12 form-group" v-cloak>
+                        <div class="col-3"><label id="asset_type" class="gold-group-addon">资产类型</label></div>
+                        <div class="col-9">
+                            <div class="col-12"><label class="gold-form-onlyready">{{AssetType}}</label></div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-12 form-group" style="display:none">
+                        <div class="col-3"><label>资产池类型</label></div>
+                        <div class="col-9">
+                            <select id="selPoolType" class="form-control">
+                                <option value="PoolBase">基础资产池</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 form-group" style="display:none">
+                        <div class="col-3"><label>创建方式</label></div>
+                        <div class="col-9">
+                            <select id="selPoolCutType" class="form-control">
+                                <option value="New">创建新资产池</option>
+                                <option value="TopUp">创建循环结构资产池</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="buttons pull-right">
+                    <button type="button" id="createpool" class="btn btn-primary" title="创建">创建</button>
+                    <!--<button type="button" id="cancelcreation" class="delet_normal_small_button" title="取消" >取消</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

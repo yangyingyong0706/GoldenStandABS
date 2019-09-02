@@ -1,0 +1,155 @@
+﻿html{
+    width:100%;
+    height:100%;
+} 
+body {
+    height: 100%;
+    width:100%;
+    background:url("../../asset/img/summer_home.png") no-repeat;
+    background-size: 100% 100%;
+}
+.logo{    text-align: center;
+    width: 312px;
+    margin-top: 20px;}
+.form-group .form-control{
+    width: 100%;
+    height: 50px;
+    margin: 8% 0 10%;
+    color: rgba(77,77,77,1);
+    border: 1px solid #d7d7d7;
+}
+.login-box{
+    margin: 0 auto;
+    padding: 15px;
+    height: 100%;
+    padding-left: 30px;
+}
+.alert-msg{padding:6px 10px;background:#f1a528;color:#fff;font-size:12px;margin-bottom:10px;border-radius:2px;display:none;}
+
+#login{
+    width: 100%;
+    border-radius: 3px;
+    height: 50px;
+    margin-top: 5%;
+    font-size: 18px;
+}
+
+.logo a{
+    text-decoration:none;
+    display:inline-block;
+    font-size:25px;
+    color:#fafafa;
+    position: relative;
+    top: 4px;
+}
+/*login的登录页面css在html的部分*/
+body .localizationTool{
+    background:none;
+    width:140px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+}
+body .localizationTool .ltool-dropdown-label{
+    outline:none;
+}
+body .localizationTool li{
+    background:#fff;
+}
+body .localizationTool li:hover{
+    background:#27adfd;
+}
+body .localizationTool li.ltool-is-selected{
+    background:#27adfd;
+}
+body .localizationTool li:hover .ltool-language-name{
+    color:#fdfeff;
+}
+body .localizationTool .ltool-dropdown-label-arrow{
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 4px solid #333;
+    border-left: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-right: 4px solid transparent;
+    position: absolute;
+    right: 22px;
+    top: 20px;
+}
+body .localizationTool.ltool-is-visible .ltool-dropdown-label-arrow{
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 4px solid transparent;
+    border-left: 4px solid transparent;
+    border-bottom: 4px solid #333;
+    border-right: 4px solid transparent;
+    position: absolute;
+    right: 22px;
+    top: 20px;
+}
+body #alertinfo{
+    display:none
+}
+ .wrap_login {
+    width: 1000px;
+    margin: 0px;
+    background: rgba(255,255,255,1);
+    border-radius: 0px;
+    box-shadow: 0px 4px 20px 0px rgba(94,131,186,0.2);
+    overflow: hidden;
+    left: 50%;
+    top: 50%;
+    position: relative;
+    transform: translate(-50%,-50%);
+    height:400px;
+    background: rgba(255, 240, 240, 0.1);
+}
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+.show_photo {
+    width: 600px;
+    height: 100%;
+}
+.login-box {
+    width: 400px;
+}
+.show_photo img {
+    display: block;
+    position: relative;
+    left: 30%;
+    top: 50%;
+    transform:translate(0,-50%);
+}
+.show_photo,
+.login-box {
+    float: left;
+}
+.footer_box {
+    position: absolute;
+    bottom: 8%;
+    left: 0px;
+    width: 100%;
+    text-align: center;
+    font-family:'Microsoft YaHei';
+    color: rgba(69,86,156,1);
+}
+
+@media screen and (max-width:1600px) and (min-width:600px) {
+    .form-group .form-control{
+        height:40px;
+    }
+    #login {
+        height: 40px;
+        font-size: 16px;
+    }
+}

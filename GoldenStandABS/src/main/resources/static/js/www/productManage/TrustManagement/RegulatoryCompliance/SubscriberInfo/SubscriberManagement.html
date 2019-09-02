@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>认购人管理</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link href="../../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!--<link href="../Common/css/trustWizard.css" rel="stylesheet" />-->
+    <!--<link href="css/pagerlist-style.css" rel="stylesheet" />-->
+    <link href="../../../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../css/List.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <style>
+
+    </style>
+</head>
+<body class="public_font_style container-fluid">
+    <div class="body-container form nobottom">
+        <div class="main">
+            <div id="investMain">
+                <div v-show="loading" id="loading" class="loadpage text-center"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+                <div class="page-fun">
+                    <div class="pull-right margin_styleby">  
+                        <!--<button type="button" class="btn btn-default" id="btnCaculate" v-on:click="caculate"><i class="fa fa-gg"></i>计算收益分配</button>-->
+                        <button type="button" class="btn btn-default btn-single-default" id="btnAddInvest" v-on:click="addInvest"><i class="icon icon-add"></i>新增</button>
+                        <button type="button" class="btn btn-default btn-single-default" id="btnEditInvest" v-on:click="editInvest"><i class="icon icon-edit"></i>编辑</button>
+                        <button type="button" class="btn btn-danger btn-single-default" id="btnDeleteInvest" v-on:click="deleteInvest"><i class="fa fa-trash-o fa-fw"></i>删除</button>
+                    </div>
+                </div>
+                <div class="form" id="investBound" style="display:none;padding:20px">
+                    <div class="form-body default" id="gold-form-panel">
+                        <div class="form-panel drop row">
+                            <div class="form-group col-md-12">
+                                <div class="col-md-4"><label class="gold-group-addon">产品</label></div>
+                                <div class="col-md-8">
+                                    <input type="text" id="TrustId" disabled v-model="TrustId" class="form-control gold-form-control" data-valid="required" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" v-cloak>
+                                <div class="col-md-4"><label class="gold-group-addon">优先、中间、劣后名称</label></div>
+                                <div class="col-md-8">
+                                    <select id="TrustBondName" v-model="TrustBondName" class="form-control gold-form-control" data-valid="required">
+                                        <option v-bind:value="item.TrustBondName" v-for="item in TrustBondCodeList">{{item.TrustBondName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <div class="col-md-4"><label class="gold-group-addon">认购人名称</label></div>
+                                <div class="col-md-8">
+                                    <input type="text" id="SubscriberName" v-model="SubscriberName" class="form-control gold-form-control" data-valid="required" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <div class="col-md-4"><label class="gold-group-addon">认购人代码</label></div>
+                                <div class="col-md-8">
+                                    <input type="text" id="SubscriberCode" v-model="SubscriberCode" class="form-control gold-form-control" data-valid="required" v-on:change="checkTurst($event)" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" v-cloak>
+                                <div class="col-md-4"><label class="gold-group-addon">认购金额</label></div>
+                                <div class="col-md-8">
+                                    <input type="text" id="SubscribeAmount" v-model="SubscribeAmount" v-on:keyup="Tbadd(SubscribeAmount,1)" class="form-control gold-form-control" data-valid="required" />
+                                </div>
+                            </div>
+                            <!--<div class="form-group col-md-12" v-cloak>
+                <div class="col-md-4"><label>认购日期</label></div>
+                <div class="col-md-8">
+                    <input type="date"  class="form-control date-plugins"  v-model="SubscribeDate"  data-valid="date Required" />
+                </div>
+            </div>-->
+                            <div class="form-group col-md-12" v-cloak>
+                                <div class="col-md-4"><label class="lable-text gold-group-addon">关联关系说明</label></div>
+                                <div class="col-md-8">
+                                    <textarea id="AssociationRelationship" class="form-control gold-form-control" style="height:50px" data-valid="required" v-model="AssociationRelationship"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" v-cloak>
+                                <div class="col-md-4"><label class="lable-text gold-group-addon">认购人类型一级</label></div>
+                                <div class="col-md-8">
+                                    <textarea id="SubscribeType_1" class="form-control gold-form-control" style="height:50px" data-valid="required" v-model="SubscribeType_1"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" v-cloak>
+                                <div class="col-md-4"><label class="lable-text gold-group-addon">认购人类型二级</label></div>
+                                <div class="col-md-8">
+                                    <textarea id="SubscribeType_2" class="form-control gold-form-control" style="height:50px" data-valid="required" v-model="SubscribeType_2"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" v-cloak>
+                                <div class="col-md-4"><label class="lable-text gold-group-addon">社保等具体类型说明</label></div>
+                                <div class="col-md-8">
+                                    <textarea id="SocialSecurity" class="form-control gold-form-control" style="height:50px" data-valid="required" v-model="SocialSecurity"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" v-cloak>
+                                <div class="col-md-4"><label class="lable-text gold-group-addon">其他私募投基金具体类型说明</label></div>
+                                <div class="col-md-8">
+                                    <textarea id="OtherFund" class="form-control gold-form-control" style="height:50px" data-valid="required" v-model="OtherFund"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" v-cloak>
+                                <div class="col-md-4"><label class="lable-text gold-group-addon">其他投资计划具体类型说明</label></div>
+                                <div class="col-md-8">
+                                    <textarea id="OtherPlan" class="form-control gold-form-control" style="height:50px" data-valid="required" v-model="OtherPlan"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" v-cloak>
+                                <div class="col-md-4"><label class="lable-text gold-group-addon">中国证监会规定的其他投资者具体类型说明</label></div>
+                                <div class="col-md-8">
+                                    <textarea id="OtherInvestor" class="form-control gold-form-control" style="height:50px" data-valid="required" v-model="OtherInvestor"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="buttons" style="width:100%;text-align:center">
+                            <button type="button" id="saveInvest" class="btn btn-primary" title="保存" v-on:click="saveInvest">保存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-panel drop nobottom">
+                <div class="form-panel drop list-filters">
+                </div>
+
+                <div id="gridAssetDetail"></div>
+                <div id="gridAssetPoolList" style="display:none;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../../../../asset/lib/require.js"></script>
+
+    <script type="text/javascript">
+        requirejs(['../../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/RegulatoryCompliance/SubscriberInfo/SubscriberManagement']);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title></title>
+    
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <style>
+        body {
+            min-width: 600px;
+            padding:15px;
+        }
+        #Roles {
+            margin-right:5px;
+            float: right;
+            margin-top: 2px;
+        }
+
+        #grid {
+            margin-top:0px;
+            border-left: 1px solid #dedede;
+        }
+        .k-multiselect-wrap li{
+            top:-2px;
+            border-radius: 5px;
+             background: #f1f1f1
+        }
+        .k-multiselect-wrap .k-input{
+            height:24px;
+        }
+        .k-clear-value{
+            margin-top:8px;
+        }
+        .k-i-loading{
+            margin-top:5px;
+        }
+        .page{
+            position:relative;
+        }
+        .k-multiselect.k-header{
+            width: calc(100% - 65px);
+             border: 1px solid #dedede;
+        }
+        #btnAddRoles{
+            position:absolute;
+            right:0px;
+            top:2px;
+        }
+        .k-hidden{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div>
+            <select id="Roles" class="add-roles" data-placeholder="选择角色..."></select>
+            <input id="btnAddRoles" type="button" class="btn btn-default" value="添加" />
+        </div>
+        <br />
+        <div id="grid"></div>
+    </div>
+    <script src="../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../asset/lib/config'], function (common) {
+            requirejs(['app/roleManage/userManage/userRoles']);
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,454 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>统计</title>
+    <link href="../../productManage/TrustManagement/TrustFollowUp/css/pagerlist-style.css" rel="stylesheet" />
+    <link href="../../productManage/TrustManagement/TrustFollowUp/css/font/GoogleFontDosis.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../productManage/TrustManagement/ReportWizardEx/css/ReportWizardEx.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/img/icon.png" mce_href="../asset/img/icon.png" rel="icon">
+    <link href="../../../asset/style/reset.css" rel="stylesheet" />
+    <link href="../../assetFilter/css/chrome-tabs.css" rel="stylesheet" />
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="taskList-style.css" rel="stylesheet" />
+    <style type="text/css">
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .c_layer {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            padding: 15px;
+        }
+
+        #loading {
+            position: absolute;
+            top: 0px;
+            z-index: 1000000;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+        }
+
+            #loading > i {
+                color: rgb(107, 147, 216);
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+            }
+
+        .tab_change {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .li-style.btn-select {
+            color: #45569C;
+        }
+
+        .view-container {
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 20px;
+        }
+
+        .view-banner {
+            width: 100%;
+            height: 240px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .view-blue {
+            width: calc(33.33333% - 10px);
+            height: 100px;
+            background: linear-gradient(to right,#6B97DE 50%,#90B7F5);
+            padding: 15px;
+            margin-right: auto;
+            border-radius: 4px;
+        }
+
+        .view-orange {
+            width: calc(33.33333% - 10px);
+            height: 100px;
+            background: linear-gradient(to right,#DEA17B 50%,#EBCC85);
+            padding: 15px;
+            margin-right: auto;
+            border-radius: 4px;
+        }
+
+        .view-red {
+            width: calc(33.33333% - 10px);
+            height: 100px;
+            background: linear-gradient(to right,#DE876B 50%,#FF9F80);
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        .view-bluelight {
+            width: calc(33.33333% - 10px);
+            height: 100px;
+            background: linear-gradient(to right, #69AFC7 50%,#90B7F5);
+            padding: 15px;
+            margin-right: auto;
+            border-radius: 4px;
+        }
+
+        .view-orangedeep {
+            width: calc(33.33333% - 10px);
+            height: 100px;
+            background: linear-gradient(to right, #E08776 50%,#EBCC85);
+            padding: 15px;
+            margin-right: auto;
+            border-radius: 4px;
+        }
+
+        .view-bluedeep {
+            width: calc(33.33333% - 10px);
+            height: 100px;
+            background: linear-gradient(to right,#6B8EDE 50%,#80D0FF);
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        .number-area {
+            margin-top: 12px;
+            width: 100%;
+        }
+
+        .font-title {
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        .font-ZN {
+            font-size: 12px;
+            color: rgba(255,255,255,0.75);
+        }
+
+        .first-area {
+            display: grid;
+            float: left;
+            width: 50%;
+        }
+
+        .second-area {
+            display: grid;
+            float: left;
+        }
+
+        .table {
+            margin-bottom: 30px;
+        }
+
+        .tab-area {
+            width: 100%;
+        }
+
+        .table, .table > tbody > tr > td, .table > thead > tr > th {
+            border: 1px solid #ddd;
+        }
+
+        .tab-area .table .table-title-font {
+            color: #6d6d6d;
+            font-weight: normal;
+        }
+
+        .tab-area .table .table-inner-font {
+            color: #222;
+            font-weight: normal;
+        }
+
+        .hightchart-area {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 30px;
+        }
+
+        .select-hightchart, .Endyear-hightchart {
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+
+        #select-pie, #Endyear-pie {
+            width: calc(50% - 10px);
+            height: 100%;
+            margin-right: auto;
+        }
+
+        #select-bar, #Endyear-bar {
+            width: calc(50% - 10px);
+            height: 100%;
+        }
+
+        .line {
+            width: 100%;
+            position: relative;
+            height: 40px;
+            line-height: 40px;
+            overflow: hidden;
+        }
+
+        .line_left, .line_right {
+            position: relative;
+            width: 6px;
+            height: 6px;
+            border: 1px solid #337ab7;
+            display: inline-block;
+            top: -3px;
+            background: #337ab7;
+            margin-right: 10px;
+        }
+
+        .fonts-style {
+            display: inline-block;
+            position: relative;
+            z-index: 22;
+            background: #fff;
+            font-size: 14px;
+            color: #6d6d6d;
+        }
+
+        #hightchart-linebar {
+            width: 100%;
+            height: 400px;
+        }
+
+        .tab_change_style {
+            text-align: left;
+            width: 100%;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .li-style {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 14px;
+            color: #5E5E5E;
+            cursor: pointer;
+            position: relative;
+        }
+
+            .li-style.btn-select::after {
+                position: absolute;
+                content: "";
+                width: 100%;
+                height: 2px;
+                background: #45569C;
+                left: 0px;
+                bottom: -10px;
+            }
+
+            .li-style::after {
+                position: absolute;
+                content: "";
+                width: 0px;
+                height: 2px;
+                left: 0px;
+                bottom: -10px;
+                background: #45569C;
+                transition: all 0.3s;
+            }
+
+            .li-style:hover::after {
+                width: 100%;
+            }
+            tbody > tr > td {
+            text-align: center;
+            vertical-align: middle !important;
+            }
+    </style>
+</head>
+<body>
+    <div class="c_layer" id="app">
+        <div id="loading">
+            <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+        </div>
+        <!--<div class="tab_change">
+            <div class="tab_change_style">
+                <ul>
+                    <li @click="changeTabtwo()" v-bind:class="Endyear==true?'li-style btn-select':'li-style'">截至目前</li>
+                    <li @click="changeTabone()" v-bind:class="Startyear==true?'li-style btn-select':'li-style'">选择区间</li>
+                </ul>
+            </div>
+        </div>-->
+        <div class="container-fluid">
+            <input type="hidden" id="statisicstype" value="1"/>
+            <div class="row">
+                <span class="list_group_item">选择区间</span>
+                <div class="Diy-select-input">
+                    <div class="el-input">
+                        <input type="text" class="el-input-inner" autocomplete="off" readonly="readonly" id="StartDay" />
+                        <span class="el-input-suffix">
+                            <span class="el-input-suffix-inner">
+                                <i class="icon icon-bottom select-arrows el-icon-normal"></i>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="el-select-dropdown">
+                        <div class="el-scrollbar">
+                            <div class="el-scrollbar-wrap">
+                                <ul class="el-select-dropdown-list">
+                                    <li class="el-select-dropdown-item" v-for="date in datelist">{{date.StartDate}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="list_group_item"><span>~</span></div>
+                <div class="Diy-select-input">
+                    <div class="el-input">
+                        <input type="text" class="el-input-inner" autocomplete="off" placeholder="请选择或输入日期" readonly="readonly" id="EndDay" />
+                        <span class="el-input-suffix">
+                            <span class="el-input-suffix-inner">
+                                <i class="icon icon-bottom select-arrows el-icon-normal"></i>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="el-select-dropdown">
+                        <div class="el-scrollbar">
+                            <div class="el-scrollbar-wrap">
+                                <ul class="el-select-dropdown-list">
+                                    <li class="el-select-dropdown-item" v-for="date in datelist">{{date.EndDate}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:inline-block;position:relative;top:-1px">
+                    <button class="btn btn-primary" @click="changeSelect()" id="btnclick">确定</button>
+                </div>
+            </div>
+        </div>
+        <div class="view-container">
+            <div class="tab-area">
+                <div style="width:100%">
+                    <div class="line" style="width: calc(100% - 10px);margin-right: auto;">
+                        <div class="line_left"></div><span class="fonts-style">{{fontinfo}} 期间回款统计</span>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="150px">归集日</th>
+                                <th title="本金封包日还款计划">本金计划回款</th>
+                                <th title="本金该计划区间内已还">本金已回款</th>
+                                <th title="本金计划回款-已回款(根据每一期回款刷新)">本金应回款</th>
+                                <th title="本金实际回款">本金回款总额</th>
+                                <th title="利息封包日还款计划">利息计划回款</th>
+                                <th title="利息该计划区间内已还">利息已回款</th>
+                                <th title="利息计划回款-已回款(利息计划回款-已回款)">利息应回款</th>
+                                <th title="利息实际回款">利息回款总额</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="tableData in tableDatas" key="tableData.index">
+                                <td>{{ tableData.ReportingDate }}</td>
+                                <td>{{ tableData.Principalbackplan }}</td>
+                                <td>{{ tableData.Principalbacked }}</td>
+                                <td>{{ tableData.Principalshouldback }}</td>
+                                <td>{{ tableData.Principalbackamt }}</td>
+                                <td>{{ tableData.Interestbackplan }}</td>
+                                <td>{{ tableData.Interestbacked }}</td>
+                                <td>{{ tableData.Interestshouldback }}</td>
+                                <td>{{ tableData.Interestbackamt }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="width:100%">
+                    <div class="line" style="width: calc(100% - 10px);">
+                        <div class="line_left"></div><span class="fonts-style">{{fontinfo2}} 资产池状态统计</span>
+                    </div>
+                    <table class="table" style="width: calc(100% - 10px);">
+                        <thead>
+                            <tr>
+                                <th class=" table-title-font"></th>
+                                <th class="table-title-font">部分早偿</th>
+                                <th class="table-title-font">全部早偿</th>
+                                <th class="table-title-font">逾期</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="table-title-font">笔数</td>
+                                <td class="table-inner-font">{{PartAccountTotal}}</td>
+                                <td class="table-inner-font">{{AllAccountTotal}}</td>
+                                <td class="table-inner-font">{{OverAccountTotal}}</td>
+                            </tr>
+                            <tr>
+                                <td class="table-title-font">差额</td>
+                                <td class="table-inner-font">{{PartAmountDiff_Total | rentrunThrouns}}</td>
+                                <td class="table-inner-font">{{AllAmountDiff_Total | rentrunThrouns}}</td>
+                                <td class="table-inner-font">{{OverAmountDiff_Total | rentrunThrouns}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="hightchart-area">
+                <div class="select-hightchart">
+                    <div id="select-pie"></div>
+                    <div id="select-bar"></div>
+                </div>
+                <!-- <div class="Endyear-hightchart" v-show="Endyear==true">
+                    <div id="Endyear-pie"></div>
+                    <div id="Endyear-bar"></div>
+                -->
+            </div>
+            <div class="line">
+                <div class="line_left"></div><span class="fonts-style">资产逾期情况</span>
+            </div>
+            <div class="tab-area">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="table-title-font">逾期天数</th>
+                            <th class="table-title-font">拖欠金额(元)</th>
+                            <th class="table-title-font">逾期金额占比(%)</th>
+                            <th class="table-title-font">资产笔数</th>
+                            <th class="table-title-font">资产笔数占比</th>
+                            <th class="table-title-font">平均每笔差额</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in tableTreeList">
+                            <td class="table-title-font">{{item.StatusDescription}}</td>
+                            <td class="table-inner-font">{{item.AmountDiff_Total | rentrunThrouns}}</td>
+                            <td class="table-inner-font">{{item.AmountDiffRate}}</td>
+                            <td class="table-inner-font">{{item.AccountTotal}}</td>
+                            <td class="table-inner-font">{{item.AccountRate}}</td>
+                            <td class="table-inner-font">{{item.AmountDiff_Avg | rentrunThrouns}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="line">
+                <div class="line_left"></div><span class="fonts-style">资产逾期总览</span>
+            </div>
+            <div class="hightchart-area" style="margin-bottom:20px">
+                <div id="hightchart-linebar"></div>
+            </div>
+        </div>
+    </div>
+    <script src="../../../asset/lib/require.js"></script>
+
+    <script type="text/javascript">
+        requirejs(['../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TrustFollowUp/statistics/statistics']);
+            //requirejs(['app/projectStage/StageList/intervalStatistics']);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" style="overflow:hidden">
+<head>
+    <title>数据准备</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <link href="../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../asset/allstylesheet/index.css" rel="stylesheet" />
+
+    <script src="../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../asset/lib/config.js'], function (config) {
+            requirejs(['app/report/DataReady']);
+        });
+    </script>
+
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        button a:focus, button a:hover {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .main {
+            padding: 15px;
+            background: #fff;
+            height: 100%;
+        }
+
+        .body-container {
+            height: 100%;
+        }
+
+        #loading {
+            position: absolute;
+            top: 0px;
+            z-index: 1002;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+        }
+
+            #loading > i {
+                color: rgb(107, 147, 216);
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+            }
+
+        /*.k-grid tr td {
+            border-width: 0 0 1px 1px;
+            border-style: solid;
+            border-color: #e6e6e6 !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding: 0.586em 1.486em !important;
+        }*/
+        .k-grid tr:hover {
+            background-color: #f3f5fa;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        .f-right {
+            float: right;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        a, a:hover {
+            text-decoration: none;
+        }
+
+        li a {
+            color: #444444;
+        }
+
+            li a:hover, li:hover a {
+                color: #ffffff;
+            }
+
+        .wrap-btn {
+            text-align: right;
+            margin-bottom: 10px;
+        }
+
+        .k-grid-header th.k-header {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="public_font_style gridtrust">
+    <div class="body-container form nobottom">
+        <div id="loading">
+            <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+        </div>
+        <div class="main">
+            <div class="clearfix wrap-btn">
+                <button id="saveProject" class="btn btn-primary">保存</button>
+            </div>
+            <div id="grid"></div>
+        </div>
+    </div>
+</body>
+</html>

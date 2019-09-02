@@ -1,0 +1,400 @@
+﻿{
+    "app": "projectManageFunction",
+    "title": "项目管理",
+    "group": [
+        {
+            "module": "Index",
+            "title": "项目管理",
+            "elements": [
+                 {
+                    "title": "前期接触沟通",
+                    "type": "button",
+                    "icon": "icon icon-group",
+                    "linkname": "PreliminaryContact",
+                    "linkurl": "javascript:PreliminaryContact",
+                    "class": "btn btn-default"
+                },
+                {
+                    "title": "工作流",
+                    "type": "button",
+                    "icon": "icon icon-attach-outline",
+                    "linkname": "WorkflowConfiguration",
+                    "linkurl": "javascript:WorkflowConfiguration",
+                    "class": "btn btn-default"
+                },
+            
+                {
+                    "title": "方案设计",
+                    "type": "button",
+                    "icon": "icon icon-dropbox",
+                    "linkname": "Projectdesign",
+                    "linkurl": "javascript:Projectdesign",
+                    "class": "btn btn-default"
+                },
+                {
+                    "title": "新增项目",
+                    "type": "button",
+                    "icon": "icon icon-add",
+                    "linkname": "AddProject",
+                    "linkurl": "javascript:AddProject",
+                    "class": "btn btn-default"
+                },
+                {
+                    "title": "编辑",
+                    "type": "button",
+                    "icon": "icon icon-edit",
+                    "linkname": "EditProject",
+                    "linkurl": "javascript:EditProject",
+                    "class": "btn btn-default"
+                },
+              
+                {
+                    "title": "删除",
+                    "type": "button",
+                    "icon": "icon icon-trash-empty",
+                    "linkname": "DeleteProject",
+                    "linkurl": "javascript:DeleteProject",
+                    "class": "btn btn-danger"
+                },
+                {
+                    "title": "资产转让",
+                    "type": "button",
+                    "icon": "icon icon-chart-area",
+                    "linkname": "AssetTransfer",
+                    "linkurl": "javascript:AssetTransfer",
+                    "class": "btn btn-default"
+                },
+                {
+                    "title": "资产赎回",
+                    "type": "button",
+                    "icon": "icon icon-floppy",
+                    "linkname": "Redemptions",
+                    "linkurl": "javascript:Redemptions"
+                },
+                {
+                    "title": "清仓回购",
+                    "type": "button",
+                    "icon": "fa fa-dollar fa-fw",
+                    "linkname": "Repurchase",
+                    "linkurl": "javascript:Repurchase",
+                    "class": "btn btn-default"
+                },
+                {
+                    "title": "信托对价分配向导",
+                    "type": "button",
+                    "icon": "fa fa-indent fa-fw",
+                    "linkname": "viewAllocationTrust",
+                    "linkurl": "javascript:viewAllocationTrust",
+                    "asideUrl": "allocationTrust/viewAllocationTrust.html"
+                },
+                {
+                    "title": "资产回收向导",
+                    "type": "button",
+                    "icon": "icon icon-upload",
+                    "linkname": "viewAssetRecovery",
+                    "linkurl": "javascript:viewAssetRecovery",
+                    "asideUrl": "assetRecovery/viewAssetRecovery.html"
+                },
+                {
+                    "title": "资产回收上划向导",
+                    "type": "button",
+                    "icon": "icon icon-chexiao",
+                    "linkname": "viewBuyBack",
+                    "linkurl": "javascript:viewBuyBack",
+                    "asideUrl": "buyBack/viewBuyBack.html"
+                },
+                {
+                    "title": "资产回收转付向导",
+                    "type": "button",
+                    "icon": "icon icon-terminal",
+                    "linkname": "viewRecoveryTransfer",
+                    "linkurl": "javascript:viewRecoveryTransfer",
+                    "asideUrl": "recoveryTransfer/viewRecoveryTransfer.html"
+                },
+                {
+                    "title": "回购上划管理向导",
+                    "type": "button",
+                    "icon": "icon icon-rouble",
+                    "linkname": "viewRecycleMark",
+                    "linkurl": "javascript:viewRecycleMark",
+                    "asideUrl": "recycleMark/viewRecycleMark.html"
+                },
+                {
+                    "title": "循环购买向导",
+                    "type": "button",
+                    "icon": "icon icon-codepen",
+                    "linkname": "RevolvePurchaseForProject",
+                    "linkurl": "javascript:RevolvePurchaseForProject"
+                },
+                {
+                    "title": "循环购买任务单",
+                    "type": "button",
+                    "icon": "icon icon-gauge",
+                    "linkname": "CyclesManageForProject",
+                    "linkurl": "javascript:CyclesManageForProject"
+                },
+                {
+                    "title": "循环购买金额测算",
+                    "type": "button",
+                    "icon": "icon icon-gauge",
+                    "linkname": "CyclesManageProjections",
+                    "linkurl": "javascript:CyclesManageProjections"
+                },
+                {
+                    "title": "循环购买测算结果查询",
+                    "type": "button",
+                    "icon": "icon icon-gauge",
+                    "linkname": "CyclesManageResult",
+                    "linkurl": "javascript:CyclesManageResult"
+                },
+                {
+                    "title": "项目状态记录",
+                    "type": "button",
+                    "icon": "icon icon-gauge",
+                    "linkname": "ProjectStatusHistory",
+                    "linkurl": "javascript:ProjectStatusHistory",
+                    "class": "btn btn-default"
+                },
+                {
+                    "title": "资产导入及校验",
+                    "type": "button",
+                    "icon": "fa fa-dollar fa-fw",
+                    "linkname": "ProjectAssetImport",
+                    "linkurl": "javascript:ProjectAssetImport",
+                    "class": "btn btn-default"
+                },
+                {
+                    "title": "循环购买流程任务单",
+                    "type": "button",
+                    "icon": "icon icon-gauge",
+                    "linkname": "RecyclingListForProject",
+                    "linkurl": "javascript:RecyclingListForProject",
+                    "class": "btn btn-default"
+                },
+             
+                {
+                    "title": "上一阶段",
+                    "type": "button",
+                    "icon": "icon icon-back",
+                    "linkname": "LastStage",
+                    "linkurl": "javascript:ProjectSource",
+                    "class": "btn btn-default"
+                },
+                {
+                    "title": "下一阶段",
+                    "type": "button",
+                    "icon": "icon icon-right",
+                    "linkname": "NextStage",
+                    "linkurl": "javascript:ProjectSource",
+                    "class": "btn btn-default"
+                }
+            ]
+        },
+        {
+            "module": "Index",
+            "title": "项目管理",
+            "elements": [
+                {
+                    "title": "资产筛选",
+                    "type": "button",
+                    "icon": "fa fa-dollar fa-fw",
+                    "linkname": "AssetScreening",
+                    "linkurl": "javascript:AssetScreening",
+                    "class": "btn btn-default"
+                },
+                {
+                    "title": "存续报告",
+                    "type": "button",
+                    "icon": "icon icon-note",
+                    "linkname": "ReportManagement",
+                    "linkurl": "javascript:ReportManagement",
+                    "class": "btn btn-default"
+                },
+               
+                {
+                    "title": "收益分配计算",
+                    "type": "button",
+                    "icon": "icon icon-chart-bar",
+                    "linkname": "TrustCollectionPickerPage",
+                    "linkurl": "javascript:TrustCollectionPickerPage",
+                    "class": "btn btn-default"
+                },
+                 {
+                    "title": "收益分配历史数据",
+                    "type": "button",
+                    "icon": "icon icon-wenjian",
+                    "linkname": "ViewIncomeDistributionHistoryData",
+                    "linkurl": "javascript:ViewIncomeDistributionHistoryData",
+                    "class": "btn btn-default"
+                },
+                {
+                    "title": "产品设计",
+                    "type": "button",
+                    "icon": "fa fa-gg fa-fw",
+                    "linkname": "ProductDesign",
+                    "linkurl": "javascript:ProductDesign",
+                    "class": "btn btn-default"
+                },
+                {
+                    "title": "产品维护",
+                    "type": "button",
+                    "icon": "fa fa-gg fa-fw",
+                    "linkname": "ProductDefend",
+                    "linkurl": "javascript:ProductDefend",
+                    "class": "btn btn-default"
+                },
+                {
+                    "title": "发行文档管理",
+                    "type": "button",
+                    "icon": "icon icon-floppy",
+                    "linkname": "DocumentManagement",
+                    "linkurl": "javascript:DocumentManagement",
+                    "class": "btn btn-default"
+                },
+                {
+                    "title": "压力测试",
+                    "type": "button",
+                    "icon": "fa fa-gg fa-fw",
+                    "linkname": "StressTest",
+                    "linkurl": "javascript:StressTest",
+                    "class": "btn btn-default"
+                },
+                 {
+                    "title": "证券路演及销售",
+                    "type": "button",
+                    "icon": "icon icon-asset",
+                    "linkname": "SecuritiesRoadshowSales",
+                    "linkurl": "javascript:SecuritiesRoadshowSales",
+                    "class": "btn btn-default"
+                },
+                {
+                    "title": "产品备案挂牌",
+                    "type": "button",
+                    "icon": "icon icon-note",
+                    "linkname": "ProductListing",
+                    "linkurl": "javascript:ProductListing",
+                    "class": "btn btn-default"
+                },
+                 {
+                    "title": "计划募集成立",
+                    "type": "button",
+                    "icon": "icon icon-cinema",
+                    "linkname": "EstablishPlannedFundraising",
+                    "linkurl": "javascript:EstablishPlannedFundraising",
+                    "class": "btn btn-default"
+                },
+                {
+                    "title": "快速压力测试",
+                    "type": "button",
+                    "icon": "fa fa-gg fa-fw",
+                    "linkname": "QuickStressTest",
+                    "linkurl": "javascript:QuickStressTest",
+                    "class": "btn btn-default"
+                },
+                {
+                    "title": "上一阶段",
+                    "type": "button",
+                    "icon": "icon icon-back",
+                    "linkname": "LastStage",
+                    "linkurl": "javascript:ProjectSource",
+                    "class": "btn btn-default"
+                },
+                {
+                    "title": "下一阶段",
+                    "type": "button",
+                    "icon": "icon icon-right",
+                    "linkname": "NextStage",
+                    "linkurl": "javascript:ProjectSource",
+                    "class": "btn btn-default"
+                }
+            ]
+
+        },
+        {
+            "module": "Index",
+            "title": "项目管理",
+            "elements": [
+                {
+                    "title": "工作流",
+                    "type": "button",
+                    "icon": "icon icon-attach-outline",
+                    "linkname": "WorkflowConfiguration",
+                    "linkurl": "javascript:WorkflowConfiguration",
+                    "class": "btn btn-default"
+                },
+                 {
+                    "title": "申报合规意见书",
+                    "type": "button",
+                    "icon": "icon icon-wenjian",
+                    "linkname": "ComplianceReport",
+                    "linkurl": "javascript:ComplianceReport",
+                    "class": "btn btn-default"
+                },
+                {
+                    "title": "资产池状态操作",
+                    "type": "button",
+                    "icon": "fa fa-dollar fa-fw",
+                    "linkname": "PoolSales",
+                    "linkurl": "javascript:PoolSales",
+                    "class": "btn btn-default"
+                },
+                {
+                    "title": "项目计划书",
+                    "type": "button",
+                    "icon": "fa fa-dollar fa-fw",
+                    "linkname": "ProgramPlan",
+                    "linkurl": "javascript:ProgramPlan",
+                    "class": "btn btn-default"
+                }
+            ]
+        },
+        {
+            "module": "Index",
+            "title": "项目管理",
+            "elements": [
+                {
+                    "title": "工作流",
+                    "type": "button",
+                    "icon": "icon icon-attach-outline",
+                    "linkname": "WorkflowConfiguration",
+                    "linkurl": "javascript:WorkflowConfiguration",
+                    "class": "btn btn-default"
+                },
+                {
+                    "title": "资产服务报告",
+                    "type": "button",
+                    "icon": "icon icon-wenjian",
+                    "linkname": "AssetServicesReport",
+                    "linkurl": "javascript:AssetServicesReport",
+                    "class": "btn btn-default"
+                },
+                {
+                    "title": "项目文档任务单",
+                    "type": "button",
+                    "icon": "icon icon-wenjian",
+                    "linkname": "PrijectListForProject",
+                    "linkurl": "javascript:PrijectListForProject",
+                    "class": "btn btn-default"
+                }
+            ]
+        },
+        {
+            "module": "Index",
+            "title": "项目管理",
+            "elements": [ ],
+            "elementAll": [
+                {
+                    "title": "项目资源",
+                    "type": "button",
+                    "icon": "fa fa-dollar fa-fw",
+                    "linkname": "ProjectSource",
+                    "linkurl": "javascript:ProjectSource",
+                    "class": "btn btn-default"
+                }
+
+
+            ]
+
+        }
+    ]
+}

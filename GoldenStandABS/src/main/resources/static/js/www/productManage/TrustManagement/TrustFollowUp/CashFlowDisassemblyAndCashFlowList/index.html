@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+    <title>现金流拆分归集与现金流一览</title>
+    <link href="../../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!--<link href="../css/trustFollowUp.css" rel="stylesheet" />-->
+    <link href="../css/pagerlist-style.css" rel="stylesheet" />
+    <link href="../css/font/GoogleFontDosis.css" rel="stylesheet" />
+    <link href="../../../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+
+    <style type="text/css">
+        .radio-list {
+            font: "14px "Microsoft Yahei", tahoma, arial, 宋体";
+            resize: none;
+        }
+
+            .radio-list .radio-list-span {
+                display: inline-block;
+                min-width: 60px;
+                text-align: left;
+            }
+              .k-grid tr td {
+           
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+        }
+        #grid {
+            border-bottom:none;
+        }
+        body,html{
+            width:100%;
+            height:100%;
+            overflow:hidden;
+        }
+        .Hlayer{
+            width:100%;
+            height:100%;
+            padding:15px;
+        }
+        .k-pager-wrap.k-grid-pager.k-widget.k-floatwrap{
+            border-bottom:1px solid rgba(0,0,0,0.1)
+        }
+       #grid td {
+           font-family: 'Microsoft YaHei';
+       }
+       .btn {
+           height: 22px;
+           line-height: 22px;
+       }
+    </style>
+</head>
+<body>
+    <div class="Hlayer">
+        <div id="grid"></div>
+    </div>
+    <script src="../../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+    requirejs(['../../../../../asset/lib/config'], function (config) {
+        requirejs(['app/productManage/TrustManagement/TrustFollowUp/CashFlowDisassemblyAndCashFlowList/main']);
+    });
+    </script>
+
+</body>
+</html>

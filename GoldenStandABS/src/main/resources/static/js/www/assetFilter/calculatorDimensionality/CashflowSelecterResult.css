@@ -1,0 +1,82 @@
+﻿html,
+body {
+	height: 100%;
+	background: white;
+}
+[v-cloak] {
+    display: none;
+}
+#app {
+	padding: 15px;
+	height: 100%;
+}
+#loading {
+	width: 100%;
+	height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: #fff;
+    z-index: 999999;
+}
+#loading i {
+	position: absolute;
+    left: 50%;
+    top: 50%;
+    color: rgb(107, 147, 216);
+    transform: translate(-50%,-50%);
+}
+.clear::after {
+	content: '';
+	display: block;
+	width: 0;
+	height: 0;
+	clear: both;
+}
+.main {
+	height: 100%;
+	border:1px solid rgba(230,233,245,1);
+}
+.title {
+	font-size: 16px;
+	color: #45569C;
+	line-height: 41px;
+	padding: 0 15px;
+	border-bottom: 1px solid rgba(230,233,245,1);
+}
+.title div {
+	float: left;
+}
+.title div:last-child {
+	float: right;
+}
+ul,li {
+	list-style: none;
+	padding: 0;
+}
+.subMain {
+    margin-top: 15px;
+	padding: 0 15px;
+}
+.subMain ul {
+	border-bottom: 1px solid rgba(230,233,245,1);
+	box-sizing: border-box;
+}
+.subMain ul li {
+	box-sizing: border-box;
+	height: 40px;
+	line-height: 40px;
+	margin-right: 15px;
+	float: left;
+	cursor: pointer;
+	font-size: 14px;
+	margin-bottom: -1px;
+}
+.subMain ul li:last-child {
+	margin-right: 0;
+}
+.subMain ul li.active {
+	color: rgba(69,86,156,1);
+    border-bottom: 2px solid rgba(69,86,156,1);
+}
+

@@ -1,0 +1,31 @@
+﻿.trHover tr:hover{
+    background-color:#f9f5f5;
+}
+.trHover tr{
+    padding: 8px 0px;
+    font-size: 12px;
+}
+.trHover tr>td:nth-child(1)>a:hover{
+    cursor:pointer;
+    text-decoration: underline;
+}
+  body{
+    padding: 15px;
+    padding-top: 8px;
+}
+.list_box{
+    background-color: #fff;
+}
+table th{
+    margin: 0px;
+    padding: 0px;
+    line-height: 43px;
+}
+.trHover td {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        box-sizing: border-box;
+        padding-left: 2px;
+}
+       

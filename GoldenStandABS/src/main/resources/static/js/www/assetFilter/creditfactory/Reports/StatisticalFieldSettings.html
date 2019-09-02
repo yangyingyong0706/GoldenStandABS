@@ -1,0 +1,292 @@
+﻿
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-compatible" content="IE=edge,chrome=1">
+    <title></title>
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!--<link href="../css/list.css" rel="stylesheet" />
+    <link href="../css/list01.css" rel="stylesheet" />-->
+    <link href="../font/icon-font/iconfont.css" rel="stylesheet" />
+    <!--<link href="../css/common.css" rel="stylesheet" />-->
+    <!--<link href="../css/loan.css" rel="stylesheet" />-->
+
+    <style>
+        body, html {
+            width: 100%;
+            font-family: 'Microsoft YaHei';
+            height:100%;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        th {
+            padding: 5px;
+            font-size: 13px;
+            border: 1px solid #e6e6e6;
+            border-right: none;
+            color: #666;
+            vertical-align: middle;
+            font-family: 'Microsoft YaHei';
+            font-weight: 400;
+            text-align:center;
+        }
+
+            th:last-child {
+                border-right: 1px solid #dedede;
+            }
+
+        td {
+            padding: 5px 10px;
+            font-size: 13px;
+            border: 1px solid #dedede;
+            border-right: none;
+            border-bottom: none;
+            text-align: center;
+        }
+
+        tr:first-child > td {
+            border-top: none;
+        }
+
+        tr:last-child > td {
+            border-bottom: 1px solid #dedede;
+        }
+
+        td:last-child {
+            border-right: 1px solid #dedede;
+        }
+
+        td > input {
+            padding: 0px 0px 0px 5px;
+            height: 28px;
+            width: 100%;
+            border: 1px solid #dedede;
+            font-family: '微软雅黑';
+        }
+        td > select {
+            border: 1px solid #dedede;
+            font-family: '微软雅黑';
+        }
+        .list_box {
+            padding: 15px;
+        }
+
+        .poolBox {
+            margin-bottom: 10px;
+            color: #e6e6e6;
+        }
+
+            .poolBox span {
+                min-width: 126px;
+                text-align: right;
+                display: inline-block;
+                margin-bottom: 15px;
+            }
+
+            .poolBox input {
+                width: 170px;
+                height: 26px;
+                margin-right: 40px;
+                padding-left: 3px;
+                box-sizing: border-box;
+            }
+
+        .btnBox {
+            margin: 20px 0px;
+        }
+
+            .btnBox k-button {
+                margin-bottom: 30px;
+            }
+
+        .textareaBox {
+            margin-top: 10px;
+        }
+
+        .addTd i {
+            font-size: 22px;
+            color: rgba(59,62,93,0.8);
+        }
+
+        .addTd {
+            font-size: 22px;
+            cursor: pointer;
+            text-align:center
+        }
+
+        .removeTd {
+            font-size: 20px;
+            color: rgba(208,34,34,.7);
+            cursor: pointer;
+            padding-left: 12px;
+        }
+
+            .removeTd i {
+                font-size: 20px;
+            }
+
+            .removeTd:hover {
+                font-size: 20px;
+                color: rgba(215,69,69,1);
+            }
+
+        td select {
+            color: #606060 !important;
+        }
+
+        .btn i.iconfont {
+            font-size: 14px;
+        }
+
+        .marLeft10 {
+            margin-left: 10px;
+        }
+
+        .toolbar {
+            letter-spacing: -.31em;
+        }
+        .loadpage {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            background: #FFFFFF;
+            z-index: 9999;
+        }
+
+        .loadpage > i {
+            color: rgb(107, 147, 216);
+            top: 50%;
+            position: absolute;
+        }
+         .border_red,.theInputBorderRed{
+            border-color:rgba(215,69,69,1);
+        }
+    </style>
+</head>
+
+<body style="overflow:hidden">
+    <div id="loading" class="loadpage text-center"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+    <div id="app" class="list_box">
+        <div class="positionBox">
+            <div class="Total toolbar" style="float:right">
+                <button class="btn btn-default marLeft10" @click="saveConfig()" style="margin-bottom: 15px;">
+                    保存配置
+                </button>
+            </div>
+        </div>
+        <table id="js_stu_tb" cellspacing="0" style="width:100%;">
+            <thead style="background:#f3f5fa;">
+                <tr>
+                    <th class="addTd" @click="addItem()"><i class="icon iconfont icon-8zengjia"></i></th>
+                    <th>序号</th>
+                    <th>字段名</th>
+                    <th>中文名</th>
+                    <th width="100">间隔</th>
+                    <th width="100">最小值</th>
+                    <th>最大值</th>
+                    <th>"XX 以下"区间</th>
+                    <th>"XX 以上"区间 </th>
+                    <th>区间闭端</th>
+                    <th>间隔符</th>
+                    <th>表名</th>
+                    <th>统计类型</th>
+                    <th>数据类型</th>
+                    <th>单位</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item,index) in StatisticalList" class="disabledon">
+                    <td class="removeTd" @click="removeItem(index)"><i class="icon iconfont icon-shanchu"></i></td>
+                    <td>{{index+1}}</td><!--序号-->
+                    <td><input type="text" v-model="item.DistributionTypeCode" class="font-ll DistributionTypeCode" v-on:change='stripscript($event)' /></td><!--字段名-->
+                    <td><input type="text" v-model="item.DistributionTypeName" class="DistributionTypeName" v-on:keyup='CHZNClass($event)' /></td><!--中文名-->
+                    <td><input type="text" v-model="item.Interval" class="disabledondis Interval" v-on:keyup='CodingVerificationOne($event,index)' v-bind:value="numFormtOne(item.Interval,index)" /></td><!--间隔-->
+                    <td><input type="text" v-model="item.MinValue" class="disabledondis MinValue" v-on:keyup='CodingVerificationTwo($event,index)' v-bind:value="numFormtTwo(item.MinValue,index)" /></td><!--最小值-->
+                    <td><input type="text" v-model="item.MaxValue" class="disabledondis MaxValue" v-on:keyup='CodingVerificationThree($event,index)' v-bind:value="numFormtThree(item.MaxValue,index)" /></td><!--最大值-->
+                    <td>
+                        <!--"XX 以下"区间-->
+                        <select v-model="item.IncludingBelow" style="border:1px solid #e6e6e6;height:28px" class="disabledondis">
+                            <option value="N" >否</option>
+                            <option value="Y" >是</option>
+                            <option value="" v-show="item.ColumnType=='dim'">-</option>
+                        </select>
+                    </td>
+                    <td>
+                        <!--"XX 以上"区间-->
+                        <select v-model="item.IncludingAbove" style="border:1px solid #e6e6e6;height:28px" class="disabledondis">
+                            <option value="N" >否</option>
+                            <option value="Y" >是</option>
+                            <option value="" v-show="item.ColumnType=='dim'">-</option>
+                        </select>
+                    </td>
+                    <td>
+                        <!--区间闭端-->
+                        <select v-model="item.DefaultClosedSide" style="border:1px solid #e6e6e6;height:28px" class="disabledondis">
+                            <option value="L" >左边包含</option>
+                            <option value="R" >右边包含</option>
+                            <option value="" v-show="item.ColumnType=='dim'">-</option>
+                        </select>
+                    </td>
+                    <td>
+                        <!--间隔符-->
+                        <input v-model="item.Separator" style="width:50px" class="disabledondis Separator" v-on:keyup='CHZNClass($event)'>
+                    </td>
+                    <td>
+                        <!--表名-->
+                        <input v-model="item.TableName" class="TableName" v-on:keyup='CHZNClass($event)'>
+                    </td>
+                    <td>
+                        <!--统计类型-->
+                        <select v-model="item.ColumnType" style="border:1px solid #e6e6e6;height:28px" @change="disabledInput(index)">
+                            <option value="dim">枚举类型</option>
+                            <option value="fact">区间类型</option>
+                        </select>
+                    </td>
+                    <td>
+                        <!--数据类型-->
+                        <select v-model="item.FiledType" style="border:1px solid #e6e6e6;height:28px" class="disabledondis" >
+                            <option value="金额类型">金额类型</option>
+                            <option value="日期类型">日期类型</option>
+                            <option value="比率类型">比率类型</option>
+                            <option value="其它">其它</option>
+                            <option value="" v-show="item.ColumnType=='dim'">-</option>
+                        </select>
+                    </td>
+                    <td>
+                        <!--单位-->
+                        <select v-model="item.Unit" style="border:1px solid #e6e6e6;height:28px;width:50px" v-if="item.FiledType=='比率类型'" class="disabledondis">
+                            <option value="%">%</option>
+                            <option value="">无</option>
+                            <option value="" v-show="item.ColumnType=='dim'">-</option>
+                        </select>
+                        <select v-model="item.Unit" style="border:1px solid #e6e6e6;height:28px;width:50px" v-if="item.FiledType=='金额类型'" class="disabledondis">
+                            <option value="元">元</option>
+                            <option value="万元">万元</option>
+                            <option value="" v-show="item.ColumnType=='dim'">-</option>
+                        </select>
+                        <select v-model="item.Unit" style="border:1px solid #e6e6e6;height:28px;width:50px" v-if="item.FiledType=='日期类型'" class="disabledondis">
+                            <option value="天">天</option>
+                            <option value="个月">个月</option>
+                            <option value="季">季</option>
+                            <option value="年">年</option>
+                            <option value="" v-show="item.ColumnType=='dim'">-</option>
+                        </select>
+                        <input v-model="item.Unit" style="border:1px solid #e6e6e6;height:28px;width:50px" v-if="item.FiledType=='其它'" class="disabledondis">
+                    </td>
+                </tr>
+            <tbody />
+        </table>
+    </div>
+    <script src="../../../../asset/lib/require.js" ></script>
+    <script>
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/assetFilter/creditfactory/Reports/StatisticalFieldSettings']);
+        });
+    </script>
+</body>
+</html>

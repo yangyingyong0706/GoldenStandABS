@@ -48,6 +48,36 @@ public class TrustManagementServiceTest extends SpringTestCase{
 		logger.info("--------------------end---GetTrustTest--------------------------------------------------------------------------------------------------");
 	}  
 	
+	@Test  
+	public void getABSversionTest(){  
+//		Map<String, Object> map = trustManagementService.GetTrustInfoFromWizard("9");  
+		logger.info("--------------------start---getABSversionTest--------------------------------------------------------------------------------------------------");
+		Map<String,Object>  map=trustManagementService.getABSversion();
+		Set<String> set=map.keySet();
+		for (String string : set) {
+			logger.info("查找结果getABSversionTest -----map--set----键key:("+string+")     值value:" +map.get(string) );  
+		}
+		
+		logger.info("--------------------end---getABSversionTest--------------------------------------------------------------------------------------------------");
+	}  
+	@Test  
+	public void GetAllCodeDictionaryTest(){  
+//		Map<String, Object> map = trustManagementService.GetTrustInfoFromWizard("9");  
+		logger.info("--------------------start---GetAllCodeDictionaryTest--------------------------------------------------------------------------------------------------");
+		List<Map<String,Object>>  list=trustManagementService.GetAllCodeDictionary("zh-CN");
+		for (Map<String, Object> map : list) {
+			Set<String> set=map.keySet();
+			for (String string : set) {
+				logger.info("查找结果getItemValue-----map--set----键key:("+string+")     值value:" +map.get(string) );  
+				
+			}
+
+		}
+
+		
+		logger.info("--------------------end---GetAllCodeDictionaryTest--------------------------------------------------------------------------------------------------");
+	}  
+	
 	
 	
 	@Test  

@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Word版本历史比较</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <style>
+        td>p {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="body-container form nobottom">
+        <div class="main">
+            <h3 class="h3">
+                <span class="title" style="font-weight:normal;font-size:16px;">Word版本历史比较</span>
+            </h3>
+            <div class="form-panel drop nobottom">
+                <div id="divDataList" class="list-container"></div>
+            </div>
+        </div>
+    </div>
+
+    
+    <link href="../../../../www/components/viewDateSet/css/trustWizard.css" rel="stylesheet" />
+    <link href="zTree/css/zTreeStyle/pagerlist-style.css" rel="stylesheet" />    
+
+    <script src="../../../../../asset/lib/require.js"></script>
+
+    <script>
+        requirejs(['../../../../../asset/lib/config'], function (config) {
+            require(['app/productManage/TrustManagement/documentManagement/zTree/js/DiffWords'])
+        });
+    </script>
+
+</body>
+</html>

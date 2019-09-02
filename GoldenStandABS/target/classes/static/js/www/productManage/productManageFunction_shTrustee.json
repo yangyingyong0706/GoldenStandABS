@@ -1,0 +1,146 @@
+﻿{
+    "app": "productManageFunction",
+    "title": "产品管理",
+    "group": [
+        {
+            "module": "Index",
+            "title": "产品管理中心",
+            "elements": [
+                {
+                    "title": "刷新",
+                    "type": "button",
+                    "icon": "icon icon-arrows-ccw",
+                    "linkname": "RefreshTrsustList",
+                    "linkurl": "javascript:RefreshTrsustList"
+                },
+
+                {
+                    "title": "底部资产管理",
+                    "type": "button",
+                    "icon": "icon icon-list",
+                    "linkname": "AssetDetail",
+                    "linkurl": "javascript:AssetDetail"
+                },
+                {
+                    "title": "回款管理",
+                    "type": "button",
+                    "icon": "icon icon-chart-pie",
+                    "linkname": "CashflowManagement",
+                    "linkurl": "javascript:CashflowManagement"
+                },
+                {
+                    "title": "原始权益人管理",
+                    "type": "button",
+                    "icon": "icon icon-group",
+                    "linkname": "OriginalOwner",
+                    "linkurl": "javascript:OriginalOwner"
+                },
+                {
+                    "title": "合格投资人管理",
+                    "type": "button",
+                    "icon": "icon icon-gauge",
+                    "linkname": "InvestManagement",
+                    "linkurl": "javascript:InvestManagement"
+                },
+                {
+                    "title": "认购人信息管理",
+                    "type": "button",
+                    "icon": "icon icon-user-circle-o",
+                    "linkname": "SubscriberInfo",
+                    "linkurl": "javascript:SubscriberInfo"
+                },
+                {
+                    "title": "存续期文档",
+                    "type": "button",
+                    "icon": "icon icon-file-word",
+                    "linkname": "ProductFilesManage",
+                    "linkurl": "javascript:ProductFilesManage"
+                },
+                 {
+                    "title": "生成文档报告",
+                    "type": "button",
+                    "icon": "icon icon-file-word",
+                    "linkname": "GenerationReport",
+                    "linkurl": "javascript:GenerationReport"
+                },
+                {
+                    "title": "收益分配计算",
+                    "type": "button",
+                    "icon": "icon icon-chart-bar",
+                    "linkname": "TrustCollectionPickerPage",
+                    "linkurl": "javascript:TrustCollectionPickerPage"
+                },
+                {
+                    "title": "收益分配历史数据",
+                    "type": "button",
+                    "icon": "icon icon-wenjian",
+                    "linkname": "ViewIncomeDistributionHistoryData",
+                    "linkurl": "javascript:ViewIncomeDistributionHistoryData"
+                },
+                {
+                    "title": "现金流预测结果",
+                    "type": "button",
+                    "icon": "icon icon-chart-pie",
+                    "linkname": "ShowCashFlowResult",
+                    "linkurl": "javascript:ShowCashFlowResult"
+                },
+                 {
+                    "title": "收益分配模型",
+                    "type": "button",
+                    "icon": "icon icon-cog-alt",
+                    "linkname": "OpenCashflow",
+                    "linkurl": "javascript:OpenCashflow"
+                },
+                {
+                    "title": "现金流预测模型",
+                    "type": "button",
+                    "icon": "icon icon-chart-area",
+                    "linkname": "OpenCashflowAddMessage",
+                    "linkurl": "javascript:OpenCashflowAddMessage"
+                },
+                {
+                    "title": "资管新规任务",
+                    "type": "button",
+                    "icon": "icon icon-asset",
+                    "linkname": "AssetManageNewRules",
+                    "linkurl": "javascript:AssetManageNewRules"
+                },
+                {
+                    "title": "发行文档管理",
+                    "type": "button",
+                    "icon": "icon icon-floppy",
+                    "linkname": "DocumentManagement",
+                    "linkurl": "javascript:DocumentManagement"
+                },
+                {
+                    "title": "文档管理",
+                    "type": "button",
+                    "icon": "icon icon-floppy",
+                    "linkname": "FileManagement",
+                    "linkurl": "javascript:FileManagement"
+                },
+                {
+                    "title": "循环购买任务单",
+                    "type": "button",
+                    "icon": "icon icon-gauge",
+                    "linkname": "CyclesManage",
+                    "linkurl": "javascript:CyclesManage"
+                },
+                {
+                    "title": "流动视图",
+                    "type": "button",
+                    "icon": "icon icon-chart-area",
+                    "linkname": "FlowChartSinger",
+                    "linkurl": "javascript:FlowChartSinger"
+                },
+                {
+                    "title": "删除",
+                    "type": "button",
+                    "icon": "icon icon-trash-empty",
+                    "linkname": "DeleteTrust",
+                    "linkurl": "javascript:DeleteTrust"
+                }
+            ]
+        }
+    ]
+}

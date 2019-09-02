@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>资产池列表</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <!--<link href="../Contents/style.css" rel="stylesheet" />
+    <link href="../Contents/pagerlist-style.css" rel="stylesheet" />-->
+    <link href="../../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script data-main="./selectAggregateDate.js" src="../../../../../asset/lib/require.js"></script>
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <style>
+        html{
+            overflow:hidden;
+        }
+        #grid td {
+            text-align: center;
+            border-top:1px solid #dce0ee;
+        }
+        #grid th {
+            text-align: center;
+            border-bottom: none;
+            padding-left: 23px;
+        }
+       
+        .padding_contrl {
+            padding:15px;
+            margin:0px;
+        }
+        .ribbonBox {
+            height:10px;
+            margin-top: -13px;
+            float:right;
+        }
+        .ribbonGroup {
+            float:left;
+            margin-right: 16px;
+            box-sizing: border-box;
+            padding: 1px;
+            min-width:45px;
+            border: 1px solid rgba(0,0,0,0.0);
+            margin-top: 2px;
+            height: 40px;
+        }
+        .fa-fw{
+            width:100%;
+        }
+        .ribbonGroup >a{
+            display:flex;
+            flex-direction:column;
+            text-align:center;
+            font-size:13px !important;
+            font-family: "Microsoft Yahei", 微软雅黑, Simsun, 宋体, Arial, sans-serif;  
+            color:#555; 
+        }
+        div.k-grid-content-locked{
+            border-right:none;
+        }
+        .ribbonGroup:hover{
+           background:rgb(239, 239, 255);
+           border: 1px solid rgba(0,0,0,0.12);
+        }
+        .ribbonGroup:hover a{
+             text-decoration:none;
+             color:rgb(85,94,147);
+        }
+        li {
+            display: list-item;
+            text-align: -webkit-match-parent;
+        }
+        .ribbon_span{
+            font-size:14px;
+            -webkit-transform: scale(0.9);
+        }
+
+        #dates {
+            margin:10px 10px;
+        }
+        #dates select {
+            width:150px;
+            height:30px;
+        }
+        .icon {
+            font-size:12px
+        }
+         .loadpage {
+            position: absolute;
+            top: 46%;
+            left: 46%;
+            background:transparent
+        }
+        .loadpage >i{
+            color:rgb(107, 147, 216);
+        }
+        .k-grid tr td {
+            overflow: hidden;
+            text-overflow: ellipsis !important;
+            white-space: nowrap;
+            border-bottom-width:0px;
+
+        }
+     
+         .k-grid-header th.k-header>.k-link, .k-widget * {
+             font-family: 'Microsoft YaHei';
+         }
+       /*.k-grid tbody td.tight-cell.rowNoPadding{
+            border-left:1px solid;
+            border-left-width:1px;
+        }*/
+        div.k-grid-content tr:last-child>td{
+            border-bottom-width:1px;
+        }
+        .k-grid-header th.k-header:not(:first-child){
+            padding-left:5px;
+        }
+        .k-state-selected td a {
+            color:rgb(20,114,226);
+        }
+        .k-state-selected td a.btn {
+            color: inherit!important;
+        }
+           .k-grid-content > table {
+            border-right: 1px solid #dce0ee;
+        }
+        a{
+            color:#45569c;
+           }
+        .k-animation-container, .k-animation-container *, .k-animation-container :after, .k-block .k-header, .k-list-container, .k-widget, .k-widget *, .k-widget :before {
+            box-sizing: border-box!important;
+        }
+        .signle-btn{
+            border-color:#ccd0de;
+        }
+    </style>
+</head>
+<body>
+    <div class="main padding_contrl">
+        <div id="grid"></div>
+    </div>
+    <link href="../../../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+</body>
+</html>

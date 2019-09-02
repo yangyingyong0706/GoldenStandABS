@@ -1,0 +1,68 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title></title>
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <style>
+        .main label {
+            font-weight:normal;
+        }
+        .form-save{
+            padding:0px;
+            padding-top:11px;
+            text-align:center;
+        }
+        .main{
+            padding:15px;
+        }
+        .form-horizontal .control-label {
+            margin-bottom: 0;
+            padding-top: 7px;
+            text-align: center;
+        }
+        textarea.form-control {
+            height: 150px;
+            resize: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="roleDiv" class="main public_font_style" style="border-top:1px solid #eee;">
+        <div class="form-panel">
+            <div class="col-xs-12 form-row form-horizontal">
+                <div class="form-group">
+                    <label class="col-xs-2 control-label">角色名称</label>
+                    <div class="col-xs-10">
+                        <input id="RoleName" type="text" class="form-control validControlValue" data-valid="Required" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-panel">
+            <div class="col-xs-12 form-row form-horizontal" style="padding-top:20px;">
+                <div class="form-group">
+                    <label class="col-xs-2 control-label">描述信息</label>
+                    <div class="col-xs-10">
+                        <textarea id="Description" class="form-control validControlValue" data-valid="Required"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-save">
+            <input id="tb_Save" type="button" class="btn btn-default" onclick="self.saveData()" value="保存" />
+        </div>
+
+    </div>
+    <script src="../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../asset/lib/config'], function (common) {
+            requirejs(['app/roleManage/roleManage/roleDetail']);
+        });
+    </script>
+</body>
+</html>

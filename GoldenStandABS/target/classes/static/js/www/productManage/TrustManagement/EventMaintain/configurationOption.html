@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>事件配置</title>
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <style>
+        html,body{
+            width:100%;
+            height:100%;
+            margin:0px;
+            padding:0px;
+            font-size:13px;
+        }
+        #app{
+            width:100%;
+            height:100%;
+            box-sizing:border-box;
+            position:relative;
+        }
+        #table{
+            position:absolute;
+            width:calc(100% - 40px);
+            height:calc(100% - 40px);
+            border:1px solid #ccc;
+            left:20px;
+            top:20px;
+        }
+
+        ul li{
+            list-style:none;
+        }
+        .scenario{
+            margin:0px;
+            padding:0px;
+            width:20%;
+            text-align:center;
+            height: 100%;
+            border-right: 1px solid #ccc;
+        }
+        .scenario li{
+            border-bottom:1px solid #ccc;
+            height:50px;
+            line-height:50px;
+        }
+        .scenario .table_title{
+             height:30px;
+             line-height:30px;
+             font-size:14px;
+         }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="table">
+            <ul class="scenario">
+                <li class="table_title">偿付情景</li>
+                <li v-for="items in scenarioNames">{{items.ScenarioName}}</li>
+            </ul>
+        </div>
+    </div>
+    <script src="../../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/productManage/TrustManagement/EventMaintain/js/configurationOption']);
+        });
+    </script>
+</body>
+</html>

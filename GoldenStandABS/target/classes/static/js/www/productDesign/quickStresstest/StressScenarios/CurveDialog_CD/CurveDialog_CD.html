@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title>违约率明细</title>
+    <link href="../../../css/bootstrap.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <style type="text/css">
+        .fixed-table-loading {
+            display: none;
+        }
+
+        .table-font {
+            font-size: 13px;
+        }
+
+        .table-bottom {
+            margin-bottom: 5px;
+        }
+        .table-div {
+            margin-top:10px;
+            overflow:auto;
+        }
+        .refreshBtn {
+            position: relative;
+            z-index: 99;
+            margin-bottom: -32px;
+            margin-top: 20px;
+        }
+    </style>
+    <script data-main="CurveDialog_CD" src="../../../../../asset/lib/require.js"></script>
+</head>
+<body>
+    <div id="loading" class="loadpage">
+        <i class="icon icon-setting bigicon am-rotate pa"></i>
+        <i class="icon icon-setting smicon am-rotate pa"></i>
+        <p class="text pa">Configuration Loading...</p>
+    </div>
+    <div id="page_main_container" class="main-dialog public_font_style">
+        <div class="col-9 form-row form-horizontal" data-bind="foreach:Fields()">
+            <!--ko if: (UIType()=='Select')-->
+            <div class="col-6 form-row autoLayout-plugins">
+                <div class="form-group">
+                    <label data-bind="text:Text" class="col-3 control-label"></label>
+                    <div class="col-6">
+                        <select type="text" class="form-control" data-bind="attr:{id: Code}, foreach:Options()">
+                            <option data-bind="text:Text, attr: { value: Value}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!--/ko-->
+            <!--ko if: (UIType()=='Input')-->
+            <div class="col-6 form-row autoLayout-plugins">
+                <div class="form-group">
+                    <label data-bind="text:Text" class="col-3 control-label"></label>
+                    <div class="col-6">
+                        <input type="text" class="form-control" data-bind="attr:{id: Code, disabled: Disabled}, value: Value" />
+                    </div>
+                </div>
+            </div>
+            <!--/ko-->
+        </div>
+        <div class="pull-right">
+            <button class="btn btn-primary" data-bind="text: DisplayText.Generate,click:Methods.Generate"></button>
+            <button class="btn btn-primary" data-bind="text: DisplayText.Clear,click:Methods.Clear"></button>
+            <button class="btn btn-primary" data-bind="text: DisplayText.Save,click:Methods.Save"></button>
+        </div>
+        <div style="clear:both"></div>
+
+        <div class="table-div">
+            <table class="table table-bordered table-font table-bottom" id="tblRates"></table>
+        </div>
+        <div class="pull-left refreshBtn">
+            <button class="btn btn-primary" data-bind="text: DisplayText.Refresh,click:Methods.RefreshCurve"></button>
+        </div>
+        <div id="divRatesChart" style="width:830px"></div>
+
+    </div>
+    <textarea id="textArea" rows="5" style="width:0px !important; height:0px !important; position:absolute; top:-100px; left:-100px;"></textarea>
+</body>
+</html>

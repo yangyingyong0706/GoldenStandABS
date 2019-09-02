@@ -1,0 +1,70 @@
+﻿{
+    "app": "transactionManage",
+    "title": "会计核算",
+    "group": [
+        {
+            "module": "Index",
+            "title": "业务向导",
+            "titleclass": "icon-directionLeft01",
+            "elements": [
+            
+                /*{
+                    "title": "导入会计数据",
+                    "type": "button",
+                    "icon": "iconfont icon-shujudaorumoban",
+                    "linkname": "ImportAccountingData",
+                    "linkurl": "javascript:ImportAccountingData",
+                    "asideUrl": "updata/viewAccountingUpdata.html"
+                },
+                {
+                    "title": "会计账套管理",
+                    "type": "button",
+                    "icon": "iconfont icon-zhangtaoguanliicon",
+                    "linkname": "AccountingBook",
+                    "linkurl": "javascript:AccountingBook",
+                    "asideUrl": "accountingBook/viewAccountingBook.html"
+                },
+                {
+                    "title": "会计科目管理",
+                    "type": "button",
+                    "icon": "iconfont icon-kemuguanli",
+                    "linkname": "AccountingSubjects",
+                    "linkurl": "javascript:AccountingSubjects",
+                    "asideUrl": "accountingSubjects/viewAccountingSubjects.html"
+                },
+                {
+                    "title": "会计场景配置",
+                    "type": "button",
+                    "icon": "iconfont icon-changjingguanli",
+                    "linkname": "AccountingSceneConfig",
+                    "linkurl": "javascript:AccountingSceneConfig",
+                    "asideUrl": "accountingSceneConfig/viewAccountingSceneConfig.html"
+                },
+                {
+                    "title": "会计凭证查询",
+                    "type": "button",
+                    "icon": "iconfont icon-pingzhengchaxun",
+                    "linkname": "AccountingVoucher",
+                    "linkurl": "javascript:AccountingVoucher",
+                    "asideUrl": "accountingVoucher/viewAccountingVoucher.html"
+                },
+                {
+                    "title": "会计报表",
+                    "type": "button",
+                    "icon": "iconfont icon-pingzhengguanli",
+                    "linkname": "AccountingStatements",
+                    "linkurl": "javascript:AccountingStatements",
+                    "asideUrl": "accountingStatements/viewAccountingStatements.html"
+                },*/
+                {
+                 "name": "会计分录",
+                 "type": "button",
+                 "icon": "iconfont icon-accountingEntry",
+                 "linkname": "accountingEntry",
+                 "linkurl": "javascript:accountingEntry",
+                 asideUrl: "accountingEntry/accountingEntry.html"
+             }
+            ]
+        }
+    ]
+}

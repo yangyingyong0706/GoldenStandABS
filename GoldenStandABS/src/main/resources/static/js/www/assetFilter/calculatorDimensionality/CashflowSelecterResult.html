@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>选择器结果</title>
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/common.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="./CashflowSelecterResult.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="app">
+    	<div id="loading" v-show="isShow"><i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i></div>
+        <div class="main" v-cloak>
+        	<div class="title clear">
+        		<div>查看结果</div>
+        		<div @click="back"><button class="btn btn-primary">返回</button></div>
+        	</div>
+        	<div class="subMain">
+        		<!--ul class="clear">
+                    <li @click="selectName(index, item)" v-for="(item, index) in nameList" :class="{active: index == nameListIndex}">资产池：{{item.poolid}}</li>
+        		</ul>-->
+        		<div class="grid">
+        			<div id="grid"></div>
+        		</div>
+        	</div>
+        </div>
+    </div>
+    <script src="../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../asset/lib/config'], function (config) {
+            requirejs(['app/assetFilter/calculatorDimensionality/CashflowSelecterResult']);
+        });
+    </script>
+</body>
+</html>

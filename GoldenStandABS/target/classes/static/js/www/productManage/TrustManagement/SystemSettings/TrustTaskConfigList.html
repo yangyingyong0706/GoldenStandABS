@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>任务设置</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+    <link href="./TrustFollowUp/css/pagerlist-style.css" rel="stylesheet" />
+    <script src="./TrustFollowUp/js/jquery.datagrid.js"></script>
+    <script src="./TrustFollowUp/js/jquery.datagrid.options.js"></script>
+    <script src="./TrustFollowUp/FilePathConfig.js"></script>
+    <script src="./SystemSettings/TrustTaskConfigList.js"></script>
+    <script type="text/javascript">
+        PagerListModule.Init(listCategory.Originator, 'usp_GetListWithPager', trustId,
+            GlobalVariable.DataProcessServiceUrl+'CommonExecuteGet?',
+            '#divDataList');
+        PagerListModule.DataBind(function (haveData) { });
+
+        $('#btnReset').click(function () {
+            $('.list-filters .filter').val('');
+            PagerListModule.Filter({});
+        });
+        $('#btnSearch').click(function () {
+            searchByWhere();
+        });
+        function searchByWhere() {
+            var filterWhere = '';
+            $('.list-filters .filter').each(function () {
+                var $this = $(this);
+                var value = $this.val();
+                if (value.length < 1) { return true; }
+
+                var param = $this.attr('name');
+                if ($this.hasClass('like')) {
+                    filterWhere += ' and ' + param + ' like N\'%' + value + '%\'';
+                } else {
+                    filterWhere += ' and ' + param + ' = N\'' + value + '\'';
+                }
+            });
+            PagerListModule.Filter({ 'where': filterWhere });
+        }
+        $(function () {
+            $("#btnAddNew").anyDialog({
+                width: 900,	// 弹出框内容宽度
+                height: 500, // 弹出框内容高度
+                title: '任务设置',	// 弹出框标题
+                url: './SystemSettings/TrustTaskConfig.html',
+                onClose: function () {
+                    //关闭的回调 list 的刷新方法
+                    PagerListModule.Filter({});
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="body-container form nobottom">
+        <div class="main">
+            <div class="pull-right">
+                <button type="button" class="btn btn-default btn-sm" id="btnAddNew">新增</button>
+                <button type="reset" class="btn btn-default btn-sm" id="btnReset">重置</button>
+                <button type="button" class="btn btn-primary btn-sm" id="btnSearch">检索</button>
+            </div>
+            <h3 class="h3">
+                <span class="title">任务设置</span>
+            </h3>
+            <div class="form-panel drop nobottom">
+                <div class="form-panel drop list-filters">
+                    <div class="col-12">
+                        <div class="col-3 form-group">
+                            <div class="col-4">
+                                <label>专项计划代码：</label>
+                            </div>
+                            <div class="col-7">
+                                <input class="filter like form-control" name="TrustCode" />
+                            </div>
+                        </div>
+                        <div class="col-3 form-group">
+                            <div class="col-4">
+                                <label>任务代码：</label>
+                            </div>
+                            <div class="col-7">
+                                <input class="filter like form-control" name="TaskCode" />
+                            </div>
+                        </div>
+                        <div class="col-3 form-group">
+                            <div class="col-4">
+                                <label>允许计算现金流：</label>
+                            </div>
+                            <div class="col-7">
+                                <select class="filter <> form-control" name="isnull(IsCashFlowForeCastRequired,0)">
+                                    <option value="">所有</option>
+                                    <option value="1">是</option>
+                                    <option value="0">否</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divDataList" class="list-container"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

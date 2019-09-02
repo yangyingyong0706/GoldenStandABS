@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" style="overflow: hidden;">
+<head>
+    <title>现金流拆分</title>
+    <script data-main="CashflowSplit" src="../../../../asset/lib/require.js"></script>
+    <link href="../../css/pagerlist-style.css" rel="stylesheet" />
+    <link href="../../css/trustFollowUp.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+    <link href="css/demo.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <style>
+        html,body{
+            height:100%;
+        }
+        .k-pager-numbers.k-reset li { list-style: none; }
+        .checkbox { margin-bottom: 5px; }
+
+        .checkbox label {width:250px }
+
+        .btn-options { background: #fff; /*background-image: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f3f3f3));
+                background-image: -webkit-linear-gradient(top, #f8f8f8, #f3f3f3);
+                background-image: -moz-linear-gradient(top, #f8f8f8, #f3f3f3);
+                background-image: -o-linear-gradient(top, #f8f8f8, #f3f3f3);
+                background-image: linear-gradient(to bottom, #f8f8f8, #f3f3f3);*/ border: 1px solid #dedede; border-top: none; padding: 3px 8px; color: #666; font-size: 12px; cursor: pointer; border-radius: 0 0 3px 3px; box-shadow: 0 2px 4px rgba(0,0,0,.1); }
+
+        .btn-options:hover { border-color: #ccc; }
+
+        .btn-options i { font-size: 10px; font-style: normal; color: #888; font-weight: 300; margin-left: 3px; }
+
+        .checkbox > select option { color: #555 !important; }
+
+        .divChk { border-top: 1px solid #ededed; border-bottom: 1px solid #ededed; margin-bottom: 5px; }
+
+        .chkOptions { margin-top: 5px; margin-left: 30px; }
+
+        input[type='checkbox'], input[type='radio'] { vertical-align: middle; }
+
+        .filterDiv { margin-top: 10px; width: 75%; }
+        .filterControl1 { float: left; width: 38%; }
+        .filterControl2 { float: left; padding-left: 10%; width: 52%; }
+        [v-cloak] { display: none; }
+        .assetArea { float: left; margin-left: 20px; border: 1px solid #eaeaea; padding: 10px; width: calc(100% - 40px); box-sizing: border-box; height: 110px; overflow-y: auto; }
+        .assetDetail { float: left; margin: 10px 20px 10px 20px; width: calc(100% - 40px); box-sizing: border-box; }
+        .assetOptions { display: flex; justify-content: space-between; float: left; margin: 30px 10px 10px 10px; }
+        .assetOptions button { margin: 5px 3px; }
+        .assetbtn_left { float: left; }
+        .assetbtn_right { float: left; margin-left: 50px; display: flex; flex-wrap: wrap; }
+        #grid { border-left: 1px #e6e6e6 solid; border-bottom: none; font-size: 13px; }
+        .menuContent { z-index: 99; }
+        .option_right { margin: 0 0 10px 10px; }
+        .k-grid tr td { border-width: 0 0 1px 1px; border-style: solid; border-color: #e6e6e6 !important; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0.586em 1.486em !important; }
+        .k-grid tr:hover { background-color: #e2e0e0 !important; }
+        .k-alt { background-color: rgba(222, 221, 221, 0.2) !important; }
+        .k-grid tr.k-state-selected { background-color: rgba(116,157,230,1) !important; }
+        /*#grid{
+             min-width:1060px;
+         }
+         .k-widget.k-grid{
+             min-width:1060px;
+         }*/
+        .k-grid-content > table { border-right: 1px solid #e6e6e6; }
+        div.k-grid-content tr:last-child > td { border-bottom-width: 1px; }
+        label { background: #f1f1f1; border: 1px solid #efecec; text-align: center; box-sizing: border-box; line-height: 30px; color: #555; padding: 0 3px; height: 30px; overflow: hidden; display: inline-block; white-space: nowrap; text-overflow: ellipsis; font-size: 14px; }
+        .checkbox select{
+            height:30px;
+            position:absolute;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+    </style>
+
+</head>
+<body class="public_font_style">
+    <div id="app">
+        <!--<div id="more-options" style="border-bottom:1px solid #dedede;background:#f8f8f8;padding:10px 20px;display:none;">
+            <div class="checkbox">
+                <label for="IsBaseOnLoanTerm">请选择本金计算规则</label>
+                <select id="IsBaseOnLoanTerm">
+                    <option value="0" selected>按剩余金额</option>
+                    <option value="1">按合同金额</option>
+                </select>
+            </div>
+            <div class="checkbox">
+                <label for="CalculateHeadInterestByDay">请选择头部利息计算规则</label>
+                <select id="CalculateHeadInterestByDay">
+                    <option value="0">按期</option>
+                    <option value="1" selected>按天</option>
+                </select>
+            </div>
+            <div class="checkbox">
+                <label for="CalculateInterestByDays">请选择每期利息计算规则</label>
+                <select id="CalculateInterestByDays">
+                    <option value="0">按期</option>
+                    <option value="1">按天</option>
+                </select>
+            </div>
+            <div class="checkbox">
+                <label for="CountLastInterestPeriodByDay">请选择尾部利息计算规则</label>
+                <select id="CountLastInterestPeriodByDay">
+                    <option value="0">按期</option>
+                    <option value="1">按天</option>
+                </select>
+            </div>
+            <div class="checkbox">
+                <label for="IsBasedOnReportingDate">现金流归集是否从数据日期开始归集</label>
+                <div style="display:inline-block;position:relative;top:-10px"><input type="radio" name="IsBasedOnReportingDate" value="1" id="IsBasedOnReportingDate" checked />是 <input type="radio" name="IsBasedOnReportingDate" value="0" id="IsBasedOnReportingDate" />否</div>
+            </div>
+            <div class="checkbox">
+                <label for="PeriodsCalRule">现金流期限计算方法</label>
+                <select id="PeriodsCalRule">
+                    <option value="0">反向</option>
+                    <option value="1">正向</option>
+                </select>
+                <select id="Direction">
+                    <option value="1">从资产到期日开始往前推算，资产到期日到前一还款日的区间作为单独一期</option>
+                    <option value="2">从资产到期日开始往前推算，资产到期日到前一还款日的区间不作为单独一期</option>
+                    <option value="3">从资产到期日开始往前推算，资产到期日所在月的还款日为最后一期还款日</option>
+                </select>
+            </div>
+            <div class="checkbox">
+                <label for="TrailPeriodsCalRule">等本等息的尾差调整规则</label>
+                <select id="TrailPeriodsCalRule">
+                    <option value="0">将尾差计算在最后一个还款期间</option>
+                    <option value="1">将尾差计算在下一个还款期间</option>
+                </select>
+            </div>
+            <div class="checkbox">
+                <label for="IsRidPrepaid">是否剔除早偿资产</label>
+                <select id="IsRidPrepaid">
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                </select>
+            </div>
+            <div class="checkbox divChk">
+                <label for="IsNormalAsset">现金流归集资产</label>
+                <div class="chkOptions">
+                    <p><span style="width:225px;display:inline-block">排除用户状态非正常资产</span><input type="checkbox" name="IsUserStatusNormal" id="IsUserStatusNormal" /></p>
+                    <p><span style="width:225px;display:inline-block">排除五级分类非正常资产</span><input type="checkbox" name="IsLoanGradeLevelNormal" id="IsLoanGradeLevelNormal" /></p>
+                    <p><span style="width:225px;display:inline-block">排除当期逾期天数非0资产</span><input type="checkbox" name="IsNotInArrears" id="IsNotInArrears" /></p>
+                    <p><span style="width:225px;display:inline-block">排除数据日期之前已到期资产</span><input type="checkbox" name="IsNotMatured" id="IsNotMatured" /></p>
+                </div>
+            </div>
+            <div class="checkbox">
+                <label for="CalculateRTBySystem">系统计算剩余期限</label>
+                <input type="checkbox" id="CalculateRTBySystem" style="position:relative;top:-10px;left:1px"/>
+            </div>
+            <div class="checkbox divChk" id="RTCalculationRule-Options" style="display:none;">
+                <label for="RTCalculationRule">请选择剩余期限计算方式</label>
+                <p class="chkOptions"><input type="radio" name="RTCalculationRule" value="1" checked /> <span>资产到期日的后一还款日为最后一期还款日，数据日期的下一个还款日为第一个还款日，从第一个还款日到最后一个还款日的个数为剩余期数</span></p>
+                <p class="chkOptions"><input type="radio" name="RTCalculationRule" value="2" /> 资产到期日的前一还款日为最后一期还款日，数据日期的下一个还款日为第一个还款日，从第一个还款日到最后一个还款日的个数为剩余期数</pclass>
+                <p class="chkOptions"><input type="radio" name="RTCalculationRule" value="3" /> 资产到期日所在月的还款日为最后一期还款日，数据日期的下一个还款日为第一个还款日，从第一个还款日到最后一个还款日的个数为剩余期数</p>
+            </div>
+        </div>-->
+        <div style="padding:20px;">
+            <!--<div style="text-align:right;margin-top:-21px;">
+                <button type="button" id="show-options-btn" class="btn-options">拆分规则配置<i>▼</i></button>
+            </div>-->
+            <div class="filterDiv">
+                <div class="filterControl1">
+                    <label class="col-6">资产池快照日期</label>
+                    <select class="col-6 form-control" id="ReportingDate" v-model="selected">
+                        <option v-for="item in source" v-bind:value="item.ReportingDate" v-cloak>{{item.ReportingDate}}</option>
+                    </select>
+                </div>
+                <div class="filterControl2">
+                    <label class="col-3">相关资产池</label>
+                    <input class="col-8 form-control" id="assetSelect" type="text" />
+                    <div id="menucontentasset" class="menuContent" style="display:none; position: absolute;">
+                        <ul id="treeAsset" class="ztree"></ul>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:right;margin-top:10px;">
+                <button type="button" class="normal_small_button" id="btnSplit">拆分与归集</button>
+                <button type="button" class="normal_small_button" id="btnViewResult">查看结果</button>
+            </div>
+        </div>
+        <div class="assetArea">
+            <p>选中资产池区域</p>
+            <div id="selectedOptions" class="assetOptions">
+                <div class="assetbtn_left">
+                    <div class="btn btn-sm btn-active" v-if="selected&&selected!=''&&selected!=tip" @click="selectAsset()" v-cloak>基础池：{{selected}}</div>
+                </div>
+                <div class="assetbtn_right">
+                    <div class="btn btn-sm option_right" v-for="item in asset" @click="selectAsset(item.dimreportingdateid,item.id)" v-cloak>资产池：{{item.id}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="assetDetail">
+            <div id="grid"></div>
+        </div>
+    </div>
+</body>
+</html>

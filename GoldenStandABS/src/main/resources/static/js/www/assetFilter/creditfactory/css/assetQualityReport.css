@@ -1,0 +1,135 @@
+﻿[v-cloak] {
+    display: none;
+}
+html{
+    padding:20px;
+    margin:0;
+    height:80%
+}
+body,.big_box{
+    padding:0px;
+    margin:0;
+    height:100%
+}
+body{
+    
+}
+.left_content{
+    min-width:220px;
+     float:left;
+     position:absolute;
+}
+.right_content{
+    width:calc(100% - 220px);
+    float:right;
+    height:100%;
+    border-radius:5px;
+    padding-left:20px;
+    overflow: auto;
+    position:relative;
+    box-shadow: 0px 0px 22px 0px #d8d0d0;
+    padding-bottom:20px;
+    font-size: 14px;
+    color: #666;
+    box-sizing:border-box;
+}
+.left_content,.right_content{
+   
+}
+.right_content p{
+    display:inline-block;
+    border-bottom:2px solid rgb(216,216,216);
+    color:rgb(90,119,187);
+    height:30px;
+    line-height:30px;
+}
+table,table tr th, table tr td { border:1px solid rgb(221,221,221);}
+table tr th, table tr td {width: 80px;}
+table {  min-height: 25px; line-height: 25px; text-align: center; border-collapse: collapse;color:rgb(0,0,0)}
+table:before{
+    display: inline-block;
+    content: "";
+    position: absolute;
+    top: 34px;
+    left: 28px;
+    border-left: 1px dotted #67b2dd;
+    z-index: 1;
+}
+table tbody,table tbody th{font-weight:400}
+.iconfont{
+    z-index:10;
+    font-size: 20px!important;
+}
+/**左侧树形结构样式**/
+.selectTree{
+   position: relative;
+    top: 5px;
+    left:10px;
+}
+.selectTree:before{
+   display: inline-block;
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 28px;
+    bottom: 10px;
+    border-left: 1px dotted #67b2dd;
+    z-index: 1;
+}
+.selectTree ul>li{
+    list-style: none;
+    width: 150px;
+    position: relative;
+    line-height: 25px;
+    cursor: pointer;
+    color: #838383;
+    font-size: 14px!important;
+}
+.selectTree ul>li.level1:before{
+    display: inline-block;
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: -12px;
+    width: 19px;
+    border-top: 1px dotted #67b2dd;
+    z-index: 1;
+}
+.selectTree ul>li>ul>li:before{
+    display: inline-block;
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -24px;
+    width:19px;
+    height:24px;
+    border: 1px dotted #67b2dd;
+    border-width:0 0 1px 1px;
+}
+
+.selectTree ul>li>ul>li:hover{
+    color:red;
+    text-decoration:underline;
+}
+.show{
+}
+.SelectionInterval{
+    font-size: 16px;
+    color: #838383;
+    height: 40px;
+    margin-left: 10px;
+    line-height: 38px;
+}
+.SelectionInterval>span{
+    box-shadow: 0px 6px 8px #bbc9fa;
+    width: 6px;
+    height: 6px;
+    display: inline-block;
+    background: #5c6269;
+    margin-right: 10px;
+    vertical-align: middle;
+    margin-top: -3px;
+}
+.leftContentBox{position:relative;overflow:hidden;width:205px;height:100%;display:inline-block;}
+.selectTrust>span>span.k-dropdown-wrap{height:35px;}
+.selectTrust>span>span.k-dropdown-wrap>input{height:34px;}

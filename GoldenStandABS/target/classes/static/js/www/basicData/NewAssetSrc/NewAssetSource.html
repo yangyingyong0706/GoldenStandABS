@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>新增资产来源</title>
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+
+    <!--<link href="../Common/css/trustWizard.css" rel="stylesheet" />-->
+    <!--<link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />-->
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <!--<link href="../../../asset/style/reset.css" rel="stylesheet" />
+    <link href="../../../asset/style/common.css" rel="stylesheet" />-->
+    <!--<link href="../../../asset/style/bootstrap.css" rel="stylesheet" />-->
+    <link href="../../../asset/lib/goldenstand/uiFrame/css/gs-admin-2.css" rel="stylesheet" />
+    <!--<link href="../../transactionManage/style/index.css" rel="stylesheet" />-->
+    <!--<link href="../../assetFilter/Contents/style.css" rel="stylesheet" />-->
+
+    <style>
+        html,body {
+            height: 100%;
+            font-family: 'Microsoft YaHei'
+        }
+        .file {
+            height: 26px;
+        }
+
+        .page {
+            padding: 0;
+        }
+
+        .date_selector {
+            width: 243px;
+            position: absolute;
+            left: 0px;
+        }
+
+        #ImportAssetInfo {
+            margin: 10px 0;
+        }
+
+        #file_BasePool {
+            background: transparent;
+        }
+
+        .main {
+            padding: 15px;
+        }
+
+            .main .h3 .title {
+                color: #4d4d4d;
+            }
+
+            .main h3 {
+                height: 40px;
+                line-height: 40px;
+                font-size: 16px;
+                padding: 0 15px;
+                margin: -15px -15px 15px;
+                border-bottom: 1px solid #dedede;
+            }
+
+        .modal-layout {
+            width: 100% !important;
+        }
+
+        input[type=file] {
+            display: block;
+        }
+
+        .form .form-panel {
+            padding-bottom: 0px;
+            margin: 0px;
+        }
+
+            .form .form-panel.drop .form-group {
+                padding: 0px;
+            }
+
+        .form .form-group {
+            padding: 0px;
+        }
+
+        .col-md-3, .col-md-9 {
+            padding: 0px;
+        }
+
+        .pull-right {
+            width: 100%;
+            text-align: center;
+        }
+        .loadpage { 
+            position: absolute; 
+            top: 46%; 
+            left: 48%; 
+            background: transparent;
+        }
+
+        .loadpage > i { color: rgb(107, 147, 216); }
+    </style> 
+
+</head>
+<body>
+    <div id="addOrganisation">
+        <!--<h3 class="title" style="border:none">新增资产来源</h3>
+        <div id="addOrganisation">
+            <div class="form-group">
+                <label class="text-center">资产方编码：</label>
+                <div class="col-md-9">
+                    <input type="text" id="organisationCode" class="form-control" data-bind="textInput: organisationData.code" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="text-center">资产方名称：</label>
+                <div class="col-md-9">
+                    <input type="text" id="organisationName" class="form-control" data-bind="textInput: organisationData.name" />
+                </div>
+                <button id="saveOrganisation" class="normal_small_button" data-bind="click: saveOrganisation">确定</button>
+            </div>
+        </div>-->
+
+        <div class="form page">
+            <div class="main">
+                <h3 id="step-title" class="h3">
+                    <span class="title" style="border:none" id="data">新增资产来源</span>
+                    <button type="button" class="btn btn-default" id="showAssetSrc" title="现有" data-bind="click: showAssetSrc" style="float:right;margin: 5px 0;">现有资产来源</button>
+                </h3>
+                
+                <div id="loading" class="loadpage text-center" style="display:none">
+                    <i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i>
+                </div>
+                <div >
+                    <div class="form" id="ImportAssetInfo">
+                        <div class="form-body default">
+                            <div class="form-body default">
+                                <div class="form-panel drop" style="padding-top:0px">
+                                    <div class="form-group col-md-12">
+                                        <div class="col-md-3 text-center"><label id="date">资产方编码</label></div>
+                                        <div class="col-md-9"><input type="text" id="organisationCode" class="form-control date-plugins" onchange="CheckStyle(this)"  data-bind="textInput: organisationData.code"></div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <div class="col-md-3 text-center"><label id="type">资产方简称</label></div>
+                                        <div class="col-md-9"><input type="text" id="organisationName" class="form-control date-plugins" data-bind="textInput: organisationData.name"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+
+                            <div id="tips" class="h3"></div>
+                            <div class="col-md-2 buttons pull-right">
+                                <button type="button" class="btn btn-default" id="saveOrganisation" title="确定" data-bind="click: saveOrganisation">新增</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!--<script src="../../../asset/lib/require.js" data-main="NewAssetSource"></script>-->
+    <script src="../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../asset/lib/config'], function (config) {
+            requirejs(['app/basicData/NewAssetSrc/NewAssetSource']);
+        });
+    </script>
+</body>
+</html>

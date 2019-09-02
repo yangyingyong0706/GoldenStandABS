@@ -1,0 +1,35 @@
+﻿  [v-cloak] { display: none; } 
+.k-treeview span.k-in{
+            padding: 1px;
+
+}
+.k-state-selected{
+      background-color: #fff!important;
+}
+#treeview .k-sprite {
+     background-image: url("../images/coloricons-sprite.png");
+}
+
+.rootfolder {
+   background-position: 0 0;
+}
+
+.folder {
+     background-position: 0 -16px;
+}
+
+.pdf {
+    background-position: 0 -32px;
+}
+
+.html {
+  background-position: 0 -48px;
+}
+
+.image {
+    background-position: 0 -64px;
+}
+.k-in a{
+    color: #5494d8;
+}
+#treeview>ul li span.k-state-selected{color:#428bca!important;}

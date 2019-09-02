@@ -1,0 +1,18 @@
+.long-title h3 {
+    font-family: 'Segoe UI Light', 'Helvetica Neue Light', 'Segoe UI', 'Helvetica Neue', 'Trebuchet MS', Verdana;
+    font-weight: 200;
+    font-size: 16px;
+    text-align: center;
+    height:30px;
+    line-height:30px;
+}
+html body{
+    padding:15px;
+    box-sizing:border-box;
+}
+.ui-widget,.dx-pivotgrid .dx-pivotgrid-fields-area-head .dx-empty-area-text ,.dx-pivotgrid.dx-row-lines .dx-pivotgrid-area td{
+    font-size:13px
+}
+.dxc-title>text{
+    font-size:16px !important;
+}

@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>增值税率设置</title>
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../Common/css/trustWizard.css" rel="stylesheet" />
+    <link href="../../../../components/FeeSettings/css/FeeSettings.css" rel="stylesheet" />
+    <style>
+        html,body{
+            width:100%;
+            height:100%;
+            margin:0px;
+            padding:0px;
+        }
+        #app{
+            width:100%;
+            height:100%;
+            padding:15px;
+            box-sizing:border-box;
+        }
+        .table{
+            width:100%;
+        }
+        .btn_plust{
+            width:100%;
+            border-radius: 0;
+            color: rgba(59,62,93,.8);
+            border: none;
+            cursor:pointer;
+            background: transparent;
+            outline: none;
+        }
+        .btn_remove{
+            width:100%;
+            border-radius: 0;
+            color: rgba(219,62,62,.8);
+            border: none;
+            cursor:pointer;
+            background: transparent;
+            outline: none;
+        }
+        .tableArea{
+            height:450px;
+            overflow: auto;
+            border:1px solid #dce0ee;
+            position:relative;
+        }
+        .btn_layer{
+            position: fixed;
+            left: 0px;
+            background: rgb(248, 248, 248);
+            height: 40px;
+            box-sizing: border-box;
+            text-align: center;
+            width: 100%;
+            border: 1px solid #ddd;
+            padding-top: 3px;
+            top: 465px;
+            width: calc(100% - 30px);
+            margin-left: 15px;
+        }
+        .input_style{
+            width:90%;
+            border: 1px solid #dce0ee;
+            border-radius: 2px;
+            box-shadow:none;
+        }
+        .input_style:focus{
+            border-color: #45569c;
+            box-shadow: inset 0 0px 0px #45569c, 0 0 4px #45569c;
+        }
+        .date_selector{
+            width:auto;
+            left: 2.5%;
+        }
+         #loading {
+            position: absolute;
+            top: 0px;
+            z-index: 1002;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+        }
+
+        #loading > i {
+            color: rgb(107, 147, 216);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .saveBtn{
+            border:1px solid #45569c;
+            background-color:#45569c;
+            color:#fff;
+        }
+        
+        .saveBtn:active,.saveBtn:hover{
+            border:1px solid #45569c;
+            background-color:#45569c;
+            color:#fff;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="loading">
+            <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+        </div>
+        <div class="tableArea" @scroll="tableHeader($event)">
+            <table class="table" id="table_cont">
+                <thead>
+                    <tr style="background:#f8f8f8" id="tablehead">
+                        <th width="45%" style="border-top:none;border-left:none;border-bottom: 1px solid #dce0ee;">日期</th>
+                        <th width="45%" style="border-top:none;border-bottom: 1px solid #dce0ee;">税率(%)</th>
+                        <th width="10%" style="border-top:none;border-right:none;border-bottom: 1px solid #dce0ee;"><button class="btn_plust" @click="addItem()"><i class="icon icon-add" style="color:#45569c;"></i></button></th>
+                    </tr>
+                </thead>
+                <tbody v-if="VATList.length>0">
+                    <tr v-for="(lists,$index) in VATList" style="cursor:default">
+                        <td style="border-left: none;"><input type="text" class="input_style date-plugins" autocomplete="off" /></td>
+                        <td><input type="text" class="input_style" v-model="lists.Percentage" autocomplete="off" /></td>
+                        <td style="border-right:none"><button class="btn_remove" @click="removeItem(lists)"><i class="icon icon-remove"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="btn_layer">
+                <button class="normal_small_button  saveBtn" @click="SaveXml()">保存</button>
+            </div>
+        </div>
+    </div>
+    <script src="../../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TrustFollowUp/CashflowManagement/VATSetup']);
+    });
+    </script>
+</body>
+</html>

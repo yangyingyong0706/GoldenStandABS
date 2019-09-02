@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>交易管理-资产回收</title>
+    <link href="../../../asset/font/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="../../../asset/style/reset.css" rel="stylesheet" />
+    <link href="../../../asset/style/common.css" rel="stylesheet" />
+    <link href="../../../asset/style/bootstrap.css" rel="stylesheet" />
+    <link href="../../../asset/lib/goldenstand/uiFrame/css/gs-admin-2.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../style/index.css" rel="stylesheet" />
+    <style>
+        .k-grid tr.k-state-selected>td{
+             border-color:transparent;
+         }
+        header{
+            margin:0;
+            padding: 10px 0px;
+            padding-top: 0px;
+        }
+        .main {
+            display: none;
+        }
+
+        .ui-dialog {
+            width: 80% !important;
+            padding:0px;
+        }
+        .ui-corner-all{
+            border-bottom-right-radius:0px;
+            border-bottom-left-radius:0px;
+        }
+        .ui-dialog .ui-dialog-content{
+            padding:30px;
+        }
+        .k-grid-header th.k-header{
+            text-align:center;
+        }
+        .row {
+            margin: 0;
+        }
+        .bs-example{
+            display:flex;
+            float:right;
+            padding-left:0px;
+        }
+        .margin_l{
+            margin-right:5px;
+        }
+        #AddDetails{
+            padding:15px;
+        }
+    </style>
+</head>
+<body style="display:none">
+    <div id="selectLanguageDropdown_viewAssetRecovery" class="localizationTool" style="display:none"></div>
+    <div class="row manager-content" id="app">
+        <header>
+            <div class="breadcrumbnav col-md-2 " style="padding:0px;width:156px;">
+                <span id="span_transactionManage" class="title-transaction">交易管理</span> ><span id="span_assetRecovery" class="transaction-navTitle">资产回收管理</span>
+
+            </div>
+            <div class="bs-example col-md-10" data-example-id="single-button-dropdown" style="width:calc(100% - 156px)">
+                <div class="btn-group margin_l">
+                    <button type="button" class="normal_small_button" aria-haspopup="true" aria-expanded="false" id="Details" v-on:click="test()">
+                        <span id="content_label_assetRecovery_Details">查看 </span> <span class="caret"></span>
+                    </button>
+                </div><!-- /btn-group -->
+                <div class="btn-group  margin_l">
+                    <button type="button" class="normal_small_button" aria-haspopup="true" aria-expanded="false" id="Add"><span id="content_label_assetRecovery_Add">回收确认 </span><span class="caret"></span></button>
+                </div><!-- /btn-group -->
+                <section class="btnItemCRUD row">
+                    <div class="col-md-12 layer_width pull-right">
+                        <div class='input-group ' id='content' style='display:inline-block'>
+                            <label id="content_label_assetRecovery_MaturityDate">截止日期:</label><select style="display:inline-block;width:auto;margin-left:5px;float:none;" id="PoolDBNameDate" class="form-control"></select>
+                            <label id="content_label_assetRecovery_assetNo">资产编号:</label><input class="input_style" type='text' id='PoolDBNameDate1' aria-describedby='basic-addon2'>
+                            <button type='button' id='PoolDBNameBtn' class='normal_small_button'>检索</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+        </header>
+        <div id="grid"></div>
+        <section class="btnItemSave"></section>
+
+        <div id="dialogDetails" title="查看详情">
+            <div class="main" id="StandDiv">
+                <h3 class="h3" id="step-title"><span id="dialogDetails_assetRecovery" class="title">资产回收管理</span></h3>
+                <div class="form-panel">
+                    <div class="col-md-12 form-row form-horizontal" data-bind="">
+                        <!-- ko if: IsDisplay -->
+                        <div class="col-md-6 form-row autoLayout-plugins">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" data-bind="" id="dialogDetails_assetNo">资产编号</label>
+                                <div class="col-md-6">
+                                    <span data-bind="renderControl:ItemId"><input class="form-control" id="AccountNo" disabled="disabled" type="text" data-bind="" data-valid=" Required" data-valid="disabled"></span>
+                                </div>
+                                <!-- ko  if: IsNew --><!-- /ko -->
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: IsDisplay -->
+                        <div class="col-md-6 form-row autoLayout-plugins">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" id="dialogDetails_CurrentPrincipalBalance">当前剩余本金</label>
+                                <div class="col-md-6">
+                                    <input class="form-control" id="CurrentPrincipalBalance" disabled="disabled" type="text" data-bind="value: ItemValue" data-valid=" Required">
+                                </div>
+                                <!-- ko  if: IsNew --><!-- /ko -->
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: IsDisplay -->
+                        <div class="col-md-6 form-row autoLayout-plugins">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" id="dialogDetails_tradingShare">交易份额</label>
+                                <div class="col-md-6">
+                                    <input disabled="disabled" class="form-control" id="DealSum" type="text" data-bind="value: ItemValue" data-valid=" Required">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-row autoLayout-plugins">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" id="dialogDetails_OrganisationCode">机构</label>
+                                <div class="col-md-6">
+                                    <input disabled="disabled" class="form-control" id="DivisionName" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-row autoLayout-plugins">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" id="dialogDetails_actualBalance">实际结算金额</label>
+                                <div class="col-md-6">
+                                    <input disabled="disabled" class="form-control date-plugins" id="FactSum" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-row autoLayout-plugins">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" id="dialogDetails_MaturityDate">截止日期</label>
+                                <div class="col-md-6">
+                                    <input class="form-control" id="transationMaturityDate" type="text" disabled="disabled" data-name="pc">
+                                </div>
+                                <!-- ko  if: IsNew --><!-- /ko -->
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-row autoLayout-plugins">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" id="dialogDetails_assetPool">资产池</label>
+                                <div class="col-md-6">
+                                    <input id="PoolDBName" class="form-control" type="text" disabled="disabled" data-valid="decimal Required" data-name="pc">
+                                </div>
+                                <!-- ko  if: IsNew --><!-- /ko -->
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-row autoLayout-plugins">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" data-bind="text:ItemAliasValue" id="dialogDetails_startDate">开始日期</label>
+                                <div class="col-md-6">
+                                    <input class="form-control" id="StartDate" type="text" disabled="disabled" data-valid="decimal Required" data-name="pc">
+                                </div>
+                                <!-- ko  if: IsNew --><!-- /ko -->
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-row autoLayout-plugins">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" id="dialogDetails_ReportingDate">转让日</label>
+                                <div class="col-md-6">
+                                    <input class="form-control date-plugins" disabled="disabled" id="TransferDate" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-row autoLayout-plugins">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" id="dialogDetails_sceneCode">场景代码</label>
+                                <div class="col-md-6">
+                                    <input class="form-control date-plugins" disabled="disabled" id="TrustCode" type="text">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-save">
+                    <input class="btn btn-primary" id="save" type="button" value="保存信息">
+                </div>
+            </div>
+        </div>
+        <div id="AddDetails">
+            <div id="AddDetailsDiv">
+                <div id="queryGrid"></div>
+            </div>
+        </div>
+    </div>
+    <script src="../../../asset/lib/require.js" data-main="viewAssetRecovery"></script>
+</body>
+</html>

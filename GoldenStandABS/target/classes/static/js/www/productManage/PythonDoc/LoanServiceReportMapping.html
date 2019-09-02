@@ -1,0 +1,343 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>贷款服务报告</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link href="./TrustFollowUp/css/pagerlist-style.css" rel="stylesheet" />
+    <link href="./Dashboard/css/demo.css" rel="stylesheet" />
+    <link href="./Dashboard/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+
+    <script src="../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/productManage/PythonDoc/LoanServiceReportMappingMain']);
+        });
+    </script>
+
+
+
+
+    <!--<script src="../Config/GlobalVariable.js"></script>
+    <script src="./TrustFollowUp/js/jquery.datagrid.js"></script>
+    <script src="./TrustFollowUp/js/jquery.datagrid.options.js"></script>
+    <script src="./ContentSettings/js/jquery.ztree.core.js"></script>
+    <script src="./ContentSettings/js/jquery.ztree.excheck.js"></script>
+    <script src="./ContentSettings/js/jquery.ztree.exedit.js"></script>
+    <script src="./TrustFollowUp/FilePathConfig.js"></script>
+	<script src="./Dashboard/App.Global.js"></script>
+    <script src="./Dashboard/TaskIndicatorScript.js"></script>
+	<script src="./Dashboard/DashboardCommon.js"></script>
+	<script src="./Dashboard/LoanServiceReportMapping.js"></script>
+	<script src="./Dashboard/PoolCutCommon.js"></script>
+	<script src="./Dashboard/asyncbox.js"></script>-->
+
+	
+	
+    <!--<script type="text/javascript">
+	    var tid = getQueryString("tid") ? getQueryString("tid") : "";
+        $(function () {		
+            init();
+			BindData(tid);
+			
+        });
+		
+		$("#btnImport").anyDialog({
+                width: 600,	// 弹出框内容宽度
+				height: 260, // 弹出框内容高度
+				title: '解析原始贷款服务报告',	// 弹出框标题
+				url: './Dashboard/UploadImportData.html?tid=' + tid,
+                onClose: function () {
+				 
+                }
+            });
+			
+			$("#btnImportExcel").anyDialog({
+                width: 600,	// 弹出框内容宽度
+				height: 200, // 弹出框内容高度
+				title: '上传转置报告',	// 弹出框标题
+				url: './Dashboard/UploadImportExcelData.html?tid=' + tid,
+                onClose: function () {
+				 
+                }
+            });
+        function searchList() {
+		
+            var data = getList();
+            bindAssetPaymentStatistics(data);
+        }
+        function getList() {	
+            var list = datagridData;
+            $('.list-filters .filter').each(function () {
+                var $this = $(this);
+                var value = $this.val();
+                if (!value || value.length < 1) { return true; }
+
+                var param = $this.attr('name');
+                var value = $this.val();
+                var vls = value.split(',');
+                list = $.grep(list, function (n, i) {
+                    return $.inArray(n[param], vls) >= 0;
+                })
+            });
+            return list;
+        }
+        var preTrustCode = '';
+        $("#PayDate").click(function () {
+		
+            if (preTrustCode != $("#TrustCode").val()) {
+                preTrustCode = $("#TrustCode").val();
+                bindPayData(datagridData);
+            }
+        });
+		
+		 $("#PayDate1").click(function () {
+		 
+            if (preTrustCode != $("#TrustCode").val()) {
+                preTrustCode = $("#TrustCode").val();
+                bindPayData1();
+            }
+        });
+		
+		 $("#PayDate2").click(function () {
+		 
+            if (preTrustCode != $("#TrustCode").val()) {
+                preTrustCode = $("#TrustCode").val();
+                bindPayData2(datagridData);
+            }
+        });
+        var TaskProcessWProxy = (function () {
+		
+            function createSessionShowTask(appDomain, sessionVariables, taskCode) {
+                var wProxy = new webProxy();
+                var sContext = {
+                    appDomain: appDomain,
+                    sessionVariables: sessionVariables,
+                    taskCode: taskCode
+                };
+                var isOver = 0;
+                wProxy.createSessionByTaskCode(sContext, function (response) {
+                    window.parent.parent.isSessionCreated = true;
+                    window.parent.parent.sessionID = response;
+                    window.parent.parent.taskCode = taskCode;
+                    window.parent.parent.IndicatorAppDomain = appDomain;
+                    console.log('taskCode:' + taskCode);
+                    if (window.parent.parent.IsSilverlightInitialized) {
+                        window.parent.parent.PopupTaskProcessIndicatorTM();
+                        window.parent.parent.InitParams();
+                    }
+                    else {
+                        window.parent.parent.PopupTaskProcessIndicatorTM();
+                    }
+                    isOver = 1;
+                });
+
+
+                var tmpInterval = setInterval(function () {
+                    if (isOver == 1) {
+                        $(window.parent.document).find("#modal-mask").remove();
+                        $(window.parent.document).find("#modal-layout").remove();
+                        window.clearInterval(tmpInterval);
+                    }
+                }, 10);
+            }
+
+            return { CreateSessionShowTask: createSessionShowTask }
+        })();
+    </script>-->
+    <style type="text/css">
+        #divDataList1 td .template {
+            text-align: left;
+        }
+
+        #divDataList1 td .mainform {
+            width: 250px;
+            overflow-x: hidden;
+            display: inline-block;
+        }
+
+        #divDataList1 td .template input {
+            margin-right: 10px;
+        }
+
+        #divDataList1 td .template a {
+            margin-right: 10px;
+        }
+
+        #divDataList1 td .template span {
+            margin-right: 10px;
+        }
+
+        #divDataList1 td .do .a {
+            margin-right: 10px;
+        }
+
+        .waitAudit {
+            background: #FCD5B4;
+        }
+
+        .waitHandUp {
+            background: #FCD5B4;
+        }
+
+        .isOk {
+            background: #D8E4BC;
+        }
+        .stateError {
+            background:pink;
+        }
+    </style>
+    <style>
+        /*body {
+            margin: 0px;
+            overflow: hidden;
+            background-color: #fff;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }*/
+
+        .ms-link:visited {
+            color: #0072c6;
+            text-decoration: none;
+        }
+
+        .ms-cui-disabled {
+            color: #767676;
+        }
+
+        .ms-cui-ctl-large {
+            overflow: hidden;
+            display: inline-block;
+            text-align: center;
+            vertical-align: top;
+            margin-left: 1px;
+            margin-right: 1px;
+        }
+
+        a.ms-cui-ctl-large {
+            padding: 2px 0px 2px;
+            height: 63px;
+            cursor: default;
+        }
+
+        .ui-widget-content a {
+            color: #222222;
+        }
+
+        hr {
+            border-width: 0px;
+            border-top: 1px solid #c6c6c6;
+        }
+
+        img {
+            border: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .ms-cui-disabled * {
+            color: #5b626c !important;
+            cursor: default !important;
+        }
+
+        .ms-cui-ctl-largeIconContainer {
+            height: 33px;
+            padding: 2px 4px 0px;
+            display: block;
+        }
+
+        .ms-cui-ctl-largelabel, .ms-cui-ctl-mediumlabel {
+            color: #23272c;
+        }
+
+        .ms-cui-ctl-largelabel {
+            display: block;
+            padding: 2px 1px 0px;
+            line-height: 1em !important;
+        }
+
+        .ms-cui-img-container, .ms-cui-img-cont-float {
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+            z-index: 10;
+        }
+
+        .ms-cui-img-cont-float {
+            display: inline-block;
+        }
+
+        .ms-cui-img-32by32 {
+            width: 32px;
+            height: 32px;
+        }
+
+        .ms-cui-disabled .ms-cui-img-container, .ms-cui-disabled .ms-cui-img-cont-float, .ms-cui-disabled .ms-cui-jewel-left, .ms-cui-disabled .ms-cui-jewel-middle, .ms-cui-disabled .ms-cui-jewel-right {
+            background-color: #fff !important;
+            opacity: 0.3;
+        }
+
+        .ms-cui-img-container img, .ms-cui-img-cont-float img {
+            position: absolute;
+            z-index: 5;
+        }
+
+        .ui-dialog-content {
+            border: 0px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="body-container form nobottom">
+        <div class="main">
+          
+            <div class="form-panel drop nobottom">
+                <div class="form-panel drop list-filters">
+				  <div class="col-12">
+                      
+					<div class="col-9 form-group">
+                       <div style="float:left">
+                              <label>信托计划代码：</label>
+                            </div>
+                            <div class="col-3">
+                                <label id="trustCodeLabel"></label>                            
+                            </div>
+                        </div>
+						
+						
+						<div class="col-2 form-group" >
+						<div style="float: right;">
+						    <a class="btn btn-primary btn-sm" id="btnImport" style="text-decoration:none;">解析原始贷款服务报告</a>                         
+                            <!-- <span id="result"></span> -->
+								
+                        </div>
+						</div>
+						
+						<div class="col-1 form-group" >
+						<div style="float: right;" >
+						    <a class="btn btn-primary btn-sm" id="btnImportExcel" style="text-decoration:none;">上传转置报告</a>                         
+                            <!-- <span id="result1"></span>	 -->
+                        </div>
+						</div>
+						
+					   </div>
+		
+					
+                </div>
+                <div id="divDataList1" class="col-12 list-container"></div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="ui-dialog-content ui-widget-content" id="targetStateArea" style="display:none;width: auto; height: 234.72px; min-height: 0px;margin:5px;" scrolltop="0" scrollleft="0">
+            <div id="statusHeader">
+            </div>
+            <div id="nextStates">
+       
+            </div>
+        </div>
+    </div>
+</body>
+</html>

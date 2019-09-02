@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title></title>
+   
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <style>
+       body{
+            padding:15px;
+        }
+        .panel{
+            padding:0px;
+            border-bottom:1px solid #ddd;
+        }
+        .table{
+            margin-bottom:0px;
+        }
+        .table>tbody>tr>td{
+            word-break: break-all;
+            word-wrap:break-word;
+        }
+        .public_font_style,.panel label,.table th{
+            font-size:14px;
+            color:#555;
+            font-family: "Microsoft Yahei";
+            font-weight:normal;
+        }
+        .table,.table th{
+            font-size:13px;
+            color:#555;
+            font-family: "Microsoft Yahei";
+            font-weight:normal;
+        }
+        .form-horizontal .form-group {
+            margin:0px;
+            margin-bottom:10px;
+        }
+        #btnPathAdd {
+            margin-top: 10px;
+            margin-right: 6px;
+        }
+         [class^=col] {
+            padding: 0;
+        }
+        #btnPathAdd {
+            margin-top: 10px;
+            margin-right: 6px;
+        }
+        .form-horizontal .control-label{
+            text-align: center;
+            padding: 6px 0 0 0;
+            background: #f3f5fa;
+            height: 30px;
+        }
+        .table thead tr {
+            background-color: #f3f5fa;
+        }
+    </style>
+
+</head>
+
+<body>
+            <div class="panel public_font_style">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label for="pathName" class="col-sm-2 control-label">菜单名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="pathName" placeholder="请输入菜单名称(英文字母组合)...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Description" class="col-sm-2 control-label">菜单描述</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="Description" placeholder="请输入菜单描述...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="path" class="col-sm-2 control-label">菜单链接</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="path" placeholder="请输入菜单链接地址...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-offset-2 ">
+                            <button type="button" class="btn btn-default" id="btnPathAdd">添加</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table public_font_style">
+                <thead>
+                    <tr>
+                        <th>菜单名称</th>
+                        <th>菜单描述</th>
+                        <th width="300">菜单链接</th>
+                        <th style="padding-left:19px;">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="list"></tbody>
+            </table>
+    <script src="../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../asset/lib/config'], function (common) {
+            requirejs(['app/roleManage/appModule/ChildrenAppPath']);
+        });
+    </script>
+</body>
+
+</html>

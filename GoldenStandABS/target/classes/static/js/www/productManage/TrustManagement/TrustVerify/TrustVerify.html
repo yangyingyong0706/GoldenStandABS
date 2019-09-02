@@ -1,0 +1,342 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>数据校验</title>
+    <link href="../../../basicAsset/style/style.css" rel="stylesheet" />
+    <link href="../../../../asset/style/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../Common/css/trustWizard.css" />
+
+   
+    <style type="text/css">
+    .check_tips{border:1px dashed #c7cacd;padding:10px 18px 0 14px;background-color:#ffffff;height:490px;text-align:center}
+    .check_tips span{font-size:14px;color:#333333;display:inline-block;margin-top:210px;line-height:30px}
+    .check_demo{padding:20px 0 0;background-color:#ffffff}
+    .check_demo .demo_title{height:30px;line-height:30px;margin-bottom:10px}
+    .bbtn{height:30px;width:49%;display:block;float:left;cursor:pointer;color:#333;background-color:#fff;border-radius:3px;border:1px solid rgba(27,31,35,0.2)}
+    .bbtn.b1{background-color:#6c78bd;color:#fff;margin-left:30px}
+    .demo_title .check_btn{min-width:160px;float:left}
+    .demo_title .check_time{float:right;height:30px;line-height:30px;font-size:12px;padding-right:15px; display:none}
+    .check_demo .demo_content{width:100%;clear:both;padding-left:30px}
+    .demo_content .list_demo{display:none}
+    .demo_content .list_demo li{clear:both}
+    .demo_content .list_demo li .taps_hd{height:31px;border-bottom:1px solid #ccc;line-height:30px;color:#333}
+    .demo_content .list_demo li .taps_bd{padding:10px 10px 0px;display:block}
+    .demo_content .list_demo li .taps_hd .title{font-weight:bold;float:left;height:18px;line-height:18px;padding:0px 2px 6px;font-size:14px;margin-top:5px;margin-left:1px;cursor:pointer;border-left:3px solid #0055f1;color:#0055f1;font-size:12px;padding:0 10px}
+    .demo_content .list_demo li .taps_hd .title i{display:inline-block;width:12px;height:12px;border:1px solid #aaa;border-radius:6px;margin-right:8px;vertical-align:middle;background:#fff;background:-moz-linear-gradient(top,#fff,#7398c0);background:-webkit-gradient(linear,0 0,0 bottom,from(#fff),to(#7398c0))}
+    .demo_content .list_demo li .taps_hd .title i.cur:after{display:block;content:'';margin-top:4px;border-width:6px 6px 2px 6px;border-style:solid;border-color:#000000 transparent transparent transparent}
+    .demo_content .list_demo li .taps_hd .title i:after{display:block;content:'';margin-top:-4px;border-width:6px 6px 6px 6px;border-style:solid;border-color:transparent transparent #000000 transparent}
+    .demo_content .list_demo li .taps_bd .taps_cont{height:100%;margin-bottom:10px}
+    .demo_content .list_demo li .taps_bd .cont{width:100%;padding:6px 0px 12px 0px;margin-bottom:8px;clear:both}
+    .demo_content .list_demo li .taps_bd .cont.bt_2{border-top:1px dashed #ccc}
+    .demo_content .list_demo li .taps_bd .cont .row{width:100%;font-size:14px;color:#333;clear:both}
+    .demo_content .list_demo li .taps_bd .cont .col_lt{}
+    .demo_content .list_demo li .taps_bd .cont .field-details{display:inline-block}
+    .demo_content .list_demo li .taps_bd .cont .field-details .icon-help{margin-top:4px;color:#dadada;margin-left:6px;display:inline-block;font-size:14px}
+    .demo_content .list_demo li .taps_bd .cont .col_rt{}
+    .explain{color:#959595}
+    .linespace{margin:10px 0 10px 0}
+    .warning{color:#ffca3a}
+    .error{color:#ff3a00}
+    .check_loading{text-align:center;padding-top:150px}
+    </style>
+
+
+
+    <script src="../../../../asset/lib/require.js"></script>
+
+    <script type="text/javascript">
+
+        requirejs(['../../../../asset/lib/config.js'], function (config) {
+
+            requirejs(['app/productManage/TrustManagement/TrustVerify/TrustVerify']);
+
+        });
+
+
+
+    </script>
+</head>
+<body>
+    <div id="app">
+        <div class="check_demo">
+            <div class="demo_title">
+                <div class="check_btn">
+                    <button type="button" class="bbtn b1" id="checkInfo" v-on:click="popupTaskProcessIndicator">重新校验</button>
+                </div>
+                <div class="check_time">校验时间：{{checkEndTime}}</div>
+            </div>
+            <div class="demo_content">
+                
+                <div class="check_tips" style="margin-bottom:10px">
+                    <div class="check_loading">
+                        <!--<img src="../../asset/img/loading-image.gif" />-->
+                        <img src="../../../../asset/img/loading-image.gif" />
+                    </div>
+                    <span></span>
+                </div>
+                <ul class="list_demo">
+                    <!--<li class="list_taps" v-for="(checkItem, index) in checkDataList" @click="changeState(index)">-->
+                    <li class="list_taps" v-for="(checkItem, index) in checkDataList">
+                        <div class="taps_hd" @click="changeState(index)">
+                            <span class="title">{{checkItem.CriteriaSetName}}</span>
+                        </div>
+                        <div class="taps_bd">
+                            <div class="taps_cont" v-for="(items, i) in checkItem.ChildArr">
+                                <div class="cont" v-bind:class="i == 0 ? '' : 'bt_2'">
+                                    <!--<div class="row">-->
+                                        <div class="col-2 col_lt"><b>验证项 :</b>
+                                            <div class="field-details">
+                                                <i class="icon icon-help" style="margin: 0;display: block;color:#4174cb;"></i>
+                                                <div class="field-detail-box">
+                                                    {{items.VerifyRow}}
+                                                </div>
+                                            </div>
+                                    </div>
+                                        
+                                        <div class="col-6 col_rt">{{items.VerifyColumn}}</div>
+                                    <!--</div>-->
+                                    <!--<div class="row">
+                                        <div class="col_lt">说明<i class="icon icon-help"></i></div>
+                                        <div class="col_rt explain">{{items.VerifyRow}}</div>
+                                    </div>-->
+                                    <!--<div class="row">-->
+                                        <div class="col-2 col_lt"><b>错误级别 :</b>
+                                            <div class="field-details">
+                                                <i class="icon icon-help" style="margin:0;display: block;color:#4174cb;"></i>
+                                                <div class="field-detail-box">
+                                                    错误：影响系统运行，需要修复。警告：系统能正常运行，可能存在配置错误。
+                                                </div>
+                                            </div> 
+                                    </div>
+                                         
+                                        <div class="col-2 col_rt error" v-if="items.VerifyType == '错误'">{{items.VerifyType}}</div>
+                                        <div class="col-2 col_rt warning" v-if="items.VerifyType == '警告'">{{items.VerifyType}}</div>
+                                    <!--</div>-->
+                                    <!--<div class="row">-->
+                                    <div class="col-12 col_lt linespace"><b>操作指引 :</b></div>
+                                    </div>
+                                        <div class="col-12 col_rt">{{items.VerifyResult}}</div>
+                                        <!--</div>-->
+                                        <div style="clear: both"></div>
+                                    </div>
+                            </div>
+                     
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!--<script type="text/javascript">
+        function getString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]);
+            return null;
+        }
+        var trustId = getString('TrustId');
+        if (trustId == null || trustId == 'NULL') {
+            trustId = '';
+        }
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                TrustId: trustId,
+                checkDataList: [],
+                checkEndTime: ''
+            },
+            created: function () {
+                this.checkData();                
+            },
+            mounted: function () {
+                //this.getTrusteeVerifyDataList();
+            },
+            methods: {
+                checkData: function () {
+                    var This = this;
+                    This.PostRemoteDataWithReturn(This.TrustId, function (datas) {
+                        //console.log(datas);
+                        $(".check_loading").css('display', 'none');
+                        if (datas == 0) {
+                            $(".check_tips").css('display', 'none');
+                            $(".list_demo").css('display', 'block');
+                            $(".check_time").css('display', 'block');
+                            This.getTrusteeVerifyDataList();
+                        } else if (datas == -2) {
+                            $("#checkInfo").text("马上校验");
+                            var msg = '该信托计划还未进行校验';
+                            $(".check_tips span").text(msg);
+                        }else if (datas == -1){
+                            var msg = '已校验通过';
+                            $(".check_tips span").text(msg);
+                            $(".check_time").css('display', 'block');
+                            This.getTrusteeVerifyDataList();
+                        }
+                    });
+                },
+                getTrusteeVerifyDataList: function () {
+                    var This = this;
+                    var executeParam = {
+                        SPName: 'Verification.usp_GetTrusteeVerifyDataList', SQLParams: [
+                            { Name: 'TrustId', value: This.TrustId, DBType: 'int' }
+                        ]
+                    };
+
+                    var data = This.ExecuteRemoteData(executeParam);
+                    //console.log(data);
+                    $.each(data, function (i, val) {
+                        data[i].EndTime = data[i].EndTime ? getStringDate(data[i].EndTime).dateFormat('yyyy-MM-dd hh:mm') : '-';
+                    });
+                    
+                    if (data.length > 0) {
+                        This.checkEndTime = data[0].EndTime;
+                        if (data[0].CriteriaSetCode != null)
+                        {
+                            var preCode, preName;
+                            var targetArr = [];
+                            var childArr = [];
+                            childArr.push({
+                                "VerifyColumn": data[0].VerifyColumn,
+                                "VerifyResult": data[0].VerifyResult,
+                                "VerifyRow": data[0].VerifyRow,
+                                "VerifyType": data[0].VerifyType
+                            });
+                            preCode = data[0].CriteriaSetCode
+                            preName = data[0].CriteriaSetName
+                            var ItemObj = { "CriteriaSetCode": preCode, "CriteriaSetName": preName, "ChildArr": childArr };
+                            targetArr.push(ItemObj);
+
+                            for(var i = 0;i<data.length;i++ ){
+                                if (i == 0) {
+                                    continue
+                                }
+                                if (preCode == data[i].CriteriaSetCode) {
+                                    childArr.push({
+                                        "VerifyColumn": data[i].VerifyColumn,
+                                        "VerifyResult": data[i].VerifyResult,
+                                        "VerifyRow": data[i].VerifyRow,
+                                        "VerifyType": data[i].VerifyType
+                                    });
+                                } else {
+                                    childArr = [];
+                                    childArr.push({
+                                        "VerifyColumn": data[i].VerifyColumn,
+                                        "VerifyResult": data[i].VerifyResult,
+                                        "VerifyRow": data[i].VerifyRow,
+                                        "VerifyType": data[i].VerifyType
+                                    });
+                                    preCode = data[i].CriteriaSetCode
+                                    preName = data[i].CriteriaSetName
+                                    ItemObj = { "CriteriaSetCode": preCode, "CriteriaSetName": preName, "ChildArr": childArr };
+                                    targetArr.push(ItemObj);
+                                }
+                            }
+                        }
+                        This.checkDataList = targetArr;
+                    }
+                    //console.log(targetArr);
+                },
+                ExecuteRemoteData: function (executeParam) {
+                    var executeParams = encodeURIComponent(JSON.stringify(executeParam));
+                    var serviceUrl = GlobalVariable.PoolCutServiceURL + 'CommonGet?connName=TaskProcess&exeParams=' + executeParams;
+                    var sourceData = [];
+                    $.ajax({
+                        cache: false,
+                        type: "GET",
+                        async: false,
+                        //url: GlobalVariable.DataProcessServiceUrl + 'appDomain=Verification&executeParams=' + executeParams + '&resultType=commom',
+                        url:serviceUrl,
+                        dataType: "json",
+                        contentType: "application/xml;charset=utf-8",
+                        data: {},
+                        success: function (response) {
+                            if (typeof response === 'string') { sourceData = JSON.parse(response); }
+                            else { sourceData = response; }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert(textStatus);
+                        }
+                    });
+                    return sourceData;
+                },
+                PostRemoteDataWithReturn: function (id, callback) {
+                    var executeParam = {
+                        SPName: 'usp_VerifyTrusteeHasVerifyData', SQLParams: [
+                             { Name: 'trustId', value: id, DBType: 'int' },
+                        ]
+                    };
+                    var executeParams = JSON.stringify(executeParam);
+                    var params = '';
+                    params += '<root appDomain="Verification" connString="TaskProcess" postType="">';
+                    params += executeParams;
+                    params += '</root>';
+                    var serviceUrl = GlobalVariable.DataProcessServiceUrl + "CommonPostExecuteWithReturn";
+                    $.ajax({
+                        type: "POST",
+                        url: serviceUrl,dataType: "json",
+                        contentType: "application/xml;charset=utf-8",
+                        data: params,
+                        processData: false,
+                        success: function (response) {
+                            if (callback)
+                                callback(response);
+                        },
+                        error: function (response) { alert("error is :" + response); }
+                    });
+                },
+                changeState: function (i) {
+                    var falg = $(".demo_content .list_demo li").eq(i).find(".taps_bd").css('display');
+                    if (falg == 'none') {
+                        $(".demo_content .list_demo li").eq(i).find(".taps_hd .title i").addClass('cur');
+                        $(".demo_content .list_demo li").eq(i).find(".taps_bd").css('display', 'block');
+                    } else {
+                        $(".demo_content .list_demo li").eq(i).find(".taps_hd .title i").removeClass('cur');
+                        $(".demo_content .list_demo li").eq(i).find(".taps_bd").css('display', 'none');
+                    }
+                }
+            }
+        });
+
+        //点击完成事件
+        var clientName = 'TaskProcess';
+
+        function popupTaskProcessIndicator() {
+            var trustId = getQueryString("TrustId") ? getQueryString("TrustId") : "";
+            var taskCode = getQueryString("taskCode") ? getQueryString("taskCode") : "";
+            r_trustId = trustId;
+            r_taskCode = taskCode;
+            //var rDate = $("#collectPeriod").val();
+            //var dimRDateId = rDate.replace(new RegExp('-', 'gm'), '');
+
+            var sessionVariables_p = "<SessionVariables>"
+                                    + "<SessionVariable><Name>TrustId</Name><Value>" + r_trustId + "</Value><DataType>String</DataType><IsConstant>0</IsConstant><IsKey>1</IsKey><KeyIndex>0</KeyIndex></SessionVariable>"
+                                    + "<SessionVariable><Name>TaskCode</Name><Value>" + r_taskCode + "</Value><DataType>String</DataType><IsConstant>0</IsConstant><IsKey>1</IsKey><KeyIndex>0</KeyIndex></SessionVariable>"
+                                    + "</SessionVariables>";
+
+            parent.frames[0].parent.window.TaskProcessWProxy.CreateSessionShowTask("Task", sessionVariables_p, r_taskCode, clientName);
+            //GSDialog.Close('');
+        }
+    </script>-->
+    <!--<script type="text/javascript">
+        if ($(".list_demo").css('display') == 'block') {
+            $(".demo_content .list_demo li .taps_hd .title").click(function () {
+                debugger;
+                var falg = $(this).parents('li').find(".taps_bd").css('display');
+                if (falg == 'none') {
+                    $(this).find('i').addClass('cur');
+                    $(this).parents('li').find(".taps_bd").css('display', 'block');
+
+                } else {
+                    $(this).find('i').removeClass('cur');
+                    $(this).parents('li').find(".taps_bd").css('display', 'none');
+                }
+            });
+        }
+    </script>-->
+</body>
+</html>

@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+    <title>导入资产池统计数据</title>
+
+    <link href="../../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../css/trustFollowUp.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+	<style>
+		.file{
+			height:26px;
+		}
+        .form .form-panel.drop{
+            border-bottom:none;   
+            padding-top:0px;
+        }
+        .form{
+            border-bottom:none;
+            padding:0px;
+        }
+        .page .main{
+            padding:0px;
+            padding-left:20px;
+            padding-right:20px;
+            padding-top:20px;
+        }
+        .pull-right{
+            width: 100%;
+            text-align: center;
+        }
+        .form .form-group .col-3 label{
+            background: #f1f1f1;
+            border: 1px solid #efecec;
+            text-align: center;
+            box-sizing:border-box;
+        }
+        @media (min-width: 768px){
+            .col-12{
+                width:45%;
+            }
+            .col-3{
+                width:30%;
+            }
+            .col-9{
+                width:70%;
+            }
+            .form-group.col-12{
+                margin-left:auto;
+            }
+        }
+        @media (max-width: 768px){
+            .col-12{
+                width:100%;
+            }
+            .col-3{
+                width:30%;
+            }
+            .col-9{
+                width:70%;
+            }
+        }
+        .form-panel.drop{
+            display:flex;
+            flex-wrap:wrap;
+        }
+        .form-group.col-12{
+            display:flex;
+        }
+        .form .form-panel.drop .form-group{
+            margin-bottom:30px;
+        }
+        .file_name{
+                    display: inline-block;
+                    height: 30px;
+                    line-height: 30px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    width: calc(100% - 85px);
+                    box-sizing: border-box;
+                    padding-left: 10px;
+                    border:1px solid rgba(0,0,0,0.2);
+                    border-right:0px;
+            }
+        .div_width{
+           width: 70%;
+        }
+        .progress {
+            height: 20px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+        }
+
+       .progress > .progress-bar {
+                float: left;
+                width: 0;
+                height: 100%;
+                font-size: 12px;
+                line-height: 20px;
+                text-align: right;
+                background: #6c78bd;
+                background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                -webkit-transition: width .6s ease;
+                -o-transition: width .6s ease;
+                -webkit-background-size: 40px 40px;
+                background-size: 40px 40px;
+                -webkit-animation: progress-bar-stripes 2s linear infinite;
+                -o-animation: progress-bar-stripes 2s linear infinite;
+                animation: progress-bar-stripes 2s linear infinite;
+            }
+	</style>
+</head>
+<body>
+    <div class="form page">
+        <div class="main">
+            <div class="form" id="ImportAssetInfo">
+                <div class="form-body default">
+                    <div class="form-panel drop">
+                        <div class="form-group col-12">
+                            <div class="col-3"><label style="font-size:14px">数据日期</label></div>
+                            <div class="col-9"><input type="text" id="reportingDate" class="form-control date-plugins"></div>
+                        </div>
+                        <div class="form-group col-12">
+                            <div class="col-3"><label>*存续池统计信息文件</label></div>
+                            <div class="div_width">
+                                <label class="input_file_style" for="file_BasePool" style="line-height:30px;height:30px;margin-top:0px;box-sizing:border-box;width:85px;border:1px solid rgba(0,0,0,0.2);background:rgb(57,61,93);color:white">
+                                    <input type="file" class="col-9 file" id="file_BasePool">
+                                    <span>选择文件</span>
+                                </label>
+                                <span class="file_name"></span>
+                            </div>
+                        </div>
+                        <div id="test_progress" class="progress" style="width:100%;position:relative;top:-15px;margin:0px;display:none">
+                            <div class="progress-bar"><span></span></div>
+                        </div>
+						<div class="form-group col-12">
+                            <div class="col-3"><label>循环池统计信息文件</label></div>
+                            <div class="div_width">
+                                <label class="input_file_style" for="file_TopUpPool" style="line-height:30px;height:30px;margin-top:0px;box-sizing:border-box;width:85px;border:1px solid rgba(0,0,0,0.2);background:rgb(57,61,93);color:white">
+                                    <input type="file" class="col-9 file" id="file_TopUpPool">
+                                    <span>选择文件</span>
+                                </label>
+                                <span class="file_name"></span>
+                            </div>
+                        </div>
+                        <div id="test_progress" class="progress" style="width:100%;position:relative;top:-15px;margin:0px;display:none">
+                            <div class="progress-bar"><span></span></div>
+                        </div>
+						<div class="form-group col-12">
+                            <div class="col-3"><label>*资产池回款信息文件</label></div>
+                            <div class="div_width">
+                                <label class="input_file_style" for="file_AssetPayment" style="line-height:30px;height:30px;margin-top:0px;box-sizing:border-box;width:85px;border:1px solid rgba(0,0,0,0.2);background:rgb(57,61,93);color:white">
+                                    <input type="file" class="col-9 file" id="file_AssetPayment">
+                                    <span>选择文件</span>
+                                </label>
+                                <span class="file_name"></span>
+                            </div>
+                        </div>
+                        <div id="test_progress" class="progress" style="width:100%;position:relative;top:-15px;margin:0px;display:none">
+                            <div class="progress-bar"><span></span></div>
+                        </div>
+                    </div>
+                    <div class="col-2 buttons pull-right">
+                        <button type="button" class="normal_small_button" title="上传" id="btnUpload">上传</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../../../../asset/lib/require.js"></script>
+
+    <script type="text/javascript">
+        requirejs(['../../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TrustFollowUp/ImportAssetInfo/ImportAssetInfo']);
+        });
+    </script>
+    </body>
+</html>

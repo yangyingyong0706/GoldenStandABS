@@ -1,0 +1,238 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>文件上传</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+
+    <!--<link href="../Contents/style.css" rel="stylesheet" />-->
+    <link href="../css/style.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <script data-main="TestAssetStatus" src="../../../../../asset/lib/require.js"></script>
+    <style>
+        .tabs{
+            border-bottom:1px solid #ddd;
+            margin-bottom:10px;
+        }
+        .tabs > li{
+            display:inline-block;
+            padding:10px 0;
+            margin-right:10px;
+            cursor:pointer;
+            color:#7b7777;
+        }
+
+        .main{
+            padding:0 20px;
+        }
+        .tabs > li.active{
+            font-weight:normal;
+            font-size:14px;
+            color:rgb(54, 61, 93);
+        }
+        .tabs > li{
+            font-size:14px;
+        }
+        .form .form-group label{
+            font-weight:normal;
+            font-size:14px;
+        }
+        .form .form-panel.drop .form-group{
+            margin-bottom:30px;
+        }
+        .normal_small_button[disabled]{
+            opacity:0.5;
+            cursor:not-allowed;
+        }
+
+        .red {
+            color: #c20f0f;
+            font-weight: bold;
+            background: #f3d4d4;
+        }
+        .form .form-group .col-3 label{
+            background: #f1f1f1;
+            border: 1px solid #efecec;
+            text-align: center;
+            box-sizing:border-box;
+        }
+        @media (min-width: 768px){
+            .col-12{
+                width:45%;
+            }
+            .form-panel.drop>.form-group:nth-of-type(even){
+                margin-left:auto;
+            }
+            #tab-body-1 .col-12{
+                width:100%;
+            }
+        }
+        .form-panel.drop{
+            display:flex;
+            flex-wrap:wrap;
+        }
+          .progress {
+            height: 20px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+        }
+
+            .progress > .progress-bar {
+                float: left;
+                width: 0;
+                height: 100%;
+                font-size: 12px;
+                line-height: 20px;
+                text-align: right;
+                background: #6c78bd;
+                background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                -webkit-transition: width .6s ease;
+                -o-transition: width .6s ease;
+                -webkit-background-size: 40px 40px;
+                background-size: 40px 40px;
+                -webkit-animation: progress-bar-stripes 2s linear infinite;
+                -o-animation: progress-bar-stripes 2s linear infinite;
+                animation: progress-bar-stripes 2s linear infinite;
+            }
+            .file_name{
+                    display: inline-block;
+                    height: 30px;
+                    line-height: 30px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    width: calc(100% - 85px);
+                    box-sizing: border-box;
+                    padding-left: 10px;
+                    border:1px solid rgba(0,0,0,0.2);
+                    border-right:0px;
+            }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <ul class="tabs">
+            <li class="active" data-tab="1">上传历史还款文件</li>
+            <li data-tab="2">查看逾期测算结果</li>
+        </ul>
+        <div class="clearfix"></div>
+        <div>
+            <div id="tab-body-1" class="form AssetPoolCreationForm">
+                <div class="form-body default">
+                    <div class="form-panel drop" style="border-bottom:none">
+                        <div class="col-12 form-group">
+                            <div class="col-3"><label>上传文件</label></div>
+                            <div class="col-9">
+                                <label class="input_file_style" for="fileUploadFile" style="box-sizing:border-box;width:85px;background:rgb(54, 61, 93);color:white;border:1px solid rgba(0,0,0,0.2);">
+                                    <input type="file" id="fileUploadFile" class="form-control file" data-valid="required" />
+                                    <span>选择文件</span>
+                               </label>
+                                <span class="file_name"></span>
+                            </div>
+                        </div>
+                        <div id="test_progress" class="progress" style="width:100%;position:relative;top:-15px;margin:0px;display:none">
+                            <div class="progress-bar"><span></span></div>
+                        </div>
+                        <div class="col-12 form-group">
+                            <div class="col-3"><label>专项计划</label></div>
+                            <div class="col-9">
+                                <select class="form-control trustList" id="TrustId"></select>
+                            </div>
+                        </div>
+                        <div class="col-12 form-group">
+                            <div class="col-3"><label>日期</label></div>
+                            <div class="col-9">
+                                <select id="txtRDate" class="form-control">
+                                    <option>-</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="buttons" style="width:100%;text-align:center">
+                        <button type="button" id="uploadBtn" class="normal_small_button" title="上传">上传</button>
+                        <button type="button" id="cancelBtn" class="delet_normal_small_button" title="取消">取消</button>
+                    </div>
+                </div>
+            </div>
+            <div id="tab-body-2" class="form AssetPoolCreationForm" style="display:none">
+                <div class="form-body default">
+                    <div class="form-panel drop" style="display:flex;flex-wrap:wrap;border-bottom:none;margin-top:30px">
+                        <div class="col-12 form-group" style="padding-bottom:35px;margin:0px;">
+                            <div class="col-3" ><label>选择专项计划</label></div>
+                            <div class="col-9" >
+                                <select class="form-control trustList" id="Tid"></select>
+                            </div>
+                        </div>
+                        <div class="col-12 form-group" style="padding-bottom:35px;">
+                            <div class="col-3" ><label>日期</label></div>
+                            <div class="col-9" >
+                                <select id="Tdate" class="form-control">
+                                    <option>-</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="buttons" style="width:100%;text-align:center">
+                            <button type="button" id="viewResults" class="normal_small_button">查看结果</button>
+                            <button type="button" id="convered" class="normal_small_button" style="margin-left:10px">覆盖原始数据</button>
+                            <button type="button" id="download" class="normal_small_button" disabled="disabled" style="margin-left:10px">下载结果</button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div id="arrears-results" style="display:none;margin-top:15px;margin-bottom:15px">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">资产编号</th>
+                                    <th colspan="2">是否逾期</th>
+                                    <th colspan="2">历史逾期期数</th>
+                                    <th colspan="2">历史逾期程度</th>
+                                    <th colspan="2">历史逾期天数</th>
+                                    <th colspan="2">未偿本金余额</th>
+                                    <th colspan="2">账龄</th>
+                                    <th colspan="2">剩余期限</th>
+                                </tr>
+                                <tr>
+                                    <th>测算</th>
+                                    <th>原始</th>
+                                    <th>测算</th>
+                                    <th>原始</th>
+                                    <th>测算</th>
+                                    <th>原始</th>
+                                    <th>测算</th>
+                                    <th>原始</th>
+                                    <th>测算</th>
+                                    <th>原始</th>
+                                    <th>测算</th>
+                                    <th>原始</th>
+                                    <th>测算</th>
+                                    <th>原始</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot style="display:none">
+                                <tr>
+                                    <td colspan="14">
+                                        <div id="pages" style="text-align:right;">
+                                            <button type="button" id="prev-page" class="btn btn-default btn-sm" disabled="disabled">上一页</button>
+                                            <button type="button" id="next-page" class="btn btn-primary btn-sm" disabled="disabled">下一页</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>

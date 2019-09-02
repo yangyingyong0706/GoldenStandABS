@@ -1,0 +1,110 @@
+﻿[v-cloak] {
+    display: none;
+}
+.userPage_box>p{font-size:16px;color:#666;}
+.dataCheck,.dataImport,.dataUpdate{
+    padding:20px;
+}
+ .excelDownload {
+    padding: 20px;
+}
+
+.excelDownload li {
+    display: inline-block;
+    width: 50%;
+    height: 30px;
+    line-height: 30px;
+}
+
+.icon-icondownload {
+    color: #5C95E1;
+    font-size: 15px;
+    margin-right: 10px;
+}
+
+.excelDownload li a {
+    text-decoration: none;
+    color: rgb(102,102,102);
+    font-size: 14px;
+}
+.leftImage{padding-top:20px;}
+.dropdownList>label,.fileSelect>label,.reportingDate>label{    
+    font-size: 14px;
+    width: 96px;
+    height: 33px;
+    text-align: center;
+    line-height: 36px;
+    color: #606060!important;
+    display: inline-block;
+    border: 1px solid #efecec;
+    border-right: none;
+    float: left;
+    background-color: #f1f1f1;}
+.dataCheck>div{display:inline-block;}
+.dataCheck .select,.dataImport .select,.dataUpdate .select{
+    display:inline-block;
+    height:33px;
+    width:197px;
+    font-size:14px;
+    line-height:36px;
+    border:1px solid rgb(204,204,204);
+    border-radius:3px;
+    padding-left:3px;
+    color:#666;
+}
+.cancel{margin:0px 14px!important;}
+.btnSet{
+    display: block!important;
+    padding-top:20px;
+    text-align:right;
+}
+.btnSet .btn{
+    display: inline-block;
+    border-radius: 3px;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+}
+
+.dropdownList{
+  margin-right: 25px;
+}
+.dataImport>div,.dataUpdate>div{display:inline-block;}
+.input-file{
+    overflow: hidden;
+}
+.input-file input[type="file"] {
+    position: absolute;
+    top: 0;
+    width: 200px;
+    font-size: 14px;
+    background-color: #fff;
+    height: 33px;
+    color:#666;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor:pointer;
+}
+.dataImport .reportingDate,.dataImport .dropdownList,.dataImport .fileSelect,.dataCheck .reportingDate,.dataUpdate .reportingDate,.dataUpdate .dropdownList,.dataUpdate .fileSelect,
+.dataCheck .dropdownList,.dataCheck .fileSelect{
+    margin-bottom:10px;
+    vertical-align: top;
+}
+.dataImport .fileSelect, .dataCheck .fileSelect,.dataUpdate .fileSelect{
+      position: relative;
+}
+
+.showFileName1{
+    display: inline-block;
+     color:#666;
+    width: 190px;
+    line-height: 33px;
+    padding-left: 5px;
+    font-size:14px;
+    height: 33px;
+    border: 1px solid #ccc;
+     cursor:pointer;
+    white-space:nowrap;
+   overflow:hidden;
+   text-overflow: ellipsis
+}

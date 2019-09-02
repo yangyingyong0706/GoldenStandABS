@@ -1,0 +1,402 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>校验结果</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+
+    <link href="../style/style.css" rel="stylesheet" />
+    <link href="../style/pagerlist-style.css" rel="stylesheet" />
+    <link href="../../../asset/style/reset.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <script src="../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+
+        requirejs(['../../../asset/lib/config.js'], function (config) {
+
+            requirejs(['app/basicAsset/AssetDataCheck/VerificationList']);
+
+        });
+
+
+
+    </script>
+
+    <style>
+        html, body {
+            width: 100%;
+        }
+
+        .error-list {
+            padding: 15px;
+            -webkit-transition: height .3s ease;
+            -o-transition: height .3s ease;
+            transition: height .3s ease;
+        }
+
+            .error-list .left-title {
+                font-size:14px;
+                color:#555;
+            }
+
+            .error-list .right-title {
+                float: right;
+            }
+
+        .title {
+            height: 40px;
+            line-height: 40px;
+            border: 1px solid #dce0ee;
+            font-size: 14px;
+        }
+        .title-blue {
+            color: #555;
+            font-size: 16px;
+        }
+
+        .title-grey {
+            color: #888;
+        }
+
+        a.title-blue {
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+            a.title-blue:hover {
+                color: #4a59b7;
+                outline: #4a59b7 dotted 1px;
+            }
+
+        .error-detail {
+            padding: 0 15px;
+            position: relative;
+            height: auto;
+            font-size: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .error-progress {
+            position: relative;
+            margin-top: 20px;
+            background: #fff;
+            height: 35px;
+            border-bottom:1px dotted rgba(0,0,0,0.1);
+        }
+        .error-progress:last-child {
+            border-bottom: none;
+        }
+        .error-hover {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            width: 120px;
+            -webkit-transition: right .2s ease;
+            -o-transition: right .2s ease;
+            transition: right .2s ease;
+        }
+
+        .error-column {
+            position: absolute;
+            left: 15px;
+            top: 28px;
+            bottom: 0;
+            color: #777;
+        }
+        .error-detail:hover {
+            cursor: pointer;
+        }
+        .error-detail:hover .error-hover {
+            right: 5px;
+        }
+        .error-detail:hover .error-hover:after {
+            position: absolute;
+            right: 5px;
+            content: attr(data-hover);
+            color: #4a59b7;
+        }
+        .error-item {
+            border-top: 1px solid #dce0ee;
+            border-bottom: 1px solid #dce0ee;
+            padding: 10px 0;
+            margin-top: -1px;
+        }
+        .fold {
+            height: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .title-style{
+            display: inline-block;
+            color: #777;
+            font-size: 14px;
+            padding:0 15px;
+            height: 40px;
+        }
+        .error-progress-bar{
+            position: absolute;
+            left:50%;
+            width: 250px;
+            top: 7px;
+            transform: translate(-50%);
+        }
+        .percentbar_layer{
+            display:flex
+        }
+        .percentbar{
+            width: 200px;
+            border-radius: 100px;
+            background: #f1f1f1;
+            position: relative;
+            height: 10px;
+            top: 5px;
+            overflow: hidden;
+        }
+        .por{
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            border-radius: 100px;
+            background: #46AE30;
+            height: 100%;
+        }
+        .text_bar{
+            position:absolute;
+            right: -35px;
+            width: 50px;
+        }
+        .select_dr{
+            right: 30px;
+            position: absolute;
+        }
+        .tab_change{
+            display: block;
+            color: #777;
+            cursor:pointer;
+            position:relative;
+           
+        }
+        .tab_change:before{
+            position:absolute;
+            width:0px;
+            content: "";
+            transition:width linear 0.3s;
+        }
+        .tab_change:hover:before{
+            position: absolute;
+            content: "";
+            left: 0px;
+            border-bottom: 2px solid rgba(69,86,156,1);
+            width: 100%;
+            bottom: 0px;
+            border-radius: 5px;
+        }
+        .c_active{
+            position:relative;
+        }
+        .c_active:before{
+            position: absolute;
+            content: "";
+            left: 0px;
+            border-bottom: 2px solid rgba(69,86,156,1);
+            width: 100%;
+            bottom: 0px;
+            border-radius: 5px;
+        }
+        .error-advise,.text-center{
+            background:#f3f5fa;
+            text-align:left;
+            padding-left:15px;
+            box-sizing:border-box;
+        }
+        .remove_bo{
+            border-bottom:none !important;
+        }
+        .nodata_img {
+            display: block;
+            width: 200px;
+            height: 260px;
+            background: url(../../../asset/img/no_ata.png) no-repeat 0 50px;
+            margin-left: 50px;
+            position:relative;
+            left: calc(50% - 20px);
+            transform: translate(-50%);
+        }
+        .pot{
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            left: 65px;
+            bottom: 45px;
+            font-size: 14px;
+        }
+        #loading{
+            position: absolute;
+            background: #fff;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+        }
+        .margin-bottom{
+            left: 50%;
+            top: 50%;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            color: #137cd5e3;
+        }
+        .color_font{
+            color:#0d4ba0;
+        }
+        #downLoad{
+            font-size:14px;
+        }
+        .btn-primary {
+    
+}
+        #downLoad {
+            display: inline-block;
+            height: 30px;
+            padding: 4px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border: 1px solid #45569c;
+            border-radius: 3px;
+            color: #fff;
+            background-color: #45569c;
+        }
+        #downLoad:hover { 
+            opacity: 0.8;
+        }
+        #p1,#p2 {
+            border: 1px solid #dce0ee;
+            border-top: none;
+        }
+        .title_2 {
+            height: 40px;
+            line-height: 40px;
+        }
+        #downloadChecksumResults {
+            margin: 20px 0 0;
+            background: none;
+            text-align: center;
+            width: 100%;
+            bottom: 20px;
+        }
+        a:hover {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body style="display:none">
+    <div id="loading"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+    <div id="selectLanguageDropdown_vll" class="localizationTool" style="display:none"></div>
+    <div id="app">
+        <span id="errorRatio_title" class="title-blue" style="text-align:center">
+
+        </span>
+        <div class="error-list">
+            <div class="title">
+                <fieldset id="proportion_title" class="title-style">
+                    <legend class="tab_change" @click="changeTab($event)"><font id="errorArea">错误数据区域-必须修改</font></legend>
+                </fieldset>
+                <fieldset id="proportion_title2" class="title-style">
+                    <legend class="tab_change" @click="changeTab($event)"><font id="friends">友好性提示区域-可不必修改</font></legend>
+                </fieldset>
+                <!--<span id="errorRatio_vll" style="font-size:16px">
+                    错误占比统计
+                </span>-->
+            </div>
+            <div id="p1">
+                <div v-show="errorDetails.data.length==0" class="nodata_img"><div class="pot">没有数据</div></div>
+                <div class="error-detail" v-for="($index,v) in errorDetails.data" >
+                    <div id="proportion_vll" class="error-progress" v-bind="{'data-label':'占比 '+v.percents}" @click="viewDetail($event,v.columnName,0,$index)">
+                        <i class="icon icon-bottom select_dr"></i>
+                        <div class="error-progress-bar"><div class="percentbar_layer"><div class="text_bar">{{v.percents}}</div><span style="margin-right:5px">占比</span><div class="percentbar"><div class="por" v-bind:style="{width:v.percents}"></div></div></div></div>
+                    </div>
+                    <div id="seeRecommendations_vll" class="error-hover" v-bind="{'data-hover':'查看修改建议'}" style="display:none"></div>
+                    <div class="error-column" v-text="v.columnName" @click="viewDetail($event,v.columnName,0,$index)"></div>
+                    <div class="error-list" style="display:none;margin: -15px;">
+                        <div class="text-center title_2">
+                            <span id="recommendation_vllx" class="left-title title-blue">
+                                修改建议（{{errorAdvise.total}}条）
+                            </span>
+                            <span id="fieldError_vll" v-text="columnName + '字段错误'"></span>
+                            <!--<a id="hide_vll" class="right-title title-blue" href="javascript:;" @click.stop="closeView">
+                收起
+            </a>-->
+                            <div class="clearfix" v-bind:vuex="states"></div>
+                        </div>
+                        <div class="error-advise">
+                            <div class="error-item" v-for="v in errorAdvise.data">
+                                <p><span id="checkLine_vll" class="error-item-name public_font_style" v-if="v.VerifyRow!=''">校验行：</span><span class="public_font_style" v-text="v.VerifyRow"></span></p>
+                                <p><span id="checkType_vll" class="error-item-name public_font_style">校验类型：</span><span class="public_font_style" v-text="v.VerifyType"></span></p>
+                                <p><span id="recommendation_vll" class="error-item-name public_font_style">修改建议：</span><span class="public_font_style" v-text="v.VerifyResult"></span></p>
+                            </div>
+                        </div>
+                        <div class="text-center" v-if="totalPage > 1 && current <= totalPage" v-bind:pages="totalPage">
+                            <a id="more_vll" class="title-blue" @click.stop="current +=1 " v-text="'加载更多'" style="font-size:14px"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="p2">
+                <div v-show="errorDetails2.data.length==0" class="nodata_img"><div class="pot">没有数据</div></div>
+                <div class="error-detail" v-for="($index,v) in errorDetails2.data" >
+                    <div id="proportion_vll" class="error-progress" v-bind="{'data-label':'占比 '+v.percents}" @click="viewDetail($event,v.columnName,1,$index)">
+                        <i class="icon icon-bottom select_dr"></i>
+                        <div class="error-progress-bar"><div class="percentbar_layer"><div class="text_bar">{{v.percents}}</div><span style="margin-right:5px">占比</span><div class="percentbar"><div class="por" v-bind:style="{width:v.percents}"></div></div></div></div>
+                    </div>
+                    <div id="seeRecommendations_vll" class="error-hover" v-bind="{'data-hover':'查看修改建议'}" style="display:none"></div>
+                    <div class="error-column" v-text="v.columnName" @click="viewDetail($event,v.columnName,1,$index)"></div>
+                    <div class="error-list" style="display:none;margin: -15px;">
+                        <div class="text-center title_2">
+                            <span id="recommendation_vllx" class="left-title title-blue">
+                                修改建议（{{errorAdvise.total}}条）
+                            </span>
+                            <span id="fieldError_vll" v-text="columnName + '字段错误'"></span>
+                            <!--<a id="hide_vll" class="right-title title-blue" href="javascript:;" @click.stop="closeView">
+            收起
+        </a>-->
+                            <div class="clearfix" v-bind:vuex="states"></div>
+                        </div>
+                        <div class="error-advise">
+                            <div class="error-item" v-for="v in errorAdvise.data">
+                                <p><span id="checkLine_vll" class="error-item-name public_font_style" v-if="v.VerifyRow!=''">校验行：</span><span class="public_font_style" v-text="v.VerifyRow"></span></p>
+                                <p><span id="checkType_vll" class="error-item-name public_font_style">校验类型：</span><span class="public_font_style" v-text="v.VerifyType"></span></p>
+                                <p><span id="recommendation_vll" class="error-item-name public_font_style">修改建议：</span><span class="public_font_style" v-text="v.VerifyResult"></span></p>
+                            </div>
+                        </div>
+                        <div class="text-center" v-if="totalPage > 1 && current <= totalPage" v-bind:pages="totalPage">
+                            <a id="more_vll" class="title-blue" @click.stop="current +=1 " v-text="'加载更多'" style="font-size:14px"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center" style="background:none;text-align:center" id="downloadChecksumResults">
+                <!--<a id="downloadChecksumResults_vll" class="normal_small_button" target="_blank" v-bind:href="download" style="font-size:14px;">下载校验结果</a>-->
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

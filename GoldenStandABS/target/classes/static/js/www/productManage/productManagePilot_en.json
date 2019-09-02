@@ -1,0 +1,41 @@
+﻿{
+    "app": "DashBoard",
+    "title": "产品管理",
+    "group": [
+        {
+            "module": "Index",
+            "title": "Business Guide",
+            "titleclass": "icon-directionLeft01",
+            "elements": [
+                {
+                    "title": "Product Creation",
+                    "type": "button",
+                    "icon": "icon icon-plus",
+                    "linkname": "AddTrust",
+                    "linkurl": "javascript:AddTrust"
+                },
+                {
+                    "title": "Product Maintain",
+                    "type": "button",
+                    "icon": "icon icon-codepen",
+                    "linkname": "MangeTrust",
+                    "linkurl": "javascript:MangeTrust"
+                },
+                {
+                    "title": "Purchase cycle Wizard",
+                    "type": "button",
+                    "icon": "icon icon-gauge",
+                    "linkname": "RevolvePurchase",
+                    "linkurl": "javascript:RevolvePurchase"
+                },
+                 {
+                    "title": "Report Guide",
+                    "type": "button",
+                    "icon": "icon icon-gauge",
+                    "linkname": "ReportManagement",
+                    "linkurl": "javascript:ReportManagement"
+                }
+            ]
+        }
+    ]
+}

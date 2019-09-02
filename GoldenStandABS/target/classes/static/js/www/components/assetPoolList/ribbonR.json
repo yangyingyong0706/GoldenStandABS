@@ -1,0 +1,35 @@
+﻿{
+    "app": "DashBoard",
+    "title": "资产筛选",
+    "group": [
+        {
+            "module": "Index",
+            "title": "业务向导",
+            "titleclass": "icon-directionLeft01",
+            "elements": [
+                {
+                    "title": "新建资产池",
+                    "type": "btn btn-default",
+                    "icon": "icon icon-codepen",
+                    "linkname": "OpenPoolCreationPage",
+                    "linkurl": "javascript:OpenPoolCreationPage"
+                },
+                {
+                    "title": "删除资产池",
+                    "type": "btn btn-primary",
+                    "icon": "fa fa-trash-o fa-fw",
+                    "linkname": "DeleteAssetPoolList",
+                    "linkurl": "javascript:DeleteAssetPoolList"
+                },
+                 {
+                    "title": "刷新",
+                    "type": "btn btn-default",
+                    "icon": "icon icon-arrows-ccw",
+                    "linkname": "RefreshAssetPoolList",
+                    "linkurl": "javascript:RefreshAssetPoolList"
+                }
+                 
+            ]
+        }
+    ]
+}

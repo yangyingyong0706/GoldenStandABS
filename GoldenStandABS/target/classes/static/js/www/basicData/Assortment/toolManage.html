@@ -1,0 +1,86 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title>工具管理</title>
+    <!--<link href="../../productManage/TrustManagement/ReportWizardEx/css/ReportWizardEx.css" rel="stylesheet" />-->
+    <!--<link href="css/ReportWizardEx.css" rel="stylesheet" />-->
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+
+    <style>
+        html,body {
+            height: 100%;
+            font-family: 'Microsoft YaHei';
+        }
+        .layer {
+            height: calc(100% - 35px);
+        }
+        .layer .top_nav_style {
+            background-color: #ffffff;
+            height: 40px;
+            position: relative;
+            position: relative;
+            border-bottom: 1px solid #dadada;
+        }
+        .layer .top_nav_style ul {
+            margin: 0;
+            padding: 0 0 0 15px;
+        }
+        .layer .top_nav_style ul li {
+            display: inline-block;
+            font-size: 14px;
+            color: rgba(77,77,77,1);
+            height: 39px;
+            line-height: 40px;
+            margin: 0 15px;
+            cursor: pointer;
+        }
+        .layer .top_nav_style ul li.current_li {
+            border-bottom: 2px solid rgba(69,86,156,1);
+            color: rgba(69,86,156,1);
+        }
+        .iframe_content {
+            width: 100%;
+            height: calc(100% - 40px);
+            background: #fafafa;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+        }
+    </style>
+
+</head>
+<body id="app">
+    <div class="layer">
+        <div class="top_nav_style">
+            <ul>
+                <li v-for="item in liSource" v-bind:id="item.PathName" v-on:click="changeIframe(item.linkUrl,$event)">
+                    <!--<span>筛选条件编辑</span>-->
+                    <span>{{item.name}}</span>
+                </li>
+                <!--<li id="TaskProcessEngine" v-on:click="changeIframe($event)">
+                    <span>任务工具</span>
+                </li>
+                <li id="CashFlowEngine" v-on:click="changeIframe($event)">
+                    <span>现金流预测模型</span>
+                </li>-->
+            </ul>
+        </div>
+        <div class="iframe_content">
+            <iframe v-bind:src="url" frameborder="0" class="extend_father"></iframe>
+        </div>
+    </div>
+    <script src="../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/basicData/Assortment/toolManage']);
+        });
+    </script>
+</body>
+</html>

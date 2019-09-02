@@ -1,0 +1,321 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>配置偿付顺序</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+    <script src="../../../../asset/lib/jquery/jquery-1.7.2.min.js"></script>
+    <script src="../../../../asset/lib/jquery/jquery-ui-latest.js"></script>
+    <script src="../../../../config/globalVariable.js"></script>
+    <script src="../Common/Scripts/common.js"></script>
+    <!--<script src="../Common/Scripts/format.number.js"></script>-->
+    <script src="../Common/Scripts/format.number_copy.js"></script>
+
+    <script src="../../../../asset/lib/knockout/knockout-3.4.0.js"></script>
+    <link href="../../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+
+    <link href="../TrustFollowUp/css/trustFollowUp.css" rel="stylesheet" />
+    <script src="../../../../asset/lib/Kendo/js/kendo.all.min.js"></script>
+    <script src="../../../../asset/lib/Kendo/js/kendo.culture.zh-CN.js"></script>
+
+
+    <style type="text/css">
+        html,body{
+            overflow:hidden;
+            height:100%;
+        }
+        .payment-container{
+            padding:5px 10px;
+        }
+        .tabHead{
+            background-color: #CCCCCC;
+            height: 28px;
+            border: #BDBDBD solid 1px;
+            padding: 5px 5px 0px 5px;
+        }
+        .tabHead .divLi{
+            cursor: pointer;
+            padding:0 6px;
+            font-size: 12px;
+            text-align: center;
+            height: 28px;
+            line-height: 28px;
+            border: #BDBDBD solid 1px;
+            border-bottom: none;
+            color: #000;
+            white-space: nowrap;
+            float: left;
+            margin-left:-1px;
+            font-weight:bold;
+            vertical-align:middle;
+        }
+        .tabHead .divLi.active{
+            color: #000099 !important;
+            background-color: #EEEEEE !important;
+        }
+        .tabHead .divLi.active .removeScenario{
+            color: #000099;
+        }
+        .tabHead .divLi.hide{
+            display:none;
+        }
+        .tabHead .divLi.show{
+            display:block;
+        }
+        .tabHead .divLi .removeScenario{
+            background-image:none;
+            background:transparent;
+            border:none;
+            height:27px;
+            line-height:27px;
+            font-size:16px;
+            vertical-align:middle;
+            color: #777;
+            font-weight:bold;
+            cursor:pointer;
+        }
+        .tabHead .divLi span{
+            vertical-align:middle;
+        }
+        .tabHead .input{
+            padding:2px 3px;
+            height:14px;
+            border:#BDBDBD solid 1px;
+            font-size:12px;
+            border-radius:2px;
+            vertical-align:middle;
+        }
+        .tabHead .newTabBtn{
+            font-size:18px;
+            color:#6a6a6a;
+        }
+        .tabHead .newTabBtn:hover{
+            color:#555;
+        }
+        .saveBtn{
+            position:absolute;
+            top:9px;
+            right:15px;
+            padding:3px 20px;
+            background:#474747;
+            border-color:#474747;
+            color:#fff;
+        }
+        .saveBtn:hover{
+            background:#606060;
+            border-color:#ccc;
+        }
+        .form{
+            min-height:auto;
+        }
+        .objElement {
+            cursor: pointer;
+            text-align: center;
+            margin: 2px;
+            background: #f8f8f8;
+            font-size: 12px;
+            padding: 0 5px;
+            height: 22px;
+            line-height: 22px;
+            color: #000;
+            font-weight: bolder;
+            width: 118px;
+            float: left;
+            overflow:hidden;
+        }
+        .feeElement {
+            background-color: #327bbf;
+            color: #fff;
+        }
+        .bondElement {
+            background-color: #cc433b;
+            color: #fff;
+        }
+        .leveltd {
+            background-color:#EEEEEE;
+            color: #000000;
+            text-align:center;
+        }
+        #sortable_div{
+            position:absolute;
+            bottom:0;
+            left:10px;
+            right:10px;
+            padding:10px 0;
+            background:#fff;
+        }
+        .ofv{
+            overflow:visible!important;
+        }
+        .showOptions{
+            position:absolute;
+            left:0;
+            top:30px;
+            right:0;
+            z-index:999;
+        }
+        .showOptions > .form-control{
+            height:auto;
+            max-height:150px;
+            overflow-y:auto;
+            vertical-align:middle;
+        }
+        .showOptions > .form-control input[type=checkbox],
+        .showOptions > .form-control label{
+            vertical-align:middle;
+            margin-top:0;
+        }
+        .showOptions > .form-control label{
+            height:20px;
+            display:inline-block;
+            line-height:20px;
+            font: 500 14px/20px "Microsoft Yahei";
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container form">
+        <div id="tabHead" class="tabHead">
+            <button id="bt_Save" type="button" class="btn saveBtn" data-bind="click:saveTrustPaymentSequence">保存</button>
+            <div id="scenarioNameList" data-bind="foreach:{data:scenarioNameList,as:'value'}">
+                <div class="divLi" data-bind="css:{active:$parent.current() == $index(),hide:$parent.editId() == $index()},click:$parent.selectData.bind($data,$index()),event:{dblclick:$parent.doubleEdit.bind($data,$data,$index())}">
+                    <span data-bind="text:value"></span>
+                    <button type="button" class="removeScenario" data-bind="click:$parent.deleteScenario.bind($data,value,$index())">&times;</button>
+                </div>
+            </div>
+            <div class="divLi" style="display:none;" data-bind="visible:showInput">
+                <input type="text" data-bind="value:newScenarioInput" class="input" id="newTabInput" />
+                <button type="button" class="removeScenario" data-bind="click:addScenarioName"><i class="icon icon-check" style="font-size:14px;color:#0e8f0e"></i></button>
+                <button type="button" class="removeScenario" data-bind="click:function(){showInput(false)}">&times;</button>
+            </div>
+            <div class="divLi" data-bind="click:addNewScenario,visible:!showInput()">
+                <span class="newTabBtn">+</span>
+            </div>
+        </div>
+        <div id="divBody" class="form-panel item">
+            <div class="col-12">
+                <div class="col-6 form-group autoLayout-plugins">
+                    <div class="col-4">
+                        <label>本金精度</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="number" data-bind="value:editData().PrincipalPrecision" class="form-control form-item col-11" />
+                        <div class="field-details" style="display:inline-block;margin-left:10px;">
+                            <i class="icon icon-help" style="margin-top: 2px;display: block;color:#4174cb;"></i>
+                            <div class="field-detail-box">
+                                分配本金时，每百元分配金额保留的小数位数。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 form-group autoLayout-plugins">
+                    <div class="col-4">
+                        <label>利息精度</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="number" data-bind="value:editData().InterestPrecision" class="form-control form-item col-11" />
+                        <div class="field-details" style="display:inline-block;margin-left:10px;">
+                            <i class="icon icon-help" style="margin-top: 2px;display: block;color:#4174cb;"></i>
+                            <div class="field-detail-box" style="width:100px;">
+                                分配利息时，每百元分配金额保留的小数位数。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 form-group autoLayout-plugins">
+                    <div class="col-4">
+                        <label>收入账结余是否转入本金账</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="checkbox" data-bind="checked:editData().AllowInterestToPrincipal" class="form-item" />
+                        <div class="field-details" style="display:inline-block;margin-left:10px;">
+                            <i class="icon icon-help" style="margin-top: 2px;display: block;color:#4174cb;"></i>
+                            <div class="field-detail-box">
+                                若不区分收入账与本金账，则所有资金均作为利息回收款，请勾选此项。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 form-group autoLayout-plugins">
+                    <div class="col-4">
+                        <label>选择期数</label>
+                    </div>
+                    <div class="col-6">
+                        <input data-bind="checked:isChecked" type="checkbox" class="form-item" />
+                    </div>
+                </div>
+                <div class="col-6 form-group autoLayout-plugins periodfields" data-bind="visible:isChecked">
+                    <div class="col-4">
+                        <label>起始</label>
+                    </div>
+                    <div class="col-6">
+                        <select class="form-control form-item" data-bind="options:periodStartOptions,value:editData().StartDate,valueAllowUnset: true,event:{change:changeExcludeDateOpts}"></select>
+                    </div>
+                </div>
+                <div class="col-6 form-group autoLayout-plugins periodfields" data-bind="visible:isChecked">
+                    <div class="col-4">
+                        <label>终止（含该日）</label>
+                    </div>
+                    <div class="col-6">
+                        <select class="form-control form-item" data-bind="options:periodEndOptions,value:editData().EndDate,valueAllowUnset: true,event:{change:changeExcludeDateOpts}"></select>
+                    </div>
+                </div>
+                <div class="col-6 form-group autoLayout-plugins periodfields" data-bind="visible:isChecked">
+                    <div class="col-4">
+                        <label>不包含区间（可多选）</label>
+                    </div>
+                    <div id="multiOptions" class="col-6" style="position:relative">
+                        <div class="form-control" data-bind="click: handleShowOption">选择日期区间...</div>
+                        <div class="showOptions" data-bind="visible:hideOption" style="display:none;">
+                            <!-- ko if:excludePeriodOptions().length > 0-->
+                            <div class="form-control" data-bind="foreach:excludePeriodOptions">
+                                <p>
+                                    <input type="checkbox" data-bind="attr:{id:'multiple-'+$index()},checked:$root.editData().ExcludedDates,checkedValue:value" />
+                                    <label data-bind="text:text,attr:{for:'multiple-'+$index()}"></label>
+                                </p>
+                            </div>
+                            <div style="padding:4px 10px;background:#f2f2f2;border:1px solid #ddd;border-top:none;border-radius:0 0 3px 3px;">
+                                <input type="checkbox" data-bind="checked:checkAll,event:{change:checkAllEveHandler.bind($data,checkAll())}" />&nbsp;全选/反选
+                            </div>
+                            <!-- /ko -->
+                            <!-- ko if:excludePeriodOptions().length == 0-->
+                            <div class="form-control">
+                                <div style="line-height:80px;height:80px;text-align:center;color:#888;">
+                                    没有找到符合条件的日期区间~
+                                </div>
+                            </div>
+                            <!-- /ko-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table id="grid"></table>
+        <div id="sortable_div"></div>
+        <div class="clearfix"></div>
+    </div>
+    <script id="rowTemplate" type="text/x-kendo-tmpl">
+        <tr data-uid="#: uid #" style="min-height:32px">
+            <td class="leveltd">
+                <span>#: Id#</span>
+            </td>
+            <td class="sortable_td" style="padding:0px 7px !important">#= BondFees#</td>
+            <td>
+                <input type="text" style="width:70px;text-align:left" class="PayLimitation" value="#: PayLimitation#" />
+            </td>
+            <td>
+                <input type="number" style="width:70px" value="#: PercentageOfSurplus#" />&nbsp;<span>%</span>
+            </td>
+            <td>
+                #= AllocationRuleOfSameLevel#
+            </td>
+            <td>
+                #= FillByPrincipal#
+            </td>
+        </tr>
+    </script>
+    <script src="PaymentSequenceSetting.js"></script>
+</body>
+</html>

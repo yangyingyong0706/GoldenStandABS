@@ -1,0 +1,115 @@
+﻿    [v-cloak] { display: none }
+   /*.big_box{height: auto;border: 1px solid #CCCCCC;margin: 20px;border-radius: 5px;}*/
+   .big_box{box-sizing:border-box;padding: 0px 20px; width:calc(100% - 300px);height: 100%;}
+    .big_box_details{box-sizing:border-box;padding: 0px 20px;width:100%;height: 100%;/*margin-top: 18px;*/}
+   .rightImage{position:fixed;right:0;}
+   .rightImage2{position: fixed;top: 107px;width: 40%; right: -21px;}
+   .page_box{box-shadow: 0px 0px 22px 0px #d8d0d0;margin-bottom:20px;position:relative;}
+   .page_box>p{width: 100%;height:45px;color:#606060; margin: 0;line-height: 45px;box-sizing:border-box;padding-left:10px;font-size:14px;border-bottom: 1px solid rgba(204, 204, 204, 0.52);}
+   .page_box>p>span {box-shadow: 0px 6px 8px #bbc9fa;width: 6px;height: 6px;display: inline-block; background: #5c6269; position: relative;top: -3px;left: 9px;margin-right: 21px;}  
+   .page>div{width: 100%;height: auto;display: inline-block;box-sizing: border-box;padding-left: 30px;overflow: hidden;padding-right: 19px;} 
+   .page_box>.page{height: auto;width:100%;padding-top: 20px;}
+   .big_box .page_box>.page>.content>.line{width: 50%;display:inline-block; font-size: 14px;margin-bottom: 8px;white-space:nowrap;}
+   .big_box_details .page_box>.page>.content>.line{width: 33%;display:inline-block; font-size: 14px;margin-bottom: 6px;white-space:nowrap;}
+   .page_box>.page>content>.line:last-child{clear:left}
+   .page_box>.page>content>.line>span {display: inline-block;} 
+   big_box div:first-child{margin-top: 0px}
+   .page_box>p>i{color:#666;cursor:pointer}
+   .page_box>.page>.content>.line span:first-child{
+       color: #5a5a5a;
+       display:inline-block;
+       vertical-align: middle;
+   }
+   .page_box>.page>.content>.line span:nth-child(2){
+    color: #838383;
+    display: inline-block;
+    max-width: 63%;
+    vertical-align:middle;
+    white-space: normal;
+   }
+   .page_box>.page>.content>.line>span>span>span{
+      height:2.3em!important;
+   }
+    
+   .rightImage .tab{
+       padding: 10px;
+       padding-left:31px;
+       margin-bottom: 20px;
+   }
+   .rightImage .tab span {
+       margin-right: 23px;
+       cursor: pointer;
+       font-size: 16px;
+       font-weight: bold;
+       position: relative;
+   }
+   .rightImage .tab .d_lineHide .d_line{
+     width: 28px;
+    background-color: rgb(0,112,225);
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    margin: 26px auto;
+    border-bottom: 2px solid #0070ff;
+    box-shadow: 0px 6px 6px #bbc9fa;
+   }
+   .d_lineHide{
+      
+        color: rgb(0,112,225);
+   }
+   .houseInformation {
+       display: none;
+   }
+
+.page  {
+    position:relative;
+}
+/*.page  .underline {
+    width: 97%;
+    background-color: #dedede;
+    height: 1px;
+    position:absolute;
+    top: 54px;
+    left: 17px;
+}*/
+.page_table {
+    width: 100%;
+    padding: 0px 0px 10px 0px;
+}
+.page_table thead tr {
+  font-size: 14px;
+    height: 30px;
+    color: #606060;
+    border-bottom: 1px solid #e4e4e4;
+}
+.page_table thead tr th:first-child {
+ padding-left: 35px;
+ text-align: left;
+} 
+.page_table thead tr th:last-child {
+ /*padding-right: 53px;*/
+ text-align: center;
+
+} 
+.page_table thead tr th {
+ width: 25%;
+}
+.page_table tbody tr {
+    font-size: 14px;
+    height: 33px;
+}
+.page_table tbody tr  td {
+    width: 25%;
+    text-align: center;
+    color: #838383;
+}
+.page_table tbody tr  td:first-child {
+  text-align: left;
+  padding-left: 20px;
+}
+.pageGrid{padding:20px !important;}
+tr.content_tbody td:nth-child(2) {
+    text-align: left;
+    padding-left: 30px;
+}

@@ -1,0 +1,478 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>会计科目</title>
+    <link href="../../../asset/font/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="../../../asset/style/reset.css" rel="stylesheet" />
+    <link href="../../../asset/style/common.css" rel="stylesheet" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/goldenstand/uiFrame/css/gs-admin-2.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../transactionManage/style/index.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+
+    <script src="../../../asset/lib/require.js" data-main="viewAccountingSubjects"></script>
+    <style>
+          .manager-content {
+            margin: 0;
+            padding: 0;
+        }
+
+        header, .btnItem, .btnItemSave {
+            padding:0px;
+            display:flex;
+            height:39px;
+        }
+
+        .title-transaction {
+            font-size: 14px;
+            font-weight: bolder;
+        }
+
+        .transaction-navTitle {
+            font-size: 12px;
+            color: #5a77a9;
+        }
+
+        .row.btnItemCRUD {
+            margin-left:auto;
+            margin-top:-6px;
+        }
+
+        .main {
+            display: none;
+        }
+        .ui-dialog {
+            width: 80% !important;
+            padding:0px;
+        }
+       .row {
+            margin: 15px;
+        }
+        .bs-example{
+            display:flex;
+            float:right;
+            width:192px;
+            margin-top:-6px;
+        }
+        .margin_l{
+            margin-right:6px;
+        }
+      .btnItemCRUD  .layer_width{
+            width:700px;
+        }
+        .file {
+            height: 26px;
+        }
+
+        .page {
+            padding: 0;
+        }
+
+        .date_selector {
+            padding: 0;
+        }
+
+        #ImportAssetInfo {
+            margin: 10px 0;
+        }
+
+        #file_BasePool {
+            background: transparent;
+        }
+            .main .h3 .title {
+                color: #5A77A9;
+                font-size: 16px;
+                border-bottom: 3px solid #D8D8D8;
+                padding: 8px 0;
+            }
+
+            .main h3 {
+                border-bottom: 2px solid #EAEAEA;
+                padding-bottom: 8px;
+            }
+          .ui-widget input{
+            font-size:14px;
+        }
+         .k-grid-header th.k-header>.k-link{
+                 margin-top: -5px;
+             display: inline-block;
+             text-align:center;
+         }
+         .k-grid-header  th.k-header{
+             text-align:center;
+         }
+         #tabs{
+             border-radius:0px;
+             padding:0px;
+         }
+         .ui-tabs .ui-tabs-nav{
+             border-radius:0px;
+         }
+         .ui-draggable .ui-dialog-titlebar{
+                 border-bottom-left-radius: 0px;
+                 border-bottom-right-radius: 0px;
+         }
+          header input, .btnItemCRUD input{
+            height:24px !important;
+        }
+        .input_style{
+            border-radius:2px;
+        }
+        .k-grid tr.k-state-selected>td{
+            border-color:rgba(0,0,0,0.1);
+        }
+        .btn-group{
+            margin-right:6px;
+        }
+        .k-grid-content tr td,.k-grid-header th.k-header>.k-link{
+            font-size:13px;
+        }
+        .ui-tabs .ui-tabs-nav li a{
+            font-size:14px;
+        }
+        .ui-tabs .ui-tabs-panel{
+            padding:15px;
+        }
+        /**/
+            .col-md-12{
+            padding:0px;
+        }
+        .form-horizontal .form-group{
+            margin:0px;
+            margin-bottom:15px;
+        }
+        .form-horizontal .control-label{
+            background: #f1f1f1;
+            text-align: center;
+            width:40%;
+            padding: 0px;
+            height: 30px;
+            line-height: 30px;
+        }
+        .form-group>.col-md-6{
+            padding:0px;
+            width:60%;
+            padding-right:15px;
+        }
+        .form-control{
+            height: 30px;
+            border-radius: 2px;
+        }
+        .form-save {
+            width: 100%;
+            text-align:center
+        }
+        .btnDiv button{
+            margin-left: 5px;
+        }
+        .ui-widget-content {
+            border: 1px solid #dedede;
+        }
+        .ui-widget-header {
+            border: none;
+            border-bottom: 1px solid #dedede;
+            color: #444444;
+        }
+        .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+            border: none;
+            background: #fff;
+        }
+        .ui-tabs .ui-tabs-nav li.ui-tabs-active {
+             margin-bottom: 0; 
+             padding-bottom: 0; 
+             border-bottom: 1px solid #45569c;
+             color: #45569c;
+        }
+        .ui-tabs .ui-tabs-nav li {
+            margin: 0 15px;
+        }
+        .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
+            color: #45569c;
+        }
+        .ui-tabs .ui-tabs-nav li a {
+            padding: 0.5em 0;
+        }
+    </style> 
+</head>
+<body style="display:none">
+    <div id="selectLanguageDropdown_qcl" class="localizationTool" style="display:none"></div>
+    <div class="row manager-content">
+        <div>
+            <div style="margin-top:5px;float: right;" class="btnDiv">
+                <!--<span class="title-transaction" id="title1">会计核算</span> > <span class="transaction-navTitle" id="title2">会计科目管理</span>-->
+                <div data-example-id="single-button-dropdown">
+                    <button type="button" class="btn btn-default" aria-haspopup="true" aria-expanded="false" id="ViewDetails"><i class="icon icon-add"></i><span id="btnAdd">新建</span></button>
+                    <button type="button" class="btn btn-default" aria-haspopup="true" aria-expanded="false" id="Edit"><i class="icon icon-edit"></i><span id="btnEdit">编辑</span></button>
+                    <button type="button" class="btn btn-danger" aria-haspopup="true" aria-expanded="false" id="Delete"><i class="fa fa-trash-o fa-fw"></i><span id="btnDel">删除</span></button>
+                </div>
+            </div>
+            <section class="btnItemCRUD row">
+
+                <div class="col-md-6 layer_width">
+                    <!--<div id="LayOutapp"></div>-->
+                    <!--<div id="LayOutapp"></div>-->
+                </div>
+            </section>
+        </div>
+     
+        <div id="tabs">
+                <ul>
+                    <li><a href="#tabs-0" id="subject0" style="outline-style:none">所有会计科目</a></li>
+                    <li><a href="#tabs-1" id="subject1" style="outline-style:none">资产类</a></li>
+                    <li><a href="#tabs-2" id="subject2" style="outline-style:none">成本类</a></li>
+                    <li><a href="#tabs-3" id="subject3" style="outline-style:none">费用类</a></li>
+                    <li><a href="#tabs-4" id="subject4" style="outline-style:none">负债类</a></li>
+                    <li><a href="#tabs-5" id="subject5" style="outline-style:none">权益类</a></li>
+                    <li><a href="#tabs-6" id="subject6" style="outline-style:none">收入类</a></li>
+                </ul>
+                <div id="tabs-0">
+                    <div id="grid0"></div>
+                </div>
+                <div id="tabs-1">
+                    <div id="grid" style="border-left:1px solid rgba(0,0,0,0.1)"></div>
+                </div>
+                <div id="tabs-2">
+                    <div id="grid1"></div>
+                </div>
+                <div id="tabs-3">
+                    <div id="grid2"></div>
+                </div>
+                <div id="tabs-4">
+                    <div id="grid3"></div>
+                </div>
+                <div id="tabs-5">
+                    <div id="grid4"></div>
+                </div>
+                <div id="tabs-6">
+                    <div id="grid5"></div>
+                </div>
+            </div>
+        <div id="dialogDetails" style="padding-right:0px;">
+            <div class="main" id="StandDiv" style="padding-right:0px">
+                <div class="form-panel">
+                    <div class="col-md-12 form-row form-horizontal" data-bind="" style="padding-bottom:15px">
+                        <!-- ko if: IsDisplay -->
+                        <div class="col-md-6 form-row autoLayout-plugins" style="padding:0px">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" data-bind="" id="tab1">科目编号</label>
+                                <div class="col-md-6">
+                                    <span data-bind="renderControl:ItemId"><input class="form-control" type="text" id="SubjectNoval" data-valid=" Required"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-row autoLayout-plugins" style="padding:0px">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" data-bind="text:ItemAliasValue" id="tab2">科目名称</label>
+                                <div class="col-md-6">
+                                    <span data-bind="renderControl:ItemId"><input class="form-control" id="SubjectNameval" type="text" data-valid=" Required"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-row autoLayout-plugins" style="padding:0px">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" data-bind="text:TransactionNumber" id="tab3">科目类别</label>
+                                <div class="col-md-6">
+                                    <span data-bind="renderControl:ItemId"><input class="form-control" id="SuperiorSubjectVal" type="text" data-valid=" Required"></span>
+                                </div>
+                                <!-- ko  if: IsNew --><!-- /ko -->
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-row autoLayout-plugins" style="padding:0px">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" data-bind="text:ItemAliasValue" id="tab4">余额方向</label>
+                                <div class="col-md-6">
+                                    <span data-bind="renderControl:ItemId"><input class="form-control" id="SubjectTypeval" type="text" data-valid=" Required"></span>
+                                </div>
+                                <!-- ko  if: IsNew --><!-- /ko -->
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-row autoLayout-plugins" style="padding:0px">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" data-bind="text:ItemAliasValue" id="tab5">收支方向</label>
+                                <div class="col-md-6">
+                                    <span data-bind="renderControl:ItemId"><input class="form-control" id="BalanceDirectionval" type="text" data-valid=" Required"></span>
+                                </div>
+                                <!-- ko  if: IsNew --><!-- /ko -->
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-row autoLayout-plugins" style="padding:0px">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" data-bind="text:ItemAliasValue" id="tab6">流水账日期</label>
+                                <div class="col-md-6">
+                                    <span data-bind="renderControl:ItemId"><input class="form-control" id="RecAndDisDirectionval" type="text" data-valid=" Required"></span>
+                                </div>
+                                <!-- ko  if: IsNew --><!-- /ko -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-save">
+                    <input class="normal_small_button" id="Newsave" type="button" value="保存信息" data-bind="value:Language.BtnSave">
+                </div>
+            </div>
+        </div>
+        <div id="EditDetails" style="width:100%; height:100%;padding-right:0px;">
+            <div class="main" id="EditDetailsDiv" style="padding-right:0px">
+                <div class="form-panel">
+                    <div class="col-md-12 form-row form-horizontal" data-bind="" style="padding-bottom:15px">
+                        <!-- ko if: IsDisplay -->
+                        <div class="col-md-6 form-row autoLayout-plugins" style="padding:0px">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" data-bind="" id="edit1">会计科目编号</label>
+                                <div class="col-md-6">
+                                    <span data-bind="renderControl:ItemId"><input class="form-control" id="SubjectNoEdit" type="text" data-bind="" data-valid=" Required"></span>
+                                </div>
+                                <!-- ko  if: IsNew --><!-- /ko -->
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: IsDisplay -->
+                        <div class="col-md-6 form-row autoLayout-plugins" style="padding:0px">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" data-bind="text:ItemAliasValue" id="edit2">会计科目名称</label>
+                                <div class="col-md-6">
+                                    <span data-bind="renderControl:ItemId"><input class="form-control" id="SubjectNameEdit" type="text" data-bind="value: ItemValue" data-valid=" Required"></span>
+                                </div>
+                                <!-- ko  if: IsNew --><!-- /ko -->
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-row autoLayout-plugins" style="padding:0px">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" data-bind="text:ItemAliasValue" id="edit3">上级科目</label>
+                                <div class="col-md-6">
+                                    <span data-bind="renderControl:ItemId"><input class="form-control" id="SuperiorSubjectEdit" type="text" data-bind="value: ItemValue" data-valid=" Required"></span>
+                                </div>
+                                <!-- ko  if: IsNew --><!-- /ko -->
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-row autoLayout-plugins" style="padding:0px">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" data-bind="text:ItemAliasValue" id="edit4">科目类别</label>
+                                <div class="col-md-6">
+                                    <span data-bind="renderControl:ItemId"><input class="form-control" id="SubjectTypeEdit" type="text" data-bind="value: ItemValue" data-valid=" Required"></span>
+                                </div>
+                                <!-- ko  if: IsNew --><!-- /ko -->
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-row autoLayout-plugins" style="padding:0px">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" data-bind="text:ItemAliasValue" id="edit5">余额方向</label>
+                                <div class="col-md-6">
+                                    <span data-bind="renderControl:ItemId"><input class="form-control" id="BalanceDirectionEdit" type="text" data-bind="value: ItemValue" data-valid=" Required"></span>
+                                </div>
+                                <!-- ko  if: IsNew --><!-- /ko -->
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-row autoLayout-plugins" style="padding:0px">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" data-bind="text:ItemAliasValue" id="edit6">收支方向</label>
+                                <div class="col-md-6">
+                                    <span data-bind="renderControl:ItemId"><input class="form-control" id="RecAndDisDirectionEdit" type="text" data-bind="value: ItemValue" data-valid=" Required"></span>
+                                </div>
+                                <!-- ko  if: IsNew --><!-- /ko -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-save">
+                    <input class="normal_small_button" id="EditSave" type="button" value="保存信息">
+                </div>
+            </div>
+        </div>
+        <div id="AddDetails" title="增加" style="width:100%; height:100%;">
+            <div class="main" id="AddDetailsDiv">
+                <div class="tab-columns">
+                    <button class="btn btn-active" type="button" data-col="2">
+                        <span class="bs bs2"></span>
+                        <span class="bs bs2"></span>
+                    </button>
+                    <button class="btn" type="button" data-col="3">
+                        <span class="bs bs1"></span>
+                        <span class="bs bs1"></span>
+                        <span class="bs bs1"></span>
+                    </button>
+                </div>
+                <h3 class="h3" id="step-title"><span class="title" data-bind="text:Language.ProductInfo" id="add1">会计科目管理</span></h3>
+                <div class="form-panel">
+                    <div class="col-md-12 form-drop">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <select class="form-control" id="tb_CompulsoryDDL" data-bind="">
+                                    <!--ko ifnot:IsDisplay--><!-- /ko -->
+                                    <!--ko ifnot:IsDisplay--><!-- /ko -->
+                                    <!--ko ifnot:IsDisplay--><!-- /ko -->
+                                    <!--ko ifnot:IsDisplay--><!-- /ko -->
+                                    <!--ko ifnot:IsDisplay--><!-- /ko -->
+                                    <!--ko ifnot:IsDisplay--><!-- /ko -->
+                                    <!--ko ifnot:IsDisplay-->
+                                    <option value="ClosureDate" data-bind="" id="add2">关闭日期</option>
+                                    <!-- /ko -->
+                                    <!--ko ifnot:IsDisplay-->
+                                    <option value="ExchangeCenter" data-bind="" id="add3">交易所</option>
+                                    <!-- /ko -->
+                                </select>
+                            </div>
+                            <button class="btn btn-plus" onclick="createCompulsory()" type="button"><i class="icon icon-add"></i></button>
+                        </div>
+                    </div>
+                    <div class="col-md-12 form-row form-horizontal" data-bind="">
+                        <!-- ko if: IsDisplay -->
+                        <div class="col-md-6 form-row autoLayout-plugins">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" data-bind="" id="add4">流水号</label>
+                                <div class="col-md-6">
+                                    <span data-bind="renderControl:ItemId"><input class="form-control" onchange="validControlValue(this)" type="text" data-bind="" data-valid=" Required"></span>
+                                </div>
+                                <!-- ko  if: IsNew --><!-- /ko -->
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: IsDisplay -->
+                        <div class="col-md-6 form-row autoLayout-plugins">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" data-bind="text:ItemAliasValue" id="add5">冲销标志</label>
+                                <div class="col-md-6">
+                                    <span data-bind="renderControl:ItemId"><input class="form-control" onchange="validControlValue(this)" type="text" data-bind="value: ItemValue" data-valid=" Required"></span>
+                                </div>
+                                <!-- ko  if: IsNew --><!-- /ko -->
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-row autoLayout-plugins">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" data-bind="text:ItemAliasValue" id="add6">交易编号</label>
+                                <div class="col-md-6">
+                                    <span data-bind="renderControl:ItemId"><input class="form-control" onchange="validControlValue(this)" type="text" data-bind="value: ItemValue" data-valid=" Required"></span>
+                                </div>
+                                <!-- ko  if: IsNew --><!-- /ko -->
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-row autoLayout-plugins">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" data-bind="text:ItemAliasValue" id="add7">流水账日期</label>
+                                <div class="col-md-6">
+                                    <span data-bind="renderControl:ItemId"><input class="form-control" onchange="validControlValue(this)" type="text" data-bind="value: ItemValue" data-valid=" Required"></span>
+                                </div>
+                                <!-- ko  if: IsNew --><!-- /ko -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-save">
+                    <input class="btn btn-primary" id="save" onclick="saveItem()" type="button" value="保存信息" data-bind="value:Language.BtnSave">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

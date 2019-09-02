@@ -1,0 +1,173 @@
+﻿<!doctype html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>workflow</title>
+	<link rel="stylesheet" href="./Libraries/Styles/reset.css">
+    <script src="./Libraries/Scripts/jquery-2.2.3.min.js"></script>
+    <script src="./Libraries/Scripts/jquery.cookie.js"></script>
+    <script src="./Libraries/Scripts/roleOperate.js"></script>
+    <script src="./Libraries/Scripts/WebProxy.js"></script>
+    <script src="./Libraries/Scripts/common.js"></script>
+	<style>
+		body{
+			background-color: #f2f4f8;
+		}
+		.container{
+			width: 1200px;
+			margin: 20px auto;
+		}
+		.section{
+			position: relative;
+			padding-left: 60px;
+			background-color: #f9fafc;
+            border:1px solid #ccc;
+			border-bottom: 1px solid #eee;
+		}
+		.section.toggle{
+			height: 40px;
+            border:none;
+            background:none;
+		}
+		.section.toggle .svg{
+			display:none;
+		}
+        .section.toggle .taskProgress{
+            width:1200px;
+            right:-1px;
+            bottom:-2px;
+            -moz-opacity: 0.5;
+            opacity:.5;
+          -webkit-transition: width 0.18s ease-out 0.18s;
+          transition: width 0.18s ease-out 0.18s;
+        }
+        .section.toggle:hover .taskProgress{
+            -moz-opacity: 1;
+            opacity:1;
+        }
+        .section.toggle .taskProgress:before,
+        .section.toggle .taskProgress:after{
+            border:transparent;
+        }
+		.section.toggle .taskProgress .taskText{
+			position: absolute;
+			left: 0;
+			top: 0;
+            right:0;
+            width:100%;
+            text-align:center;
+		}
+		.section .taskProgress{
+			position: absolute;
+			width: 50px;
+			top: -1px;
+			left: -1px;
+			bottom: 0;
+			border: 1px solid #ccc;
+			background-color: #dcdcdc;
+			cursor: pointer;
+		}
+		.section .taskProgress .taskText{
+			position: absolute;
+			left: 0;
+			top: 0;
+			height: 100%;
+			display: table;
+		}
+		.section .taskProgress .taskName{
+			padding:0 16px;
+			display: table-cell;
+			vertical-align: middle;
+		}
+		/**.section .taskProgress:before{
+			position: absolute;
+			bottom: -48px;
+			left: -1px;
+			right: 0;
+			content: "";
+			z-index: 99;
+			border:25px solid transparent;
+			border-top-color: #dcdcdc
+		}
+		.section .taskProgress:after{
+			position: absolute;
+			bottom: -50px;
+			left: -1px;
+			right: 0;
+			content: "";
+			z-index: 98;
+			border:25px solid transparent;
+			border-top-color: #b3b3b3;
+		}**/
+		.section .taskProgress.Success{
+			background: #c8e8af;
+			border-color: #a9c791;
+		}
+		.section .taskProgress.Success:before{
+			border-top-color: #c8e8af;
+		}
+		.section .taskProgress.Success:after{
+			border-top-color: #a9c791;
+		}
+		.section .taskProgress.Running{
+            background: #f3eb90;
+            border-color: #cec779;
+		}
+		.section .taskProgress.Running:before{
+			border-top-color: #f3eb90;
+		}
+		.section .taskProgress.Running:after{
+			border-top-color: #cec779;
+		}
+        .section:last-child{
+            border-bottom:1px solid #ccc;
+        }
+        .section.toggle:last-child{
+            border-bottom:none;
+        }
+		.section:last-child .taskProgress:before,.section:last-child .taskProgress:after{
+			border: transparent;
+		}
+		.section .svg{
+			margin:30px auto;
+			-webkit-animation: fade-In .5s ease-out both;
+					animation: fade-In .5s ease-out both;
+		}
+		.section ellipse{
+			stroke: none;
+			fill: #dcdcdc;			
+		}
+		.section .svg text{
+			font-size: 14px;
+			cursor: pointer;
+		}
+		.section .svg .node rect {
+			stroke: none;
+			fill: #dcdcdc;
+		}
+		.section .svg .edgePath path.path {
+			stroke: #828282;
+			fill: none;
+			stroke-width: 1.5px;
+		}
+		.section .svg .edgePath marker{
+			fill:#6B6B6B;
+		}
+		#div1 {width:198px; height:66px;padding:10px;border:1px solid #aaaaaa;}
+		.dropSpan{
+			background-color: #dcdcdc;
+			display: inline-block;
+			padding: 5px;
+			border: 1px solid #eee;
+		}
+	</style>
+</head>
+<body>
+	<div id="workflow" class="container">
+	</div>
+	<script src="./Libraries/Scripts/d3.min.js"></script>
+	<script src="./Libraries/Scripts/dagre-d3.min.js"></script>
+	<script src="test.js"></script>
+</body>
+</html>

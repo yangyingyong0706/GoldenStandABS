@@ -5,12 +5,16 @@ function getVersion() {
 }
 
 require.config({
-    baseUrl: '/GoldenStandABS/asset/lib',
+//    baseUrl: '/GoldenStandABS/asset/lib',
+    baseUrl: '/asset/lib',
     urlArgs: "bust=" + getVersion(),// 发布时固定
+    
     paths: {
-        'jquery': './jquery/jquery-1.12.1.min', //$
-        'easing':'./jquery/jquery.easing.1.3',
-        'wresize': './jquery/jquery.wresize',
+    	'app': '../../js/www', // app path
+    	
+        'jquery': 'jquery/jquery-1.12.1.min', //$
+        'easing':'jquery/jquery.easing.1.3',
+        'wresize': 'jquery/jquery.wresize',
         'jquery.cookie': 'jquery/jquery.cookie',
         'jquery.localizationTool': 'jquery/jquery.localizationTool.min',
         'knockout': 'knockout/knockout-3.4.2', //ko
@@ -34,7 +38,7 @@ require.config({
         'jquery.datagrid.options': './jquery/jquery.datagrid.options',
         'jquery-ui': './jquery/jquery-ui-latest',
         'jquery-1': './jquery/jquery-2.2.3.min',
-        'app': '../../www', // app path
+        
         'kendoculturecn': './Kendo/js/kendo.culture.zhCN',
         'kendoculturezhCN': './Kendo/js/kendo.culture.zh-CN',
         'kendomessagescn': './Kendo/js/kendo.messages.zh-CN',

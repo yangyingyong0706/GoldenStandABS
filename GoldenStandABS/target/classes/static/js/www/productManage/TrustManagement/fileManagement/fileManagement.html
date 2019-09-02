@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>文档管理</title>    
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="./fileManagement.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="PageMainContainer" class="main-content" v-cloak>
+        <div id="mask" class="loading">
+            <i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i>
+        </div>
+        <div class="data_have container-fluid">
+            <div class="top_message">
+                <div id="ProjectNameNow">
+                    当前产品名称:
+                </div> 
+                <button style="float:right" class="btn btn-default btn-single-default" id="uploadFile" @click="OpenUploadWindow"><i class="icon icon-upload"></i> 上传文件</button>
+                <button style="float:right; margin-right: 10px;" class="btn btn-danger btn-single-default" id="deleteFile" @click="DeleteFile"><i class="fa fa-trash-o fa-fw"></i> 删除文档</button>
+            </div>
+            <div class="domain"> </div>
+            <div id="grid"></div>
+            <!--上传框-->
+            <div class="form" id="uploadFileWindow" style="display: none;">
+                <div class="form-body default" id="gold-form-panel" style="display:block">
+                    <div class="form-panel drop">
+                        <div class="row form-group">
+                            <div class="col-md-3 col-xs-3"><label class="gold-group-addon">项目状态</label></div>
+                            <div class="col-md-9 col-xs-9">
+                                <select class="form-control gold-form-control" v-model="uploadMessage.Status">
+                                    <option v-for="i in fileStatus" v-bind:value="i.ProjectStatus">{{i.StatusDesc}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-3 col-xs-3"><label class="gold-group-addon">文档类别</label></div>
+                            <div class="col-md-9 col-xs-9">
+                                <select class="form-control gold-form-control" v-model="uploadMessage.docType">
+                                    <option v-for="t in DocType" v-bind:value="t.DocType">{{t.DocTypeDesc}}</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-3 col-xs-3"><label class="gold-group-addon">文档版本</label></div>
+                            <div class="col-md-9 col-xs-9">
+                                <input type="text" id="fileEdition" v-model="uploadMessage.version" class="form-control gold-form-control" data-valid="required" />
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-3 col-xs-3"><label class="gold-group-addon">上传人员</label></div>
+                            <div class="col-md-9 col-xs-9">
+                                <input type="text" id="uploadPeople" v-model="uploadMessage.personName" class="form-control gold-form-control" data-valid="required" />
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-3 col-xs-3"><label class="gold-group-addon">上传文件</label></div>
+                            <div class="col-md-9 col-xs-9">
+                                <label class="input_file_style gold-form-file" @click="ShowFilePath" for="fileUploadFileU" style="width:90px;float:right;color:#808080;">
+                                    <input type="file" id="fileUploadFileU" class="form-control file" data-valid="required" />
+                                    <span class="EnterFile_ail">选择文件</span>
+                                </label>
+                                <span class="file_name gold-file-name" id="filePath"></span>
+                            </div>
+                            <div id="test_progress" class="progress" style="width:100%;position:relative;top:5px;margin:0px;display:none">
+                                <div class="progress-bar"><span></span></div>
+                            </div>
+                        </div>
+                        <div class="buttons">
+                            <button type="button" @click="UploadFileNew" class="btn btn-primary" title="上传">上传</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!--历史记录框-->
+            <div id="historyData"></div>
+            <!--更新信息框-->
+            <div class="form" id="UpdateFileWindow" style="display: none;">
+                <div class="form-body default" id="gold-form-panel" style="display:block">
+                    <div class="form-panel drop">
+                        <div class="row form-group">
+                            <div class="col-md-3 col-xs-3"><label class="gold-group-addon">项目状态</label></div>
+                            <div class="col-md-9 col-xs-9">
+                                <select class="form-control gold-form-control" id="Status">
+                                    <option v-for="i in fileStatus" v-bind:value="i.ProjectStatus">{{i.StatusDesc}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-3 col-xs-3"><label class="gold-group-addon">文档类别</label></div>
+                            <div class="col-md-9 col-xs-9">
+                                <!--<select class="form-control" id="docType">
+                        <option value="Report">尽调报告</option>
+                        <option value="PlanBook">发行计划书</option>-->
+                                <select class="form-control gold-form-control" v-model="uploadMessage.docType" id="docType">
+                                    <option v-for="t in DocType" v-bind:value="t.DocType">{{t.DocTypeDesc}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-3 col-xs-3"><label class="gold-group-addon">文档名称</label></div>
+                            <div class="col-md-9 col-xs-9">
+                                <input type="text" id="docName" @focus="getfocus" class="form-control gold-form-control" data-valid="required" />
+                            </div>
+                        </div>
+                        <div class="buttons">
+                            <button type="button" id="UpdateFile" class="btn btn-primary" title="更改">更改</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--更新文档框-->
+            <div class="form" id="UpdateFileWindowForDoc" style="display: none;">
+                <div class="form-body default" id="gold-form-panel" style="display:block">
+                    <div class="form-panel drop">
+                        <div class="row form-group">
+                            <div class="col-md-3 col-xs-3"><label class="gold-group-addon">项目状态</label></div>
+                            <div class="col-md-9 col-xs-9">
+                                <select class="form-control gold-form-control" id="Status1" disabled>
+                                    <option v-for="i in fileStatus" v-bind:value="i.ProjectStatus">{{i.StatusDesc}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-3 col-xs-3"><label class="gold-group-addon">文档类别</label></div>
+                            <div class="col-md-9 col-xs-9">
+                                <select class="form-control gold-form-control" id="docType1" disabled>
+                                    <option v-for="t in DocType" v-bind:value="t.DocType">{{t.DocTypeDesc}}</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-3 col-xs-3"><label class="gold-group-addon">文档版本</label></div>
+                            <div class="col-md-9 col-xs-9">
+                                <input type="text" id="fileEdition1" v-model="uploadMessage.version" class="form-control gold-form-control" data-valid="required" />
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-3 col-xs-3"><label class="gold-group-addon">上传人员</label></div>
+                            <div class="col-md-9 col-xs-9">
+                                <input type="text" id="uploadPeople1" v-model="uploadMessage.personName" class="form-control gold-form-control" data-valid="required" />
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-3 col-xs-3"><label class="gold-group-addon">上传文件</label></div>
+                            <div class="col-md-9 col-xs-9">
+                                <label class="input_file_style gold-form-file" @click="ShowFilePath" for="fileUploadFileU" style="width:90px;float:right;color:#808080;">
+                                    <input type="file" id="fileUploadFileU" class="form-control file" data-valid="required" />
+                                    <span class="EnterFile_ail">选择文件</span>
+                                </label>
+                                <span class="file_name gold-file-name" id="filePath"></span>
+                            </div>
+                            <div id="test_progress" class="progress" style="width:100%;position:relative;top:5px;margin:0px;display:none">
+                                <div class="progress-bar"><span></span></div>
+                            </div>
+                        </div>
+                        <div class="buttons">
+                            <button type="button" id="updateFileForDoc" class="btn btn-primary" title="更新">更新文档</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/fileManagement/fileManagement']);
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>内容信息管理</title>
+    <link rel="stylesheet" href="../../TrustFollowUp/css/trustFollowUp.css" />
+
+    <link href="../../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <script src="../../../../../asset/lib/jquery/jquery-1.7.2.min.js"></script>
+
+    <script src="../../../../../config/globalVariable.js"></script>
+    <script src="../../../../../asset/lib/jquery/jquery-ui-latest.js"></script>
+
+    <script src="../../Common/Scripts/common.js"></script>
+    <script src="../../Common/Scripts/calendar.min.js"></script>
+    <script src="CategoryDetail.js"></script>
+</head>
+<body>
+    <div id="loading" class="loadpage">
+        <i class="icon icon-setting bigicon am-rotate pa"></i>
+        <i class="icon icon-setting smicon am-rotate pa"></i>
+        <p class="text pa">加载配置中...</p>
+    </div>
+    <div class="page">
+        <div class="menu_target" style="padding:15px 10px 5px 15px;">           
+            <div class="main">
+                <h3 id="step-title" class="h3">
+                    <span class="title titlecur">类型信息管理</span>
+                </h3>
+                <div class="form">
+                    <div id="TrustExtensionDiv" class="form-body" id="step0">
+                        <div class="form-menu">
+                            <div class="form-panel item">
+                                <div class="col-12" id="CategoryDetailFrom">
+                                    <div class="col-6 form-group autoLayout-plugins">
+                                        <div class="col-4">
+                                            <label>编码</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" class="form-control form-item" id="CategoryCode" data-valid="required" />
+                                        </div>
+                                    </div>
+                                    <div class="col-6 form-group autoLayout-plugins">
+                                        <div class="col-4">
+                                            <label>中文名称</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" class="form-control form-item" id="CategoryValue" data-valid="required" />
+                                        </div>
+                                    </div>                                                                     
+                                    <div class="col-6 form-group autoLayout-plugins">
+                                        <div class="col-4">
+                                            <label>顺序号</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" class="form-control form-item" id="SequenceNo" data-valid="int" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-button">
+                    <button id="Save" type="button" class="btn btn-primary btn-next">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title></title>
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <style>
+          body{
+            padding:15px;
+            padding-bottom:0px;
+        }
+        .k-multiselect-wrap li{
+            top:-2px;
+            border-radius: 5px;
+            background: #f1f1f1
+        }
+        .k-multiselect-wrap .k-input{
+            height:20px;
+        }
+        .k-clear-value{
+            margin-top:7px;
+        }
+        .k-i-loading{
+            margin-top:9px;
+        }
+        #btnRoleAdd{
+            position: absolute;
+            right: 0px;
+            top: 2px;
+        }
+        #grid{
+            border-left:1px solid rgba(0,0,0,0.1);
+            margin-top: -17px;
+        }
+        #Roles{
+            position:relative;
+        }
+        .k-multiselect-wrap.k-floatwrap{
+            border:1px solid #ccc;
+        }        .form-group{
+             width: calc(100% - 65px);
+             margin-bottom:0px;
+        }
+         .k-hidden{
+            display:none;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div id="Roles">
+        <div class="form-group">
+            <select id="roles" data-placeholder="选择角色..."></select>
+            <input id="btnRoleAdd" type="button" class="btn btn-default" value="添加" /> 
+        </div>
+        <br />
+        <br />
+        <div id="grid"></div>
+
+        <div class="box wide" style="display:none">
+            <div class="box-col">
+                <div class="row">
+                    <label>下拉功能</label>
+                </div>
+                <div>
+                    <button id="enable" class="k-button">Enable</button> <button id="disable" class="k-button">Disable</button>
+                    <!--<li> <button id="readonly" class="k-button">Readonly</button> </li>-->
+                    <button id="open" class="k-button">Open</button> <button id="close" class="k-button">Close</button>
+                    <button id="getValue" class="k-button">Get values</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../asset/lib/config'], function (common) {
+            requirejs(['app/roleManage/appModule/ChildrenAppRoles']);
+        });
+    </script>
+</body>
+
+</html>

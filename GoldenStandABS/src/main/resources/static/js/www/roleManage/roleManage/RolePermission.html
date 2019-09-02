@@ -1,0 +1,50 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title></title>
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../productDesign/stresstest/CashflowSplit/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+    <style>
+       #rolePermission{
+            padding:15px;
+        }
+       #treeDemo{
+            position: relative;
+            left: 50%;
+            transform: translate(-50%);
+            border: 1px solid #dedede;
+       }
+       .sideMenu{
+            position: relative;
+            left: 50%;
+            transform: translate(-50%);
+            border: 1px solid #dedede;
+            border-top: none;
+            text-align: center;
+            padding: 5px;
+       }
+       .ztree li span{
+           font-size:14px
+       }
+    </style>
+</head>
+<body>
+    <div id="rolePermission">
+        <ul id="treeDemo" class="ztree"></ul>
+        <div id="ChildrenApp" style="display:none;padding:10px" ></div>
+        <div class="sideMenu">
+            <button id="SavePermission" class="btn btn-default" style="padding:5px">保存配置</button>
+        </div>
+    </div>
+    <script src="../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../asset/lib/config'], function (common) {
+            requirejs(['app/roleManage/roleManage/RolePermission']);
+        });
+    </script>
+</body>
+</html>

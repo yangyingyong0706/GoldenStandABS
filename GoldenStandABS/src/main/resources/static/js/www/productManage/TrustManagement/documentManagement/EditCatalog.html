@@ -1,0 +1,111 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title>编辑目录</title>
+    <link rel="stylesheet" href="../../../../../asset/lib/bootstrap/dist/css/bootstrap.css" />
+    <link href="../../../../components/viewDateSet/css/trustWizard.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../../asset/lib/toast/toast.css" rel="stylesheet" />
+    <style type="text/css">
+        html,body{
+            height:100%;
+        }
+        .main-dialog {
+            padding: 15px 5px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .red-border {
+            border: 1px solid red !important;
+        }
+
+        .form-horizontal, .form-row, .form-group {
+            float: left;
+            width: 100%;
+        }
+
+        .col-3 {
+            float: left;
+            width: 15%;
+            
+        }
+
+        .col-6 {
+            float: left;
+            width: 85%;
+            height:100%;
+            text-align:center;
+        }
+        .pannel{
+            padding-left: 30px;
+            padding-right: 30px;
+            padding-top: 30px;
+            height:100%;
+        }
+        .date_selector{
+            box-sizing:initial;
+        }
+        .control-label{
+            font-weight:normal;
+            font-size:13px;
+            height:30px;
+            line-height:30px;
+            color:#555;
+        }
+        .form-control{
+            border-radius:2px;
+            border:1px solid #dce0ee;
+            box-shadow: 0 none;
+        }
+        .form-control:focus{
+            border-color: #45569c;
+            box-shadow: inset 0 0px 0px #45569c, 0 0 4px #45569c;
+        }
+        .save-btn{
+            background:#fff;
+            border: 1px solid #ccd0de;
+        }
+        .normal_small_button:hover{
+            color: #fff;
+            background: #45569c;
+            border-color: #45569c;
+        }
+    </style>
+
+    <script src="../../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/productManage/TrustManagement/documentManagement/EditCatalog']);
+        });
+    </script>
+
+</head>
+<body>
+    <div class="pannel">
+            <div class="form-group">
+                <label class="col-3 control-label" for="CatalogDatetime">目录日期*</label>
+                <div class="col-6">
+                    <input type="text" id="CatalogDatetime" placeholder="请选择目录日期" class="form-control date-plugins" data-valid="required date" />
+                </div>
+            </div>
+
+            <div class="form-group" style="height:calc(100% - 120px)">
+                <label class="col-3 control-label" for="CatalogContent">目录内容*</label>
+                <div class="col-6">
+                    <textarea id="CatalogContent" placeholder="请输入目录内容" class="form-control" rows="5" style="height:100%;"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-3 control-label"></label>
+                <div class="col-6">
+                    <button class="normal_small_button save-btn" style="padding:4px 20px" id="btnSave">保存</button>
+                </div>
+            </div>
+    </div>
+</body>
+</html>

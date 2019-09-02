@@ -1,0 +1,47 @@
+﻿{
+    "app": "DashBoard",
+    "title": "Risk Management",
+    "group": [
+        {
+            "active": true,
+            "title": "Risk DashBoard",
+            "titleclass": "icon icon-chart-bar",
+            "type": "button",
+            "linkname": "RiskDashBoard",
+            "linkurl": "../riskManagement/riskDashboard.html"
+        },
+        {
+            "active": false,
+            "title": "Risk Data",
+            "titleclass": "icon icon-data-science",
+            "type": "button",
+            "linkname": "RiskReportDashboard",
+            "linkurl": "../report/ReportDarshboard.html"
+        },
+        {
+            "active": false,
+            "title": "Risk Check",
+            "titleclass": "icon icon-roundcheck",
+            "type": "button",
+            "linkname": "RiskCheck",
+            "linkurl": "../riskManagement/CreditRiskCheck/CreditRiskCheckList.html"
+        },
+        {
+            "active": false,
+            "title": "Infomation Publish",
+            "titleclass": "icon icon-note",
+            "type": "button",
+            "linkname": "InfoPublish",
+            "linkurl": "../riskManagement/InfomationPublish/InfomationPublishList.html"
+        },
+        {
+            "active": false,
+            "title": "Risk Early Warning",
+            "titleclass": "icon icon-warning",
+            "type": "button",
+            "linkname": "RiskEarlyWarning",
+            "linkurl": "../riskManagement/RiskEarlyWarning/RiskEarlyWarning.html"
+        }
+    ]
+}
+

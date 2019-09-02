@@ -1,0 +1,34 @@
+{
+    "app": "ProductDesign",
+    "title": "产品设计与发行",
+    "group": [ 
+        {
+            "module": "Index",
+            "title": "业务向导",
+            "titleclass": "icon-directionLeft01",
+            "elements": [
+                {
+                    "title": "产品设计向导",
+                    "type": "button",
+                    "icon": "icon icon-user-add",
+                    "linkname": "ProductDesign",
+                    "linkurl": "javascript:ProductDesign"
+                },
+                {
+                    "title": "产品压力测试向导",
+                    "type": "button",
+                    "icon": "icon icon-gauge",
+                    "linkname": "StressTest",
+                    "linkurl": "javascript:StressTest"
+                },
+                {
+                    "title": "快速压力测试向导",
+                    "type": "button",
+                    "icon": "icon icon-gauge",
+                    "linkname": "QuickStressTest",
+                    "linkurl": "javascript:QuickStressTest"
+                }
+            ]
+        }
+    ]
+}

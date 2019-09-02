@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>文档对比</title>
+    <script data-main="ProductDiff" src="../../../../asset/lib/require.js"></script>
+    <link href="../Common/css/trustWizard.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <style>
+        /*#table  { float:left; -webkit-transform:rotate(90deg); -moz-transform:rotate(90deg);}
+        #table td { -webkit-transform: rotate(-90deg); -moz-transform:rotate(-90deg);}*/
+        body, html { height: 100%; overflow: auto; }
+        .main { padding: 15px; }
+        .main .h3 { font-size: 16px; margin-bottom: 10px; }
+        button { font-size: 14PX; }
+        thead tr td { padding: .45em 1em; }
+        thead { background: #eee; }
+        .mr10 { margin-right: 10px; }
+        .box { margin-bottom: 20px; }
+        table { display: inline-block; vertical-align: top; float: left; }
+        table tr:nth-child(even) { background: rgba(116, 157, 230, 0.2) !important; }
+        table thead tr td { padding: .5em 1.5em !important; }
+        table tr td { text-align: center !important; padding: .5em .8em; border: 1px solid #ddd; }
+        table.vertical tr td { padding: 0.5em 3.5em; }
+        [v-cloak] { display: none; }
+        .tabel_head { position: relative; }
+        .tabel_head:hover .icon { display: inline-block; }
+        .tabel_head .icon { display: inline-block; /* padding: 7px; */ position: absolute; right: -1px; top: 2px; cursor: default; /* background: #ddd; */ border-radius: 50%; height: 16px; width: 16px; text-align: center; line-height: 16px; border: 1px solid #555; font-size: 12px; display: none; }
+       .no-data{height: 300px;
+    /* padding-top: 100px; */
+    text-align: center;
+    border: 1px solid #eee;
+    clear: both;
+    line-height: 300px;
+    vertical-align: middle;
+    color: #ddd;
+    font-size: 20px;
+       }
+       .no-data img{width:120px;padding-top:10px;}
+        .loading { position: fixed; left: 50%; top: 50%; }
+        .table_wrap{display:inline-block;font-size:14px;}
+        .table_con{width:100%;overflow:auto;white-space:nowrap;font-size:0;}
+    </style>
+</head>
+<body style="background-color:transparent">
+    <div class="main" id="app">
+        <div id="mask" class="mask"><div class="loading" v-show="loading"> <img src="../../../../asset/lib/Kendo/styles/Material/loading-image.gif" /></div></div>
+        <div class="wrap" v-cloak >
+            <div class="box clearfix">
+                <h3 class="h3 vti_ProductInformation">产品分类</h3>
+                <div class="content productCate col-12">
+                    <div class="col-2 mr10">
+                        <select class="form-control" disabled>
+                            <option value="value">资产证券化产品</option>
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <select class="form-control" v-model="chosenAsseType">
+                            <option v-bind:value="type.AssetTypeDesc" v-for="type in assetType">{{type.AssetTypeDesc}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="box clearfix form">
+                <h3 class="h3 vti_ProductInformation">产品比较</h3>
+                <div class="content col-12">
+                    <div class="form-group col-4 mr10">
+                        <div class="col-6">
+                            <label>添加产品对比</label>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-control" v-model="chosenTrustCode">
+                                <option v-bind:value="item.TrustId" v-for="item in trustCode">{{item.TrustCode}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="normal_small_button diffBtn col-1 mr10" @click="getData(chosenTrustCode)">加入对比</button>
+                    <button class="normal_small_button clearBtn col-1" @click="emptyProList">清空列表</button>
+                </div>
+            </div>
+            <div class="box clearfix">
+                <h3 id="step-title" class="h3 vti_ProductInformation">当前对比</h3>
+                <div class="content ">
+                    <table class="stripe">
+                        <thead>
+                            <tr>
+                                <td v-for="tit in curDiff_thead">{{tit}}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr v-for="item in diffProducts">
+                                <td>{{item.TrustName | formatEmpty}}</td>
+                                <td>{{item.IssueAmount | formatEmpty}}</td>
+                                <td>{{item.BondBalance | formatEmpty}}</td>
+                                <td>{{item.CurrentPeriod | formatEmpty}}</td>
+                                <td>{{item.TrustStartDate | formatEmpty}}</td>
+                                <td>{{item.LatestPaymentDate | formatEmpty}}</td>
+                                <td>{{item.UpdatedDate | formatEmpty}}</td>
+                                <td>{{item.Issuer | formatEmpty}}</td>
+                                <td>{{item.Originator | formatEmpty}}</td>
+                                <td>{{item.PrimarySeller | formatEmpty}}</td>
+                                <td>{{item.PaymentFrequency | formatEmpty}}</td>
+                                <td>{{item.Exchange | formatEmpty}}</td>
+                                <td> <button class="normal_small_button" @click="deletePro(item.TrustID)">删除</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="no-data" v-if="diffProducts.length == 0">
+                        <img src="../../../../asset/img/no_ata.png" />
+                        暂无对比产品，请添加
+                    </div>
+                </div>
+            </div>
+            <div class="box clearfix" v-if="diffProducts.length >0">
+                <h3 id="step-title" class="h3 vti_ProductInformation">产品比较</h3>
+                <div class="content clearfix table_con">
+                    <div class="table_wrap table_left">
+                        <table class="vertical">
+                            <thead>
+                                <tr>
+                                    <td>基础资产特征</td>
+                                </tr>
+                            </thead>
+                            <tr v-for="row in diffProsDetail">
+                                <td v-for="(value,key,index) in row" v-if="key=='ItemDesc'">
+                                    {{value}}<span v-if="!value">--</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="table_wrap table_right">
+                        <table id="table" class="vertical">
+                            <thead>
+                                <tr>
+                                    <td v-for="(value,key,index) in diffProsDetail[0]" class="tabel_head" v-if="key!='ItemDesc'">
+                                        {{id2Name(key)}} <i class="icon" @click="deletePro(key)">x</i>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="row in diffProsDetail">
+                                    <td v-for="(value,key,index) in row" v-if="key!='ItemDesc'">
+                                        {{value | formatEmpty}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

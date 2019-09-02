@@ -1,0 +1,75 @@
+﻿{
+    "app": "DashBoard",
+    "title": "基础资产",
+    "group": [
+        {
+            "module": "Index",
+            "title": "Business Guide",
+            "elements": [
+                {
+                    "title": "Data Template Import",
+                    "type": "button",
+                    "icon": "icon icon-data-science",
+                    "linkname": "DataTemplateImportNavigator",
+                    "linkurl": "javascript:DataTemplateImportNavigator"
+                },
+                {
+                    "title": "Asset Import Wizard",
+                    "type": "button",
+                    "icon": "icon icon-data-science",
+                    "linkname": "ImportAssetNavigator",
+                    "linkurl": "javascript:ImportAssetNavigator"
+                }
+
+            ]
+        },
+
+        {
+            "module": "abc",
+            "title": "Function Options",
+            "titleclass": "icon-directionLeft02",
+            "elements": [
+
+                {
+                    "title": "Data Templates",
+                    "type": "button",
+                    "icon": "icon icon-rankfill",
+                    "linkname": "DownAssetTemplates",
+                    "linkurl": "javascript:DownAssetTemplates"
+                },
+
+
+                {
+                    "title": "Asset-Data Check",
+                    "type": "button",
+                    "icon": "icon icon-chart-bar",
+                    "linkname": "OpenDataCheckPage",
+                    "linkurl": "javascript:OpenDataCheckPage"
+                },
+                {
+                    "title": "Asset-Data Import",
+                    "type": "button",
+                    "icon": "icon icon-upload-cloud",
+                    "linkname": "OpenUploadTrust",
+                    "linkurl": "javascript:OpenUploadTrust"
+                },
+
+                {
+                    "title": "Pivot Table",
+                    "type": "button",
+                    "icon": "icon icon-chart-line",
+                    "linkname": "DownloadReport",
+                    "linkurl": "javascript:DownloadReport"
+                },
+
+                {
+                    "title": "Query Asset",
+                    "type": "button",
+                    "icon": "icon icon-arrows-ccw",
+                    "linkname": "QueryAsset",
+                    "linkurl": "javascript:QueryAsset"
+                }
+            ]
+        }
+    ]
+}

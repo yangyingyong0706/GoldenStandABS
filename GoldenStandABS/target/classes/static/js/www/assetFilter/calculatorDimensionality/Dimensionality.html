@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>维度选择</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+        .loadpage {
+            width: 100%;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            background: #fff;
+            height: 100%;
+            z-index: 999999;
+        }
+        .loadpage > i {
+            color: rgb(107, 147, 216);
+        }
+       
+        .k-grid tr td {
+            overflow: hidden;
+            text-overflow: ellipsis !important;
+            white-space: nowrap;
+        }
+  
+        .k-grid-header th.k-header:not(:first-child) {
+            padding-left: 5px;
+        }
+
+        .k-grid-header-locked {
+            height: 36px;
+        }
+        #grid th {
+            text-align: center;
+        }
+        #grid td {
+            text-align: center;
+        }
+        [v-cloak] {
+            display: none;
+        }
+        .loadpage i {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+        }
+        #app {
+            width: 100%;
+            height: 100%;
+            padding: 15px;
+            background: #fafafa;
+            color: #4d4d4d;
+        }
+        #settingDiv,#gridDiv {
+            background: #fff;
+            padding: 15px;
+        } 
+        #settingDiv .title, #gridDiv .title {
+            height: 40px;
+            line-height: 40px;
+            padding: 0 15px;
+            font-size: 16px;
+            color: #45569C;
+            border-bottom: 1px solid #E6E9F5;
+            margin: -15px -15px 0 -15px;
+        }
+        #settingDiv {
+            margin-bottom: 20px;
+        }
+        #settingDiv .setting {
+            line-height: 40px;
+            padding-top: 10px;
+        }
+         #settingDiv .setting .settingTitle {
+             float: left;
+             width: 85px;
+         }
+         #settingDiv .setting .settingWrap {
+             float: left;
+             width: calc(100% - 85px);
+         }
+         #settingDiv .setting .settingWrap span.active {
+            color: #45569c;
+            background: #E6E9F5;
+        }
+        #settingDiv .setting .settingWrap span {
+            display: inline-block;
+            margin-right: 15px;
+            cursor: pointer;
+            padding: 0 15px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 4px;
+            border: 1px solid #ccd0de;
+        }
+        #settingDiv .buttonDiv {
+            text-align: center;
+            margin: 20px 0 10px;
+        }
+        #grid {
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="loading" class="loadpage text-center" v-show="loading"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+        <div id="settingDiv">
+            <h3 class="title">属性维度选择</h3>
+            <div class="setting">
+                <div class="clearfix">
+                    <div class="settingTitle">
+                        默认维度：
+                    </div>
+                    <div class="settingWrap">
+                        <span @click="GetSelectSetting($event)" id="remainder" v-bind:class="{ active: selectRemainder }">剩余期数</span>
+                        <span @click="GetSelectSetting($event)" id="loanperiod" v-bind:class="{ active: selectLoanPeriod }">合同期限</span>
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <div class="settingTitle">
+                        维度选择：
+                    </div>
+                    <div class="settingWrap" v-cloak>
+                        <span v-for="item in SettingItem" track-by="$index" @click="GetSelectSetting($event)" v-bind:class="{ active: item.boolean }" class="itemSpan">{{item.name}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="buttonDiv">
+                <button class="btn btn-primary" id="SaveDimConfig" @click="SaveDimConfig">保存维度</button>
+            </div>
+        </div>
+        <div id="gridDiv" >
+            <h3 class="title">属性维度统计</h3>
+            <div id="grid"></div>
+        </div>
+    </div>
+    <script src="../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../asset/lib/config'], function (config) {
+            requirejs(['app/assetFilter/calculatorDimensionality/Dimensionality']);
+        });
+    </script>
+</body>
+</html>

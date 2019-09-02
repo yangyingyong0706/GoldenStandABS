@@ -1,0 +1,35 @@
+﻿{
+    "app": "DashBoard",
+    "title": "Asset Screening",
+    "group": [
+        {
+            "module": "Index",
+            "title": "Business Guide",
+            "titleclass": "icon-directionLeft01",
+            "elements": [
+                {
+                    "title": "New asset pool",
+                    "type": "btn btn-default",
+                    "icon": "icon icon-codepen",
+                    "linkname": "OpenPoolCreationPage",
+                    "linkurl": "javascript:OpenPoolCreationPage"
+                },
+                {
+                    "title": "Delete asset pool",
+                    "type": "btn btn-primary",
+                    "icon": "fa fa-trash-o fa-fw",
+                    "linkname": "DeleteAssetPoolList",
+                    "linkurl": "javascript:DeleteAssetPoolList"
+                },
+                 {
+                    "title": "Refresh",
+                    "type": "btn btn-default",
+                    "icon": "icon icon-arrows-ccw",
+                    "linkname": "RefreshAssetPoolList",
+                    "linkurl": "javascript:RefreshAssetPoolList"
+                }
+                 
+            ]
+        }
+    ]
+}

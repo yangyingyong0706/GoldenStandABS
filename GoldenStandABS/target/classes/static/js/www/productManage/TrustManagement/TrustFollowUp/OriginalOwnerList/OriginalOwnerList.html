@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>原始权益人管理</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <!--<link href="../../Common/css/trustWizard.css" rel="stylesheet" />-->
+    <link href="../../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/pagerlist-style.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <script data-main="OriginalOwnerList" src="../../../../../asset/lib/require.js"></script>
+    
+    <style>
+        html {
+            height: calc(100% - 35px);
+        }
+        body {
+            height: 100%;
+            padding: 15px;
+            background: #fafafa;
+        }
+        .body-container {
+            padding:15px;
+            height:100%;
+            box-sizing:border-box;
+            background: #fff;
+        }
+        .main .h3 {
+            font-size: 16px;
+            font-weight: 400;
+            color: rgba(69,86,156,1);
+            height: 40px;
+            line-height: 40px;
+            margin: -15px -15px 15px;
+            border-bottom: 1px solid #dedede;
+            padding: 0 15px;
+        }
+        .form .form-group label{
+            line-height:30px;
+            border: none;
+            margin-bottom: 0;
+        }
+        .form-control{
+            top:4px;
+        }
+        [class^=col-] {
+	        padding: 0;
+        }
+        .row {
+            margin: 0;
+        }
+        .pull-right button {
+            margin-left: 5px;
+        }
+        .noData {
+            border: 1px solid #dce0ee;
+            border-top: none;
+            text-align: center;
+            padding: 15px 0;
+        }
+        .run-loading {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        .loading i {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            color: rgb(107, 147, 216);
+        }
+        .mytable .table-td  a{
+            color:#45569c;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="body-container form nobottom">
+        <div class="main">
+            <h3 class="h3">
+                <span class="title">原始权益人管理</span>
+            </h3>
+            <div class="form-panel drop nobottom">
+                <div class="list-filters row" id="gold-form-panel">
+                    <div class="col-md-12">
+                        <div class="col-md-3 form-group">
+                            <div class="col-md-4">
+                                <label class="gold-group-addon">名称</label>
+                            </div>
+                            <div class="col-md-7">
+                                <input class="filter like form-control gold-form-control" name="Name" />
+                            </div>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <div class="col-md-4">
+                                <label class="gold-group-addon">评级</label>
+                            </div>
+                            <div class="col-md-7">
+                                <select class="filter eq form-control gold-form-control" name="Rating">
+                                    <option value="">所有</option>
+                                    <option value="AAA">AAA</option>
+                                    <option value="AA+">AA+</option>
+                                    <option value="AA-">AA-</option>
+                                    <option value="A">A</option>
+                                    <option value="BBB">BBB</option>
+                                    <option value="BB">BB</option>
+                                    <option value="B">B</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-default btn-single-default" id="btnAddNew"> <i class="icon icon-add"></i>新增</button>
+                            <button type="reset" class="btn btn-default btn-single-default" id="btnReset"> <i class="icon icon-chexiao"></i>重置</button>
+                            <button type="button" class="btn btn-default btn-single-default" id="btnSearch"> <i class="icon icon-codepen"></i>检索</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="divDataList" class="list-container"></div>
+            </div>
+        </div>
+        <!--<div class="run-loading" id="divLoading">
+            <div class="loading">
+                <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+            </div>
+        </div>-->
+    </div>
+</body>
+</html>

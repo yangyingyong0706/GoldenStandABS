@@ -1,0 +1,504 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>现金流拼接选择器</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+
+    <style>
+        html,body {
+            width: 100%;
+            height: 100%;
+        }
+        .loadpage {
+            width: 100%;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            background: #fff;
+            height: 100%;
+            z-index: 999999;
+        }
+        .loadpage > i {
+            color: rgb(107, 147, 216);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+        }
+        #app {
+            width: 100%;
+            height: 100%;
+            padding: 15px;
+            background: #fafafa;
+            color: #4d4d4d;
+        }
+        .containerBox {
+            width: 100%;
+            height: calc(100% - 35px);
+            background: #fff;
+            padding: 15px;
+        }
+         .containerBox .title {
+            height: 40px;
+            line-height: 40px;
+            padding: 0 15px;
+            font-size: 16px;
+            color: #45569C;
+            border-bottom: 1px solid #E6E9F5;
+            margin: -15px -15px 0 -15px;
+        }
+         .containerBox .secondTitle {
+             height: 40px;
+             line-height: 40px;
+             font-size: 14px;
+             color: #45569C;
+             position: relative;
+         }
+         .containerBox .secondTitle>p {
+         	position: absolute;
+		    right: 0;
+		    top: 5px;
+		    cursor: pointer;
+		    background: #45569C;
+		    color: white;
+		    padding: 0 10px;
+		    height: 30px;
+		    line-height: 30px;
+		    border-radius: 4px;
+         }
+         .containerBox .secondTitle .square {
+             display: inline-block;
+             width: 10px;
+             height: 10px;
+             background: #45569C;
+             margin-right: 5px;
+         }
+         .containerBox .secondTitle .titleDes {
+             color:#808080;
+         }
+         .topSelecterMain {
+             color: #4d4d4d;
+             padding: 10px;
+             line-height: 40px;
+             border: 1px solid #E6E9F5;
+         }
+         .bottomSelecterMain {
+             padding: 15px 10px;
+             border: 1px solid #E6E9F5;
+         }
+         .topSelecterMain .labelTitle {
+             float: left;
+             width: 150px;
+             color: #808080;
+             font-weight: 400;
+         }
+         .wrapCheck {
+             float: left;
+             width: calc(100% - 150px);
+         }
+         .radioBox {
+             padding-bottom: 5px;
+             margin-bottom: 5px;
+             border-bottom: 1px solid #E6E9F5;
+         }
+         input[type=radio] {
+             display: inline-block;
+            margin-left: 20px;
+            margin-right: 10px;
+            vertical-align: middle;
+            margin-top: -4px;
+         }
+         .topSelecterMain h5 {
+             font-size: 14px;
+             margin-top: 18px;
+         }
+         .checkSpan {
+             display: inline-block;
+             width: 180px;
+             height: 30px;
+             line-height: 30px;
+             text-align: center;
+             border: 1px solid #E6E9F5;
+             border-radius: 4px;
+             margin-right: 10px;
+             cursor: pointer;
+         }
+         .checkSpan.active {
+             color: #45569C;
+             border: 1px solid #45569C;
+         }
+         * {
+            margin: 0;
+            padding: 0;
+        }
+        .scrollTimeLine, .scrollTimeLine * {
+            box-sizing: content-box;
+        }
+        .scrollTimeLine {
+            height:160px;
+            background:rgba(243,245,250,1);
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .scrollTimeLine div {
+            display: inline-block;
+        }
+        .scrollTimeLine .ul {
+            width: 100%;
+            height: 160px;
+            padding: 0 30px;
+            white-space: nowrap;
+            overflow: auto;
+            box-sizing: border-box;
+            position: relative;
+            overflow-y: hidden;
+        }
+        .scrollTimeLine .ul::-webkit-scrollbar {          /*滚动条整体样式*/
+            width: 4px;                         /*高宽分别对应横竖滚动条的尺寸*/
+            height: 8px;
+            border-radius: 4px;
+        }
+        .scrollTimeLine .ul::-webkit-scrollbar-thumb {    /*滚动条里面小方块*/
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+            background: rgba(0,0,0,0.1);
+        }
+        .scrollTimeLine .ul::-webkit-scrollbar-track {    /*滚动条里面轨道*/
+            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+            border-radius: 0;
+            background: rgba(0,0,0,0.05);
+        }
+        .scrollTimeLine .prev-dot {
+            display: inline-block;
+            background: #ffffff;
+            border-radius: 50%;
+            float: left;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #46AE30;
+            z-index: 9;
+            position: absolute;
+            top: 62px;
+        }
+        .scrollTimeLine .dotTime {
+            position: absolute;
+            color: #46AE30;
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 30px;
+        }
+        .scrollTimeLine .centerDotDiv .dotTime {
+            top: 92px;
+        }
+        .scrollTimeLine .splitDotDiv .dotTime {
+            top: 25px;  
+        }
+        .scrollTimeLine .startDotDiv .dotTime {
+            top: 120px;
+        }
+        .scrollTimeLine .dotDiv:nth-child(2n) .dotTime {
+            bottom: 15px;
+        }
+        .scrollTimeLine .splitLine {
+            display: inline-block;
+            width:0px;
+            height:70px;
+            border: 0.5px dashed #46AE30;
+            position: absolute;
+            top: 50px;
+        }
+        .scrollTimeLine .splitDotDiv .splitLine {
+            height: 30px;
+            top: 50px;
+        }
+        .clearfix:after{visibility:hidden;display:block;font-size:0;content: " ";clear:both;height:0;}
+        .clearfix{*zoom:1;}
+        .scrollTimeLine .timeLine {
+            width: 100%;
+            margin: 70px auto;
+            height: 4px;
+            background: #CCD0DE;
+            border-radius: 2px;
+        }
+        .scrollTimeLine .timeLine1.timeLine {
+            background: #46AE30;
+        }
+        .scrollTimeLine .timeLine2 .dotDiv:first-child .dotTime,.timeLine2 .dotDiv:first-child .prev-dot,.timeLine2 .dotDiv:first-child .splitLine  {
+            display: none;
+        }
+        .scrollTimeLine .history {
+            display: inherit;
+            background: #F7FFF5;
+            height: 160px;
+            margin-left: -30px;
+            padding: 0 0 0 30px;
+            float: left;
+        }
+        .scrollTimeLine .dotTimeDes {
+            position: absolute;
+            top: 30px;
+            color: #46AE30;
+            font-size: 14px;
+        }
+        .scrollTimeLine .splitDot {
+            width: 10px;
+            height: 10px;
+            background: #46AE30;
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+        }
+        .scrollTimeLine h5.title {
+            text-align: center;
+            margin-top: -132px;
+            color: #4d4d4d;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 156px;
+        }
+        .scrollTimeLine .startDotDiv .dotTimeDes {
+            width: 80px;
+            color: #DEAF2C;
+            top: 120px;
+            /*background: #DEAF2C;*/
+            text-align: center;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 4px;
+            z-index: 9;
+        }
+        /*.scrollTimeLine .startDotDiv .dotTimeDes::before {
+            content: "";
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            margin-left: -10px;
+            width: 0;
+            height: 0;
+            border-width: 10px;
+            border-style: solid;
+            border-color: transparent transparent rgb(222, 175, 44) transparent;
+            z-index: 1;
+        }*/
+        .scrollTimeLine .startDotDiv .splitLine {
+            border: 0.5px dashed #E6E9F5;
+        }
+        .scrollTimeLine .centerDotDiv .prev-dot {  
+            border: 6px solid #DEAF2C;
+            width: 8px;
+            height: 8px;
+        }
+        .scrollTimeLine .centerDotDiv .splitLine {
+            border: 0.5px dashed #DEAF2C;
+            height: 32px;
+            top: 65px;   
+        }
+        .scrollTimeLine .centerDotDiv .dotTime,  .scrollTimeLine .startDotDiv .dotTime{
+            color: #DEAF2C;
+        }
+        .scrollTimeLine .centerDotDiv .dotTimeDes {
+            /*width: 120px;*/
+            color: #DEAF2C;
+            top: 92px;
+            /*background: #DEAF2C;*/
+            text-align: center;
+            height: 30px;
+            line-height: 30px;
+            /*border-radius: 4px;*/
+            z-index: 9;
+        }
+        /*.scrollTimeLine .centerDotDiv .dotTimeDes::before {
+            content: "";
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            margin-left: -10px;
+            width: 0;
+            height: 0;
+            border-width: 10px;
+            border-style: solid;
+            border-color: transparent transparent rgb(222, 175, 44) transparent;
+            z-index: 1;
+        }*/
+        .scrollTimeLine .endDotDiv .prev-dot {
+            border: 2px solid #CCD0DE;
+        }
+        .scrollTimeLine .endDotDiv .splitLine {
+            border: 0.5px dashed #CCD0DE;
+        }
+        .scrollTimeLine .endDotDiv .dotTime {
+            color: #CCD0DE;
+            bottom: 15px;
+        }
+        .scrollTimeLine .endDotDiv .dotTimeDes {
+            color: #CCD0DE;
+        }
+        .scrollTimeLine {  
+            -webkit-user-select:none;
+            -moz-user-select:none;
+            -ms-user-select:none;
+            user-select:none;
+        }
+        .saveBox {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .dateInput {
+            margin-bottom: 10px;
+        }
+        .dateInput label {
+            width: 10%;
+            height: 30px;
+            line-height: 30px;
+            font-size: 14px;
+            background: #f3f5fa;
+            text-align: center;
+            font-weight: 400;
+            color: #888888;
+            float: left;
+        }
+        .datePlugins {
+            width: 20%;
+            float: left;
+            position: relative;
+        }
+        #txtRDate {
+            border: 1px solid rgba(220,224,238,1);
+        }
+        .tipsWord {
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+            margin-left: 10px;
+            color: #dd0000;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="app">
+        <div id="loading" class="loadpage text-center" v-show="loading"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+        <div class="containerBox">
+            <h3 class="title">现金流拼接选择器</h3>
+            <div class="topSelecter">
+                <h4 class="secondTitle">
+                    <span class="square"></span>
+                                        拼接还款计划选择
+                    <p @click="checkResult">查看结果</p>
+                </h4>
+                <div class="topSelecterMain">
+                    <form>
+                        <div class="radioBox">
+                            <label class="labelTitle">是否拼接还款计划：</label> 
+                            <input type="radio" name="history" value=false v-model="radioValue"/>否    
+                            <input type="radio" name="history" value=true v-model="radioValue" />是
+                        </div>
+                        <!--<h5>请选择现金流数据源</h5>-->
+                        <div class="yesTab" v-show="yesShow">
+                            <div class="clearfix">
+                                <div class="labelTitle">请选择计划现金流：</div>
+                                <div class="wrapCheck">
+                                    <input type="radio" name="dataSouce1" value='0' v-model="dataSouceYes" />从资产池选取
+                                    <input type="radio" name="dataSouce1" value='1' v-model="dataSouceYes" />从回款选取
+                                    <input type="radio" name="dataSouce1" value='2' v-model="dataSouceYes" disabled />从运营中心选取
+                                    <input type="radio" name="dataSouce1" value='3' v-model="dataSouceYes" disabled />从产品选取
+                                    <!--<span class="checkSpan active" @click="checkSpanClick">从数据运营中心获取</span>-->
+                                    <!--<span class="checkSpan active" @click="checkSpanClick">从资产池获取</span>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="noTab" v-show="noShow">
+                            <div class="clearfix">
+                                <div class="labelTitle">请选择计划现金流：</div>
+                                <div class="wrapCheck">
+                                    <!--从资产池选取、从运营中心选取、从产品选取-->
+                                    <!--<span class="checkSpan active" @click="checkSpanClick">从数据运营中心获取</span>-->
+                                    <input type="radio" name="dataSouce" value='0' v-model="dataSouceNo" />从资产池选取
+                                    <input type="radio" name="dataSouce" value='1' v-model="dataSouceNo" />从回款选取
+                                    <input type="radio" name="dataSouce" value='2' v-model="dataSouceNo" disabled/>从运营中心选取
+                                    <input type="radio" name="dataSouce" value='3' v-model="dataSouceNo" disabled />从产品选取
+                                    <!--<span class="checkSpan active" @click="checkSpanClick">从资产池获取</span>-->
+                                </div>
+                            </div>
+                        </div>
+                    </form>   
+                </div>
+            </div>
+            <div class="bottomSelecter" v-show="yesShow">  
+                <h4 class="secondTitle">
+                    <span class="square"></span>
+                    时间轴
+                    <span class="titleDes">(请指定还款计划部分分割点日期)</span>
+                </h4>
+                <div class="bottomSelecterMain">
+                    <div class="dateInput clearfix">
+                        <label id="date_ail">分割点日期</label>  
+                        <div class="datePlugins">
+                            <input type="text" id="txtRDate" v-model="splitDot.date" class="form-control date-plugins" data-valid="required date" autocomplete="off" />
+                        </div>
+                        <span class="tipsWord"></span>
+                    </div>
+                    <div class="timeAxis">
+                        <div class="scrollTimeLine" id="scrollTimeLine">
+                            <div class="clearfix ul" style="display: inline-block">   
+                                <div class="history">
+                                    <div class="timeLine1 timeLine">
+                                        <h5 class="title">还款计划区间</h5>
+                                    </div>
+                                </div>
+                                <div class="timeLine2 timeLine">
+                                    <h5 class="title">预测区间</h5>
+                                </div>
+                                <div class="startDotDiv">
+                                    <span class="prev-dot" v-bind:style="{'left':startDot.leftIndex * startDot.widthOx + 30 + 'px'}"></span>
+                                    <span class="splitLine" v-bind:style="{'left':startDot.leftIndex * startDot.widthOx + 40 + 'px'}"></span>
+                                    <span class="dotTime" v-bind:style="{'left':startDot.leftIndex * startDot.widthOx + 63 + 'px'}">{{startDot.date}}</span>  <!--30-->   
+                                    <span class="dotTimeDes" v-bind:style="{'left':startDot.leftIndex * startDot.widthOx + 'px'}">封包日</span>
+                                </div>
+                                <div class="centerDotDiv">
+                                    <span class="prev-dot" v-bind:style="{'left':centerDot.leftIndex * centerDot.widthOx + 30 + 'px'}"></span>
+                                    <span class="splitLine" v-bind:style="{'left':centerDot.leftIndex * centerDot.widthOx + 40 + 'px'}"></span>
+                                    <span class="dotTime" v-bind:style="{'left':centerDot.leftIndex * centerDot.widthOx + 120 + 'px'}">{{centerDot.date}}</span>  <!--30-->
+                                    <span class="dotTimeDes" v-bind:style="{'left':centerDot.leftIndex * centerDot.widthOx + 33 + 'px'}">资产池切片日</span>  <!---20-->
+                                </div>
+                                <div class="endDotDiv">
+                                    <span class="prev-dot" v-bind:style="{'left':endDot.leftIndex * endDot.widthOx + 30 + 'px'}"></span>
+                                    <span class="splitLine" v-bind:style="{'left':endDot.leftIndex * endDot.widthOx + 40 + 'px'}"></span>
+                                    <span class="dotTime" v-bind:style="{'left':endDot.leftIndex * endDot.widthOx + 30 + 'px'}">{{endDot.date}}</span>
+                                    <span class="dotTimeDes" v-bind:style="{'left':endDot.leftIndex * endDot.widthOx + 30 + 'px'}">结束日</span>
+                                </div>
+                                <div class="splitDotDiv">
+                                    <span class="prev-dot" v-bind:style="{'left':splitDot.leftIndex * splitDot.widthOx + 30 + 'px'}">
+                                        <span class="splitDot"></span>
+                                    </span>
+                                    <span class="splitLine" v-bind:style="{'left':splitDot.leftIndex * splitDot.widthOx + 40 + 'px'}"></span>
+                                    <span class="dotTime" v-bind:style="{'left':splitDot.leftIndex * splitDot.widthOx + 106 + 'px'}">{{splitDot.date}}</span> <!--30-->
+                                    <span class="dotTimeDes" v-bind:style="{'left':splitDot.leftIndex * splitDot.widthOx + 30 + 'px'}">分割点日期</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="saveBox">
+                <button class="btn btn-primary" @click="SaveSetting" id="saveSetting">保存</button>
+            </div>
+        </div>
+    </div>
+    <script src="../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../asset/lib/config'], function (config) {
+            requirejs(['app/assetFilter/calculatorDimensionality/CashflowSelecter']);
+        });
+    </script>
+</body>
+</html>

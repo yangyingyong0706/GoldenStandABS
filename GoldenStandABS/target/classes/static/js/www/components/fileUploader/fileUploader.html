@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script data-main="./fileUploader.js" src="../../../asset/lib/require.js"></script>
+</head>
+<body>
+    <div id="fileUploadMain" class="main">
+        <div class="col-12 form-group">
+            <div class="col-3"><label>{{obj.loaderTitle}}</label></div>
+            <div class="col-9">
+                <input type="file" id="fileUploadFile" class="form-control file" data-valid="required" />
+            </div>
+            <div class="col-3 buttons pull-right">
+                <button id="upload" type="button" class="btn btn-primary" v-on:click="upload">{{obj.uploadButtonTitle}}</button>
+                <button id="cancel" type="button" class="btn btn-default" v-on:click="cancel">{{obj.cancelButtonTitle}}</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

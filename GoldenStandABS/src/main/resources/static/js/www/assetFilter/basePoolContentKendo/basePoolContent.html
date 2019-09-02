@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>资产池列表</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <!--<link href="../Contents/style.css" rel="stylesheet" />-->
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../Contents/pagerlist-style.css" rel="stylesheet" />
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/common.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <style>
+        html,body{
+            width:100%;
+            height:100%;
+        }
+        .ribbonBox {
+            height:10px;
+            margin-top: -5px;
+            float:right;
+            position: relative;
+            z-index: 999;
+        }
+        body{
+            overflow:hidden;
+        }
+        li {
+            display: list-item;
+            text-align: -webkit-match-parent;
+            cursor: pointer;
+        }
+        #dates {
+            margin-top:27px;
+        }
+        #dates select {
+            width: 93%;
+            height: 30px;
+            padding-left: 10px;
+            border-radius: 2px;
+            font-size: 14px;
+            color: #555;
+            border:1px solid #dce0ee;
+        }
+        #dates select:focus{
+             border-color:  #45569c;
+             box-shadow: inset 0 0px 0px #45569c, 0 0 4px #45569c;
+        }
+        .loadpage {
+            width: 100%;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            background: #fff;
+            height: 100%;
+            z-index: 999999;
+        }
+        .loadpage >i{
+            color:rgb(107, 147, 216);
+        }
+       
+        .k-grid tr td {
+            overflow: hidden;
+            text-overflow: ellipsis !important;
+            white-space: nowrap;
+        }
+        #grid th.table_layer_style{
+           text-align:left
+        }
+        .k-grid-header-locked{
+            height:36px;
+        }
+        #spanCurrentPoolName{
+            padding: 5px;
+            color: #45569c;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            position: absolute;
+            display: inline-block;
+            top: -4px;
+            width: 30%;
+        }
+        [v-cloak] { display: none }
+        .btn.btn-default {
+            float:left;
+            margin-left: 10px;
+        }
+        .btn.btn-default a {
+            color: #555555;
+        }
+        .btn.btn-danger {
+            margin-left: 10px;
+        }
+        .loadpage i{
+            position: absolute;
+            left:50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .select_box {
+            width: 140px;
+            height: 30px;
+            line-height: 30px;
+            padding-left: 15px;
+            padding-right: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-align: center;
+            text-overflow: ellipsis;
+            cursor: pointer;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+        .ribbonGroup_wrap {
+            position: absolute;
+            z-index: 10;
+            display: none;
+            background: rgb(255, 255, 255);
+            max-height: 200px;
+            overflow: auto;
+            width: 140px;
+            box-shadow: 0px 1px 5px rgba(0,0,0,.2);
+            top: 36px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .select {
+            margin-right: 10px;
+            float: left;
+        }
+        .ribbon_span {
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; 
+        }
+    </style>
+</head>
+<body>
+    <div id="loading" class="loadpage text-center"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+    <div id="dates" style="display:none">
+        <select data-bind="foreach: datesId, value : selectedDateId">
+            <option data-bind="attr: {value: dimreportingdateid}, text: dimreportingdateid"></option>
+        </select>
+    </div>
+    <div class="main padding_contrl">
+        <div id="DashBoard" class="ribbonBox" v-cloak=v-cloak>
+            <div class="btn-group select" v-if="show">
+                <button type="button" class="btn btn-default btn-group-broderColor">
+                    <i class="icon icon-codepen"></i>
+                    资产池现金流操作
+                </button>
+                <button type="button" class="btn btn-default dropdown-toggle btn-group-broderColor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li v-for="item in obj.group[0].elements" v-if="item.linkname == 'OpenCollectionGuidePage' || item.linkname == 'ReimbursementManagement' || item.linkname == 'OpenCashflowManagement' || item.linkname == 'OpenCashflowSelecter'||item.linkname == 'NoPrincipalSplit'">
+                        <a @click="clickEvent(item.linkname,item.linkurl)">
+                            <i v-bind:class="item.icon"></i>
+                            <span class="ribbon_span">{{item.title}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="btn-group select" v-if="show">
+                <button type="button" class="btn btn-default btn-group-broderColor">
+                    <i class="icon icon-export"></i>
+                    资产池操作
+                </button>
+                <button type="button" class="btn btn-default dropdown-toggle btn-group-broderColor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li v-for="item in obj.group[0].elements" v-if="item.linkname == 'OpenPoolTargetingPage' || item.linkname =='OpenSalablePoolPage' || item.linkname == 'AssetOutInPool' || item.linkname =='AssetPoolMerge'||item.linkname=='SalesPool'||item.linkname=='AlternativePool'||item.linkname=='PoolPreSales'" v-bind:class="item.linkname">
+                        <a @click="clickEvent(item.linkname,item.linkurl)">
+                            <i v-bind:class="item.icon"></i>
+                            <span class="ribbon_span">{{item.title}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="btn-group select" v-if="show">
+                <button type="button" class="btn btn-default btn-group-broderColor">
+                    <i class="icon icon-note"></i>
+                    资产查询对比
+                </button>
+                <button type="button" class="btn btn-default dropdown-toggle btn-group-broderColor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li v-for="item in obj.group[0].elements" v-if="item.linkname == 'AssetFilter'|| item.linkname =='AssetContrast' || item.linkname == 'GeneratingAssets' || item.linkname == 'FiltrateResult'">
+                        <a @click="clickEvent(item.linkname,item.linkurl)">
+                            <i v-bind:class="item.icon"></i>
+                            <span class="ribbon_span">{{item.title}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="btn-group select" v-if="show" style="margin-right:0px">
+                <button type="button" class="btn btn-default btn-group-broderColor">
+                    <i class="icon icon-floppy"></i>
+                    资产池报告
+                </button>
+                <button type="button" class="btn btn-default dropdown-toggle btn-group-broderColor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li v-for="item in obj.group[0].elements" v-if=" item.linkname == 'DistributionConfig' || item.linkname =='AssetPoolListReport'">
+                        <a @click="clickEvent(item.linkname,item.linkurl)">
+                            <i v-bind:class="item.icon"></i>
+                            <span class="ribbon_span">{{item.title}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <button v-for="item in obj.group[0].elements" @click="clickEvent(item.linkname,item.linkurl)" v-bind:class="item.type" class="btn btn-default btn-single-default" v-if="item.linkname == 'AssetPoolRefresh' || item.linkname =='AssetPoolClose'|| item.linkname == 'AssetPoolSale' || item.linkname =='ProductDoc' || item.linkname == 'RefreshBasePool' || item.linkname == 'DeleteAssetPool' || item.linkname == 'RefreshBasePoolAF'">
+                <i v-bind:class="item.icon" style="width:auto"></i>
+                <span class="">{{item.title}}</span>
+            </button>
+        </div>
+        <div id="step-title" style="height:33px;line-height:27px;padding-bottom:10px;position:relative">
+                <i class="fa fa-map-marker" style="color:#45569c;margin-right: 5px; border: 1px solid #45569c; padding: 5px; text-align: center; border-radius: 50%; width: 24px; height: 24px;line-height: 12px;background: #f8f8f8;box-shadow: inset 0px 0px 2px #45569c;position:relative;top:-1px;"></i>
+                <span id="spanCurrentPoolName"></span>
+        </div>
+
+        <div id="grid" style="margin-top: 3px;"></div>
+        <div id="divDataList" class="list-container"></div>
+    </div>
+    <script data-main="./basePoolContentKendo.js" src="../../../asset/lib/require.js"></script>
+</body>
+</html>

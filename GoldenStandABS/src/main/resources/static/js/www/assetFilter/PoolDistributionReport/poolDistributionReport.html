@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="style/dx.spa.css" />
+    <link rel="stylesheet" type="text/css" href="style/dx.common.css" />
+    <link rel="dx-theme" data-theme="generic.light" href="style/dx.light.css" />
+    <link rel="stylesheet" href="../../../asset/lib/jquery/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="style/styles.css" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <script src="../../../asset/lib/devExtreme/jszip.min.js"></script>
+    <script data-main="poolDistributionReport" src="../../../asset/lib/require.js"></script>
+    <style>
+        body {
+             font-family: 'Microsoft YaHei';
+             height: 100%;
+        }
+        [v-cloak] {
+          display: none;
+        }
+        .options-list { /*position: absolute;*/ top: 0; left: 0; right: 0; margin: 0; padding: 0; max-height: 200px; overflow: auto; border: 1px solid #e6e6e6; background: #fff; z-index: 1; }
+
+        .options-list > li { cursor: pointer; padding: 0 10px; display: block; border-bottom: 1px solid #ddd; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+        .options-list > li:hover,
+        .options-list > li.active { background:rgba(54, 61, 93,0.7); color: #fff; }
+        .select-wrap { position: relative; width: 150px; float: left; z-index: 1; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); }
+        .select-input { box-sizing: border-box; display: block; width: 100%; padding: 0 22px 0 15px; line-height: 35px; height: 35px; border: 1px solid #ededed; cursor: pointer; border-radius: 2px; font-size: 14px; }
+        .select { 
+            height: 40px;
+            line-height: 39px;
+            display: inline-block;
+            margin: 0 5px 16px 5px;
+            position: absolute;
+            right: 16px;
+            top: -12px;
+        }
+        .select-arrows {
+            position: absolute;
+            top: 0;
+            right: 5px;
+            color: #999;
+            font-size: 14px;
+            line-height: 35px;
+        }
+        /*修改jquery-ui样式*/
+        .ui-widget-content{
+            border: none;
+        }
+        .ui-tabs .ui-tabs-nav{
+            width:calc(100% - 40px);
+            margin: auto;
+            margin-top: 10px;
+            margin-bottom: 7px;
+            background: #F3F5FA;
+        }
+        .ui-tabs .ui-tabs-nav li {
+            margin-left: 40px;
+        }
+        .ui-tabs .ui-tabs-nav li a {
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
+            border: 0 none;
+            background: none;
+        }
+        .dx-pivotgrid .dx-grandtotal{
+            background-color:rgba(221, 221, 221, 0.2)
+        }
+        .dx-pivotgrid .dx-bottom-row td{
+            background-color:#fff;
+        }
+        .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active{
+            border: 0 none;
+        }
+        .ui-tabs .ui-tabs-nav li.ui-tabs-active{
+            border-bottom: 2px solid #45569c;
+        }
+        .ui-tabs .ui-tabs-nav li.ui-tabs-active a{
+            color: #45569c;
+        }
+        .dx-pivotgrid .dx-pivotgrid-horizontal-headers td{
+            border-color: #dce0ee;
+        }
+        .dx-pivotgrid .dx-bottom-border, .dx-pivotgrid .dx-area-description-cell, .dx-pivotgrid .dx-area-column-cell{
+            border-color: #dce0ee;
+        }
+        .dx-pivotgrid .dx-pivotgrid-border .dx-filter-header, .dx-pivotgrid .dx-pivotgrid-border .dx-area-column-cell, .dx-pivotgrid .dx-pivotgrid-border .dx-column-header, .dx-pivotgrid .dx-pivotgrid-border .dx-filter-header, .dx-pivotgrid .dx-pivotgrid-border .dx-area-data-cell{
+            border-color: #dce0ee;
+        }
+        .long-title {
+            border-bottom: 1px solid #E6E9F5;
+        }
+        .long-title h3 {
+            text-align: left;
+            margin-bottom: 17px;
+            color: #45569C;
+        }
+        .long-title h3:before {
+            content: "";
+            display: inline-block;
+            margin-right: 6px;
+            margin-bottom: 2px;
+            width: 8px;
+            height: 8px;
+            background: #45569C;
+        }
+    </style>
+</head>
+<body class="dx-viewport">
+
+    <div id="app" style="padding-top:20px;height: 100%;">
+        <div class="demo-container" style="height: 100%;overflow-y: scroll;">
+            <div class="long-title" style="margin-bottom: 20px;"><h3 style="margin-top: 0;">资产池基础信息</h3></div>
+            <div id="dalSummary"></div>
+            <div class="long-title" v-show="PoolDistributionList.length>0" style="position:relative">
+                <h3 style="margin-top: 30px;">分布信息</h3>
+                <div class="select">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <button type="button" class="btn btn-default active" @click="changeShowDistribution">区间分布</button>
+                        <button type="button" class="btn btn-default" @click="changeShowDistribution">枚举分布</button>
+                    </div>
+                    <div class="btn btn-default" @click="downloadSeach" id="downloadSeach" style="margin-left:10px"><i class="dx-icon dx-icon-exportxlsx"></i> 区间分布导出</div>
+                </div>
+            </div>
+            <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all" v-show="PoolDistributionList.length>0">
+                <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                    <li v-for="(item,index) in PoolDistributionList" v-bind:class="addClass(index)" @click="changeTab($event,index)">
+                        <a v-bind:href='item.DistributionTypeIDS'>{{item.DistributionTypeName}}</a>
+                    </li>
+                </ul>
+                <div v-for="item in PoolDistributionList" v-bind:id="item.DistributionTypeIds" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+                    <div v-bind:id="item.app"></div>
+                    <div v-bind:id="item.DistributionTypeCode"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

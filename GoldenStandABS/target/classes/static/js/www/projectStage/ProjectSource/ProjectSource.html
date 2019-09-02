@@ -1,0 +1,59 @@
+﻿
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title>项目资源</title>
+    <link href="../../productManage/TrustManagement/ReportWizardEx/css/ReportWizardEx.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body id="app">
+    <div class="layer" v-cloak>
+        <div class="left_nav_style">
+            <div class="step-head">
+                <h2>
+                    <span>项目资源</span>
+                </h2>
+            </div>
+            <ul>
+                <li id="RelatedProduct" class="current_li" v-on:click="changeIframe($event)">
+                    <span class="mar_dis">1</span>
+                    <span>相关产品</span>
+                    <span class="flag"></span>
+                </li>
+                <li id="RelatedAssets" v-on:click="changeIframe($event)">
+                    <span class="mar_dis">2</span>
+                    <span>相关资产池</span>
+                    <span class="flag"></span>
+                </li>
+                <li id="RelatedCashflow" v-on:click="changeIframe($event)">
+                    <span class="mar_dis">3</span>
+                    <span>相关现金流</span>
+                    <span class="flag"></span>
+                </li>
+                <li id="RelatedEnterprises" v-on:click="changeIframe($event)">
+                    <span class="mar_dis">4</span>
+                    <span>相关企业</span>
+                    <span class="flag"></span>
+                </li>
+            </ul>
+        </div>
+        <div class="iframe_content">
+            <iframe v-bind:src="url" frameborder="0" class="extend_father" id="projectSource"></iframe>
+        </div>
+    </div>
+    <script src="../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/projectStage/ProjectSource/ProjectSource']);
+        });
+    </script>
+</body>
+</html>

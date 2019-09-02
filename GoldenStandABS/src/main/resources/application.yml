@@ -5,6 +5,9 @@ spring:
     view:
       prefix: classpath:/templates/
       suffix: .html  
+      
+#    staticPathPattern: /static/** 
+
 
 #
 ## 定位模板的目录,spring boot此配置默认为classpath:/templates/

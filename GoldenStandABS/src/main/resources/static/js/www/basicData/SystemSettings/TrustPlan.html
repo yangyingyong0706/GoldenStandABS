@@ -1,0 +1,241 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="overflow:hidden">
+<head>
+    <title>产品列表</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+
+    <script data-main="./TrustPlan.js" src="../../../asset/lib/require.js"></script>
+
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        button a:focus, button a:hover {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .allSelectTitle {
+            cursor: pointer;
+        }
+
+        .nobottom {
+            border-bottom: none !important;
+        }
+
+        .main {
+            padding: 15px;
+            background: #fff;
+            height: calc(100% - 30px);
+        }
+
+        .k-grid-header {
+            height: 38px;
+        }
+
+        .table-header-cell {
+            height: 20px;
+        }
+
+        .gridtrust {
+            border-left: none;
+            font-size: 13px;
+        }
+
+        .allSelectTitle {
+            cursor: pointer;
+        }
+
+        .nobottom {
+            border-bottom: none !important;
+        }
+
+        .ribbon_span {
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; /*-webkit-transform: scale(0.9);*/
+        }
+
+        .ribbonGroup > a { /*float: right;*/ /* margin-right: 10px; */
+            box-sizing: border-box;
+            padding: 1px;
+            min-width: 45px; /* height: 36px; */ /* border: 1px solid rgba(0,0,0,0.1); */
+            padding: 5px; /* border-radius: 5px; */
+            color: #596d7f; /* box-shadow: inset 0px 0px 1px #eeeaea; */
+            position: relative;
+            background: #fff;
+            cursor: pointer;
+            padding: 6px 10px;
+            display: block;
+            border-bottom: 1px solid #ddd;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .select_box {
+            width: 150px;
+            height: 30px; /*//text-indent:20px;*/
+            line-height: 30px;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+            padding-left: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .ribbonGroup_wrap {
+            position: absolute;
+            z-index: 10;
+            display: none;
+            background: rgb(255, 255, 255);
+            max-height: 200px;
+            overflow: auto;
+            box-shadow: 0px 1px 5px rgba(0,0,0,.2);
+            top: 42px;
+        }
+
+        .ribbonGroup:hover {
+            background: rgba(59,62,93,0.8); /*border: 1px solid rgba(0,0,0,0.12);*/
+        }
+
+            .ribbonGroup:hover a {
+                background: #596d7f;
+                color: #fff;
+            }
+
+        .ribbonBox {
+            margin-top: 10px;
+        }
+        /*.fa-fw { width: 100%; }*/
+
+        .form .form-panel.drop {
+            padding-top: 10px;
+        }
+
+        .k-link, .table-cell, .tight-cell, .k-pager-wrap, .k-grid-pager, .k-widget, .k-floatwrap {
+            font-size: 13px !important;
+            color: #555 !important;
+        }
+
+        .ribbonBox { /*overflow: hidden;*/
+            margin-top: -5px;
+        }
+
+        .select {
+            margin-right: 10px;
+            float: right;
+        }
+
+        .ribbonButton_2 {
+            text-decoration: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .body-container {
+            padding: 15px;
+            background: #fafafa;
+            height: calc(100% - 5px);
+        }
+
+        .loadpage {
+            position: absolute;
+            top: 46%;
+            left: 46%;
+            background: transparent;
+        }
+
+            .loadpage > i {
+                color: rgb(107, 147, 216);
+            }
+
+        .k-grid tr td {
+            border-width: 0 0 1px 1px;
+            border-style: solid;
+            border-color: #e6e6e6 !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding: 0.586em 1.486em !important;
+        }
+
+        .k-grid tr:hover {
+            background-color: #e2e0e0;
+        }
+
+        .k-grid-content > table {
+            border-right: 1px solid #e6e6e6;
+        }
+
+        div.k-grid-content tr:last-child > td {
+            border-bottom-width: 1px;
+        }
+
+        span.k-icon {
+            margin-top: 9px;
+        }
+
+        .k-grid-header-locked {
+            height: 36px;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        .f-right {
+            float: right;
+        }
+
+        .btn-danger a {
+            color: #777;
+        }
+
+        .ProjectApproval button.btn {
+            margin-left: 10px;
+        }
+
+        .reserveDays {
+            width: 50px;
+        }
+        .require{
+            border: 1px solid red !important;
+        }
+    </style>
+
+</head>
+<body class="public_font_style gridtrust" style="display:none">
+    <div id="selectLanguageDropdown_qcl" class="localizationTool" style="display:none"></div>
+    <div class="body-container form nobottom">
+        <div class="main">
+            <div id="DashBoard" class="ribbonBox" style="padding-bottom:30px;">
+                <div class="productManage">
+                    <a class="btn btn-primary f-right btnSave">
+                        <i v-bind:class="item.icon"></i>
+                        <span>保存</span>
+
+                    </a>
+                </div>
+            </div>
+            <div class="form-panel drop nobottom">
+                <div id="grid"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>专项计划列表</title>
+    <link href="../../../../../asset/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        a, a:hover,a:active,a:after,a:before{
+            text-decoration: none;
+        }
+
+        .main_container {
+            overflow: hidden;
+            margin: 20px;
+        }
+
+        .table_title {
+            overflow: hidden;
+            line-height: 35px;
+        }
+
+        .asset_list_main {
+            overflow: hidden;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-bottom: none;
+        }
+
+        .asset_top {
+            overflow: hidden;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .list_left {
+            overflow: hidden;
+            float: left;
+            line-height: 35px;
+            text-align: center;
+            width: 70%;
+            border-right: 1px solid #ddd;
+        }
+
+        .list_right {
+            overflow: hidden;
+            float: left;
+            line-height: 35px;
+            text-align: center;
+            width: 30%;
+        }
+
+        .asset_list_each {
+            overflow: hidden;
+        }
+
+            .asset_list_each li {
+                overflow: hidden;
+                border-bottom: 1px solid #ddd;
+            }
+
+        .list_btn {
+            width: 300px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .btn_btn {
+            font-size: 12px;
+            padding: 3px 7px;
+            margin-right: 5px;
+        }
+
+        .list_not_center {
+            text-align: left;
+            padding: 0px 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main_container" id="container">
+        <div class="table_title">
+            {{trustName}}
+        </div>
+        <div class="asset_list_main">
+            <div class="asset_top">
+                <div class="list_left">文档模板</div>
+                <div class="list_right">操作</div>
+            </div>
+            <ul class="asset_list_each">
+                <li>
+                    <div class="list_left list_not_center">
+                        1.专项计划简介
+                    </div>
+                    <div class="list_right">
+                        <div class="list_btn">
+                            <button class="btn btn-primary btn_btn" @click="toAssetListDetail('Synopsis')">编辑</button>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="list_left list_not_center">
+                        2.专项计划推广公告
+                    </div>
+                    <div class="list_right">
+                        <div class="list_btn">
+                            <button class="btn btn-primary btn_btn" @click="toAssetListDetail('promotion')">编辑</button>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="list_left list_not_center">
+                        3.专项计划成立公告
+                    </div>
+                    <div class="list_right">
+                        <div class="list_btn">
+                            <button class="btn btn-primary btn_btn" @click="toAssetListDetail('EstablishmentProclamation')">编辑</button>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="list_left list_not_center">
+                        4.专项计划认购协议
+                    </div>
+                    <div class="list_right">
+                        <div class="list_btn">
+                            <button class="btn btn-primary btn_btn" @click="toAssetListDetail('list')">编辑</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div id="taskIndicatorArea" style="display:none;width:480px; height:540px;">
+            <object id="TaskProcessCtl" data="data:application/x-silverlight-2," type="application/x-silverlight-2" style="display:block" width="100%" height="240px" class="ms-dlgDisable">
+                <param name="source" value="/TaskProcessEngine/ClientBin/UI.TaskProcessIndicator.xap" />
+                <param name="enablehtmlaccess" value="True" />
+            </object>
+        </div>
+    </div>
+
+
+    <script src="../../../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/productManage/TrustManagement/documentManagement/saleDocument/AssetList']);
+        });
+    </script>
+
+
+    <!--<script src="../Common/Scripts/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script src="../Common/Scripts/common.js"></script>
+    <script src="../Common/Scripts/GlobalVariable.js"></script>
+    <script src="../Common/Scripts/vue.js"></script>
+    <script src="../../../PoolCut/Scripts/TaskIndicatorScript.js"></script>
+    <script src="../../../PoolCut/Scripts/jquery.datagrid.js"></script>
+    <script src="../../../PoolCut/Scripts/jquery-ui-latest.js"></script>
+    <link href="../../../PoolCut/Scripts/jquery-ui.css" rel="stylesheet" />
+    <script src="../../Scripts/DataOperate.js"></script>
+	<script src="/QuickFrame/Scripts/roleOperate.js"></script>-->
+    <!--<script src="AssetList.js"></script>-->
+	    <!--<script type="text/javascript">
+        var trustId = getQueryString('trustid');
+		if(trustId!='0')
+		{
+        var UserName = RoleOperate.cookieName();
+		RoleOperate.TrustOrPoolPremisson(trustId,UserName,function (data) {
+            if ( data == '0') {
+                var loginURL = location.protocol + "//" + location.host + '/QuickFrame' + '/login-gs.html?appdomain=TrustManagement';
+                
+                alert("您没有权限访问，请联系管理员");
+                window.top.location.href = loginURL;
+            }
+			}
+			);
+		}
+ </script>-->
+</body>
+</html>

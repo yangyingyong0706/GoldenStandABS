@@ -1,0 +1,33 @@
+﻿{
+    "app": "projectManageFunction",
+    "title": "projectManage",
+    "group": [
+        {
+            "module": "Index",
+            "title": "projectManage",
+            "elements": [
+                {
+                    "title": "AddProject",
+                    "type": "button",
+                    "icon": "icon icon-add",
+                    "linkname": "AddProject",
+                    "linkurl": "javascript:AddProject"
+                },
+                {
+                    "title": "EditProject",
+                    "type": "button",
+                    "icon": "icon icon-edit",
+                    "linkname": "EditProject",
+                    "linkurl": "javascript:EditProject"
+                },
+                {
+                    "title": "DeleteProject",
+                    "type": "button",
+                    "icon": "icon icon-trash-empty",
+                    "linkname": "DeleteProject",
+                    "linkurl": "javascript:DeleteProject"
+                }
+            ]
+        }
+    ]
+}

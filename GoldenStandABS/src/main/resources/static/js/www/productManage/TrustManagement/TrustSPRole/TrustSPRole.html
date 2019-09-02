@@ -1,0 +1,356 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>相关参与方</title>
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/metisMenu/dist/metisMenu.min.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/goldenstand/uiFrame/css/gs-admin-2.css" rel="stylesheet" />
+    <link href="../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../Common/css/trustWizard.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/toast/toast.css" rel="stylesheet" />
+    <style>
+        body {
+            width: 100%;
+        }
+        .loadpage {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background: #FFFFFF;
+            z-index: 9999;
+            padding-top: 12%;
+        }
+        .loadpage > i {
+            color: rgb(107, 147, 216);
+        }
+        .claer::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 0;
+            clear: both;
+        }
+        label {
+            background: rgba(243,245,250,1);
+            box-sizing: border-box;
+            line-height: 30px;
+            padding-left: 16px;
+            height: 30px;
+            overflow: hidden;
+            display: block;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: 14px;
+            font-weight: 400;
+            color: rgba(128,128,128,1);
+        }
+        [v-cloak] {
+            display: none;
+        }
+        #gold-form-panel .reBoerder {
+            border: 1px solid red;
+        }
+        .btn.btn-primary {
+            background-color: #45569C;
+            border-color: #45569C;
+        }
+        .main {
+            padding: 0 15px;
+            height: calc(100% - 80px);
+            overflow: auto;
+        }
+        /*通讯录、账户信息*/
+        .addressList ol {
+            border-bottom: 1px solid #E6E9F5;
+        }
+        .addressList .title li {
+            float: left;
+            font-size: 16px;
+            line-height: 16px;
+            padding: 14px 0;
+            color: #4D4D4D;
+        }
+        .addressList .title li:nth-child(1)::before {
+            content: "";
+            display: inline-block;
+            margin-right: 4px;
+            margin-bottom: 2px;
+            width: 8px;
+            height: 8px;
+            background: #45569C;
+        }
+        .addressList .title li:nth-child(2) i {
+            color: #45569C;
+            margin-left: 14px;
+            padding: 0 5px;
+            cursor: pointer;
+        }
+        .select {
+            padding: 9px 0;
+        }
+        .list > div {
+            float: left;
+            width: calc(50% - 10px);
+            border: 1px solid rgba(230,233,245,1);
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .list > div:hover {
+            box-shadow: 0px 2px 4px 0px rgba(65,81,151,0.2);
+        }
+        .list > div:nth-child(2n+1) {
+            margin-right: 10px;
+        }
+
+        .list > div:nth-child(2n+2) {
+            margin-left: 10px;
+        }
+        .list-title {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            padding: 0 15px;
+            box-sizing: border-box;
+            background: rgba(243,245,250,1);
+        }
+        .list-title > p {
+            float: left;
+        }
+
+        .list-title div {
+            float: right;
+            position: relative;
+        }
+        .list-title div i:nth-child(1) {
+            height: 17.6px;
+            line-height: 17.6px;
+            position: absolute;
+            top: 10px;
+            left: -30px;
+            cursor: pointer;
+        }
+        .list-conten {
+            box-sizing: border-box;
+            padding: 0 15px 18px 15px;
+        }
+        .list-conten p {
+            float: left;
+            width: 50%;
+            height: 14px;
+            margin-top: 18.5px;
+            font-size: 14px;
+            line-height: 14px;
+            color: #808080;
+        }
+
+        .list-conten p span {
+            float: left;
+            height: 100%;
+        }
+        .list-conten p span:nth-child(1) {
+            width: 40px;
+        }
+
+        .list-conten p span:nth-child(2) {
+            width: calc(100% - 50px);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .list-conten p span:nth-child(2) {
+            color: #4D4D4D;
+        }
+        /*通讯录新增/编辑弹窗*/
+        .addAddressList,
+        .addAccounts {
+            padding: 20px;
+        }
+        .addAddressList-input > div {
+            float: left;
+            width: 47%;
+            position: relative;
+        }
+        .addAddressList-input > div:nth-child(2n+2) {
+            margin-left: 6%;
+        }
+        .formVerifyClass::before {
+            content: "*";
+            color: #f56c6c;
+            position: absolute;
+            top: 0;
+            left: 9px;
+        }
+        .save {
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="main" id="main">
+        <!--进页面等待动画-->
+        <div id="loading" class="loadpage text-center" v-if="loading"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+        <!--通讯录-->
+        <div class="addressList" v-cloak>
+            <ol class="title claer">
+                <li>通讯录</li>
+                <li @click="closeAddressList"><i v-bind:class="closeAddressListClass"></i></li>
+            </ol>
+            <div class="select" v-show="closeAddressListB">
+                <div class="col-md-3" style="padding-left:0;" id="single-form">
+                    <select class="form-control gold-single-input" v-model="OptionalServiceProviderRolesValue">
+                        <option v-for="(item, index) in OptionalServiceProviderRoles" v-bind:key="index" v-bind:value="item.SPRItemCode">{{item.ItemAliasValue}}</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-primary" @click="addAddressList()">新增</button>
+            </div>
+            <div class="list claer" v-show="closeAddressListB">
+                <div class="claer" v-for="(item,index) in ServiceProviderRoles" v-bind:key="index">
+                    <div class="list-title">
+                        <p>{{item.Title}}</p>
+                        <div>
+                            <i class="icon icon-edit" @click="addAddressList(item, index)"></i>
+                            <i class="icon icon-remove" @click="removeAddressList(item, index)"></i>
+                        </div>
+                    </div>
+                    <div class="list-conten claer">
+                        <p>
+                            <span v-bind:title="item.SPCode">公司:</span>
+                            <span v-bind:title="item.SPCode">{{item.SPCode}}</span>
+                        </p>
+                        <p v-for="(iterm, index0) in item.DisplayFields" v-bind:key="index0">
+                            <span v-bind:title="iterm.ItemValue" v-bind:style="getWidth(iterm.ItemAliasValue)">{{iterm.ItemAliasValue}}:</span>
+                            <span v-bind:title="iterm.ItemValue" v-bind:style="getWidth2(iterm.ItemAliasValue)">{{iterm.ItemValue}}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--账户信息-->
+        <div class="addressList" v-cloak>
+            <ol class="title claer">
+                <li>账户信息</li>
+                <li @click="closeAccounts"><i v-bind:class="closeAccountsClass"></i></li>
+            </ol>
+            <div class="select" v-show="closeAccountsB">
+                <div class="col-md-3" style="padding-left:0;" id="single-form">
+                    <select class="form-control gold-single-input" v-model="OptionalServiceProviderRolesExValue">
+                        <option v-for="(item, index) in OptionalServiceProviderRolesEx" v-bind:key="index" v-bind:value="item.SPRItemCode">{{item.ItemAliasValue}}</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-primary" @click="addAccounts()">新增</button>
+            </div>
+            <div class="list claer" v-show="closeAccountsB">
+                <div class="claer" v-for="(item,index) in ServiceProviderRolesEx" v-bind:key="index">
+                    <div class="list-title">
+                        <p>{{item.Title}}</p>
+                        <div>
+                            <i class="icon icon-edit" @click="addAccounts(item, index)"></i>
+                            <i class="icon icon-remove" @click="removeAccounts(item, index)"></i>
+                        </div>
+                    </div>
+                    <div class="list-conten claer">
+                        <p>
+                            <span v-bind:title="item.SPCode">公司:</span>
+                            <span v-bind:title="item.SPCode">{{item.SPCode}}</span>
+                        </p>
+                        <p v-for="(iterm, index0) in item.DisplayFields" v-bind:key="index0">
+                            <span v-bind:title="iterm.ItemValue" v-bind:style="getWidth(iterm.ItemAliasValue)">{{iterm.ItemAliasValue}}:</span>
+                            <span v-bind:title="iterm.ItemValue" v-bind:style="getWidth2(iterm.ItemAliasValue)">{{iterm.ItemValue}}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--通讯录新增/编辑弹窗-->
+        <div class="addAddressList" id="addAddressList" style="display: none;" v-cloak>
+            <div class="addAddressList-input claer" id="gold-form-panel">
+                <div class="form-group">
+                    <div class="col-4">
+                        <label class="formVerifyClass gold-group-addon">公司:</label>
+                    </div>
+                    <div class="col-8">
+                        <div class="col-12">
+                            <input v-model="addAddressListObject.SPCode" type="text" style="height: 30px;" v-bind:class="{reBoerder: formVerify.SPCode}" @blur="SPCodeChange(addAddressListObject.SPCode)" class="form-control gold-form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" v-for="(item, index) in addAddressListArray" v-bind:key="index">
+                    <div class="col-4">
+                        <label v-bind:class="{'formVerifyClass': item.ItemCode == 'OfficeAddress'}" class="gold-group-addon">{{item.ItemAliasValue}}:</label>
+                    </div>
+                    <!--下拉菜单-->
+                    <div class="col-8" v-if="item.DataType == 'Select'">
+                        <div class="col-12">
+                            <select class="form-control gold-form-control" v-model="item.ItemValue">
+                                <option v-for="(iterm, index) in item.selectData" v-bind:key="index" v-bind:value="iterm.CodeDictionaryCode">{{iterm.Value}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--其他-->
+                    <div class="col-8" v-else>
+                        <div class="col-12">
+                            <input v-model="item.ItemValue" type="text" style="height: 30px;" v-bind:class="{reBoerder: formVerify.FirstContact && item.ItemCode == 'OfficeAddress'}" @blur="FirstContactChange(item)" class="form-control gold-form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="save">
+                <button type="button" @click="saveAddressList" class="btn btn-primary">完成</button>
+            </div>
+        </div>
+        <!--账户信息新增/编辑弹窗-->
+        <div class="addAccounts" id="addAccounts" style="display: none;" v-cloak>
+            <div class="addAddressList-input claer" id="gold-form-panel">
+                <div class="form-group">
+                    <div class="col-4">
+                        <label class="formVerifyClass gold-group-addon">公司:</label>
+                    </div>
+                    <div class="col-8">
+                        <div class="col-12">
+                            <input v-model="addAccountsObject.SPCode" type="text" style="height: 30px;" v-bind:class="{reBoerder: formVerify.SPCode}" @blur="SPCodeChange(addAccountsObject.SPCode)" class="form-control gold-form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" v-for="(item, index) in addAccountsArray" v-bind:key="index">
+                    <div class="col-4">
+                        <label v-bind:class="{'formVerifyClass': item.ItemCode == 'NameofAccount'}" class="gold-group-addon">{{item.ItemAliasValue}}:</label>
+                    </div>
+                    <!--下拉菜单-->
+                    <div class="col-8" v-if="item.DataType == 'Select'">
+                        <div class="col-12">
+                            <select class="form-control gold-form-control" v-model="item.ItemValue">
+                                <option v-for="(iterm, index) in item.selectData" v-bind:key="index" v-bind:value="iterm.CodeDictionaryCode">{{iterm.Value}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--其他-->
+                    <div class="col-8" v-else>
+                        <div class="col-12">
+                            <input v-model="item.ItemValue" type="text" style="height: 30px;" v-bind:class="{reBoerder: formVerify.FirstContact && item.ItemCode == 'NameofAccount'}" @blur="FirstContactChange(item)" class="form-control gold-form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="save">
+                <button type="button" @click="saveAccounts" class="btn btn-primary">完成</button>
+            </div>
+        </div>
+        <div class="save">
+            <button id="saveData" type="button" @click="submit" class="btn btn-primary" style="margin-bottom:30px">下一步</button>
+        </div>
+    </div>
+    <script src="../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TrustSPRole/TrustSPRole']);
+        });
+    </script>
+</body>
+</html>

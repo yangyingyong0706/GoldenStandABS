@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="style/dx.spa.css" />
+    <link rel="stylesheet" type="text/css" href="style/dx.common.css" />
+    <link rel="dx-theme" data-theme="generic.light" href="style/dx.light.css" />
+    <link rel="stylesheet" href="../../../asset/lib/jquery/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="style/styles.css" />
+    <script src="../../../asset/lib/devExtreme/jszip.min.js"></script>
+    <script data-main="AssetDistributionReport" src="../../../asset/lib/require.js"></script>
+</head>
+<body class="dx-viewport">
+
+    <div id="app">
+
+        <!--<div class="display:none">
+            <div class="col-5">
+                <label>请选择资产池：</label>
+            </div>
+            <div class="col-7">
+                <select class="form-control form-item" v-model="currentPool.PoolId" v-on:change="generateReport(currentPool.PoolId)">
+                    <option v-for="item in poolList" v-bind:value="item.value">{{item.text}}</option>
+                </select>
+            </div>
+        </div>-->
+
+        <div class="demo-container">
+            <!--<div class="long-title"><h3>Distribution</h3></div>
+            <div id="distribution-chart"></div>
+            <div id="distribution"></div>-->
+            <div class="long-title"><h3>融资融券资产池基础信息</h3></div>
+            <div id="dalSummary" style="width:100%;"></div>
+            <!--<div class="long-title"><h3>融资融券资产池回购信息</h3></div>
+            <div id="dalBuyBack" style="width:98%;"></div>
+            <div class="long-title"><h3>融资融券资产池还款信息</h3></div>
+            <div id="dalPaymentInfo" style="width:98%;"></div>-->
+
+            <div class="long-title"><h3>融资融券资产池真实回购信息</h3></div>
+            <div id="dalBuyBackPrincipalAmount" style="width:100%;"></div>
+            <div class="long-title"><h3>融资融券资产池真实还款信息</h3></div>
+            <div id="dalActualPrincipalPaid" style="width:100%;"></div>
+
+            <div class="long-title"><h3>融资融券资产池新增仓单信息</h3></div>
+            <div id="dalWarehouseList" style="width:100%;"></div>
+
+
+            <div class="long-title"><h3>分布信息</h3></div>
+            <div id="tabs" style="width:100%">
+                <ul>
+                    <li><a href="#tabs-1">合同期限分布</a></li>
+                    <li><a href="#tabs-2">账龄分布</a></li>
+                    <li><a href="#tabs-3">剩余期限分布</a></li>
+                    <li><a href="#tabs-4">利率分布</a></li>
+                    <li><a href="#tabs-5">合同金额分布</a></li>
+                    <li><a href="#tabs-6">本金余额分布</a></li>
+                    <li><a href="#tabs-7">贷款行业分布</a></li>
+                    <li><a href="#tabs-8">年收入分布</a></li>
+                    <li><a href="#tabs-9">年龄分布</a></li>
+                    <li><a href="#tabs-10">信用分数分布</a></li>
+                    <li><a href="#tabs-11">五级分类分布</a></li>
+                    <li><a href="#tabs-12">客户级别</a></li>
+                    <li><a href="#tabs-13">客户逾期</a></li>
+                    <li><a href="#tabs-14">客户违约</a></li>
+                    <li><a href="#tabs-15">仓单状态</a></li>
+                    <li><a href="#tabs-16">仓单逾期</a></li>
+                    <li><a href="#tabs-17">仓单违约</a></li>
+                    <li><a href="#tabs-18">回购状态</a></li>
+                    <li><a href="#tabs-19">仓单强平</a></li>
+
+                </ul>
+                <div id="tabs-1">
+                    <div id="loanTerm-chart"></div>
+                    <div id="loanTerm"></div>
+                </div>
+                <div id="tabs-2">
+                    <div id="seasoning-chart"></div>
+                    <div id="seasoning"></div>
+                </div>
+                <div id="tabs-3">
+                    <div id="remainingTerm-chart"></div>
+                    <div id="remainingTerm"></div>
+                </div>
+                <div id="tabs-4">
+                    <div id="rate-chart"></div>
+                    <div id="rate"></div>
+                </div>
+                <div id="tabs-5">
+                    <div id="loanAmount-chart"></div>
+                    <div id="loanAmount"></div>
+                </div>
+                <div id="tabs-6">
+                    <div id="cpr-chart"></div>
+                    <div id="cpr"></div>
+                </div>
+                <div id="tabs-7">
+                    <div id="career-chart"></div>
+                    <div id="career"></div>
+                </div>
+                <div id="tabs-8">
+                    <div id="income-chart"></div>
+                    <div id="income"></div>
+                </div>
+                <div id="tabs-9">
+                    <div id="age-chart"></div>
+                    <div id="age"></div>
+                </div>
+                <div id="tabs-10">
+                    <div id="credit-chart"></div>
+                    <div id="credit"></div>
+                </div>
+                <div id="tabs-11">
+                    <div id="gradeLevel-chart"></div>
+                    <div id="gradeLevel"></div>
+                </div>
+                <div id="tabs-12">
+                    <div id="creditRating-chart"></div>
+                    <div id="creditRating"></div>
+                </div>
+                <div id="tabs-13">
+                    <div id="isCusInArrears-chart"></div>
+                    <div id="isCusInArrears"></div>
+                </div>
+                <div id="tabs-14">
+                    <div id="isCusInDefault-chart"></div>
+                    <div id="isCusInDefault"></div>
+                </div>
+                <div id="tabs-15">
+                    <div id="loanStatus-chart"></div>
+                    <div id="loanStatus"></div>
+                </div>
+                <div id="tabs-16">
+                    <div id="isLoanInArrears-chart"></div>
+                    <div id="isLoanInArrears"></div>
+                </div>
+                <div id="tabs-17">
+                    <div id="isLoanInDefault-chart"></div>
+                    <div id="isLoanInDefault"></div>
+                </div>
+                <div id="tabs-18">
+                    <div id="buyBackStatus-chart"></div>
+                    <div id="buyBackStatus"></div>
+                </div>
+                <div id="tabs-19">
+                    <div id="isForcedClosed-chart"></div>
+                    <div id="isForcedClosed"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>任务单</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="taskList-style.css" rel="stylesheet" />
+    <script src="../../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TaskListVerify/TaskListType']);
+        })
+    </script>
+</head>
+<body>
+    <!-- 分页所需变量-->
+    <input type='hidden' id='current_page' />
+    <input type='hidden' id='show_per_page' />
+    <div class="main">
+        <h3 class="h3">任务单</h3>
+        <div class="content">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>任务单类型</th>
+                        <th width="350px">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="dataList"></tbody>
+                <tfoot id="tfootNewSession" style="display:none;">
+                    <tr>
+                        <td>&nbsp;&nbsp;</td>
+                        <td colspan="3">
+                            下一循环期日期：&nbsp;&nbsp;<select id="dtNextPeriod"></select><!--<input type="text" id="dtNextPeriod" class="date-plugins form-control" />-->
+                        </td>
+                        <td class="center">
+                            <button type="button" class="btn btn-default" id="generd">生成</button> 
+                        </td>
+                    </tr>
+                </tfoot>
+                
+            </table>
+            <div id='page_navigation'></div>
+        </div>
+    </div>
+    <div class="run-loading" id="divLoading">
+        <div class="loading">
+            <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+        </div>
+    </div>
+
+</body>
+</html>

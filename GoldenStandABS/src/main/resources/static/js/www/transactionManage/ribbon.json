@@ -1,0 +1,77 @@
+﻿{
+    "app": "transactionManage",
+    "title": "交易管理",
+    "group": [
+        {
+            "module": "Index",
+            "title": "业务向导",
+            "titleclass": "icon-directionLeft01",
+            "elements": [
+                {
+                    "title": "资产转让向导",
+                    "type": "button",
+                    "icon": "fa fa-sign-out fa-fw",
+                    "linkname": "viewAssetTransfer",
+                    "linkurl": "javascript:viewAssetTransfer",
+                    "asideUrl": "assetTransfer/viewAssetTransfer.html"
+                },
+                {
+                    "title": "信托对价分配向导",
+                    "type": "button",
+                    "icon": "fa fa-indent fa-fw",
+                    "linkname": "viewAllocationTrust",
+                    "linkurl": "javascript:viewAllocationTrust",
+                    "asideUrl": "allocationTrust/viewAllocationTrust.html"
+                },
+                {
+                    "title": "资产回收向导",
+                    "type": "button",
+                    "icon": "iconfont icon-huishou",
+                    "linkname": "viewAssetRecovery",
+                    "linkurl": "javascript:viewAssetRecovery",
+                    "asideUrl": "assetRecovery/viewAssetRecovery.html"
+                },
+                {
+                    "title": "资产回收上划向导",
+                    "type": "button",
+                    "icon": "iconfont icon-jinshengmoxing",
+                    "linkname": "viewBuyBack",
+                    "linkurl": "javascript:viewBuyBack",
+                    "asideUrl": "buyBack/viewBuyBack.html"
+                },
+                {
+                    "title": "资产回收转付向导",
+                    "type": "button",
+                    "icon": "iconfont icon-linjinhuigou",
+                    "linkname": "viewRecoveryTransfer",
+                    "linkurl": "javascript:viewRecoveryTransfer",
+                    "asideUrl": "recoveryTransfer/viewRecoveryTransfer.html"
+                },
+                {
+                    "title": "资产赎回管理向导",
+                    "type": "button",
+                    "icon": "iconfont icon-shuhuiguanliicon",
+                    "linkname": "viewAssetRedemption",
+                    "linkurl": "javascript:viewAssetRedemption",
+                    "asideUrl": "assetRedemption/viewAssetRedemption.html"
+                },
+                {
+                    "title": "清仓回购管理向导",
+                    "type": "button",
+                    "icon": "iconfont icon-zichanguanli",
+                    "linkname": "viewClearanceBuyBack",
+                    "linkurl": "javascript:viewClearanceBuyBack",
+                    "asideUrl": "clearanceBuyBack/viewClearanceBuyBack.html"
+                },
+                {
+                    "title": "回购上划管理向导",
+                    "type": "button",
+                    "icon": "iconfont icon-zichan1",
+                    "linkname": "viewRecycleMark",
+                    "linkurl": "javascript:viewRecycleMark",
+                    "asideUrl": "recycleMark/viewRecycleMark.html"
+                }
+            ]
+        }
+    ]
+}

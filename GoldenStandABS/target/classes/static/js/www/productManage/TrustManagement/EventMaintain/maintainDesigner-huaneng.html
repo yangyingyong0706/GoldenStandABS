@@ -1,0 +1,289 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>设置</title>
+
+  
+    <link href="../TrustWizard/trustWizard.css" rel="stylesheet" />
+    <link href="css/maintain-huaneng.css" rel="stylesheet" />
+    <link href="css/reset-huaneng.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+
+    <style>
+        .table-bordered{
+            position:absolute;
+            left:0px;
+        }
+        html {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .rightTi{
+            width:100%;
+            /*padding:2px*/
+            height:100%;
+        }
+        #rationL th,#circumstances2 th {
+            font-size:14px;
+            color:#555;
+            font-family: "Microsoft Yahei";
+            font-weight: 500;
+        }
+        .table > thead > tr > th {
+            /* border-bottom: 2px solid #B2C3E2; */
+            background: #ffffff;
+        }
+        .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+            border: 1px solid #d4dff3 !important;
+        }
+        #circumstances {
+            /*display: block;*/
+            width: auto;
+            height: 141px !important;
+        }
+            #circumstances #DisplayDescribe {
+                width: calc(100% - 20px);
+                height: 100%;
+                margin: auto;
+            }
+            .ui-dialog .ui-dialog-buttonpane button {
+                    padding:0px;
+                    border: 1px solid #d4d4d4;
+                    margin: 0;
+                    text-decoration: none;
+                    text-align: center;
+                    text-shadow: 1px 1px 0 #fff;
+                    color: #555;
+                    white-space: nowrap;
+                    cursor: pointer;
+                    outline: none;
+                    background-color: #ececec;
+                    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f4f4f4), to(#ececec));
+                    background-image: -moz-linear-gradient(#f4f4f4, #ececec);
+                    background-image: -ms-linear-gradient(#f4f4f4, #ececec);
+                    background-image: -o-linear-gradient(#f4f4f4, #ececec);
+                    background-image: linear-gradient(#f4f4f4, #ececec);
+                    -moz-background-clip: padding;
+                    background-clip: padding-box;
+                    border-radius: 0.2em;
+                    zoom: 1;
+                    font-size:14px;
+                    font-family: "Microsoft Yahei";
+                    font-weight:normal;
+                    text-align:center;
+            }
+            .ui-dialog .ui-dialog-buttonpane button:hover{
+                border-color: #3072b3;
+                border-bottom-color: #2a65a0;
+                text-decoration: none;
+                text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
+                color: #fff;
+                background-color: rgba(116,157,230,1);
+                background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#599bdc), to(#3072b3));
+                background-image: -moz-linear-gradient(#599bdc, #3072b3);
+                background-image: -o-linear-gradient(#599bdc, #3072b3);
+                background-image: linear-gradient(#599bdc, #3072b3);
+                font-size:14px;
+                font-family: "Microsoft Yahei";
+                font-weight:normal;
+            }
+            /*ui-dialog .ui-dialog-buttonpane {
+                border-width: 0px 0 0 0 !important;
+            }*/
+        .content {
+            height:100%;
+        }
+        .rightTi .header nav {
+            width: auto;
+        }
+        .leftTi {
+            height:150px;
+        }
+          .navbar-nav li .line{
+        display:block;
+        height:3px;
+        border-radius:3px;
+        width:20%;
+        margin-top:-3px;
+        background-color:transparent;
+        transition:width .3s;
+    }
+     .navbar-nav li:hover .line,
+     .navbar-nav li.active .line{
+        background:#94A6C1;
+        width:100%;
+    }
+     .navbar-nav li:hover > a,
+     .navbar-nav li.active > a{
+        color:#fff;
+    }
+       .mask {       
+            position: absolute; top: 0px; filter: alpha(opacity=60); background-color: #777;     
+            z-index: 1002; left: 0px;     
+            opacity:0.1; -moz-opacity:0.1;     
+        } 
+            .navbar-nav{
+        padding-left:9px;
+    }
+        .rightTi .nav.navbar-nav li:hover{
+            background:rgba(59,62,93,0.8);
+        } 
+    </style>
+</head>
+<body style="width:100%;height:100%;overflow:hidden">
+    <div id="mask" class="mask"></div>
+    <div class="content clearfix">
+        <div class="bCont clearfix">
+            <div class="leftTi">
+                <div class="listTitle">
+                    <span>事件</span>
+
+                    <i><span id="newEvent" class="glyphicon glyphicon-plus" style="color:#555" title="Add Event">添加</span></i>
+                    <i style="padding-right:3%;"><span id="deleteEvent" class="glyphicon glyphicon-minus" style="color:#555;" title="Delete Event">删除</span></i>
+                    
+                </div>
+                <ul id="eventList" class="clearfix"></ul>
+            </div>
+            <div class="rightTi">
+                <div class="header">
+                    <nav class="" role="navigation">
+                        <ul class="nav navbar-nav">
+                            <li class="active">
+                                <a class="active" href="#" tab="QualitativeL" title="定性列表">定性列表</a>
+                            </li>
+                            <li>
+                                <a href="#" tab="rationL" title="定量列表">定量列表</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="btn-group" role="group">
+                        <button type="button" id="apply" class="ribbon-button" title="Apply TrustEvent">
+                            <i><span class="icon-ok-1" style="color: #6984b1"></span>应用</i>
+                        </button>
+                        <button type="button" id="saveEvent" class="ribbon-button" title="Save TrustEvent">
+                            <i><span class="icon-floppy-1 " style="color: #6984b1"></span>保存</i>
+                        </button>
+                        <button type="button" id="addRation" class="ribbon-button" title="Add RationItem">
+                            <i><span class="icon-plus" style="color: #555"></span>定量</i>
+                        </button>
+                        <button type="button" id="addQualitative" class="ribbon-button" title="Add Qualitative">
+                            <i><span class="icon-plus" style="color: #555"></span>定性</i>
+                        </button>
+                    </div>
+                </div>
+
+                <!--<div class="determineList">
+                    <div class="work-top">
+                        <div class="pull-right">
+                            <span id="eventName" style="font-size:13px;"></span>
+                        </div>
+
+                </div>-->
+                <!--<div class="determineList">定量列表</div>-->
+                <div>
+                    <div id="rationL" style="display:none;margin:0px;">
+                        <table class="table table-bordered parma">
+                            <thead>
+                                <tr>
+                                    <th  width="16"></th>
+                                    <th  width="300">违约条件名</th>
+                                    <th  width="140">计算列</th>
+                                    <th  width="80">当前值</th>
+                                    <th  width="40">条件</th>
+                                    <th width="80">阀值</th>
+                                    <th  width="40">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rationList"></tbody>
+                        </table>
+                    </div>
+                    <div id="QualitativeL" style="display:block">
+                        <div class="determineList">选中的定性条目</div>
+                        <ul id="selectedQualitativeList" class="determine sortable2 connectedSortable" style="margin:0px"></ul>
+                        <div class="determineList">待选定性条目</div>
+                        <ul id="QualitativeList" class="determine sortable1 connectedSortable" style="margin:0px"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="circumstances" class="circ" title="添加定性">
+            <div style="text-align:center;">
+                <div style="position:absolute;left:0px; ">
+                   <!-- <span style="float:left; ">定性描述：</span>-->
+                    <div style="float:left;"><textarea id="DisplayDescribe" class="textT" rows="6" cols="43"></textarea></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="circumstances2" class="circ" title="添加定量">
+            <table class="table table-bordered parma">
+                <thead>
+                    <tr>
+                        <th width="300">违约条件名</th>
+                        <th width="140">计算列</th>
+                        <th width="80">当前值</th>
+                        <th width="50">条件</th>
+                        <th width="80">阀值</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr droppable="tasktools">
+                        <td>
+                            <input type="text" class="form-control" style="width:300px" id="RationDescribe">
+                        </td>
+                        <td>
+                            <select class="form-control" style="width:140px" id="CalculationCode"></select>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" style="width:80px" id="CurrentValue">
+                        </td>
+                        <td>
+                            <select id="Condition" class="form-control" style="width:50px">
+                                <option value="&lt;">&lt;</option>
+                                <option value="&gt;">&gt;</option>
+                                <option value="&ge;" selected="selected">&ge;</option>
+                                <option value="&le;">&le;</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" id="Threshold" style="width:80px">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="circumstances3" class="circ3" title="事件">
+            <div>
+                <ul>
+                    <li>
+                        <div>ItemCode:</div>
+                        <div>
+                            <input type="text" id="ItemCode" name="ItemCode">
+                        </div>
+                    </li>
+                    <li>
+                        <div>AliasValue:</div>
+                        <div>
+                            <input type="text" id="ItemAliasValue" name="ItemAliasValue">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/productManage/TrustManagement/EventMaintain/js/maintainDesigner-huaneng']);
+        });
+    </script>
+</body>
+</html>

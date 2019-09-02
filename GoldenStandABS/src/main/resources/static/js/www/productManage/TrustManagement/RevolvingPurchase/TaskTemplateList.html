@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>循环购买</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link href="./TrustFollowUp/css/pagerlist-style.css" rel="stylesheet" />
+    <script src="./TrustFollowUp/js/jquery.datagrid.js"></script>
+    <script src="./TrustFollowUp/js/jquery.datagrid.options.js"></script>
+    <script src="./TrustFollowUp/FilePathConfig.js"></script>
+    <script src="./RevolvingPurchase/TaskTemplateList.js"></script>
+    <script src="./TrustFollowUp/FilePathConfig.js"></script>
+    <style type="text/css">
+        #divDataList td .template {
+            text-align: left;
+        }
+
+        #divDataList td .mainform {
+            width: 250px;
+            overflow-x: hidden;
+            display: inline-block;
+        }
+        
+        #divDataList td .template input {
+            margin-right: 10px;
+        }
+
+        #divDataList td .template a {
+            margin-right: 10px;
+        }
+
+        #divDataList td .template span {
+            margin-right: 10px;
+        }
+
+        #divDataList td .do .a {
+            margin-right: 10px;
+        }
+       
+    </style>
+</head>
+<body>
+    <div class="body-container form nobottom">
+        <div class="main">
+            <div class="pull-right">
+                <!--<button type="button" class="btn btn-default btn-sm" id="btnAddNew">新增</button>
+                <button type="reset" class="btn btn-default btn-sm" id="btnReset">重置</button>
+                <button type="button" class="btn btn-primary btn-sm" id="btnSearch">检索</button>-->
+            </div>
+            <h3 class="h3">
+                <span class="title">循环购买</span>
+            </h3>
+            <div class="form-panel drop nobottom">
+                <div class="form-panel drop list-filters">
+                    <div class="col-12">
+                        <div class="col-3 form-group">
+                            <div class="col-4">
+                                <label>循环购买周期：</label>
+                            </div>
+                            <div class="col-7">
+                                <select class="filter <> form-control" name="isnull(IsCashFlowForeCastRequired,0)" id="ReportingDateId"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divDataList" class="list-container"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

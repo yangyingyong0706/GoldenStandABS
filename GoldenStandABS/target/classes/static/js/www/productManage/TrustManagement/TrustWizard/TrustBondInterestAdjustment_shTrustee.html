@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link href="../TrustFollowUp/css/trustFollowUp.css" rel="stylesheet" />
+    <title>浮动利率调整</title>
+    <style>
+        body{
+            background-color:#f8f8f8;
+        }
+        .ft12{
+            font-size:12px;
+        }
+        .table{
+            background:#fff;
+        }
+        .table > thead > tr > th{
+            border-bottom:none;
+            background:#e0e0e0;
+        }
+        .rate-panel{
+            padding:10px 20px;
+        }
+        .rate-panel h3{
+            color:#000099;
+            margin-bottom:10px;
+            font-size:12px;
+            font-weight:normal;
+            border-bottom:1px solid #dcdcdc;
+        }
+        .rate-panel h3 span{
+            position:relative;
+            padding-bottom:5px;
+            border-bottom:2px solid #000099;
+            display:inline-block;
+        }
+        .rate-panel h3 span:before{
+            position:absolute;
+            content:"";
+            bottom:0;
+            border:5px solid transparent;
+            border-bottom-color:#000099;
+            left:50%;
+            margin-left:-5px;
+        }
+        .rate-panel h3 span:after{
+            position:absolute;
+            content:"";
+            bottom:-2.5px;
+            border:5px solid transparent;
+            border-bottom-color:#fff;
+            left:50%;
+            margin-left:-5px;
+        }
+        .edit-panel{
+            margin-top:15px;
+        }
+        .edit-panel .alert-tip{
+            padding:5px 8px;
+            font-size:12px;
+            background:#dde9ff;
+            color:#4078d8;
+            margin-bottom:10px;
+            border-radius:2px;
+        }
+        .edit-panel .edit-form{
+            margin:-.5em;
+        }
+        .edit-panel .edit-form label{
+            font-weight:normal;
+            display:block;
+            padding-bottom:5px;
+        }
+        .edit-panel .edit-form .form-addon{
+            padding:.5em;
+        }
+        .button-groups{
+            border-top:1px solid #dcdcdc;
+            padding:10px 0;
+            vertical-align:middle;
+        }
+        .button-groups .btn{
+            margin-right:5px;
+            vertical-align:middle;
+        }
+        .button-groups a{
+            color:#000099;
+            vertical-align:middle;
+        }
+        th strong{
+            font-weight:normal!important;
+            color:#555
+        }
+        .rate-panel h3 span {
+            font-size:16px;
+            color:#555
+        }
+    </style>
+</head>
+<body style="color:#555">
+    <div class="rate-panel">
+        <h3><span>浮动利率</span></h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>开始时间</th>
+                    <th>结束时间</th>
+                    <!--<th>基础利率</th>-->
+                    <th>利率浮动比率</th>
+                    <th>利率浮动点数</th>
+                    <th>调息期长</th>
+                    <th width="110">操作</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach:adjustmentList">
+                <tr>
+                    <td data-bind="text:StartDate"></td>
+                    <td data-bind="text:EndDate"></td>
+                    <!--<td data-bind="text:BaseRate"></td>-->
+                    <td data-bind="text:AdjustValueBasedOnRatio"></td>
+                    <td data-bind="text:AdjustValueBasedOnNumber"></td>
+                    <td data-bind="text:AdjustFrequency"></td>
+                    <td>
+                        <button type="button" class="btn btn-primary btn-sm ft12"
+                                data-bind="click:$parent.editExistedAdjustment.bind(this,$index)">
+                            编辑
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="edit-panel" data-bind="visible:editData()!=''">
+            <h3><span>编辑</span></h3>
+            <p class="alert-tip">
+                <strong class="icon icon-help ft12"></strong>&nbsp;债券分层信息开始至到期期限：<strong data-bind="text:assetStartEndPeriod"></strong>
+            </p>
+            <div class="edit-form">
+                <div class="col-4 form-addon">
+                    <label>开始时间</label>
+                    <input type="text" data-bind="value:editData().StartDate" class="form-control" disabled/>
+                </div>
+                <div class="col-4 form-addon">
+                    <label>结束时间</label>
+                    <input type="text" data-bind="value:editData().EndDate"  class="form-control" disabled/>
+                </div>
+                <div class="col-4 form-addon">
+                    <label>基础利率</label>
+                    <select data-bind="foreach:PBCRatesCodeOptions,value:editData().PBCRatesCode,event:{change:editData().changePBCCode}" class="form-control">
+                        <option data-bind="value:SubCategoryCode,text:(Category+SubCategory),attr:{interesttype:type,baserate:BaseRate}"></option>
+                    </select>
+                </div>
+                <div class="col-4 form-addon">
+                    <label>浮动比率（%）</label>
+                    <input type="text" data-bind="value:editData().AdjustValueBasedOnRatio" class="form-control" />
+                </div>
+                <div class="col-4 form-addon">
+                    <label>浮动点数（%）</label>
+                    <input type="text" data-bind="value:editData().AdjustValueBasedOnNumber" class="form-control" />
+                </div>
+                <div class="col-4 form-addon">
+                    <label>基准日期</label>
+                    <input type="text" data-bind="value:editData().BaseDate" class="form-control date-plugins" />
+                </div>
+                <div class="col-4 form-addon">
+                    <label>调息方式</label>
+                    <select class="form-control" data-bind="options:AdjustTypeOptions,optionsText:'text',optionsValue:'value',value:editData().AdjustType"></select>
+                </div>
+                <!--ko if:editData().isFixed-->
+                <div class="col-4 form-addon">
+                    <label>调息期长（月）</label>
+                    <input type="text" data-bind="value:editData().AdjustFrequency" class="form-control" />
+                </div>
+                <!--/ko-->
+                <!--ko ifnot:editData().isFixed-->
+                <div class="col-4 form-addon">
+
+                    <div class="edit-form">
+                        <div class="col-6 form-addon">
+                            <label>基于调息日期延后</label>
+                            <input type="text" data-bind="value:editData().AdjustFrequency" class="form-control" />
+                        </div>
+                        <div class="col-6 form-addon">
+                            <label>&nbsp;</label>
+                            <select class="form-control" data-bind="options:DateTypeOptions,optionsText:'text',optionsValue:'value',value:editData().DayCountType"></select>
+                        </div>
+                    </div>
+                </div>
+                <!--/ko-->
+            </div>
+            <div class="clearfix"></div>
+            <div class="button-groups">
+                <button type="button" class="btn btn-primary btn-sm" data-bind="click:save">保存</button>
+                <a href="javascript:;" data-bind="click:cancelEditing">取消编辑</a>
+            </div>
+        </div>
+    </div>
+    <script src="../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TrustWizard/TrustBondInterestAdjustment']);
+        });
+    </script>
+  
+</body>
+</html>

@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>交易管理</title>
+    <link href="../../asset/font/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="../../asset/style/reset.css" rel="stylesheet" />
+    <link href="../../asset/style/common.css" rel="stylesheet" />
+    <link href="../../asset/style/bootstrap.css" rel="stylesheet" />
+    <link href="../../asset/lib/goldenstand/uiFrame/css/gs-admin-2.css" rel="stylesheet" />
+    <link href="../../asset/font/font-icon/css/iconfont.css" rel="stylesheet" />
+    <link href="../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../assetFilter/css/chrome-tabs.css" rel="stylesheet" />
+    <link href="../assetFilter/css/chrome-tabs-dark-theme.css" rel="stylesheet" />
+    <link href="../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <!--<link href="style/index.css" rel="stylesheet" />-->
+    <!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+        <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script src="../../asset/lib/require.js" data-main="script/index"></script>
+    <style>
+        .col-md-4{
+            padding:0;
+        }
+        .work {
+            padding-left:200px
+        }
+        .nav-tabs,.Duration-content,.work{
+            display:block;
+            height:100%;
+        }
+        .home-tab {
+            height: 38px;
+        }
+    </style>
+</head>
+<body style="display:none">
+    <div id="selectLanguageDropdown_transmgel" class="localizationTool" style="display:none"></div>
+    <section class="Duration-content container-fluid" id="transactionManage">
+        <div class="work row">
+            <!-- 资产管理 -->
+            <div id="tabs" class="nav-tabs col-md-4">
+                <div id="DashBoard" class="ribbonBox" v-cloak=v-cloak>
+                    <ul>
+                        <li class="ribbonGroup  nav_style_hander" v-for="group in obj.group">
+                            <span class="click_direction dot"><i v-bind:class="group.titleclass"></i>{{group.title}}<i class="icon icon-bottom" style="float: right;"></i></span>
+                            <div class="hidden_area">
+                                <div v-for="item in group.elements" track-by="$index">
+                                    <div v-if="item!=empty">
+                                        <a v-bind:href="creatLink(item.linkname,item.linkurl)" class="ribbonButton">
+                                            <!-- <a v-bind:data-action="item.linkname" v-bind:href="" class="ribbonButton">-->
+                                            <i v-bind:class="item.icon"></i>
+                                            <span>{{item.title}}</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="fixed_control">
+                    <i></i>
+                </div>
+            </div>
+            <div id="main" class="htmleaf-container">
+                <!-- ko foreach: tabs -->
+                <iframe class="iframe" data-bind="attr: { id:id,src: url },css: { hide: id != $parent.showId() }"></iframe>
+                <!-- /ko -->
+                <div class="chrome-tabs-shell" style="height:35px;position:fixed;bottom:0;z-index:2;">
+                    <div class="chrome-tabs" data-bind="foreach: tabs">
+                        <div class="chrome-tab" data-bind="css: { active: id == $parent.showId() }, event: { click: $parent.changeShowId.bind($parent,$data) }">
+                            <div class="chrome-tab-title" data-bind="text:name,attr : {title : name}">Google</div>
+                            <!-- ko ifnot: disabledClose -->
+                            <div class="chrome-tab-close" data-bind="event: { click: $parent.closeShowId.bind($parent,$data) }"></div>
+                            <!-- /ko -->
+                            <div class="chrome-tab-curves">
+                                <div class="chrome-tab-curves-left-shadow"></div>
+                                <div class="chrome-tab-curves-left-highlight"></div>
+                                <div class="chrome-tab-curves-left"></div>
+                                <div class="chrome-tab-curves-right-shadow"></div>
+                                <div class="chrome-tab-curves-right-highlight"></div>
+                                <div class="chrome-tab-curves-right"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>交易管理-上传数据</title>
+    <link href="../../../asset/font/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="../../../asset/style/reset.css" rel="stylesheet" />
+    <link href="../../../asset/style/common.css" rel="stylesheet" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/goldenstand/uiFrame/css/gs-admin-2.css" rel="stylesheet" />
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../transactionManage/style/index.css" rel="stylesheet" />
+    <link href="../../assetFilter/Contents/style.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+
+    <script src="../../../asset/lib/require.js" data-main="viewAccountingUpdata"></script>
+    <style>
+         .file {
+            height: 26px;
+        }
+        .page{
+            padding:0;
+        }
+        .date_selector{
+            width:243px;
+            position:absolute;
+            left:0px;
+        }
+        #ImportAssetInfo{
+            margin:10px 0;
+        }
+        #file_BasePool{
+            background:transparent;
+        }
+        .main{
+            padding:15px
+        }
+        .main .h3 .title{color:rgba(59,62,93,.8);font-size: 16px;}
+        .main h3{
+            margin: -15px 0 0 0px;
+        }
+        .modal-layout{
+            width:100% !important;
+        }
+        input[type=file] {
+            display:block
+        }
+        .form .form-panel{
+            padding-bottom:0px;
+            margin:0px;
+        }
+        .form .form-panel.drop .form-group{
+            padding:0px;
+        }
+        .form .form-group{
+            padding:0px;
+        }
+        .col-md-3,.col-md-9{
+            padding:0px;
+        }
+        .pull-right{
+            width:100%;
+            text-align:center;
+        }
+          .progress {
+            height: 20px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+        }
+
+            .progress > .progress-bar {
+                float: left;
+                width: 0;
+                height: 100%;
+                font-size: 12px;
+                line-height: 20px;
+                text-align: right;
+                background: #6c78bd;
+                background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                -webkit-transition: width .6s ease;
+                -o-transition: width .6s ease;
+                -webkit-background-size: 40px 40px;
+                background-size: 40px 40px;
+                -webkit-animation: progress-bar-stripes 2s linear infinite;
+                -o-animation: progress-bar-stripes 2s linear infinite;
+                animation: progress-bar-stripes 2s linear infinite;
+            }
+            .file_name{
+                    display: inline-block;
+                    height: 30px;
+                    line-height: 30px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    width: calc(75% - 90px);
+                    box-sizing: border-box;
+                    padding-left: 10px;
+                    border:1px solid rgba(0,0,0,0.2);
+                    border-right:0px;
+            }
+            input[type=file]{
+                display:none
+            }
+    </style> 
+</head>
+<body style="display:none">
+    <div id="selectLanguageDropdown_qcl" class="localizationTool" style="display:none"></div>
+    <div class="form page">
+        <div class="main">
+            <h3 id="step-title" class="h3"><span class="title" style="border:none" id="data">导入会计核算数据</span></h3>
+            <div class="form" id="ImportAssetInfo">
+                <div class="form-body default">
+                    <div class="form-panel drop" style="padding-top:0px">
+                        <div class="form-group col-md-12">
+                            <div class="col-md-3 text-center"><label id="date">导入日期</label></div>
+                            <div class="col-md-9"><input type="text" id="reportingDate" class="form-control date-plugins" data-valid="required date"></div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <div class="col-md-3 text-center"><label id="type">数据类型</label></div>
+                            <div class="col-md-9">
+                                <select id="select" placeholder="请选择会计类型" class="form-control" value="">
+                                    <option value="1" id="tab1">会计凭证</option>
+                                    <option value="2" id="tab2">会计科目</option>
+                                    <option value="3" id="tab3">凭证详情</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="col-md-3 text-center"><label id="file">导入文件</label></div>
+                        <label class="input_file_style" for="fileBasePool" style="width:90px;float:right;border-radius:0px;border:1px solid rgba(220,224,238,1);background:rgba(243,245,250,1);color:#808080;padding:0px;text-align:center">
+                            <input type="file" id="fileBasePool" class="form-control file" data-valid="required" />
+                            <span class="EnterFile_ail" id="choose">选择文件</span>
+                        </label>
+                        <span class="file_name"></span>
+                    </div>
+                    <div id="test_progress" class="progress" style="width:100%;position:relative;top:5px;margin:0px;display:none">
+                        <div class="progress-bar"><span></span></div>
+                    </div>
+                </div>
+                <br />
+                <div id="tips" class="h3"></div>
+                <div class="col-md-2 buttons pull-right">
+                    <button type="button" class=" btn btn-primary" title="上传" id="btnUpload">上传</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

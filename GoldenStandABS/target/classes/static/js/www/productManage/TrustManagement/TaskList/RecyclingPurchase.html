@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>循环购买</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!--<link href="taskList-style.css" rel="stylesheet" />-->
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <script src="../../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TaskList/RecyclingTaskList']);
+        })
+    </script>
+    <style>
+        html {
+            height: calc(100% - 35px);
+        }
+        body {
+            height: 100%;
+            background: #fafafa;
+            padding: 15px;
+        }
+         #page_navigation{
+             text-align:right;
+             margin-top:6px;
+         }
+        #page_navigation a{
+	        padding:3px 12px;
+	        border:1px solid #dce0ee;
+	        margin:2px;
+	        color:#4d4d4d;
+	        text-decoration:none;
+            cursor:pointer;
+            display:inline-block;
+        }
+        .active_page{
+	        background:#45569c ;
+	        color:white !important;
+        }
+        .main {
+            padding: 15px;
+            height: 100%;
+            background: #fff;
+        }
+        .h3 {
+            margin: 0;
+        }
+        .h3 .title {
+            font-size: 16px;
+            color: #4d4d4d;
+        }
+        .content {
+            margin: 17px 0;
+        }
+        td{
+            font-size:14px;
+            border: 1px solid #dedede;
+            text-align: center;
+        }
+        .table>thead>tr>th {
+            vertical-align: middle;
+            background: #fafafa;
+            color: #4d4d4d;
+            font-weight: 400;
+            border: 1px solid #dce0ee;
+            text-align: center;
+        }
+        .table>caption+thead>tr:first-child>td, 
+        .table>caption+thead>tr:first-child>th, 
+        .table>colgroup+thead>tr:first-child>td, 
+        .table>colgroup+thead>tr:first-child>th, 
+        .table>thead:first-child>tr:first-child>td, 
+        .table>thead:first-child>tr:first-child>th {
+            border-top: 1px solid #dce0ee;
+        }
+        .run-loading {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        .loading i {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            color: rgb(107, 147, 216);
+        }
+        h3.h3 {
+            height: 40px;
+            line-height: 40px;
+            border-bottom: 1px solid #dedede;
+            margin: -15px -15px 15px;
+            padding: 0 15px;
+            font-size: 16px;
+            color: #4d4d4d;
+        }
+        #btnGenerateNext {
+            margin-top: -12px;
+        }
+        #dtNextPeriod{
+            height:30px;
+            line-height:30px;
+            padding:0px 6px;
+            border-radius:2px;
+            border:1px solid #dce0ee;
+        }
+        #dtNextPeriod:focus{
+            border-color: #45569c;
+            box-shadow: inset 0 0px 0px #45569c, 0 0 4px #45569c;
+        }
+        .signle-btn{
+            border-color: #ccd0de;
+        }
+    </style>
+</head>
+<body>
+    <!-- 分页所需变量-->
+    <input type='hidden' id='current_page' />
+    <input type='hidden' id='show_per_page' />
+    <div class="main">
+        <div class="pull-right">
+            <button type="button" class="btn btn-default signle-btn" id="btnGenerateNext">生成下一期</button>
+        </div>
+        <h3 class="h3">循环购买任务管理</h3>
+        <div class="content">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th width="50px">期数</th>
+                        <th width="120px">循环期日期</th>
+                        <th>&nbsp;</th>
+                        <th width="240px">创建时间</th>
+                        <th width="120px">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="dataList"></tbody>
+                <tfoot id="tfootNewSession" style="display:none;">
+                    <tr>
+                        <td>&nbsp;&nbsp;</td>
+                        <td colspan="3">
+                            下一循环期日期：&nbsp;&nbsp;<select id="dtNextPeriod"></select><!--<input type="text" id="dtNextPeriod" class="date-plugins form-control" />-->
+                        </td>
+                        <td class="center">
+                            <button type="button" class="btn btn-default signle-btn" id="generd">生成</button> 
+                        </td>
+                    </tr>
+                </tfoot>
+                
+            </table>
+            <div id='page_navigation'></div>
+        </div>
+    </div>
+    <div class="run-loading" id="divLoading">
+        <div class="loading">
+            <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,322 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" style="overflow-x:hidden">
+<head>
+    <title>生成报告</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link href="../TrustWizard/trustWizard.css" rel="stylesheet" />
+    <link href="generationReport.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<style>
+    html { color: #596d7f; height: 100%; }
+
+    .table { margin-bottom: 10px; }
+
+    .title_span_style { border-left: 5px solid rgb(20,114,226); padding-left: 5px; color: rgb(20,114,226); font-weight: bold; }
+
+    body { background: #292f4a; height: 100%; }
+
+    .title { background: none; text-align: left; color: white; width: 90%; margin: auto; border-bottom: none; }
+
+    .catalog .catalog-box { width: 100%; background: white; border-radius: 5px; margin: 0px; height: 100%; }
+
+    .catalog .catalog-box .catalog-scroll .catalog-list .catalog-title { padding-left: 0px; z-index: 26; }
+
+    .catalog .catalog-box .line { left: 28px; border: 1px dotted rgba(0,0,0,0.1); height: 100%; }
+
+    .catalog .catalog-box .catalog-scroll { width: calc(100% - 20px); margin: auto; overflow-y: auto; padding: 15px 10px; background: #fff; }
+
+    .catalog .catalog-box .catalog-scroll .catalog-list .catalog-title.active .text, .catalog .catalog-box .catalog-scroll .catalog-list .catalog-title:hover .text { padding: 0px 6px; padding-right: 10px; }
+
+    .catalog .catalog-box .catalog-scroll .catalog-list .catalog-title.active, .catalog .catalog-box .catalog-scroll .catalog-list .catalog-title:hover { padding: 0px; transition: none; }
+
+    .catalog .catalog-box .catalog-scroll .catalog-list .catalog-title.active .text, .catalog .catalog-box .catalog-scroll .catalog-list .catalog-title:hover .text { padding: 0px; }
+
+    .catalog .catalog-box .catalog-scroll .catalog-list .catalog-title.active .text, .catalog .catalog-box .catalog-scroll .catalog-list .catalog-title:hover .text { padding: 0px; }
+
+    .catalog .catalog-box .catalog-scroll .catalog-list .catalog-title .text:after { content: none; }
+
+    .line_style { position: absolute; border: 1px dotted rgba(0,0,0,0.1); top: 30px; left: 60px; width: calc(100% - 90px); }
+
+    .catalog .catalog-box .catalog-scroll .catalog-list .catalog-title .sub-text { float: right; position: relative; top: 20px; background: #fff; padding-left: 15px; }
+
+    .catalog .catalog-box .catalog-scroll .catalog-list .catalog-title:nth-of-type(1) .sub-text { float: right; position: relative; top: 20px; }
+
+    .days_style { float: right; color: rgb(20,114,226); font-weight: bold; }
+
+    .table > thead > tr > th { border-bottom: 1px solid #dbdde0; background: #ffffff; vertical-align: middle; font-weight: bold; color: rgb(20,114,226); }
+
+    .catalog .catalog-box .catalog-scroll .catalog-list .catalog-title .dot { left: 0.18%; }
+
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td { border: 1px solid #dbdde0; }
+
+    .table > thead > tr > td { font-weight: bold; }
+
+    .dateboxhide { display: none; }
+
+    .dateboxhide span, .dateboxhide .days_style { color: #000000; font-size: 14px; }
+
+    html, body { width: 100%; height: 100%; }
+
+    .data_no { position: absolute; border: 1px solid rgba(0,0,0,0.1); background: white; width: 100%; height: 100%; line-height: 100px; border-radius: 2px; z-index:2; top: 0px; left: 0px; box-sizing: border-box; }
+
+    .data_no .content_nodata { display: inline-block; width: 200px; height: 150px; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); }
+
+    .data_no .content_nodata .nodata_img { display: block; width: 200px; height: 130px; background: url(../../../../asset/img/no_ata.png) no-repeat; }
+
+    .data_no .content_nodata .nodata_text { position: absolute; top: 135px; font-size: 16px; display: block; height: 20px; line-height: 20px; text-align: center; width: 100%; }
+
+    body { padding: 30px; box-sizing: border-box; overflow: auto; }
+
+    .doot_line { position: absolute; top: 0px; left: -12px; height: 100%; border: 1px dotted rgba(0,0,0,0.2); }
+
+    .help { position: relative; display: inline-block; margin-left: 10px; font-size: 14px; color: #0055f1; }
+
+    .help .icon { font-size: 12px; }
+
+    .help .tip-box { position: absolute; left: 30px; top: -10px; width: 230px; min-height: 40px; color: #fff; background-color: #333; display: none; z-index: 9999; padding: 15px; font-size: 12px; border-radius: 3px; }
+
+    .help .tip-box:before { position: absolute; content: ""; top: 12px; left: -20px; border: 10px solid transparent; border-right-width: 13px; border-right-color: #333; }
+
+    .help:hover .tip-box { display: block; }
+
+    .help .tip-box ul { line-height: 1.777; }
+
+    .help .tip-box ul li { margin-left: 10px; }
+
+    .help .tip-box p { color: #fff1bd; }
+    .form { min-height: 0; border: none; }
+
+    .table > thead > tr > th,
+    .table > tbody > tr > th,
+    .table > tfoot > tr > th,
+    .table > thead > tr > td,
+    .table > tbody > tr > td,
+    .table > tfoot > tr > td { padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd; }
+    .table > thead > tr > th { vertical-align: bottom; border-bottom: 2px solid #ddd; }
+    .table > tbody + tbody { border-top: 2px solid #ddd; }
+    .table .table { background-color: #fff; }
+    .table-bordered { border: 1px solid #ddd; }
+    .table-bordered > thead > tr > th,
+    .table-bordered > tbody > tr > th,
+    .table-bordered > tfoot > tr > th,
+    .table-bordered > thead > tr > td,
+    .table-bordered > tbody > tr > td,
+    .table-bordered > tfoot > tr > td { border: 1px solid #ddd; }
+    .table-bordered > thead > tr > th,
+    .table-bordered > thead > tr > td { border-bottom-width: 2px; }
+    .table-striped > tbody > tr:nth-of-type(odd) { background-color: #f9f9f9; }
+    .table-hover > tbody > tr:hover { background-color: #f5f5f5; }
+
+    .catalog .catalog-box { }
+    .taskProsess { width: 100%; }
+    .taskProsess .bar { width: calc(100% - 100px); display: inline-block; vertical-align: middle; box-sizing: border-box; font-size: 0; border-radius: 30px;height:15px;    box-shadow: 0 1px 1px rgba(0,0,0,.15); overflow: hidden; background: #f1f1f1;position: relative; }
+    .taskProsess .bar span.done { background: #41af41; position:absolute;left:0;top:0;height: 100%;transition: all ease .3; }
+
+    .taskProsess span { display: inline-block; position: relative; /*box-sizing: border-box;*/ height: 14px;width: 50px; vertical-align: middle; }
+    #task-dialog { padding: 10px; }
+    .text:hover,
+    .text.active { transition: all .3s ease; color: #d5b45d !important; background: url('../../../../asset/img/circle_colour_01.png') !important; transform: scale(1) !important; }
+    .hide { display: none; }
+    .mr-xs { margin-right: 10px; }
+    .catalog-list { position: relative; }
+    .mask { position: fixed; top: 0px; width: 100%; bottom: 0; background-color: #fff; z-index: 1002; left: 0px; text-align: center; }
+    .mask img { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); }
+    .fade-enter-active { transition: all .3s ease; }
+    .fade-leave-active { transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0); }
+    .fade-enter, .fade-leave-active { opacity: 0; transform: translate(-50%,-100%) !important; }
+    .gd-message { min-width: 380px; box-sizing: border-box; border-radius: 4px; border-width: 1px; border-style: solid; border-color: #ebeef5; position: fixed; z-index: 99999; left: 50%; top: 60px; transform: translateX(-50%); background-color: #edf2fc; transition: opacity 0.3s,transform .4s; overflow: hidden; padding: 10px 15px; display: flex; align-items: center; font-size: 14px; }
+    .gd-message .fa { margin-right: 8px; margin-top: 3px; }
+    .gd-message-success { color: #67c23a; background-color: #f0f9eb; }
+    .gd-message-warning { color: #e6a23c; background-color: #fdf6ec; }
+    .gd-message-info { color: #909399; background-color: #f0f9eb; }
+    .gd-message-error { color: #f56c6c; background-color: #fef0f0; }
+    .oper_btn.disabled { background: #c7c7c7; color: #8c8c8c; }
+.loading {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  z-index: 10000;
+  text-align: center;
+  line-height: 30px;
+  color: #fff;
+    background: rgba(0,0,0,.5);
+   
+}
+
+.loading .progress {
+  display:inline-block;
+  vertical-align: middle;
+  text-align: center;
+  color:#fff
+}
+.loading .bar{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: #fff;
+    transition: all .3s ease
+}
+.loading .stateText{
+    position: absolute;
+    top:50%;
+    text-align: center;
+    font-size: 16px;
+    width: 100%;
+}
+.table-btn {
+
+  
+}
+.table-btn>div{
+    float: right; 
+     margin-bottom: 10px;
+}
+textarea#reason_input{
+    height: 40px;
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: none;
+    border: 1px solid #ddd;
+    padding:5px;
+    box-sizing:border-box;
+}
+#status-dialog{
+    padding: 15px;
+}
+#status-dialog .reason{
+    margin-bottom: 10px;
+}
+#status-dialog .btns{
+    text-align: right;
+}
+</style>
+
+</head>
+<body>
+
+
+    <div class="catalog" id="catalog" >
+        <div class="data_no" v-show="periods.length==0">
+            <div class="content_nodata">
+                <span class="nodata_img"></span>
+                <span class="nodata_text">当前还没有数据哦！</span>
+            </div>
+        </div>
+
+        <div class="loading" id="loading">
+          <div class="bar"></div>
+          <div class="stateText">文档已完成<div class="progress" id="progress">0%</div></div>
+        </div>
+        <div id="mask" class="mask" v-show="loading"><img src="../../../../asset/img/loading-image.gif" /></div>
+        <div class="catalog-box">
+            <!-- <div style="position: absolute; z-index: 2;"><a v-for="(item,index0) in periods" v-bind:href=('#hash_'+index0)>{{index0+1}}期</a></div> -->
+            <div class="catalog-scroll">
+                <dl class="catalog-list" >
+                    <div class="line"></div>
+                    <dt class="catalog-title" v-for="(item,index) in periods" v-bind:id=('hash_'+index)>
+                        <em class="dot" style="display:none"></em>
+                        <i class="line_style"></i>
+                        <div class="text" @click="getReportTypeList(item.periods,index)"><span style="font-weight:bold;font-size:14px;">{{index+1}}期</span></div>
+                        <div class="sub-text " style="position:absolute;left:50%;transform: translate(-50%);">
+                            <span></span>
+                            <!-- <div class="days_style"><span>{{item.date}}/计息天数</span><span>{{item.days}}</span>天</div> -->
+                        </div>
+                        <div class="sub-text">
+                            <span>{{item.periods}}</span>
+                        </div>
+                        <div style="clear: both;"></div>
+                        <div class="catalog-content form hide">
+                            <div class="col-6 form-group" v-cloak>
+                                 <div class="col-3"><label>报告类型</label></div>
+                                 <div class="col-4 mr-xs">
+                                     <select type="text"  class="form-control date-plugins" data-valid="required" v-model='item.selectReportType'>
+                                         <option value="" >--请选择--</option>
+                                         <option v-for="types in reportTypeList" v-bind:value="types.reportTypeId">{{types.reporterName}}</option> 
+                                     </select> 
+                                 </div>
+                                <div class='col-2 normal_small_button' @click='addReport(index, item.selectReportType)'>添加</div>
+                             </div>
+                             <div style="clear: both;"></div>
+                            <div class="table_wrap ">
+                                <table class="table">
+                                    <thead v-if="item.reportData.length>0">
+                                        <tr>
+                                            <td v-for='t in table_head'>{{t}}</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for='stateList in item.reportData'>
+                                            <td width="10%">{{stateList.selectedReportName}}</td>
+                                            <td width="20%">{{item.periods}}</td>
+                                            <td width="10%" @click="taskDetail(stateList)"><a>数据详情</a></td>
+                                            <td width="25%">
+                                                <div class="taskProsess">
+                                                    <div class="bar">
+                                                        <span class="done" v-bind:style="{width:(getTaskDoneNum(stateList)/stateList.length)*100 + '%'}"></span>
+                                                    </div>
+                                                    <span class="prosessData">{{getTaskDoneNum(stateList)}}/{{stateList.length}}</span>
+                                                </div>
+                                            </td>
+                                            <td width="15%"><span class="badge" v-bind:class="{'badge-info':stateList.reportStatus==1}">{{statusMap[stateList.reportStatus]}}</span></td>
+                                            <td width="20%"><a @click="generationReport(item.periods,stateList)" class="oper_btn">生成</a>  <a href="###" class="oper_btn" @click=checkReport(stateList)>审核</a>  <a @click="downLoadReport(stateList[0].downLoadUrl)" class="oper_btn" v-bind:class="{'disabled':stateList.isGenerated=='0'}">下载</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </dt>
+                </dl>
+            </div>
+        </div>
+
+
+
+         <!--任务导向--> 
+        <div id='task-dialog' class="hide">
+            <div class="table-btn">
+                 <div class='col-4 normal_small_button' @click='pullAllData()'>获取全部数据</div>
+                 <div style="clear: both;"></div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>数据名称</td>
+                        <td>完成状态</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="stateItem in reportDataTemp">
+                        <td>{{stateItem.DataSourceDescription}}</td>
+                        <td><span class="badge" v-bind:class={'badge-info':stateItem.state=="1"}>{{stateItem.state=="1"?"完成":"未完成"}}</span></td>
+                        <td><a @click="pullReportData(stateItem,reportDataTemp.selectedReportId,reportDataTemp.prieodData)" class="oper_btn" href="###">获取数据</a></td>
+                    </tr>
+                </tbody>
+            </table>
+         </div>
+         <div id="status-dialog" style="display:none">
+             <div class="resson">
+                 <textarea id="reason_input"></textarea>
+             </div>
+             <div class="btns">
+                 <div class='normal_small_button' @click="addCheckReport('pass')">同意</div>
+                 <div class='normal_small_button'  @click="addCheckReport('reject')">拒绝</div>
+                 
+            </div>
+         </div>
+    </div>
+    <script src="../../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/generationReport/generationReport']);
+        });
+    </script>
+</body>
+</html>

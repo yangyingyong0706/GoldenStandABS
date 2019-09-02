@@ -1,0 +1,74 @@
+﻿{
+    "app": "DashBoard",
+    "title": "基础资产",
+    "group": [
+        {
+            "module": "Index",
+            "title": "业务向导",
+            "titleclass": "icon-directionLeft01",
+            "elements": [
+                {
+                    "title": "数据模板选择向导",
+                    "type": "button",
+                    "icon": "icon icon-data-science",
+                    "linkname": "DataTemplateImportNavigator",
+                    "linkurl": "javascript:DataTemplateImportNavigator"
+                },
+                {
+                    "title": "资产导入向导",
+                    "type": "button",
+                    "icon": "icon icon-data-science",
+                    "linkname": "ImportAssetNavigator",
+                    "linkurl": "javascript:ImportAssetNavigator"
+                }
+
+            ]
+        },
+
+        {
+            "module": "abc",
+            "title": "功能选项",
+            "titleclass": "icon-directionLeft02",
+            "elements": [
+
+                {
+                    "title": "数据模板",
+                    "type": "button",
+                    "icon": "icon icon-rankfill",
+                    "linkname": "DownAssetTemplates",
+                    "linkurl": "javascript:DownAssetTemplates"
+                },
+
+
+                {
+                    "title": "数据校验",
+                    "type": "button",
+                    "icon": "icon icon-chart-bar",
+                    "linkname": "OpenDataCheckPage",
+                    "linkurl": "javascript:OpenDataCheckPage"
+                },
+                {
+                    "title": "导入资产",
+                    "type": "button",
+                    "icon": "icon icon-upload-cloud",
+                    "linkname": "OpenUploadTrust",
+                    "linkurl": "javascript:OpenUploadTrust"
+                },
+                {
+                    "title": "资产查询",
+                    "type": "button",
+                    "icon": "icon icon-asset",
+                    "linkname": "QueryAsset",
+                    "linkurl": "javascript:QueryAsset"
+                },
+                {
+                    "title": "刷新基础资产信息",
+                    "type": "button",
+                    "icon": "icon icon-arrows-ccw",
+                    "linkname": "UpdateBaseAssetInfo",
+                    "linkurl": "javascript:UpdateBaseAssetInfo"
+                }
+            ]
+        }
+    ]
+}

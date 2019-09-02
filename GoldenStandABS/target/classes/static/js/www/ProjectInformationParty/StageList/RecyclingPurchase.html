@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>循环购买</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!--<link href="taskList-style.css" rel="stylesheet" />-->
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <script src="../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../asset/lib/config'], function (config) {
+            requirejs(['app/ProjectInformationParty/StageList/RecyclingTaskList']);
+        })
+    </script>
+    <style>
+        html {
+            height: 100%;
+        }
+        body {
+            height: 100%;
+            background: #fff;
+            padding: 15px;
+        }
+         #page_navigation{
+             text-align:right;
+             margin-top:6px;
+         }
+        #page_navigation a{
+	        padding:3px 12px;
+	        border:1px solid #dedede;
+	        margin:2px;
+	        color:#4d4d4d;
+	        text-decoration:none;
+            cursor:pointer;
+            display:inline-block;
+        }
+        .active_page{
+	        background:#45569c ;
+	        color:white !important;
+        }
+        .main {
+            height: 100%;
+            background: #fff;
+        }
+        .h3 {
+            margin: 0;
+        }
+        .h3 .title {
+            font-size: 16px;
+            color: #4d4d4d;
+        }
+        .content {
+            margin: 0;
+        }
+        td{
+            font-size:14px;
+            border: 1px solid #dedede;
+            text-align: center;
+        }
+        .table>thead>tr>th {
+            vertical-align: middle;
+            background: #f3f5fa;
+            color: #4d4d4d;
+            font-weight: 400;
+            border: 1px solid #dedede;
+            text-align: center;
+        }
+        .table>caption+thead>tr:first-child>td, 
+        .table>caption+thead>tr:first-child>th, 
+        .table>colgroup+thead>tr:first-child>td, 
+        .table>colgroup+thead>tr:first-child>th, 
+        .table>thead:first-child>tr:first-child>td, 
+        .table>thead:first-child>tr:first-child>th {
+            border-top: 1px solid #dedede;
+        }
+        .run-loading {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        .loading i {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            color: rgb(107, 147, 216);
+        }
+        h3.h3 {
+            height: 40px;
+            line-height: 30px;
+            font-size: 16px;
+            color: #4d4d4d;
+        }
+       .labelstyle{
+           text-align: center;
+            background: #ebeef5;
+            border: 1px solid #dce0ee;
+            border-radius: 2px 0px 0px 2px;
+            line-height: 30px;
+            color: #555;
+            padding: 0 3px;
+            height: 30px;
+            overflow: hidden;
+            display: block;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: 14px;
+            font-weight: normal;
+            width: 50%;
+            display: inline-block;
+            float: left;
+       }
+       .sestyle{
+           background: rgba(255,255,255,1);
+            border: 1px solid #dce0ee;
+            border-radius: 0px 2px 2px 0px;
+            box-shadow: none;
+            border-left: 0 none;
+            float: left;
+            width: 50%;
+            height: 30px;
+            line-height: 30px;
+            padding-left: 10px;
+            box-sizing: border-box;
+       }
+       .layer1,.layer2{
+           width: 30%;
+            display: inline-block;
+            float: left;
+            margin-right: 50px;
+       }
+       .layer3{
+           display: inline-block;
+            width: 30%;
+            float: left;
+            text-align: left;
+       }
+       #turngothis{
+           width:100%;
+           height:100%;
+           display:none;
+       }
+    </style>
+</head>
+<body>
+    <!-- 分页所需变量-->
+    <input type='hidden' id='current_page' />
+    <input type='hidden' id='show_per_page' />
+    <div class="main">
+        <div class="pull-right">
+            <button type="button" class="btn btn-default" id="btnGenerateNext"><i class="icon icon-plus" style="position:relative;left:-2px;top:-1px"></i>新增任务</button>
+        </div>
+        <h3 class="h3">任务管理</h3>
+        <div class="content">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th width="120px">区间类型</th>
+                        <th width="120px">日期</th>
+                        <th width="240px">创建时间</th>
+                        <th width="120px">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="dataList"></tbody>
+                <tfoot id="tfootNewSession" style="display:none;">
+                    <tr>
+                        <td colspan="4">
+                            <div class="layer1">
+                                <label class="labelstyle">
+                                    时间轴类型
+                                </label>
+                                <select id="dtNextPeriodType" class="sestyle">
+                                    <option value="0">兑付期间</option>
+                                    <option value="1">归集期间</option>
+                                </select>
+                            </div>
+                            <div class="layer2">
+                                <label class="labelstyle">
+                                    日期
+                                </label>
+                                <select id="dtNextPeriodDate" class="sestyle"></select>
+                            </div>
+                            <div class="layer3">
+                                <button type="button" class="btn btn-primary" id="generd" style="margin-right:15px">生成</button>
+                                <button type="button" class="btn btn-info" id="cancel">取消</button>
+                            </div>
+                        </td>
+                            
+                    </tr>
+                </tfoot>
+                
+            </table>
+            <div id='page_navigation'></div>
+        </div>
+    </div>
+    <iframe src="" frameborder="0" id="turngothis"></iframe>
+    <div class="run-loading" id="divLoading">
+        <div class="loading">
+            <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+        </div>
+    </div>
+
+</body>
+</html>

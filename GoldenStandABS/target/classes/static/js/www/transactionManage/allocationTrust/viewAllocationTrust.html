@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>交易管理-信托对价分配</title>
+    <link href="../../../asset/font/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="../../../asset/style/reset.css" rel="stylesheet" />
+    <link href="../../../asset/style/common.css" rel="stylesheet" />
+    <link href="../../../asset/style/bootstrap.css" rel="stylesheet" />
+    <link href="../../../asset/lib/goldenstand/uiFrame/css/gs-admin-2.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../style/index.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/lib/fullCalendar/fullcalendar.min.css" rel="stylesheet" />
+    <script src="../../../asset/lib/require.js" data-main="viewAllocationTrust"></script>
+    <style>
+        .k-grid tr.k-state-selected>td{
+             border-color:transparent;
+         }
+        .manager-content {
+            margin: 0;
+            padding: 0;
+        }
+
+        header, .btnItem, .btnItemSave {
+            padding-left: 10px;
+            height:40px;
+            line-height:40px;
+        }
+
+        .title-transaction {
+            font-size: 14px;
+            font-weight: bolder;
+        }
+
+        .transaction-navTitle {
+            font-size: 12px;
+            color: #5a77a9;
+        }
+
+        .btnItemCRUD {
+            padding: 5px 10px 10px 10px;
+        }
+
+        /*.main {
+            display: none;
+        }*/
+
+        .ui-dialog {
+            width: 80% !important;
+        }
+
+        .row {
+            margin: 0;
+        }
+         .ui-dialog {
+            height: 520px !important;
+        }
+
+        .ui-resizable-handle {
+            position: relative;
+            z-index: -111 !important;
+        }
+
+        #lookDetails {
+            height: 340px !important;
+        }
+        /*#grid {
+            height:auto!important;
+        }*/
+        div .k-grid-header{
+            height:38px;
+        }
+    </style>
+</head>
+<body >
+    <div id="selectLanguageDropdown_viewAllocationTrust" class="localizationTool" style="display:none"></div>
+    <div class="row main" id="app">
+        <div id="grid"></div>
+    </div>
+</body>
+</html>
+

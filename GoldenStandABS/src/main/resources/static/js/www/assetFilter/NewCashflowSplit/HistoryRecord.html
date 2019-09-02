@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../productManage/TrustManagement/TrustFollowUp/css/trustFollowUp.css" rel="stylesheet" />
+    <link href="../../productManage/TrustManagement/TrustFollowUp/css/pagerlist-style.css" rel="stylesheet" />
+    <link href="../../productManage/TrustManagement/TrustFollowUp/css/font/GoogleFontDosis.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../assetFilter/css/chrome-tabs.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+</head>
+<body>
+	<div style="padding: 15px;">
+		<div id="grid"></div>
+	</div>
+	
+	<script src="../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../asset/lib/config'], function (config) {
+            requirejs(['app/assetFilter/NewCashflowSplit/HistoryRecord']);
+        });
+    </script>
+</body>
+</html>

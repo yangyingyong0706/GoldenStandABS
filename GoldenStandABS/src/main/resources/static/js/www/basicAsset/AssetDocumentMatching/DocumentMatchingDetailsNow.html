@@ -1,0 +1,355 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-compatible" content="IE=edge,chrome=1">
+    <title></title>
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/style/jquery.searchableSelect.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <style>
+        #loading {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background: #FFFFFF;
+            z-index: 9999;
+        }
+        #loading > i {
+            color: rgb(107, 147, 216);
+            left: 50%;
+            top: 50%;
+            position: absolute;
+            transform: translate(-50%,-50%);
+        }
+        ul, li {
+            list-style: none;
+        }
+        [class^=col] {
+            padding: 0;
+        }
+        .AssetDocumentMatching {
+            padding: 15px;
+        }
+        .matchDetails {
+            margin: 0 0 15px;
+            border: 1px solid #dce0ee;
+        }
+        .matchDetails .title {
+            font-size: 16px;
+            font-weight: 400;
+            color: #4D4D4D;
+            height: 40px;
+            line-height: 40px;
+            padding: 0 15px;
+            margin: 0;
+            border-bottom: 1px solid #dce0ee;
+        }
+        .saveUpload {
+            text-align: center;
+            margin: 15px 0 0 0;
+        }
+        #grid {
+            margin: 15px;
+        }
+        .k-grid-header, .k-grid-header-wrap.k-auto-scrollable {
+            height: auto !important;
+        }
+        .k-grid-header th.k-header {
+            vertical-align: middle;
+        }
+        .por_text {
+            color: #5EB84A;
+        }
+        .matchTable {
+            height: 422px;
+            overflow-y: scroll;
+        }
+        .matchTable table {
+            width: 100%;
+        }
+        .wrapTable {
+            width: calc(100% - 30px);
+            margin: 15px 15px 0;
+            /*border: 1px solid #E6E9F5;*/
+        }
+        .matchTable tr th,  .matchTable tr td {
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid #dce0ee;
+            padding: 4px 10px;
+            color: #4d4d4d;
+            vertical-align: middle;
+        }
+        .searchable-select-holder {
+            height: 30px;
+            line-height: 30px;
+            overflow: hidden;
+            border-radius:2px;
+        }
+        .matchTable tr th {
+            background: #fafafa;
+            font-weight: 400;
+            color: #808080;
+        }
+        .redColor {
+            color: #dd0000;
+        }
+        .grayColor {
+            color: #dcdcdc;
+        }
+        #pageNation {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            text-align: right;
+            color: #808080;
+            -webkit-user-select:none;
+            -moz-user-select:none;
+            -ms-user-select:none;
+            user-select:none;
+            padding: 0 15px;
+        }
+        #pageNation .page {
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+        }
+        #pageNation .prev-btn, #pageNation .next-btn {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            cursor: pointer;
+            text-align: center;
+        }
+        #pageNation .page li {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            color: #808080;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        #pageNation .page li.active {
+            background: #f3f5fa;
+        }
+        #pageNation .page li:hover,#pageNation .prev-btn:hover, #pageNation .next-btn:hover {
+            background: #f3f5fa;
+        }
+        input[type=checkbox] {
+            position: relative;
+            top: 1px;
+        }
+        .withBg {
+            background: #fff!important;
+        }
+        .searchable-select-dropdown {
+            /*box-shadow: 0 0 5px 5px rgba(0,0,0,.2);*/
+        }
+        .searchable-select-items {
+            max-height: 180px;
+        }
+        #back {
+            float: right;
+            margin-top: 5px;
+        }
+        .searchable-select-dropdown {
+            top: 25px;
+        }
+        #downLoad {
+            margin-left: 5px;
+        }
+        #mask {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: rgba(0,0,0,.3);
+            color: #fff;
+            font-size: 14px;
+        }
+        #mask span {
+            left: 50%;
+            top: 50%;
+            position: absolute;
+            transform: translate(-50%,-50%);
+        }
+        .sort {
+            position: relative;
+            top: 2px;
+            display: inline-block;
+            width: 15px;
+            height: 15px;   
+            background: url('../../../asset/lib/Kendo/styles/Material/allow_up.png');
+            background-size: 100% 100% !important;
+            transform: scale(0.8);
+        }
+        .sort.down {
+            top: 4px;
+            transform:rotate(180deg);
+        }
+        .filter {
+            float: right;
+            margin-top: 6px;
+            display: inline-block;
+            width: 15px;
+            height: 15px;   
+            background: url('../../../asset/lib/Kendo/styles/Material/filter.png');
+            background-size: 100% 100% !important;
+            transform: scale(0.8);
+        }
+        .filterBox {
+            position: absolute;
+            width: 186px;
+            background: #ffffff;
+            border: 1px solid #dedede;
+            padding: 5px;
+            border-radius: 4px;
+            z-index: 99;
+            top: 32px;
+            right: 0;
+            display: none;
+        }
+        .filterBox input[type=text],.filterBox select {
+            width: 100%;
+            border: 1px solid #dfdfdf;
+            padding: 0 5px;
+            height: 28px;
+            line-height: 28px;
+            color: #4d4d4d;
+        }
+        .filterBox input[type=text] {
+            margin: 5px 0;
+        }
+        .filterBox button {
+            margin-top: 5px;
+        }
+        .filterBox input[type=radio] {
+            position: relative;
+            top: 4px;
+            margin-right: 5px;
+        }
+        .filterBox input[type=radio]:nth-child(2) {
+            margin-left: 20px;
+        }
+        .tdTitle {
+            cursor: pointer;
+            display: inline-block;
+            width: 90%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="mask" style="display: none;"><span>数组保存中，请稍后......</span></div>
+    <div id="loading"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+    <div id="AssetDocumentMatching" class="AssetDocumentMatching">
+        <div class="matchDetails">
+            <h3 class="title">
+            匹配列表
+                <button class="btn btn-default btn-single-default" id="back" @click="goback"><i class="icon icon-chexiao"></i>返回</button>
+            </h3>
+            <!--<div id="grid"></div>-->
+            <div class="matchTable">
+                <div class="wrapTable">
+                    <table>
+                        <tr>
+                            <th width="5%" style="text-align: center;"><input type="checkbox" class="checkAll" @click="selectAll($event)" /></th>
+                            <th width="25%">系统模板文件</th>
+                            <th width="20%" style="position: relative">
+                                <span class="tdTitle" @click.capture="sortMatchData($event)">是否必填字段 <span class="sort" style="display: none;"></span></span>
+                                <span class="filter" @click.stop></span>
+                                <div class="filterBox">
+                                    显示符合以下条件的行
+                                    <div>
+                                        <input type="radio" value="1" v-model="IsEssentialColumn" name="aa" /> 是
+                                        <input type="radio" value="0" v-model="IsEssentialColumn" name="aa" /> 否
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-default" @click="getMatchData('true')" style="float: left;">清除</button>
+                                        <button class="btn btn-primary" @click="getMatchData" style="float: right;">过滤</button>
+                                    </div>
+                                </div>
+                            </th>
+                            <th width="30%">
+                                外部数据文件
+                            </th>
+                            <th width="20%" style="position: relative">
+                                <span class="tdTitle" @click.capture="sortMatchData($event)">匹配度 <span class="sort" style="display: none;"></span></span>
+                                <span class="filter" @click.stop></span>
+                                <div class="filterBox">
+                                    显示符合以下条件的行
+                                    <select v-model="SimilarityDegreeType">
+                                        <option value="大于">大于</option>
+                                        <option value="小于">小于</option>
+                                    </select>
+                                    <input type="text" id="SimilarityDegree" v-model="SimilarityDegree" />
+                                    <div>
+                                        <button class="btn btn-default" @click="getMatchData('true')" style="float: left;">清除</button>
+                                        <button class="btn btn-primary" @click="getMatchData" style="float: right;">过滤</button>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr v-for="(item,index) in filterMatchData" v-bind:index="index">
+                            <td style="text-align: center;"><input type="checkbox" @click="selectSingle($event)" class="checkselect" v-model="item.IsUsed" /></td>
+                            <td>{{item.DestinationFileColumns}}</td>
+                            <td>
+                                <span v-if="item.IsEssentialColumn==1" class="redColor">是</span>
+                                <span v-else>否</span>
+                            </td>
+                            <td>
+                                <select class="SourceFile withBg" v-if="item.SourceFileColumnsName" v-bind:index="index" v-model="item.SourceFileColumnsName">
+                                    <option v-bind:value="item.SourceFileColumnsName">{{item.SourceFileColumnsName}}</option>
+                                    <option value="">请选择...</option>
+                                    <option v-for="data in selectData" v-bind:value="data.ColumnName_CN">{{data.ColumnName_CN}}</option>
+                                </select>
+                                <select v-else class="SourceFile" v-bind:index="index">
+                                    <option checked="checked" value="">请选择...</option>
+                                    <option v-for="data in selectData" v-bind:value="data.ColumnName_CN">{{data.ColumnName_CN}}</option>
+                                </select>
+                            </td>
+                            <td>
+                                <span class="por_text" v-if="item.SimilarityDegree">{{item.SimilarityDegree}}%</span>
+                                <span v-else class="grayColor">———</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!--<div id="pageNation">         
+                    <span class="prev-btn" @click="pageChange"> < </span>
+                    <span>{{pageIndex}}</span>
+                    <ul class="page">
+                        <li @click="pagination(item,$event)" v-for="item in pageNum">{{item}}</li>
+                    </ul>
+                    <span class="next-btn" @click="pageChange"> > </span>
+                    <span>共 {{pageNum}} 页</span>
+                </div>-->
+            </div>
+        </div>
+        <div class="saveUpload">
+            <button @click="saveUpload" id="upload_ail" type="button" class="btn btn-primary">保存</button>
+            <button @click="downLoad" class="btn btn-primary" id="downLoad">生成文件</button>
+        </div>
+    </div>
+    <script src="../../../asset/lib/require.js"></script>
+    <script>
+			requirejs(['../../../asset/lib/config.js'], function(config) {
+				requirejs(['app/basicAsset/AssetDocumentMatching/DocumentMatchingDetailsNow']);
+			});
+    </script>
+</body>
+
+</html>

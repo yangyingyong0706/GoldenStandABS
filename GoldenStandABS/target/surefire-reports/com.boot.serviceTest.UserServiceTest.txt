@@ -1,4 +1,14 @@
 -------------------------------------------------------------------------------
 Test set: com.boot.serviceTest.UserServiceTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.252 sec - in com.boot.serviceTest.UserServiceTest
+Tests run: 2, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.283 sec <<< FAILURE! - in com.boot.serviceTest.UserServiceTest
+selectUserByIdTest(com.boot.serviceTest.UserServiceTest)  Time elapsed: 0.012 sec  <<< ERROR!
+org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): com.boot.dao.UserDao.selectUserById
+	at org.apache.ibatis.binding.MapperMethod$SqlCommand.<init>(MapperMethod.java:225)
+	at org.apache.ibatis.binding.MapperMethod.<init>(MapperMethod.java:48)
+	at org.apache.ibatis.binding.MapperProxy.cachedMapperMethod(MapperProxy.java:65)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:58)
+	at com.sun.proxy.$Proxy75.selectUserById(Unknown Source)
+	at com.boot.service.impl.UserServiceImpl.selectUserById(UserServiceImpl.java:24)
+	at com.boot.serviceTest.UserServiceTest.selectUserByIdTest(UserServiceTest.java:20)
+

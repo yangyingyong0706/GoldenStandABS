@@ -1,0 +1,41 @@
+﻿{
+    "app": "DashBoard",
+    "title": "系统设置",
+    "group": [
+        {
+            "module": "Index",
+            "title": "系统设置",
+            "titleclass": "icon-directionLeft01",
+            "elements": [
+                {
+                    "title": "工具",
+                    "type": "button",
+                    "icon": "icon icon-plus",
+                    "linkname": "ToolManage",
+                    "linkurl": "javascript:ToolManage"
+                },
+                {
+                    "title": "日志",
+                    "type": "button",
+                    "icon": "icon icon-codepen",
+                    "linkname": "DailyRecord",
+                    "linkurl": "javascript:DailyRecord"
+                },
+                {
+                    "title": "数据管理",
+                    "type": "button",
+                    "icon": "icon icon-gauge",
+                    "linkname": "DataManage",
+                    "linkurl": "javascript:DataManage"
+                },
+                 {
+                    "title": "测试",
+                    "type": "button",
+                    "icon": "icon icon-gauge",
+                    "linkname": "CheckoutManage",
+                    "linkurl": "javascript:CheckoutManage"
+                }
+            ]
+        }
+    ]
+}

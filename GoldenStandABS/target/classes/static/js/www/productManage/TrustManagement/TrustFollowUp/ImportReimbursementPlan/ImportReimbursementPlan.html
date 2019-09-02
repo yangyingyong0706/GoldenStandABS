@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>导入还款计划</title>
+    <link href="../../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../css/trustFollowUp.css" rel="stylesheet" />
+    <link href="../css/pagerlist-style.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <style>
+        .label_title {
+            background: #f1f1f1;
+            border: 1px solid #efecec;
+            text-align: center;
+            box-sizing: border-box;
+            line-height: 30px;
+            color: #555;
+            padding: 0 3px;
+            height: 30px;
+            overflow: hidden;
+            display: block;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: 14px;
+            width: 30%;
+        }
+
+        .date-plugins {
+            width: 70%;
+            border-radius: 2px;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .04);
+            border: 1px solid #ddd;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+
+        .date_selector {
+            left: calc(30% + 9px);
+            top: 0px;
+        }
+
+        .label_check {
+            line-height: 30px;
+            height: 30px;
+            overflow: hidden;
+            display: block;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: 14px;
+            width: 30%;
+            display: inline-block;
+            width: auto;
+            border-radius: 5px;
+            color: #555;
+            padding: 0px 15px;
+            vertical-align: middle;
+        }
+
+        .layer_line {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .layer_each {
+            display: flex;
+            margin-bottom: 30px;
+        }
+
+        .file_name {
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            width: calc(70% - 70px);
+            box-sizing: border-box;
+            padding-left: 10px;
+            border: 1px solid rgba(0,0,0,0.2);
+        }
+
+        .progress {
+            height: 20px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+        }
+
+            .progress > .progress-bar {
+                float: left;
+                width: 0;
+                height: 100%;
+                font-size: 12px;
+                line-height: 20px;
+                text-align: right;
+                background: #6c78bd;
+                background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                -webkit-transition: width .6s ease;
+                -o-transition: width .6s ease;
+                -webkit-background-size: 40px 40px;
+                background-size: 40px 40px;
+                -webkit-animation: progress-bar-stripes 2s linear infinite;
+                -o-animation: progress-bar-stripes 2s linear infinite;
+                animation: progress-bar-stripes 2s linear infinite;
+            }
+    </style>
+</head>
+<body>
+    <div class="form-panel drop upload-planfile" style="display:block;border-bottom:none;padding:20px;box-sizing:border-box">
+        <div class="layer_each">
+            <label class="label_title">选择日期</label>
+            <input type="text" id="DimLoanDate" class="date-plugins"  readonly="readonly"/>
+        </div>
+        <div class="layer_each">
+            <label class="label_title">计划现金流</label>
+            <span class="file_name"></span>
+            <label for="BasicAssetPlanFileUpload" class="input_file_style" style="box-sizing:border-box;height:30px">
+                <input type="file" id="BasicAssetPlanFileUpload" />
+                <span>上传文件</span>
+            </label>
+        </div>
+        <div id="test_progress" class="progress" style="width:100%;position:relative;top:0px;margin:0px;display:none">
+            <div class="progress-bar"><span></span></div>
+        </div>
+        <div style="text-align:center;margin-top:30px;">
+            <button type="button" class="normal_small_button" id="btnUploadAssetPlanFile">上传</button>
+        </div>
+     </div>
+    <script src="../../../../../asset/lib/require.js"></script>
+
+    <script type="text/javascript">
+        requirejs(['../../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TrustFollowUp/ImportReimbursementPlan/ImportReimbursementPlan']);
+        });
+    </script>
+</body>
+</html>

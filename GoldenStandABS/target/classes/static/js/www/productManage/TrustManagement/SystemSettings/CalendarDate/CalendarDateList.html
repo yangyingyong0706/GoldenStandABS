@@ -1,0 +1,220 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>任务设置</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link href="./TrustFollowUp/css/pagerlist-style.css" rel="stylesheet" />
+    <script src="./TrustFollowUp/js/jquery.datagrid.js"></script>
+    <script src="./TrustFollowUp/js/jquery.datagrid.options.js"></script>
+    <script src="./TrustFollowUp/FilePathConfig.js"></script>
+    <script src="./SystemSettings/CalendarDate/CalendarDateList.js"></script>
+    <script type="text/javascript">
+        $('.date-plugins').date_input();
+        PagerListModule.Init(listCategory.Originator, 'usp_GetListWithPager', trustId,
+            GlobalVariable.DataProcessServiceUrl+'CommonExecuteGet?',
+            '#divDataList');
+        PagerListModule.DataBind(function (haveData) { });
+
+        $('#btnReset').click(function () {
+            $('.list-filters .filter').val('');
+            PagerListModule.Filter({});
+        });
+        $('#btnSearch').click(function () {
+            searchByWhere();
+        });
+        function searchByWhere() {
+            var filterWhere = '';
+            $('.list-filters .filter').each(function () {
+                var $this = $(this);
+                var value = $this.val();
+                if (value.length < 1) { return true; }
+
+                var param = $this.attr('name');
+                if ($this.hasClass('like')) {
+                    filterWhere += ' and ' + param + ' like N\'%' + value + '%\'';
+                } else {
+                    filterWhere += ' and ' + param + ' = N\'' + value + '\'';
+                }
+            });
+            PagerListModule.Filter({ 'where': filterWhere });
+        }
+
+        $('#btnCancel').click(function () {
+            $('#detailFormTitle').html('添加公休假').removeAttr('editId');
+            $('#divDetailForm .form-control').each(function () {
+                var $this = $(this);
+                $this.val('');
+            });
+        });
+        $('#btnSave').click(function () {
+            var haveError = false;
+            $('#divDetailForm .form-control').each(function () {
+                var $this = $(this);
+                if (!CommonValidation.ValidControlValue($this)) { haveError = true; }
+            });
+            if (haveError) return;
+
+            var editIndex = $('#detailFormTitle').attr('editId');
+            if (editIndex) {
+                SaveCalendarData(editIndex);
+            } else {
+                SaveCalendarData(0);
+            }
+        });
+        function updateCalendarDate(obj) {
+            $('#detailFormTitle').html('编辑公休假').attr('editId',obj.Id);
+            $.each($('#divDetailForm .form-control'), function (i, n) {
+                $(n).val(obj[$(n).attr('data-attr')]);
+            });
+        }
+        var svcUrl = GlobalVariable.DataProcessServiceUrl+"CommonExecuteGet?";
+        function SaveCalendarData(Id) {
+            //var items = '<items>';
+            //$.each(dataModel.AdjustmentList, function (i, v) {
+            //    items += '<item>';
+            //    items += '<TrustId>' + trustId + '</TrustId>';
+            //    items += '<AccountNo>' + accountNo + '</AccountNo>';
+            //    items += '<StartDate>' + v.StartDate + '</StartDate>';
+            //    items += '<EndDate>' + v.EndDate + '</EndDate>';
+            //    items += '<InterestAdjustDate>' + v.InterestAdjustDate + '</InterestAdjustDate>';
+            //    items += '<InterestRate>' + v.InterestRate + '</InterestRate>';
+            //    items += '<InterestRateType>' + v.InterestRateType + '</InterestRateType>';
+            //    items += '<PrincipalPaymentType>' + v.PrincipalPaymentType + '</PrincipalPaymentType>';
+            //    items += '<AdjustEffectType>' + v.AdjustEffectType + '</AdjustEffectType>';
+            //    items += '<InterestPaymentType>' + v.InterestPaymentType + '</InterestPaymentType>';
+            //    items += '<InterestAdjustType>' + v.InterestAdjustType + '</InterestAdjustType>';
+            //    items += '<PrincipalPaymentAmt>' + ((v.PrincipalPaymentAmt) ? v.PrincipalPaymentAmt : 0) + '</PrincipalPaymentAmt>';
+            //    items += '</item>';
+            //});
+            //items += '</items>';
+
+            var item = '<item>';
+            item += '<{0}>{1}</{0}>'.format('Id',Id);
+            $.each($('#divDetailForm .form-control'), function (i, n) {
+                var code = $(n).attr('data-attr');
+                item += '<{0}>{1}</{0}>'.StringFormat(code,$(n).val());
+            });
+            item += '</item>';
+            //console.log(item);
+            //return;
+            var executeParam = {
+                SPName: 'usp_UpdateCalendarDate', SQLParams: [
+                    { Name: 'items', value: item, DBType: 'xml' }
+                ]
+            };
+            //todo:遮罩
+            var result = ExecuteGetData(false, svcUrl, 'TrustManagement', executeParam);
+            //todo:去掉遮罩
+            if (result[0].Result==1) {
+                alert('保存成功！');
+            } else if (result[0].Result == 2) {
+                alert('对不起，该日期已存在，请编辑该日期！');
+            } else if (result[0].Result == 0) {
+                alert('数据提交保存时出现错误！');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="body-container form nobottom">
+        <div class="main">
+            <!--<div class="pull-right">
+                buttons
+            </div>-->
+            <h3 class="h3">
+                <span class="title">公休假设置</span>
+            </h3>
+            <div class="form-panel drop nobottom">
+                <div class="form-panel drop list-filters">
+                    <div class="col-12">
+                        <div class="col-3 form-group">
+                            <div class="col-4">
+                                <label>日期类型：</label>
+                            </div>
+                            <div class="col-7">
+                                <select class="filter like form-control" name="CalendarName">
+                                    <option value="">所有</option>
+                                    <option value="中国大陆法定工作日">工作日</option>
+                                    <option value="中国大陆法定非工作日">非工作日</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-1 form-group">
+                            <div class="col-4">
+                                <label>年：</label>
+                            </div>
+                            <div class="col-7">
+                                <input class="filter eq form-control" name="YEAR(Date)" />
+                            </div>
+                        </div>
+                        <div class="col-1 form-group">
+                            <div class="col-4">
+                                <label>月：</label>
+                            </div>
+                            <div class="col-7">
+                                <input class="filter eq form-control" name="MONTH(Date)" />
+                            </div>
+                        </div>
+                        <div class="col-1 form-group">
+                            <div class="col-4">
+                                <label>日：</label>
+                            </div>
+                            <div class="col-7">
+                                <input class="filter eq form-control" name="DAY(Date)" />
+                            </div>
+                        </div>
+                        <button type="reset" class="btn btn-default btn-sm" id="btnReset">重置</button>
+                        <button type="button" class="btn btn-primary btn-sm" id="btnSearch">检索</button>
+                    </div>
+                </div>
+                <div id="divDataList" class="list-container"></div>
+            </div>
+            <div class="form-panel item" id="TrustItem_Detail">
+                <div class="form-panel item">
+                    <div class="pull-right buttons">
+                        <input type="button" class="btn btn-default btn-sm" id="btnCancel" value="取消" />
+                        <input type="button" class="btn btn-primary btn-sm" id="btnSave" value="保存" />
+                    </div>
+                    <h3 class="h3">
+                        <span class="title" id="detailFormTitle">添加公休假</span>
+                        <!--<span class="normal">（资产开始至到期期限：<label id="lbAssetStartEndPeriod"></label>）</span>-->
+                    </h3>
+                    <div class="form-panel drop nobottom">
+                        <div class="form-panel item" id="divDetailForm">
+                            <div class="col-4 form-group">
+                                <div class="col-4">
+                                    <label>名称</label>
+                                </div>
+                                <div class="col-6">
+                                    <select class="form-control" data-attr="CalendarName" data-valid="required">
+                                        <option value="中国大陆法定工作日">工作日</option>
+                                        <option value="中国大陆法定非工作日">非工作日</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-4 form-group">
+                                <div class="col-4">
+                                    <label>日期</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" class="form-control date-plugins"
+                                           data-attr="Date" data-valid="required date" />
+                                </div>
+                            </div>
+                            <div class="col-4 form-group">
+                                <div class="col-4">
+                                    <label>描述</label>
+                                </div>
+                                <div class="col-6" style="position:relative;">
+                                    <input type="text" class="form-control" data-attr="Description" data-valid="" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

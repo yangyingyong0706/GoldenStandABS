@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>test</title>
+    <link href="common/js/DevExtreme/dx.common.css" rel="stylesheet" type="text/css" />
+    <link href="common/js/DevExtreme/dx.light.css" rel="stylesheet" />
+    <link href="../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="dx-theme" data-theme="generic.light" href="common/js/DevExtreme/dx.light.css" />
+    <style>
+        body,html{
+            width:100%;
+            height:100%;
+        }
+        *{margin:0px;padding:0;}
+        ul {list-style:none;}
+        .main{overflow:hidden;padding:15px}
+        .main_tit{overflow:hidden;line-height:60px;font-size:22px; color:#fff;padding-left:20px;background:#293c4d;}
+        .tab_container{overflow:hidden;padding:0px;border-bottom: 1px solid rgba(0,0,0,0.1);padding-bottom: 10px}
+        .tab_container li{float:left;padding:5px 8px 5px 4px; color:rgb(54,61,93);margin-right:10px; font-size:14px;border:1px solid #ccc;border-radius:5px;box-sizing:border-box}
+        .tab_container li:hover,.tab_container .active_li{background-color:rgb(54,61,93);border-radius:5px;cursor:pointer;color:#fff;border:1px solid rgba(0,0,0,0.1)}
+        .change_main_box{overflow:hidden;padding:0px;}
+        .change_main_each{overflow:hidden;display:none;}
+        .change_tit{overflow:hidden;line-height:30px;font-size:14px; margin-bottom:20px;border-bottom:1px solid #ddd;}
+        .change_tit .span_active{color:rgb(54,61,93);padding-bottom:4px;}
+        .change_tit span{cursor:pointer;}
+        .change_box{overflow:hidden;}
+        .top_box{overflow:hidden;}
+        .change_box_tit{text-align:center;line-height:30px;overflow:hidden; font-size:12px; color:#999; margin-bottom:10px;}
+        .list_time_chose,.list_time_chose2,.list_time_chose3,.list_time_chose4{overflow:hidden;margin-top:20px;padding-right:20px;height:37px;}
+        .list_time_chose,.list_time_chose2,.list_time_chose3{display:none;}
+        .list_chose{width:450px;float:right;}
+        .list_time_chose2 .list_chose,.list_time_chose3 .list_chose,.list_time_chose4 .list_chose2{width:260px; float:right;}
+        .list_left{width:80px;float:left;line-height:34px;font-size:14px;}
+        .list_info{width:50px; text-align:center;float:left;line-height:34px;}
+        .list_right{width:150px;float:left;}
+        .btn_click{line-height:34px; text-decoration:none; float:right;width:60px;text-align:center;font-size:14px;color:#fff;background:#337AB7;border-radius:5px;overflow:hidden;display:block;}
+        .change_box_each{overflow:hidden;display:none;}
+        .change_box_each_active{display:block;}
+        [v-cloak] {
+          display: none;
+        }
+        .iconM{
+            margin-left:4px;
+            font-size:12px;
+        }
+        .normal_small_button{
+            height:26px;
+            float:right;
+            line-height:26px;
+        }
+    </style>
+</head>
+<body style="display:none">
+    <div id="selectLanguageDropdown_qcl" class="localizationTool" style="display:none"></div>
+    <div class="main" id="container">
+        <ul class="tab_container">
+            <li class="active_li" v-cloak><i v-bind:class="frist.icon"></i><span class="iconM">{{frist.content}}</span></li>
+            <li v-for="item in menu" v-cloak><i v-bind:class="item.icon"></i><span class="iconM">{{item.content}}</span></li>
+            <!--<li>损益摊销</li>
+            <li>月结</li>
+            <li>资金成本</li>
+            <li>表外流动性</li>
+            <li>资金部MI</li>
+            <li>转付明细</li>-->
+        </ul>
+        <div class="list_time_chose">
+            <a href="#" class="normal_small_button" id="DateBtn">确定</a>
+            <div class="list_chose">
+                <div class="list_left" id="time1">起始时间：</div>
+                <div class="list_right">
+                    <div id="selected-date2"></div>
+                </div>
+                <div class="list_info">--</div>
+                <div class="list_right">
+                    <div id="selected-date"></div>
+                </div>
+            </div>
+        </div>
+        <div class="list_time_chose2">
+            <a href="#" class="normal_small_button" id="DateReport">确定</a>
+            <div class="list_chose">
+                <div class="list_left" id="date1">导入日期：</div>
+                <div class="list_right">
+                    <div id="reportingDate"></div>
+                </div>
+            </div>
+        </div>
+        <div class="list_time_chose3">
+            <a href="#" class="normal_small_button" id="ListTrustCode">确定</a>
+            <div class="list_chose" style="width:600px;">
+                <div class="list_left" id="name1">资管名称：</div>
+                <div class="list_right" style="width:500px;">
+                    <div id="list"></div>
+                </div>
+            </div>
+        </div>
+        <div class="list_time_chose4">
+            <a href="#" class="normal_small_button" id="reportService">确定</a>
+            <div class="list_chose2" style="width:600px;">
+                <div class="list_left" id="name2">资管名称：</div>
+                <div class="list_right" style="width:500px;">
+                    <div id="list2"></div>
+                </div>
+            </div>
+            <div class="list_chose">
+                <div class="list_left" id="time2">起始时间：</div>
+                <div class="list_right">
+                    <div id="selected-date4"></div>
+                </div>
+                <div class="list_info">--</div>
+                <div class="list_right">
+                    <div id="selected-date3"></div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="change_main_box">
+            <div class="change_main_each">
+                <div class="change_tit">
+                    <span class="span_active" id="report1">资产服务报告</span>
+                </div>
+                <div class="top_box" id="Asset" style="margin-bottom:20px;"></div>
+            </div>
+            <div class="change_main_each">
+                <div class="change_tit change_tit_active2">
+                    <span class="span_active" id="Bclub">融资台账B端</span>
+                    &nbsp;&nbsp;&nbsp;
+                    <span id="Cclub">融资台账C端</span>
+                </div>
+                <div class="change_box change_box_taizhang">
+                    <div class="change_box_each change_box_each2 change_box_each_active">
+                        <div class="change_box_tit" id="listB">出表融资台账B端</div>
+                        <div class="top_box" id="TrustInfoB" style="margin-bottom:20px;height:400px;"></div>
+                    </div>
+                    <div class="change_box_each change_box_each2">
+                        <div class="change_box_tit" id="listC">出表融资台账C端</div>
+                        <div class="top_box" id="TrustInfoC" style="margin-top:20px;height:400px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="change_main_each">
+                <div class="change_tit">
+                    <span class="span_active" id="tab1">损益摊销</span>
+                </div>
+                <div class="top_box" id="ProfitAmortization"></div>
+            </div>
+            <div class="change_main_each">
+                <div class="change_tit">
+                    <span class="span_active" id="tab2">月结</span>
+                </div>
+                <div class="top_box" id="AssetMonthly"></div>
+            </div>
+            <div class="change_main_each">
+                <div class="change_tit">
+                    <span class="span_active" id="tab3">资金成本</span>
+                </div>
+                <div class="change_box">
+                    <div class="top_box" id="FinancingCost" style="height:400px;"></div>
+                </div>
+            </div>
+            <div class="change_main_each">
+                <div class="change_tit">
+                    <span class="span_active" id="tab4">表外流动性</span>
+                </div>
+                <div class="change_box">
+                    <div class="top_box" id="CashFlowByDay"></div>
+                </div>
+            </div>
+            <div class="change_main_each">
+                <div class="change_tit change_tit_active3">
+                    <span class="span_active" id="tab5">资金部MI_资产</span>
+                    &nbsp;&nbsp;&nbsp;
+                    <span id="plan1">资金部MI_资管计划</span>
+                </div>
+                <div class="change_box change_boxMI">
+                    <div class="change_box_each change_box_each3 change_box_each_active">
+                        <div class="change_box_tit" id="plan2">资金部MI_资产</div>
+                        <div class="top_box" id="CapitalMI_Asset" style="margin:0 auto;height:600px;"></div>
+                    </div>
+                    <div class="change_box_each change_box_each3">
+                        <div class="change_box_tit" id="plan3">资金部MI_资管计划</div>
+                        <div class="top_box" id="CapitalMI_Trust" style="margin-top:20px;height:400px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="change_main_each">
+                <div class="change_tit">
+                    <span class="span_active" id="tab6">转付明细</span>
+                </div>
+                <div class="change_box">
+                    <div class="top_box" id="ABSRepaymentDetails" style="height:400px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<script type="text/javascript" src="common/js/jquery-1.12.1.min.js"></script>
+    <script type="text/javascript" src="common/js/DevExtreme/jszip.min.js"></script>
+    <script type="text/javascript" src="common/js/DevExtreme/dx.web.js"></script>
+    <script type="text/javascript" src="common/js/DevExtreme/globalize.min.js"></script>
+    <script type="text/javascript" src="common/js/DevExtreme/globalize/message.min.js"></script>
+    <script type="text/javascript" src="common/js/DevExtreme/globalize/number.min.js"></script>
+    <script type="text/javascript" src="common/js/DevExtreme/globalize/currency.min.js"></script>
+    <script type="text/javascript" src="common/js/DevExtreme/globalize/date.min.js"></script>
+    <script type="text/javascript" src="common/js/DevExtreme/cldr.min.js"></script>
+    <script type="text/javascript" src="common/js/DevExtreme/cldr/event.min.js"></script>
+    <script type="text/javascript" src="common/js/DevExtreme/cldr/supplemental.min.js"></script>
+    <script src="/TrustManagementService/Config/GlobalVariable.js" type="text/javascript"></script>
+    <script src="common/js/common.js" type="text/javascript"></script>
+    <script src="common/js/jquery.cookie.js"></script>
+    <script src="Reporting.js"></script>-->
+    <script src="../../asset/lib/require.js"></script>
+    <script>
+    requirejs(['../../asset/lib/config'], function (common) {
+        requirejs(['app/financialReport/Reporting']);
+    });
+    </script>
+
+</body>
+</html>

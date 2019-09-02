@@ -1,0 +1,629 @@
+h3 {
+	margin-top: 0;
+	font-size: 15px;
+	color: #2f7abb;
+	font-weight: bold;
+}
+
+.typeCode-title {
+	color: #45569C;
+	font-size: 16px;
+	height: 41px;
+	line-height: 41px;
+	padding-left: 19px;
+	cursor: pointer;
+}
+
+.all-wraper {
+	cursor: default;
+}
+
+.ec-row {
+	margin-bottom: 20px;
+	border-top: none;
+	padding: 5px;
+}
+
+.ec-name {
+	position: relative;
+	font-size: 14px;
+	color: #808080;
+}
+
+.ec-desc {
+	margin-left: 5px;
+	font-size: 14px;
+	color: #808080;
+}
+
+.btns-wraper .btn-hover:hover,
+.btns-wraper .btn-hover.active {
+	border-color: #a2aabb;
+	background-color: #f1f1f1;
+}
+
+.list-wraper {
+    overflow:hidden;
+	padding-left: 10px;
+    border-left:1px solid  #dce0ee;
+    border-right:1px solid  #dce0ee;
+}
+
+.view-area {
+	width:100%;
+	height: 260px;
+	padding: 10px;
+	border: 1px solid  #dce0ee;
+}
+
+.view-area:disabled {
+	cursor: not-allowed;
+    background-color:#eee;
+}
+
+.view-area:-ms-input-placeholder {
+	color: #999;
+}
+
+.table.view-table tr .textCell {
+	padding: 12px 0px;
+	font-size: 14px;
+	border: 1px solid #dce0ee;
+	vertical-align: middle;
+}
+
+.table.view-table tr .desCell {
+	padding: 0px;
+	font-size: 0;
+	border: 1px solid  #dce0ee;
+	text-align: left;
+    box-sizing:border-box;
+	vertical-align: middle;
+}
+.table.view-table tr .desCell>.mr5:nth-child(1) {
+	margin-left: 100px;
+}
+.table.view-table tr .desCell>.input-group-select:nth-child(1) {
+	margin-left: 100px;
+}
+.table.view-table tr .desCell>.input-group-box {
+	margin-right: 10px;
+}
+.view-table>tbody>tr:hover .textCell {
+	color: #3b5999;
+	cursor: default;
+}
+
+.subtable.table {
+	font-size: 12px;
+	border: 1px solid #dce0ee;
+	background-color: #fff;
+    margin:0px;
+}
+
+.subtable.table input[type="text"] {
+	border: 1px solid #ccc;
+	text-indent: 10px;
+}
+
+.subtable.table th,.subtable.table td {
+	text-align: center;
+    border: 1px solid #dce0ee;
+    vertical-align: middle;
+}
+
+.input-group-select {
+	display: inline-block;
+	width: 90px;
+	height: 30px;
+	padding: 1px 2px 3px 2px;
+	vertical-align: middle;
+	border-color:  #dce0ee;
+	border-radius: 0;
+    box-shadow:none;
+}
+
+
+.input-group-box {
+	height: 30px;
+	padding: 2px;
+	font-size: 13px;
+	vertical-align: middle;
+	text-indent: 10px;
+	border: 1px solid #dce0ee;
+}
+.input-group-box:focus {
+    border:1px solid #45569c;
+    box-shadow: inset 0 0px 0px #45569c, 0 0 4px #45569c;
+}
+.input-group-box:disabled{
+    background-color:#eee;
+}
+.footer {
+	text-align: right;
+	margin-bottom: 20px;
+}
+
+
+/* 模拟checkbox */
+
+.virtual-label {
+	vertical-align: middle;
+}
+
+.icon-spin4.active {
+	-moz-animation: spin4 1.2s linear infinite;
+	-o-animation: spin4 1.2s linear infinite;
+	-webkit-animation: spin4 1.2s linear infinite;
+	animation: spin4 1.2s linear infinite;
+	display: inline-block;
+}
+
+.tab-list {
+	list-style: none;
+	height: 100%;
+	padding-top: 6px;
+}
+
+.list-item {
+	height: 36px;
+	line-height: 36px;
+	float: left;
+	padding: 0px 6px;
+	font-size: 14px;
+	cursor: default;
+    margin-right:4px;
+}
+/*.list-item:hover,*/
+.list-item.active {
+    color:#45569c;
+    border-bottom: 2px solid #45569c;
+}
+
+.poolDetail {
+	font-size: 18px;
+}
+
+
+/*李福友统一样式*/
+.mr5 {
+    margin-right: 5px;
+}
+#loading {
+	position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    margin-left: -50px;
+    margin-top: -50px;
+    text-align: center;
+}
+#loading i {
+	color: rgb(107, 147, 216);
+}
+.pointerEvents {
+	pointer-events:none;
+	background: #ccc !important;
+}
+body, html {
+	margin: 0 auto;
+	font-family: 'Microsoft YaHei';
+	height: 100%;
+}
+
+.main {
+	/*margin: 5px;*/
+	padding: 15px;
+	min-height: 100%;
+	border: 1px solid #e6e6e6;
+	border-radius: 3px;
+	box-shadow: 2px 2px 3px #888888;
+	padding-bottom: 50px;
+    height: 100%;
+    overflow-y: scroll;
+    position: relative;
+}
+
+i.fa-sort-desc,
+i.fa-sort-asc {
+	font-size: 20px;
+	margin-left: 10px;
+}
+
+i.fa-sort-asc {
+	position: relative;
+	top: 8px;
+}
+
+.desc-wraper {
+	box-sizing: border-box;
+	background: #F3F5FA;
+	height: 40px;
+	line-height: 40px;
+	border: 1px solid  #dce0ee;
+	padding: 0 15px;
+}
+
+.desc-wraper i {
+	color: #999999;
+}
+
+.ec-row {
+	margin-bottom: 5px;
+}
+
+.menu {
+	width: 150px;
+	height: auto;
+	position: fixed;
+	top: 50%;
+	right: 15px;
+	transform: translateY(-50%)
+}
+
+.menu:last-child {
+	top: 50%;
+}
+
+.menu .line {
+	height: 120%;
+	width: 1px;
+	background-color: #E6E9F5;
+	position: absolute;
+	left: 0px;
+	top: -10%;
+}
+
+.menu ul li {
+	min-width: 32px;
+	height: 32px;
+	list-style-type: none;
+	color: #8F8583;
+	text-indent: 10px;
+	line-height: 32px;
+	position: relative;
+}
+
+.menu ul li span {
+	display: inline-block;
+	margin-bottom: 20px;
+	width: 16px;
+	height: 16px;
+	border: 1px solid #45569C;
+	box-shadow: 0px 0px 22px 0px #d8d0d0;
+	border-radius: 8px;
+	margin-left: -10px;
+	background-color: #fff;
+	cursor: pointer;
+	position: absolute;
+	left: 2px;
+	top: 6px;
+}
+
+.menu ul li span.active {
+	background-color: #45569C;
+}
+
+.menu ul li div {
+	display: inline-block;
+	width: 130px;
+	text-align: left;
+	font-size: 12px;
+	color: #333;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+#PoolECForm .list-wraper,
+#PoolECForm .content-wraper,
+[v-cloak] {
+	display: none;
+}
+
+.view-area {
+	overflow: auto;
+}
+
+.step-title ul {
+	height: 30px;
+	box-sizing: border-box;
+}
+.step-title ul:after {
+	content: '';
+	display: block;
+	width: 0;
+	height: 0;
+	clear: both;
+}
+.step-title ul li {
+	float: left;
+    line-height: 30px;
+    font-size: 16px;
+    color: #4D4D4D;
+}
+.step-title ul li:nth-child(2) {
+	width: 22px;
+	height: 15px;
+	margin: 0 6px;
+	border-bottom: 1px solid rgba(77,77,77,1);
+}
+.step-title ul li i {
+	color: #45569c;
+    margin-right: 5px;
+    border: 1px solid #45569c;
+    padding: 5px;
+    text-align: center;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    line-height: 12px;
+    background: #f8f8f8;
+    box-shadow: inset 0px 0px 2px #45569c;
+    position: relative;
+    top: -2px;
+}
+.step-title ul li .poolDetail {
+	padding-top: 0;
+	font-size: 16px;
+	color: #4D4D4D;
+}
+#PoolECForm {
+	border: 1px solid #E6E9F5;
+	margin-top: 14px;
+}
+.business_title {
+	height: 50px;
+	box-sizing: border-box;
+	line-height: 50px;
+	color: #45569C;
+	font-size: 16px;
+	border-bottom: 1px solid #E6E9F5;
+	font-weight: normal;
+	margin-bottom: 0;
+	padding-left: 20px;
+}
+
+
+/*.form-body {
+	padding: 0 20px;
+}*/
+
+
+
+.all {
+	height: 56px;
+	line-height: 56px;
+	font-size: 14px;
+	color: #4D4D4D;
+	border-bottom: 1px solid #E6E9F5;
+}
+
+.all label {
+	margin-bottom: 8px;
+}
+
+.all .btn {
+	padding: 4px 9px;
+	box-sizing: border-box;
+}
+
+.view-work-body {
+	padding-right: 150px;
+}
+/*清除浮动*/
+.clear:after {
+	content: '';
+	display: block;
+	width: 0;
+	height: 0;
+	clear: both;
+}
+/*目标化页面*/
+.targetedPage {
+	border: 1px solid #E6E9F5;
+	margin-top: 14px;
+}
+.targetedPage>ul {
+	border-bottom: 1px solid #E6E9F5;
+	padding: 0 21px;
+	height: 50px;
+}
+.targetedPage>ul li {
+	float: left;
+	color: #4D4D4D;
+	font-size: 16px;
+	line-height: 50px;
+	margin-right: 40px;
+	margin-bottom: -1px;
+}
+
+.targetedPage>ul li:last-child {
+	float: right;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+	margin-top: 10px;
+	border: 1px solid #E6E9F5;
+	border-radius: 4px;
+	font-size: 14px;
+	color: #45569C;
+	margin-right: 0;
+	cursor: pointer;
+}
+.formView {
+	padding: 20px;
+}
+.subFormView .form-control {
+	height: 30px;
+	border-radius: 2px;
+}
+.subFormView label {
+	background: rgba(243,245,250,1);
+    border: none;
+    text-align: center;
+    font-size: 14px;
+    line-height: 30px;
+    color: #333;
+    padding: 0 3px;
+    height: 30px;
+    overflow: hidden;
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    margin-bottom: 5px;
+}
+.Reminder {
+	height: 30px;
+	line-height: 30px;
+	background:rgba(208,0,0,0.1);
+    opacity:0.5;
+	padding-left: 11px;
+	font-size: 12px;
+}
+.formaldehyde {
+	border: 1px solid #E6E9F5;
+	padding: 16px 20px 0 20px;
+}
+.formaldehyde>p {
+	font-size: 16px;
+	line-height: 16px;
+	color: #45569C;
+	margin-bottom: 11px;
+}
+.table-bordered{
+    border: 1px solid #dce0ee !important;
+}
+.sub_formaldehyde .table thead tr th {
+	background:rgba(243,245,250,1);
+	font-size: 14px;
+	color: #808080;
+	font-weight: normal;
+	border-bottom: 1px;
+    border: 1px solid #dce0ee;
+}
+.sub_formaldehyde .table tbody tr td {
+	font-size: 14px;
+	color: #4D4D4D;
+	vertical-align: middle;
+    border: 1px solid #dce0ee;
+}
+.sub_formaldehyde .table tbody tr td button {
+	color: #45569C;
+	background: none;
+	border: none;
+	font-size: 14px;
+	cursor: pointer;
+}
+.sub_formaldehyde .table tbody tr td input {
+	color: #4D4D4D;
+}
+.dynamicsTable {
+	margin-top: 19px;
+}
+.dynamicsTable .input-group-addon {
+	box-sizing: border-box;
+	width: 167px !important;
+	text-align: left;
+	background: #F3F5FA !important;
+}
+.dynamicsTable .form-control {
+	min-width: 273px;
+}
+.dynamicsTable .form-control option {
+	padding: 4px;
+}
+.sub_dynamicsTable {
+	margin-top: 10px;
+}
+.sub_dynamicsTable>ul {
+	margin-bottom: 4px;
+	font-size: 16px;
+	line-height: 16px;
+	color: #45569C;
+}
+.sub_dynamicsTable>ul li:nth-child(1) {
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	cursor: pointer;
+}
+.sub_dynamicsTable>ul li:nth-child(2) {
+	float: right;
+}
+
+.save {
+	width: 60px;
+	height: 30px;
+	line-height: 30px;
+	background: #45569C;
+	border-radius: 4px;
+	text-align: center;
+	margin: 0 auto;
+	margin-top: 79px;
+	margin-bottom: 82px;
+	color: white;
+	cursor: pointer;
+}
+.inquireStatement {
+	padding: 20px;
+}
+.inquireStatement .view-area {
+	background: white;
+	border: none;
+	padding: 0;
+}
+.noBG {
+	background: none !important;
+	border: none !important;
+}
+.limitChange .input-group-addon {
+	width: 220px !important;
+	height: 28px;
+	line-height: 28px;
+	padding: 0;
+	background: #F3F5FA;
+	color: #808080;
+}
+.limitChange .formView .form-inline {
+	margin-bottom: 15px;
+}
+.limitChange .formView .form-inline:last-child {
+	margin-bottom: 0;
+}
+.limitChange .formView .form-inline {
+	width: 50%;
+	float: left;
+}
+.isMutualExclusion {
+    float:left;
+    margin-left: 20px;
+}
+.isMutualExclusion label {
+	background: none;
+}
+.isMutualExclusion label::before {
+    content: "\a0";
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 18px;
+	width: 1em;
+	height: 1em;
+	margin-right: .4em;
+	border-radius: 50%;
+	border: 1px solid rgba(69,86,156,1);
+	text-indent: .15em;
+	line-height: 1;
+}
+.isMutualExclusion input[type="radio"]:checked+label::before {
+	background-color: rgba(69,86,156,1);
+	background-clip: content-box;
+	padding: .2em;
+}
+.isMutualExclusion input[type="radio"] {
+	position: absolute;
+	opacity: 0;
+}
+

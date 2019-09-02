@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" style="background:#fff">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link href="../../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../..//asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/kendoBooter.css" rel="stylesheet" />
+    <!--<link href="../css/trustFollowUp.css" rel="stylesheet" />-->
+    <link href="../../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="CashflowMangement.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <title>查看信息</title>
+    <style>
+        .input_style {
+            margin: 0px;
+            padding: 0px;
+            padding-left: 5px;
+            box-sizing: border-box;
+            outline: none;
+            font-size: 12px;
+        }
+
+        textarea {
+            resize: none;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            padding-top: 5px;
+            padding-left: 10px;
+            box-sizing: border-box;
+            font-size: 12px;
+            height: 30px;
+            vertical-align: middle;
+            width: 200px;
+            outline: none;
+        }
+
+            textarea::-webkit-scrollbar {
+                width: 2px;
+                height: 12px;
+                background-color: #f5f5f5;
+            }
+
+        .chart-box {
+            width: 870px;
+            margin: 15px;
+        }
+
+        #linechart {
+            width: 870px;
+            height: 400px;
+            display: none;
+        }
+
+        .UpFile_layer {
+            width: 100%;
+            height: auto;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            text-align: right;
+        }
+
+            .UpFile_layer > button {
+                margin-left: 5px;
+            }
+
+        .layer_each {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .file_name {
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            width: calc(60% - 70px);
+            box-sizing: border-box;
+            padding-left: 10px;
+            border: 1px solid #dedede;
+            font-size: 14px;
+        }
+
+        .label_title {
+            background: #f3f5fa;
+            text-align: center;
+            box-sizing: border-box;
+            line-height: 30px;
+            color: #555;
+            padding: 0 3px;
+            height: 30px;
+            overflow: hidden;
+            display: block;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: 14px;
+            font-weight: 400;
+            width: 30%;
+        }
+
+        #loading {
+            position: absolute;
+            top: 0px;
+            z-index: 1002;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+        }
+
+            #loading > i {
+                color: rgb(107, 147, 216);
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+            }
+
+        .hight_light {
+            background: rgba(59, 62, 93, 0.1);
+        }
+
+        .k-grid tr:hover {
+            background: #f8f8f8;
+        }
+
+        .k-detail-cell {
+            position: relative;
+        }
+
+        .saveGrid {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            box-sizing: border-box;
+        }
+
+        .AccountNo {
+            cursor: pointer;
+            color: #3d87ff;
+        }
+
+        .k-webkit .k-pager-numbers .k-current-page .k-link {
+            border: 1px solid #dce0ee;
+        }
+
+       
+        .k-grid .k-hierarchy-cell .k-icon {
+            outline: none;
+        }
+
+        .k-icon.k-i-expand {
+            background: url(../../../../../asset/lib/Kendo/styles/Material/sprite.png) no-repeat 0px -17px;
+        }
+
+        .k-icon.k-i-collapse {
+            background: url(../../../../../asset/lib/Kendo/styles/Material/sprite.png) no-repeat 0px -34px;
+        }
+
+        .k-icon.k-i-reload {
+            background: url(../../../../../asset/lib/Kendo/styles/Material/sprite.png) no-repeat -32px -112px;
+        }
+
+        #mask {
+            position: absolute;
+            top: 0px;
+            z-index: 1002;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+        }
+
+        .saveinfo {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            font-size: 16px;
+            color: white;
+            transform: translate(-50%,-50%);
+        }
+
+        .date_selector tr {
+            border: 1px solid #ccc;
+        }
+
+        .date_selector thead tr {
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="loading">
+            <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+        </div>
+        <div class="UpFile_layer">
+            <button class="exportData btn btn-default btn-single-default">导出数据</button>
+        </div>
+        <div class="layertba" style="border:none">
+            <div id="grid"></div>
+        </div>
+    </div>
+    <script src="../../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TrustFollowUp/CashflowManagement/CashflowViewData']);
+    });
+    </script>
+</body>
+</html>

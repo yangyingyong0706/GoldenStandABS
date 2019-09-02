@@ -1,0 +1,96 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+
+    <title data-bind="text: PageTitle"></title>
+
+    <link rel="stylesheet" href="../../../../asset/style/bootstrap.css" />
+    <link href="../../../productDesign/css/model.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../../../asset/lib/jquery/jquery-ui.css" />
+    <link rel="stylesheet" href="../../../../asset/lib/asyncbox/skins/default.css" />
+
+    <style>
+        body {
+            font-family: 'Microsoft YaHei';
+        }
+        .aside .step-box .step a .step-title {
+            font-size: 14px;
+        }
+        .page {
+            padding-left: 0px;
+            height: 100%;
+        }
+
+            .page .work iframe {
+                height: 100% !important;
+            }
+
+        .mask {
+            position: absolute;
+            top: 0px;
+            filter: alpha(opacity=60);
+            background-color: #777;
+            z-index: 1002;
+            left: 0px;
+            opacity: 0.1;
+            -moz-opacity: 0.1;
+        }
+        .aside .step-box .step-head h2 {
+            line-height: 0px;
+            color: rgba(69,86,156,1);
+            font-size: 16px;
+            font-weight: normal;
+        }
+        .aside .step-box .step-head {
+            padding: 1px 16px;
+            height:39px;
+            position:relative;
+        }
+        .aside {
+            background: #ffffff!important;
+            border-right: 1px solid #e6e9f5;
+        }
+    </style>
+
+
+</head>
+<body>
+    <div id="mask" class="mask"></div>
+    <div class="page">
+        <!--padding-top:20px;-->
+        <div class="aside">
+            <div class="step-box">
+                <div class="step-head">
+                    <h2>
+                        <span>事件处理</span>
+                    </h2>
+                </div>
+                <div class="step" data-bind="foreach: Steps">
+                    <a data-bind="attr: { class: ($index() == 0 ? 'active' : ''), itemIndex: $index(), pageCode: Code }">
+                        <!--onclick="qwFrame.ChangeSetp(this)"-->
+                        <span class="no" data-bind="text: SeqNo"></span>
+                        <span class="flag"></span>
+                        <h3 class="step-title"><span data-bind="text: Title"></span></h3>
+                        <!--<p class="step-text"><span data-bind="text: Description"></span></p>-->
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="work" data-bind="foreach: Steps" style="padding-left:174px;">
+            <!-- ko if:IsLoaded -->
+            <iframe frameborder="0" data-bind="attr:{class: ($index() == 0 ? '' : 'hidden'), id: 'mainContentDisplayer_'+$index()}"></iframe>
+            <!-- /ko -->
+        </div>
+    </div>
+    <script src="../../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/productManage/TrustManagement/PaymentSetWizard/PaymentSetWizard']);
+        });
+    </script>
+
+</body>
+</html>

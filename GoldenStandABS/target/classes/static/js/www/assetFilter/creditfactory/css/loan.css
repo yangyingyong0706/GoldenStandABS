@@ -1,0 +1,50 @@
+﻿#iframe{
+           
+  height: 100%;
+  border: none;
+  width: 100%;
+  border-left: 1px dashed #ccc;
+}
+.rightImage{
+  height: 100%;
+   width: 300px;
+}
+.leftImage{
+           
+}
+ [v-cloak] {  display: none;}
+.VoucherBox{display:inline-block;}
+.gsc-advfilter { box-shadow: 0px 2px 8px 2px #e8dfdf;padding: 5px 15px 15px 15px;position:absolute;z-index: 999;background: #fff;text-align: left;    left: 0px; top: 55px;height:auto;display:none;width:98%;}
+.gsc-advfilter ul, .gsc-advfilter li { list-style: none; }
+.gsc-advfilter ul > li { display: inline-block; margin-right: 15px; }
+li ul{display:inline-block;}
+.field-input-options input{width: 150px; padding-left: 5px; height: 25px;}
+       
+/*上方选中*/
+.gsc-advfilter-chosen>ul>li{    background: #5C95E1;line-height: 30px;padding:0px 10px 0px 5px;font-size:12px;color:#fff;border-radius:3px;}
+.gsc-advfilter-chosen>ul>li:last-child{padding:0px 10px;border-radius:3px;}
+.field-remove{display:inline-block;padding:0px 8px;font-size:12px;cursor:pointer;}
+.gsc-advfilter-chosen>span{font-size: 12px; color: #606060; display: inline-block;height: 40px;line-height: 38px;cursor: pointer;}
+.coption span{background: #5C95E1; color: #fff!important;}
+/*下方标签*/
+.field-title{display:inline-block;color:#a0a3a8;font-size:13px;vertical-align: top;text-align:right;vertical-align: top;line-height: 39px;  min-width: 113px;}
+.gsc-advfilter-chosen {    border-bottom: 1px dashed #ccc;     padding-bottom: 3px; margin-bottom: 10px;}
+.gsc-advfilter-chosen ul{display:inline-block;margin-top: 5px;max-height: 110px; overflow-y: auto;}
+.gsc-advfilter-chosen span{display:inline-block;float:left;line-height: 27px;}
+
+.gsc-advfilter-fields li ul{padding:4px 0px 0px 0px;width: 88%;vertical-align: top;white-space:normal;  }
+.gsc-advfilter-fields > ul > li { display: block;white-space:nowrap;width:100%; }
+.gsc-advfilter-fields li ul li{margin-bottom:5px;}
+.gsc-advfilter-fields li ul li span.optionSpan{padding:0px!important;cursor: initial;}
+.gsc-advfilter-fields li ul li span{display: inline-block;padding: 0px 12px; font-size: 13px;line-height: 27px;cursor:pointer;color:#535b68;border-radius:3px;}
+.gsc-advfilter-fields li ul li span:hover{background: #8AB0E9; color: #fff;}
+.gsc-advfilter-btns{margin-top:10px;}
+.gsc-advfilter-btns>button.btn-ok{margin-right: 15px;}
+
+@media(min-width: 900px){
+ .gsc-advfilter-fields{height:300px;overflow-y:auto;}
+}
+@media(min-width: 1670px){
+ .gsc-advfilter-fields{height:auto;}
+ .gsc-advfilter-chosen ul{max-height: 110px; overflow-y: auto;}
+}

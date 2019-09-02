@@ -1,0 +1,259 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-compatible" content="IE=edge,chrome=1">
+    <title></title>
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/list.css" rel="stylesheet" />
+    <link href="../css/list01.css" rel="stylesheet" />
+    <link href="../font/icon-font/iconfont.css" rel="stylesheet" />
+    <link href="../css/common.css" rel="stylesheet" />
+    <link href="../css/loan.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <script src="../../../../asset/lib/require.js" data-main="poolDistributionConfig.js"></script>
+    <style>
+        body, html {
+            width: 100%;
+            height:100%;
+            font-family: 'Microsoft YaHei';
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        th {
+            padding: 5px;
+            font-size: 13px;
+            border: 1px solid #dce0ee;
+            border-right: none;
+            color: #666;
+            vertical-align: middle;
+            font-family: 'Microsoft YaHei';
+            font-weight: 400;
+        }
+
+            th:last-child {
+                border-right: 1px solid #dce0ee;
+            }
+
+        td {
+            padding: 6px 9px;
+            font-size: 13px;
+            border: 1px solid #dce0ee;
+            border-right: none;
+            border-bottom: none;
+            text-align: center;
+        }
+
+        tr:first-child > td {
+            border-top: none;
+        }
+
+        tr:last-child > td {
+            border-bottom: 1px solid #dce0ee;
+        }
+
+        td:last-child {
+            border-right: 1px solid #dce0ee;
+        }
+
+        .list_box {
+            padding: 20px;
+        }
+
+        .poolBox {
+            margin-bottom: 10px;
+            color: #e6e6e6;
+        }
+
+            .poolBox span {
+                min-width: 126px;
+                text-align: right;
+                display: inline-block;
+                margin-bottom: 15px;
+            }
+
+            .poolBox input {
+                width: 170px;
+                height: 26px;
+                margin-right: 40px;
+                padding-left: 3px;
+                box-sizing: border-box;
+            }
+
+        .btnBox {
+            margin: 20px 0px;
+        }
+
+            .btnBox k-button {
+                margin-bottom: 30px;
+            }
+
+        .textareaBox {
+            margin-top: 10px;
+        }
+
+        .addTd i {
+            font-size: 22px;
+            color: rgba(59,62,93,0.8);
+        }
+
+        .addTd {
+            font-size: 22px;
+            cursor: pointer;
+            text-align:center
+        }
+
+        .removeTd {
+            font-size: 20px;
+            color: rgba(208,34,34,.7);
+            cursor: pointer;
+        }
+
+            .removeTd i {
+                font-size: 20px;
+            }
+
+            .removeTd:hover {
+                font-size: 20px;
+                color: rgba(215,69,69,1);
+            }
+
+        td select {
+            color: #606060 !important;
+        }
+        .btn i.iconfont {
+            font-size: 14px;
+        }
+        .marLeft10 {
+            margin-left: 10px;
+            letter-spacing:0;
+        }
+        /*.toolbar {
+            letter-spacing: -.31em;
+        }*/
+        .border_red{
+            border-color:rgba(215,69,69,1);
+        }
+        .deleteIcon, .addIcon{
+            width:16px;
+            height:16px;
+            vertical-align:middle;
+        }
+    </style>
+</head>
+
+<body style="padding:0 !important">
+    <div id="poolDistributionView" class="list_box" style="padding-top:0px;width:100%;height:calc(100% - 35px);overflow:auto">
+        <div class="positionBox" style="margin-top:10px;margin-bottom:10px;padding:0">
+            <div class="Total" style="line-height:30px;height:30px">
+                资产池名称：<span style="color:rgba(59,62,93,0.8)">{{PoolName}}</span>
+            </div>
+            <div class="Total toolbar" style="float:right">
+                <button class="btn btn-default marLeft10" @click="saveConfig()">
+                    <i class="iconfont icon-daochu1"></i>
+                    动态调整
+                </button>
+            </div>
+        </div>
+        <table id="js_stu_tb" cellspacing="0" style="width:100%;font-family: Arial;">
+            <thead style="background:#f5f5f5;">
+                <tr>
+                    <th @click="addItem()" class="addTd">
+                        <div><svg t="1563862020075" class="icon  addIcon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4565" width="16" height="16" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css"></style></defs><path d="M511.920439 1023.990188a511.920439 511.920439 0 1 1 511.920439-511.920439 508.763596 508.763596 0 0 1-511.920439 511.920439z m241.178517-558.633179h-215.859785V249.433234a35.983741 35.983741 0 0 0-71.967482 0v215.923775h-215.859785a35.983741 35.983741 0 0 0 0 71.967482h215.859785v215.923775a35.983741 35.983741 0 0 0 71.967482 0V537.324491H752.949646a35.983741 35.983741 0 0 0 0-71.967482z" p-id="4566" fill="#45569c"></path></svg></div>
+                    </th>
+                    <th>序号</th>
+                    <th>字段名</th>
+                    <th>中文名</th>
+                    <th>间隔</th>
+                    <th>最小值</th>
+                    <th>最大值</th>
+                    <th>"XX 以下"区间</th>
+                    <th>"XX 以上"区间</th>
+                    <th>区间闭端</th>
+                    <th>间隔符</th>
+                    <th>数据类型</th>
+                    <th>单位</th>
+                </tr>
+            </thead>
+            <tbody id="single-form">
+                <tr v-for="item in PoolDistributionList">
+                    <td @click="removeItem($index)" class="removeTd">
+                        <div><svg t="1563846571014" class="icon deleteIcon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4564" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css"></style></defs><path d="M511.920439 1023.990188a511.920439 511.920439 0 1 1 511.920439-511.920439 508.763596 508.763596 0 0 1-511.920439 511.920439z m241.178517-558.633179H270.656602a35.983741 35.983741 0 0 0 0 71.967482H752.949646a35.983741 35.983741 0 0 0 0-71.967482z" p-id="4565" fill="#D00000"></path></svg></div>
+                    </td>
+                    <td><input v-model="$index" style="width:50px" class="gold-single-input"></td>
+                    <td v-if="item.DistributionTypeCode!=''"><input v-model="item.DistributionTypeCode" class="gold-single-input" disabled></td>
+                    <td><input v-model="item.DistributionTypeName" class="DistributionTypeName gold-single-input" v-on:keyup='CHZNClass($event)' disabled></td>
+                    <td v-if="item.DistributionTypeName==''">
+                        <select @change="selectVal($event,$index)" style="width:100%;" class="gold-single-input">
+                            <option></option>
+                            <option v-for="addItem in AddDistributionTypeCodeData" track-by="$index">{{addItem.DistributionTypeName}}</option>
+                        </select>
+                    </td>
+                    <td><input v-model="item.Interval" v-on:keyup='CodingVerification($event)' v-bind:value="numFormt(item.Interval)" title="最大支持万分位" class="Interval gold-single-input"></td>
+                    <td><input v-model="item.MinValue" v-on:keyup='CodingVerification($event)' v-bind:value="numFormt(item.MinValue)" title="最大支持万分位" class="MinValue gold-single-input"></td>
+                    <td><input v-model="item.MaxValue" v-on:keyup='CodingVerification($event)' v-bind:value="numFormt(item.MaxValue)" title="最大支持万分位" class="MaxValue gold-single-input"></td>
+                    <td>
+                        <select v-model="item.IncludingBelow" class="gold-single-input">
+                            <option value="N">否</option>
+                            <option value="Y">是</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select v-model="item.IncludingAbove" class="gold-single-input">
+                            <option value="N">否</option>
+                            <option value="Y">是</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select v-model="item.DefaultClosedSide" class="gold-single-input">
+                            <option value="L">左边包含</option>
+                            <option value="R">右边包含</option>
+                        </select>
+                    </td>
+                    <td><input v-model="item.Separator" style="width:50px"></td>
+                    <td>
+                        <!--数据类型-->
+                        <select v-model="item.FiledType" class="gold-single-input" disabled>
+                            <option value="金额类型">金额类型</option>
+                            <option value="日期类型">日期类型</option>
+                            <option value="比率类型">比率类型</option>
+                            <option value="其它">其它</option>
+                        </select>
+                    </td>
+                    <td>
+                        <!--单位-->
+                        <select v-model="item.Unit" class="gold-single-input" v-if="item.FiledType=='比率类型'">
+                            <option value="%">%</option>
+                            <option value="">无</option>
+                        </select>
+                        <select v-model="item.Unit" class="gold-single-input" v-if="item.FiledType=='金额类型'">
+                            <option value="元">元</option>
+                            <option value="万元">万元</option>
+                        </select>
+                        <select v-model="item.Unit" class="gold-single-input" v-if="item.FiledType=='日期类型'">
+                            <option value="天">天</option>
+                            <option value="个月">个月</option>
+                            <option value="季">季</option>
+                            <option value="年">年</option>
+                        </select>
+                        <input v-model="item.Unit" class="gold-single-input" v-if="item.FiledType=='其它'">
+                    </td>
+                </tr>
+<tbody />
+        </table>
+        <!--<div class="btnBox">
+            <div class="textareaBox">
+                <textarea rows="10" cols="20" v-model="SqlScript" style="width:1000px;height:200px;border:1px solid #e6e6e6;"> </textarea><br />
+                <button class="btn btn-default" @click="runTask" style="margin-top:10px">
+                    <i class="iconfont icon-daochu1"></i>
+                    执行脚本
+                </button>
+            </div>
+        </div>-->
+    </div>
+</body>
+</html>

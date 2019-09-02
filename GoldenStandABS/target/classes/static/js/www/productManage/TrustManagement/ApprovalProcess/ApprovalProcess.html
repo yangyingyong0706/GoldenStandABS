@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>申请流程</title>
+    <link href="../Common/css/trustWizard.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <style>
+        html{
+            overflow:hidden;
+        }
+        .proctTitle, .proctReasons ,.BtnReasons{
+         
+               padding:10px;
+               border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        .Reasons {
+            width: 100%;
+            height: 150px;
+            border-radius: 2px;
+            border: 1px solid rgba(0,0,0,0.1);
+            padding-left: 15px;
+            padding-top: 5px;
+            box-sizing: border-box;
+            color: #555;
+        }
+        #btn{
+           left: 50%;
+           transform: translate(-50%);
+        }
+        .alterTime {
+            padding:10px;
+            margin-bottom:15px;
+        }
+        .forms{
+            width: 500px;
+            height: auto;
+            border: 1px solid rgba(0,0,0,0.1);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            border-radius: 2px;
+            padding-bottom: 8px;
+            box-sizing: border-box;
+            overflow: auto;
+        }
+        span{
+              color: #555;
+        }
+        #proctTitleId{
+            border: none;
+            background: #ffffff;
+            color: #ff1d1d;
+        }
+        .span_style{
+            display:inline-block;
+            padding-bottom:5px;
+            margin-right:16px;
+        }
+        .applyDate,.endDate{
+            border: 1px solid rgba(0,0,0,0.1);
+            box-shadow: 0px 0px 1px 0px #b2b9bd;
+            border-radius: 2px;
+            padding:2px 5px;
+        }
+        .altMsg {
+            border:1px solid red;
+            background-color:transparent;
+        }
+        .date_selector:nth-of-type(1){
+            left:116px;
+        }
+        .date_selector:last-child{
+            left:231px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="forms">
+        <div class="proctTitle">
+            <span>专项计划标识:</span> <input type="text" name="name" id="proctTitleId" value=" " disabled="disabled" />
+        </div>
+        <div class="proctReasons" style="border-bottom:none">
+            <span class="span_style">申请原因:</span>
+            <textarea id="Reasons" class="Reasons"></textarea>
+        </div>
+        <div class="alterTime">
+            <span class="span_style">申请修改时间:</span>
+            <input type="text" id="endDate" name="name" value=" " class="date-plugins endDate" /><span style="margin-left: 5px;margin-right: 2px;">至</span>
+            <input type="text" id="applyDate" name="name" value=" " class="date-plugins applyDate" />
+        </div>
+        <button id="btn" class="normal_small_button">提交</button>
+    </div> 
+    <script src="../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+
+        requirejs(['../../../../asset/lib/config.js'], function (config) {
+
+            requirejs(['app/productManage/TrustManagement/ApprovalProcess/ApprovalProcess']);
+
+        });
+
+
+
+    </script>
+</body>
+</html>

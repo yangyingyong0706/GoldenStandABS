@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>模型刷新</title>
+    <script data-main="./ModelRefreshIndex" src="../../../../asset/lib/require.js"></script>
+    <link href="../../../../asset/style/bootstrap.css" rel="stylesheet" />
+    <link href="../../css/model.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet">
+    <link href="../../../productManage/TrustManagement/viewTrust_New_iframe/viewTrust.css" rel="stylesheet" />
+    <style>
+        .loadpage {
+            position: absolute;
+            top: 51%;
+            left: 50%;
+            background: transparent;
+        }
+
+            .loadpage > i {
+                color: rgb(107, 147, 216);
+            }
+            html{
+                overflow:hidden;
+            }
+            .aside{
+                padding-left:15px;
+            }
+    </style>
+
+</head>
+<body>
+    <!--<div id="loading" class="loadpage text-center"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>-->
+    <div class="topbar">
+        <div class="aside">
+            <div class="step-box">
+                <div class="step" data-bind="foreach: Steps">
+                    <a data-bind="attr: { class: ($index() == 0 ? 'active' : ''), itemIndex: $index(), pageCode: Code }">
+                        <h3 class="step-title"><span data-bind="text: Title"></span></h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page">
+        <!--<div class="work" data-bind="foreach: Steps">
+            <iframe frameborder="0" scrolling="yes" data-bind="attr:{src: LinkUrl, class: ($index() == 0 ? '' : 'hidden'), id: 'mainContentDisplayer_'+$index()}"></iframe>
+        </div>-->
+        <div class="work">
+            <iframe frameborder="0" id="iframe_main" src=""></iframe>
+        </div>
+    </div>
+</body>
+</html>

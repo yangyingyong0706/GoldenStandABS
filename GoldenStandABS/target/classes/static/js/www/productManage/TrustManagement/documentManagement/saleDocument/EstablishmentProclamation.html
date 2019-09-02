@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>成立公告</title>
+    <link href="../../../../../asset/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../../../../../asset/style/common.css" rel="stylesheet" />
+    <style type="text/css">
+     table tr td.editTd input.red-border{border:1px solid #ff0000;}
+          input.red-border{border:1px solid #ff0000;}
+          h3{border-bottom:1px solid #ddd;padding-bottom:8px;}
+          .tit_top{color:#5a77a9;padding-bottom:5px; border-bottom:3px solid #e7e7e7; font-size:16px;}
+        .title { width:100%;height:35px;line-height:35px;font-size:30px;}
+        .promotTime { width:45%;margin-top:20px;overflow:hidden;float: left;}
+        .promotTime .times { width:24%;float:left;height:30px;line-height:30px;}
+        .SecuritiesPeo .times {  width:22%;}
+        .inputdate { width:242px;float:left;}
+        .Hierarchical { width:100%;clear：both;overflow:hidden;margin-top:20px;position:relative;}
+        .Hierarchical h3 { font-size:14px;margin-bottom:10px;font-weight:bold;}
+        table tr td.editTd { padding:0;margin:0; line-height:34px;}
+        table tr td.editTd input { width:100%;height:100%; border: none;text-align:center;}
+        p.editBtn { width:59px;height:18px;border:1px solid #ddd;border-radius:10%;margin:0 auto;}
+        .SecuritiesName,.SecuritiesPeo { margin-left:3%;}
+        .SecuritiesNum { margin-bottom:10px;}
+        .subBtn { width:140px;height:40px;text-align: center;line-height: 40px;font-size: 14px;background-color:#0094ff;color:#fff;position: absolute;top: 95px;right: 11px;cursor:pointer;}
+        .subBtnAll {width:140px;height:40px;text-align: center;line-height: 40px;font-size: 14px;background-color:#0094ff;color:#fff;cursor:pointer; }
+        .list_main{overflow:hidden;margin-top:20px; margin-left:3%;margin-right:3%;}
+        .list_each{overflow:hidden;margin-bottom:15px;}
+        .list_left,.list_right{float:left;width:45%;}
+        .info_font{width:24%;float:left;line-height:30px;}
+        .info_input{width:45%;line-height:30px;height:30px;}
+        .AllCheckDiv span{position: absolute;line-height:30px;height:20px;margin-left:10px;}
+        .buttonRight{position:absolute; right:10px; top:60px;}
+        #NewAddedFilingDocuments{position: absolute;line-height:30px;height:30px;margin-left:65px;}
+        .newButton{line-height: 18px;float: right;margin-right: 130px;}
+        table tr th{border-bottom: 2px solid #B2C3E2; background: #D4DFF3;vertical-align: middle; font-weight: bold; color: #5A77A9;}
+        table tr td{text-align: center; padding: 8px; line-height: 1.42857143; border: 1px solid #B2C3E2 !important;}
+		.PopupBackground{display:none; position:fixed; left:0px; top:0px;width:100%; height:100%; z-index:999; background-color:#000000;filter:alpha(opacity=50);-moz-opacity:0.5;opacity:0.5;}
+		.HistoricalRecordsDivDIsplay .centent{ width:40%; height:46%; margin:4% auto;background-color:#FFF;position:fixed;z-index:1000;left:30%; top:140px; padding:10px 20px; overflow-y:scroll;}
+        .HistoricalRecordsDivDIsplay .closeHistoricalRecordsDivDIsplay{ position:absolute; right:20px; top:12px;z-index:2000}
+        .HistoricalRecordsDivDIsplay{display:none;}
+        .HistoricalRecordsDivDIsplay span{height:30px;margin:0 20px ; font-weight: bold;}
+        .HistoricalRecordsDivDIsplay div{clear:both; width:100%;margin:20px 0;padding-left:30px;}
+		.HistoricalRecordsDivDIsplay  label{font-weight: 100;}
+    </style>
+</head>
+<body>
+
+    <div class="main" id="app">
+        <div class="title text-center" v-text="TrustName1"></div>
+		<div>
+			<button class="btn btn-primary" id='SubmitPreservation' @click="SubmitPreservation('submit')" style="margin-right:20px;">提交</button>
+            <button class="btn btn-primary btn_btn" id='Preservation' @click="SubmitPreservation('Verify')">审核</button>
+			<button class="btn btn-primary btn_btn" id='HistoricalRecords' @click="HistoricalRecords()">历史纪录</button>
+		</div>
+        <h3 style="margin-top:40px;"><span class="tit_top">时间设置</span></h3>
+        <div class="promotTime" style="padding-left:3%;">
+            <div class="times">专项计划推广时间：</div>
+            <div class="inputdate">
+                <input id="pullDate" type="text" class="form-control date-plugins" data-valid="required">
+            </div>
+        </div>
+        <div class="promotTime">
+            <div class="times" style="width:23%">专项计划成立时间：</div>
+            <div class="inputdate">
+                <input id="TrustStartDate" type="text" class="form-control date-plugins" data-valid="required">
+            </div>
+        </div>
+        <div class="buttonRight">
+            <button class="btn btn-primary" @click="saveAllItems()" style="margin-right:20px;">保存全部</button>
+            <button class="btn btn-primary btn_btn" @click="downloadFile()">下载</button>
+        </div>
+        <div class="Hierarchical" style="margin-top:90px;">
+            <h3><span class="tit_top">分层信息</span></h3>
+            <table class="table table-bordered">
+                <tr>
+                    <th>证券简称</th>
+                    <th>证券评级</th>
+                    <th>证券发行规模</th>
+                    <th>证券发行利率(%)</th>
+                    <th>还款付息方式</th>
+                    <!--<td>操作</td>-->
+                </tr>
+                <tr v-for="t in RatingAgency">
+                    <td class="editTd">
+                        {{t[0].ShortName}}
+                    </td>
+                    <td class="editTd">
+                        {{t[0].ClassName}}
+                    </td>
+                    <td class="editTd">
+                        {{t[0].OfferAmount}}
+                    </td>
+                    <td class="editTd">
+                        {{t[0].CouponBasis}}
+                    </td>
+
+                    <td class="editTd">
+                        {{t[0].PaymentConvention}}
+                    </td>
+                </tr>
+            </table>
+            <button class="btn btn-primary" style="float:right;" @click="toDetail()">编辑</button>
+			<button class="btn btn-primary" style="float:right;margin:0 20px;" @click="Refresh()">刷新</button>
+        </div>
+        <div class="Hierarchical">
+            <h3><span class="tit_top">相关参与方</span></h3>
+            <ul class="list_main">
+                <li class="list_each">
+                    <div class="list_left">
+                        <div class="info_font">计划管理人：</div>
+                        <input type="text" class="form-control info_input" data-valid="required" v-model="PlanManagerAdvertiser">
+                    </div>
+                    <div class="list_right">
+                        <div class="info_font">会计事务所：</div>
+                        <input type="text" class="form-control info_input" data-valid="required" v-model="AccoutingFirm">
+                    </div>
+                </li>
+                <li class="list_each">
+                    <div class="list_left">
+                        <div class="info_font">托管银行：</div>
+                        <input type="text" class="form-control info_input" data-valid="required" v-model="TrusteeBank">
+                    </div>
+                    <div class="list_right">
+                        <div class="info_font">登记机构：</div>
+                        <input type="text" class="form-control info_input" data-valid="required" v-model="TrusteeRegistrationPaymentAgent">
+                    </div>
+                </li>
+                <li class="list_each">
+                    <div class="list_left">
+                        <div class="info_font">流动性支持机构：</div>
+                        <input type="text" class="form-control info_input" data-valid="required" v-model="LiquidityProvider">
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="Hierarchical">
+            <h3><span class="tit_top">备查文件信息</span></h3>
+            <ul class="list_main">
+                <li class="list_each">
+                    <div class="list_left">
+                        <div class="info_font">联系地址：</div>
+                        <input class="form-control info_input" data-valid="required" type="text" v-model="OfficeAddress" />
+                    </div>
+                    <div class="list_right">
+                        <div class="info_font">电话：</div>
+                        <input class="form-control info_input" data-valid="required" type="text" v-model="Phone" />
+                    </div>
+                </li>
+                <li class="list_each">
+                    <div class="list_left">
+                        <div class="info_font">传真：</div>
+                        <input class="form-control info_input" data-valid="required" type="text" v-model="Fax" />
+                    </div>
+                    <div class="list_right">
+                        <div class="info_font">联系人：</div>
+                        <input class="form-control info_input" data-valid="required" type="text" v-model="FirstContact" />
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="Hierarchical">
+            <h3><span class="tit_top">备查文件</span></h3>
+            <div class="AllCheckDiv">
+                <input type="checkbox" @click="AllCheck()" id="AllCheck" rel="全选" />
+                <span id="AllCheckSpan" style="font-weight:bold;">全选</span>
+                <input type="text" id="NewAddedFilingDocuments" />
+                <button class="btn btn-primary btn_btn newButton" style="position: absolute;margin-left: 199px;" @click="NewAddedFilingDocuments()">添加</button>
+            </div>
+            <div style="padding-left:48px;">
+                <div class="list_left AllCheckDiv oldAddedFilingDocuments" style="width:43%;margin-right:10px;" v-for="DD in DocumentData">
+                    <input v-if="CheckDocument.indexOf(DD.orderId)>-1" @click="SingleCheck(DD.orderId)" type="checkbox" v-bind:value="DD.orderId" checked="checked" />
+                    <input v-else type="checkbox" v-bind:value="DD.orderId" @click="SingleCheck(DD.orderId)" />
+                    <span>{{DD.documentNames}}</span>
+                    <button class="btn btn-primary btn_btn newButton" @click="RemoveOld(DD.orderId)">删除</button>
+                </div>
+                <div class="list_left AllCheckDiv NewAddedFilingDocuments" style="width:43%;margin-right:10px;" v-for="(AFD,AFDIndex) in AddedFilingDocuments" track-by="$index">
+                    <input type="checkbox" value="" @click="SingleCheckAddedFilingDocuments(AFDIndex)" />
+                    <span>{{AFD}}</span>
+                    <button class="btn btn-primary btn_btn newButton" @click="RemoveAddedFilingDocuments(AFDIndex)">删除</button>
+                </div>
+            </div>
+        </div>
+		<div class="PopupBackground"></div>
+		<div class="HistoricalRecordsDivDIsplay">
+            <div class="centent">
+				<span class="closeHistoricalRecordsDivDIsplay" @click="closeHistoricalRecordsDivDIsplay">X</span>
+                <div v-for='hr in HistoricalRecordsList'>
+				   <span>操作人:</span>{{hr.SubmitUser}};<span>操作:</span><label v-if='hr.OperationType=="Verify"'>审核</label><label v-if='hr.OperationType=="submit"'>提交</label><span>操作时间:</span>{{hr.SubmitTime}}
+				</div>
+                
+            </div>
+        </div>
+	</div>
+    <div id="taskIndicatorArea" style="display:none;width:480px; height:540px;">
+        <object id="TaskProcessCtl" data="data:application/x-silverlight-2," type="application/x-silverlight-2" style="display:block" width="100%" height="240px" class="ms-dlgDisable">
+            <param name="source" value="/TaskProcessEngine/ClientBin/UI.TaskProcessIndicator.xap" />
+            <param name="enablehtmlaccess" value="True" />
+        </object>
+    </div>
+    <script src="../../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/productManage/TrustManagement/documentManagement/saleDocument/EstablishmentProclamation']);
+        });
+    </script>
+
+    
+
+
+
+
+    <!--<script src="../Common/Scripts/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script src="../Common/Scripts/common.js"></script>
+    <script src="../Common/Scripts/calendar.min.js"></script>
+    <script src="../Common/Scripts/GlobalVariable.js"></script>
+    <script src="../Common/Scripts/vue.js"></script>
+	<script src="/QuickFrame/Scripts/jquery.cookie.js"></script>
+    <script src="/QuickFrame/Scripts/roleOperate.js"></script>
+    <script src="../../../PoolCut/Scripts/TaskIndicatorScript.js"></script>
+    <script src="../../../PoolCut/Scripts/jquery.datagrid.js"></script>
+    <script src="../../../PoolCut/Scripts/jquery-ui-latest.js"></script>
+    <link href="../../../PoolCut/Scripts/jquery-ui.css" rel="stylesheet" />
+    <script src="../../Scripts/DataOperate.js"></script>
+    <script src="EstablishmentProclamation.js"></script>-->
+</body>
+</html>

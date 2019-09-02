@@ -12,7 +12,16 @@
 		exec [TrustManagement].[usp_GetTrustInfoFromWizard] #{TrustId}
 	</select>
 	
-		<resultMap id="TrustMap"
+	<select id="getABSversion"  resultType="java.util.HashMap">
+		exec dbo.getABSversion
+	</select>
+	
+	<select id="GetAllCodeDictionary"  parameterType="String"   resultType="java.util.HashMap">
+		exec [TrustManagement].[usp_GetAllCodeDictionary] #{AliasSetName}
+	</select>
+	
+	
+	<resultMap id="TrustMap"
 		type="com.boot.entity.Trust">
 		<!-- <id property="TrustId" column="TrustId" javaType="int"></id> -->
 		<result property="TrustCode" column="TrustCode" javaType="java.lang.String"></result>

@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>交易管理-回收管理</title>
+    <link href="../../../asset/font/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="../../../asset/style/reset.css" rel="stylesheet" />
+    <link href="../../../asset/style/common.css" rel="stylesheet" />
+    <link href="../../../asset/style/bootstrap.css" rel="stylesheet" />
+    <link href="../../../asset/lib/goldenstand/uiFrame/css/gs-admin-2.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/lib/fullCalendar/fullcalendar.min.css" rel="stylesheet" />
+    <link href="../style/index.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <script src="../../../asset/lib/require.js" data-main="viewClearanceBuyBack"></script>
+    <style>
+        .k-grid tr.k-state-selected>td{
+             border-color:transparent;
+         }
+        header, .btnItem, .btnItemSave {
+            display:flex;
+            padding: 0px;
+            padding-bottom: 10px;
+            width: 100%;
+        }
+
+        .title-transaction {
+            font-size: 14px;
+            font-weight: bolder;
+        }
+
+        .transaction-navTitle {
+            font-size: 12px;
+            color: #5a77a9;
+        }
+
+        .row.btnItemCRUD {
+            margin: 0px;
+            padding: 0px;
+            padding-bottom: 10px;
+        }
+
+        .main {
+            display: none;
+        }
+
+        .ui-dialog {
+            width: 100% !important;
+        }
+        .row {
+            margin: 0;
+        }
+         .top_t{
+            top:2px;
+        }
+    </style>
+</head>
+<body style="display:none">
+    <div id="selectLanguageDropdown_viewClearanceBuyBack" class="localizationTool" style="display:none"></div>
+    <div class="row manager-content" id="app">
+        <section class="btnItemCRUD row">
+            <!--<div class="bs-example col-md-6" data-example-id="single-button-dropdown">
+                <div class="btn-group">
+                    <button type="button" class="normal_small_button dropdown-toggle" aria-haspopup="true" aria-expanded="false" id="ViewDetails">查看 <span class="caret"></span></button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="normal_small_button dropdown-toggle" aria-haspopup="true" aria-expanded="false" id="Edit">编辑 <span class="caret"></span></button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="delet_normal_small_button" aria-haspopup="true" aria-expanded="false" id="Delete">删除 <span class="caret"></span></button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="normal_small_button " aria-haspopup="true" aria-expanded="false" id="Button1" onclick="javascript:method1('ta')">下载明细 <span class="caret"></span></button>
+                </div>
+            </div>-->
+            <label class="viewClearanceBuyBack_ClearanceBuyBackDate">清仓回购日：</label><select style="display:inline-block;width:auto;margin:0 2px" id="AssetDataVal" class="form-control"></select><button type="button" id="AssetDataBtn" class="normal_small_button top_t viewClearanceBuyBack_ClearanceBuyBack">确定</button>
+</section>
+        <section>
+            <div id="grid"></div>
+        </section>
+    </div>
+</body>
+</html>

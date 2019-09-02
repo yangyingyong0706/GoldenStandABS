@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>受托报告任务单数据输入</title>
+    <link href="../../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../taskList-style.css" rel="stylesheet" />
+    <link href="../../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+
+    <style>
+        
+    </style>
+
+</head>
+<body>
+    <div class="layer container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <label class="col-sm-4">
+                    选择专项计划
+                </label>
+                <select id="trustChoice" class="col-sm-8"></select>
+            </div>
+            <div class="col-sm-12">
+                <label class="col-sm-4">
+                    选择开始期数
+                </label>
+                <select id="ComparisonPeriodChoice" class="col-sm-8"></select>
+            </div>
+            <!--<div class="row inline-margin">
+            <div class="input-group inline-margin" style="width:100%">
+                <div class="input-group-addon" style="width:200px">
+                     持续期数
+                </div>
+                <input id="ComparisonLivePeriod" style="width:100%;height:30px;padding-left:10px;" />
+            </div>
+        </div>-->
+            <div class="row inline-margin">
+                <div class="btn_style">
+                    <button class="btn btn-primary" id="upinfo">收益分配配置</button>
+                </div>
+            </div>
+            <iframe src="" frameborder="0" style="width:100%;height:300px" id="showIframe"></iframe>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TaskListVerify/TaskListVerifyChild/EntrustedReportInput']);
+        });
+    </script>
+</body>
+
+</html>

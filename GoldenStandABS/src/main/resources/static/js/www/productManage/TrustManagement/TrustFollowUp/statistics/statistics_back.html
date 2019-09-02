@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>统计</title>
+    <link href="../css/trustFollowUp.css" rel="stylesheet" />
+    <link href="../css/pagerlist-style.css" rel="stylesheet" />
+    <link href="../css/font/GoogleFontDosis.css" rel="stylesheet" />
+    <link href="../../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <style type="text/css">
+        body,html{
+            width:100%;
+            height:100%;
+            overflow:hidden;
+        }
+        #loading {
+            position: absolute;
+            top: 0px;
+            z-index: 1002;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+        }
+
+        #loading > i {
+            color: rgb(107, 147, 216);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .c_layer{
+            width:100%;
+            height:100%;
+            box-sizing:border-box;
+            padding:15px;
+        }
+        .tab_change{
+            width:100%;
+            height:30px;
+            position:relative;
+        }
+        .tab_area{
+            width:100%;
+            height:100%;
+            padding:0px;
+            margin:0px;
+            list-style:none;
+            border-bottom: 1px solid #ccc;
+        }
+        .tab_area li{
+            float: left;
+            margin-right: 10px;
+            height: 100%;
+            line-height: 30px;
+            cursor:pointer;
+            position:relative;
+            font-size:14px;
+        }
+       .tab_area li.active:before{
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: 0px;
+            left:0px;          
+            background: #156ecc;
+        }
+        .tab_area li:before{
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0px;
+            left:0px;       
+            background: #156ecc;
+            transition:all linear 0.3s;
+        }
+        .tab_area li:hover:before{
+            width: 100%;
+        }
+        .pared_select_layer{
+            position:absolute;
+            right:5px;
+            top:0px;
+        }
+        .pared_select{
+            height:100%;
+            width:auto;
+            border: none;
+            font-weight: bold;
+            font-size:14px;
+        }
+        .banner_img{
+            width:100%;
+            height:80px;
+            margin-top:20px;
+            display: flex;
+        }
+        .viewone{
+            width:calc(50% - 10px);
+            height:100%;
+            box-sizing:border-box;
+            background:linear-gradient(to right,#fbb940 50%,#f3933d);
+            margin-right:auto;
+            position:relative
+        }
+         .viewtwo{
+            width:calc(50% - 10px);
+            height:100%;
+            box-sizing:border-box;
+            background:linear-gradient(to right,#40b5fb 50%,#3077a2);
+            position:relative
+        }
+        .icon.icon-chart-pie{
+            font-size: 40px;
+            color: #fff;
+            margin-top: 22px;
+            display: inline-block;
+            margin-left: 15px;
+        }
+        .font_layer{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 84px;
+            top: 0px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            padding-top: 18px;
+        }
+        .number_style{
+            display: inline-block;
+            font-size: 16px;
+            color: #fff;
+        }
+        .viewArea{
+            width: 100%;
+            height: calc(100% - 151px);
+            margin-top: 20px;
+        }
+        .current_view{
+            width:100%;
+            height:100%;
+        }
+        .history_view{
+            width:100%;
+            height:100%;
+        }
+        .view_chart{
+            width:calc(50% - 10px);
+            height:100%;
+            float:left;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">
+        <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+    </div>
+    <div id="dataListView" style="display:none"></div>
+    <div class="c_layer" id="app">
+        <div class="tab_change">
+            <ul class="tab_area">
+                <li class="active">当期回款统计</li>
+                <li>历史回款情况</li>
+            </ul>
+            <div class="pared_select_layer">
+                <select id="pared" class="pared_select">
+                    <option v-for="dates in datelist">{{dates.EndDate | returndate}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="banner_img">
+            <div class="viewone">
+                <i class="icon icon-chart-pie"></i>
+                <div class="font_layer">
+                    <span id="cumulativeBRate" class="number_style" style="font-size:20px"></span>
+                    <span class="number_style">累计违约率</span>
+                </div>
+            </div>
+            <div class="viewtwo">
+                <i class="icon icon-chart-pie"></i>
+                <div class="font_layer">
+                    <span id="cumulativePreRate" class="number_style" style="font-size:20px"></span>
+                    <span class="number_style">累计早偿率</span>
+                </div>
+            </div>
+        </div>
+        <div class="viewArea">
+            <div class="current_view">
+                <div id="container" class="view_chart" style="margin-right:20px"></div>
+                <div id="container1" class="view_chart"></div>
+            </div>
+            <div class="history_view">
+                <div id="container2" class="view_chart" style="margin-right:20px"></div>
+                <div id="container3" class="view_chart"></div>
+            </div>
+        </div>
+    </div>
+    <script src="../../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TrustFollowUp/statistics/statistics_back']);
+        });
+    </script>
+</body>
+</html>

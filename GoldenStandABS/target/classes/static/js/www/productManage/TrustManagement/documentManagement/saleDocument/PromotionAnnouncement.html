@@ -1,0 +1,268 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>推广公告</title>
+    <link href="../../../../../asset/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../../../../../asset/style/common.css" rel="stylesheet" />
+    <style type="text/css">
+        table tr td.editTd input.red-border{border:1px solid #ff0000;}
+          input.red-border{border:1px solid #ff0000;}
+          h3{border-bottom:1px solid #ddd;padding-bottom:8px;}
+          .tit_top{color:#5a77a9;padding-bottom:5px; border-bottom:3px solid #e7e7e7; font-size:16px;}
+        .title { width:100%;height:35px;line-height:35px;font-size:30px;}
+        .promotTime { width:45%;margin-top:20px;overflow:hidden;float: left;}
+        .promotTime .times { width:24%;float:left;height:30px;line-height:30px;}
+        .SecuritiesPeo .times {  width:22%;}
+        .inputdate { width:242px;float:left;}
+        .Hierarchical { width:100%;clear：both;overflow:hidden;margin-top:20px;position:relative;}
+        .Hierarchical h3 { font-size:14px;margin-bottom:10px;font-weight:bold;}
+        table tr td.editTd { padding:0;margin:0; line-height:34px;}
+        table tr td.editTd input { width:100%;height:100%; border: none;text-align:center;}
+        p.editBtn { width:59px;height:18px;border:1px solid #ddd;border-radius:10%;margin:0 auto;}
+        .SecuritiesName,.SecuritiesPeo { margin-left:3%;}
+        .SecuritiesNum { margin-bottom:10px;}
+        .subBtn { width:140px;height:40px;text-align: center;line-height: 40px;font-size: 14px;background-color:#0094ff;color:#fff;position: absolute;top: 95px;right: 11px;cursor:pointer;}
+        .subBtnAll {width:140px;height:40px;text-align: center;line-height: 40px;font-size: 14px;background-color:#0094ff;color:#fff;cursor:pointer; }
+        .list_main{overflow:hidden;margin-top:20px; margin-left:3%;margin-right:3%;}
+        .list_each{overflow:hidden;margin-bottom:15px;}
+        .list_left,.list_right{float:left;width:45%;}
+        .info_font{width:24%;float:left;line-height:30px;}
+        .info_input{width:45%;line-height:30px;height:30px;}
+        .AllCheckDiv span{position: absolute;line-height:30px;height:20px;margin-left:10px;}
+        .buttonRight{position:absolute; right:10px; top:60px;}
+        table tr th{border-bottom: 2px solid #B2C3E2; background: #D4DFF3;vertical-align: middle; font-weight: bold; color: #5A77A9;}
+        table tr td{text-align: center; padding: 8px; line-height: 1.42857143; border: 1px solid #B2C3E2 !important;}
+		.PopupBackground{display:none; position:fixed; left:0px; top:0px;width:100%; height:100%; z-index:999; background-color:#000000;filter:alpha(opacity=50);-moz-opacity:0.5;opacity:0.5;}
+		.HistoricalRecordsDivDIsplay .centent{ width:40%; height:46%; margin:4% auto;background-color:#FFF;position:fixed;z-index:1000;left:30%; top:140px; padding:10px 20px; overflow-y:scroll;}
+        .HistoricalRecordsDivDIsplay .closeHistoricalRecordsDivDIsplay{ position:absolute; right:20px; top:12px;z-index:2000}
+        .HistoricalRecordsDivDIsplay{display:none;}
+        .HistoricalRecordsDivDIsplay span{height:30px;margin:0 20px ; font-weight: bold;}
+        .HistoricalRecordsDivDIsplay div{clear:both; width:100%;margin:20px 0;padding-left:30px;}
+		.HistoricalRecordsDivDIsplay  label{font-weight: 100;}
+    </style>
+</head>
+<body>
+   
+    <div class="main" id="app">
+        <div class="title text-center" v-text="EnterpirseName"></div>
+		<div>
+			<button class="btn btn-primary" id='SubmitPreservation' @click="SubmitPreservation('submit')" style="margin-right:20px;">提交</button>
+            <button class="btn btn-primary btn_btn" id='Preservation' @click="SubmitPreservation('Verify')">审核</button>
+			<button class="btn btn-primary btn_btn" id='HistoricalRecords' @click="HistoricalRecords()">历史纪录</button>
+		</div>
+        <h3 style="margin-top:40px;"><span class="tit_top">时间设置</span></h3>
+        <div class="promotTime" style="padding-left:3%;">
+            <div class="times">推广时间：</div>
+            <div class="inputdate">
+                <input id="pullDate" type="text" class="form-control date-plugins" data-valid="required">
+            </div>
+        </div>
+        <div class="buttonRight">
+            <button class="btn btn-primary" @click="saveAllItems()" style="margin-right:20px;">保存全部</button>
+            <button class="btn btn-primary btn_btn" @click="downloadFile()">下载</button>
+        </div>
+        <div class="Hierarchical" style="margin-top:90px;">
+            <h3><span class="tit_top">分层信息</span></h3>
+            <table class="table table-bordered">
+                <tr>
+                    <th>证券简称</th>
+                    <th>证券评级</th>
+                    <th>证券发行规模</th>
+                    <th>证券发行利率(%)</th>
+                    <th>还款付息方式</th>
+                    <!--<td>操作</td>-->
+                </tr>
+                <tr v-for="t in RatingAgency">
+                    <td class="editTd">
+                        {{t[0].ShortName}}
+                    </td>
+                    <td class="editTd">
+                        {{t[0].ClassName}}
+                    </td>
+                    <td class="editTd">
+                        {{t[0].OfferAmount}}
+                    </td>
+                    <td class="editTd">
+                        {{t[0].CouponBasis}}
+                    </td>
+
+                    <td class="editTd">
+                        {{t[0].PaymentConvention}}
+                    </td>
+                    <!--<td class="text-center">
+            <button class="btn btn-sm btn-primary" @click="getToDetaile(t,$index)">编辑</button>
+            <button class="btn btn-sm btn-danger" @click="delteHierar(t,$index)">删除</button>
+        </td>-->
+                </tr>
+            </table>
+            <button class="btn btn-primary" style="float:right;" @click="toDetail()">编辑</button>
+			<button class="btn btn-primary" style="float:right;margin:0 20px;" @click="Refresh()">刷新</button>
+        </div>
+        <!--<div class="Hierarchical">
+            <h3>添加分层</h3>
+            <ul class="list_main">
+                <li class="list_each">
+                    <div class="list_right">
+                        <div class="info_font">证券代码</div>
+                        <input class="form-control info_input" type="text"  v-model="RatingAgencyList[0].SecurityExchangeCode" />
+                    </div>
+                    <div class="list_left">
+                        <div class="info_font">证券简称</div>
+                        <input class="form-control info_input" type="text"  v-model="RatingAgencyList[0].ShortName" />
+                    </div>
+                </li>
+                <li class="list_each">
+                    <div class="list_left">
+                        <div class="info_font">证券评级</div>
+                        <input class="form-control info_input"  type="text" v-model="RatingAgencyList[0].ClassName" />
+                    </div>
+                    <div class="list_right">
+                        <div class="info_font">每份面值</div>
+                        <input class="form-control info_input" type="text" v-model="RatingAgencyList[0].Denomination" />
+                    </div>
+                </li>
+                <li class="list_each">
+                    <div class="list_right">
+                        <div class="info_font">预期发行规模</div>
+                        <input class="form-control info_input"  type="text" v-model="RatingAgencyList[0].OfferAmount" />
+                    </div>
+                    <div class="list_right">
+                        <div class="info_font">预期发行利率(%)</div>
+                        <input class="form-control info_input"  type="text" v-model="RatingAgencyList[0].CouponBasis" />
+                    </div>
+                           
+                </li>
+                <li class="list_each">
+                    <div class="list_right">
+                        <div class="info_font">预期到期日</div>
+                        <input class="form-control info_input  date-plugins" type="text" v-model="RatingAgencyList[0].LegalMaturityDate" />
+                    </div>
+                    <div class="list_left">
+                        <div class="info_font">还本付息方式</div>
+                        <select class="form-control info_input" v-model="RatingAgencyList[0].PaymentConvention">
+                            <option value="一次性还本付息">一次性还本付息</option>
+                            <option value="计划还本，按期付息">计划还本，按期付息</option>
+                            <option value="过手型，按期付息">过手型，按期付息</option>
+                            <option value="按期等额本金">按期等额本金</option>
+                            <option value="按期等额本息">按期等额本息</option>
+                        </select>
+                    </div>
+                            
+                           
+                            
+                </li>
+                <li class="list_each">
+                    <div class="list_left">
+                        <div class="info_font">付息频率</div>
+                        <select class="form-control info_input"  v-model="RatingAgencyList[0].PaymentFrequence">
+                            <option value="按月">按月</option>
+                            <option value="按季">按季</option>
+                            <option value="按半年">按半年</option>
+                            <option value="按年">按年</option>
+                        </select>
+                    </div>
+                    <div class="list_right">
+                        <div class="info_font">债券类别</div>
+                        <select class="form-control info_input" v-model="RatingAgencyList[0].ClassType">
+                            <option value="FirstClass">优先级</option>
+                            <option value="SubClass">次优先级</option>
+                            <option value="EquityClass">次级</option>
+                        </select>
+                    </div>
+                </li>
+                        
+                <li class="list_each">
+                    <div class="list_right">
+                        <button class="btn btn-primary" @click="addHierar()">
+                            添加分层
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </div>-->
+        <div class="Hierarchical">
+            <h3><span class="tit_top">专项计划管理人相关信息</span></h3>
+            <ul class="list_main">
+                <li class="list_each">
+                    <div class="list_left">
+                        <div class="info_font">专项计划管理人：</div>
+                        <input class="form-control info_input" data-valid="required" type="text" v-model="Planner" />
+                    </div>
+                    <div class="list_right">
+                        <div class="info_font">计划管理人网址：</div>
+                        <input class="form-control info_input" data-valid="required" type="text" v-model="PlannerWebsite" />
+                    </div>
+                </li>
+                <li class="list_each">
+                    <div class="list_left">
+                        <div class="info_font">计划管理人联系人：</div>
+                        <input class="form-control info_input" data-valid="required" type="text" v-model="Contacts" />
+                    </div>
+                    <div class="list_right">
+                        <div class="info_font">计划管理人电话：</div>
+                        <input class="form-control info_input tel" data-valid="required" type="text" v-model="PlannerPhone" />
+                    </div>
+                </li>
+                <li class="list_each">
+                    <div class="list_left">
+                        <div class="info_font">计划管理人邮箱：</div>
+                        <input class="form-control info_input email" data-valid="required" type="text" v-model="PlannerEmail" />
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="Hierarchical">
+            <h3><span class="tit_top">托管银行</span></h3>
+            <div class="promotTime SecuritiesPeo">
+                <div class="times">托管银行：</div>
+                <div class="inputdate">
+                    <input type="text" class="form-control" data-valid="required" v-model="TrusteeshipBank">
+                </div>
+            </div>
+
+        </div>
+		<div class="PopupBackground"></div>
+		<div class="HistoricalRecordsDivDIsplay">
+            <div class="centent">
+				<span class="closeHistoricalRecordsDivDIsplay" @click="closeHistoricalRecordsDivDIsplay">X</span>
+                <div v-for='hr in HistoricalRecordsList'>
+				   <span>操作人:</span>{{hr.SubmitUser}};<span>操作:</span><label v-if='hr.OperationType=="Verify"'>审核</label><label v-if='hr.OperationType=="submit"'>提交</label><span>操作时间:</span>{{hr.SubmitTime}}
+				</div>
+                
+            </div>
+        </div>
+	</div>
+    <div id="taskIndicatorArea" style="display:none;width:480px; height:540px;">
+        <object id="TaskProcessCtl" data="data:application/x-silverlight-2," type="application/x-silverlight-2" style="display:block" width="100%" height="240px" class="ms-dlgDisable">
+            <param name="source" value="/TaskProcessEngine/ClientBin/UI.TaskProcessIndicator.xap" />
+            <param name="enablehtmlaccess" value="True" />
+        </object>
+    </div>
+    <script src="../../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/productManage/TrustManagement/documentManagement/saleDocument/PromotionAnnouncement']);
+        });
+    </script>
+
+
+
+
+    <!--<script src="../Common/Scripts/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script src="../Common/Scripts/common.js"></script>
+    <script src="../Common/Scripts/calendar.min.js"></script>
+    <script src="../Common/Scripts/GlobalVariable.js"></script>
+    <script src="../Common/Scripts/vue.js"></script>
+	<script src="/QuickFrame/Scripts/jquery.cookie.js"></script>
+    <script src="/QuickFrame/Scripts/roleOperate.js"></script>
+    <script src="../../../PoolCut/Scripts/TaskIndicatorScript.js"></script>
+    <script src="../../../PoolCut/Scripts/jquery.datagrid.js"></script>
+    <script src="../../../PoolCut/Scripts/jquery-ui-latest.js"></script>
+    <link href="../../../PoolCut/Scripts/jquery-ui.css" rel="stylesheet" />
+    <script src="../../Scripts/DataOperate.js"></script>
+    <script src="PromotionAnnouncement.js"></script>-->
+</body>
+</html>

@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="style/dx.spa.css" />
+    <link rel="stylesheet" type="text/css" href="style/dx.common.css" />
+    <link rel="dx-theme" data-theme="generic.light" href="style/dx.light.css" />
+    <link rel="stylesheet" href="../../../asset/lib/jquery/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="style/styles.css" />
+    <script src="../../../asset/lib/devExtreme/jszip.min.js"></script>
+    <script data-main="poolWebReport" src="../../../asset/lib/require.js"></script>
+    <style>
+        .dx-pivotgrid .dx-pivotgrid-horizontal-headers td{
+            font-size:13px;
+        }
+        .ui-tabs .ui-tabs-nav li{
+            font-size:13px;
+        }
+        .demo-container {
+            height: 100%;
+            overflow-y: auto;
+        }
+        .dx-pivotgrid .dx-grandtotal{
+            background-color:rgba(221, 221, 221, 0.2)
+        }
+        .dx-pivotgrid .dx-bottom-row td{
+            background-color:#fff;
+        }
+        /*修改jquery-ui样式*/
+        .ui-widget-content{
+            border: none;
+        }
+        .ui-tabs .ui-tabs-nav{
+            margin-top: 10px;
+            margin-bottom: 7px;
+            background: #F3F5FA;
+        }
+        .ui-tabs .ui-tabs-nav li {
+            margin-left: 40px;
+        }
+        .ui-tabs .ui-tabs-nav li a {
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .ui-tabs .ui-tabs-panel {
+            padding: 0;
+        }
+        .ui-tabs .ui-tabs-panel>div:nth-child(1){
+            padding: 15px 30px;
+            margin-bottom: 19px;
+            border-bottom: 1px solid #DCE0EE;
+        }
+        #tabs .dx-filter-header {
+            border: none;
+            padding-bottom: 10px;
+        } 
+        #tabs .dx-filter-header td {
+            padding: 0;
+            padding-right: 10px;
+        }
+        #tabs .dx-pivotgrid-action {
+            border-radius: 4px;
+            padding: 5px 10px;
+        }
+        #tabs .dx-pivotgrid-toolbar {
+            margin-top: -9px;
+            margin-right: 0;
+        }
+        #tabs .dx-pivotgrid-border tbody tr:nth-child(3) {
+            border-top: 1px solid #ddd;
+        }
+        .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
+            border: 0 none;
+            background: none;
+        }
+        .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header, .ui-widget-header .ui-state-active{
+            border: 0 none;
+            background:none;
+        }
+        .ui-tabs .ui-tabs-nav li.ui-tabs-active{
+            border-bottom: 2px solid #45569c;
+        }
+        .ui-tabs .ui-tabs-nav li.ui-tabs-active a{
+            color: #45569c;
+        }
+        .dx-pivotgrid .dx-pivotgrid-horizontal-headers td{
+            border-color: #dce0ee;
+        }
+        .dx-pivotgrid .dx-bottom-border, .dx-pivotgrid .dx-area-description-cell, .dx-pivotgrid .dx-area-column-cell{
+            border-color: #dce0ee;
+        }
+        .dx-pivotgrid .dx-pivotgrid-border .dx-filter-header, .dx-pivotgrid .dx-pivotgrid-border .dx-area-column-cell, .dx-pivotgrid .dx-pivotgrid-border .dx-column-header, .dx-pivotgrid .dx-pivotgrid-border .dx-filter-header, .dx-pivotgrid .dx-pivotgrid-border .dx-area-data-cell{
+            border-color: #dce0ee;
+        }
+        .long-title {
+            margin-top: 15px;
+            border-bottom: 1px solid #E6E9F5;
+        }
+        .long-title h3 {
+            text-align: left;
+            margin-bottom: 14px;
+            color: #45569C;
+        }
+        .long-title h3:before {
+            content: "";
+            display: inline-block;
+            margin-right: 6px;
+            margin-bottom: 2px;
+            width: 8px;
+            height: 8px;
+            background: #45569C;
+        }
+    </style>
+</head>
+<body class="dx-viewport">
+    <div id="selectLanguageDropdown_qcl" class="localizationTool" style="display:none"></div>
+    <div class="demo-container">
+        <!--<div class="long-title"><h3 id="local">资产池基础信息</h3></div>-->
+        <div class="long-title" style="margin-bottom: 20px;"><h3 style="margin-top: 0;">资产池基础信息</h3></div>
+        <div id="dalSummary" style="width:calc(100% - 40px);margin:auto"></div>
+        <div class="long-title"><h3 id="thing">分布信息</h3></div>
+        <div id="tabs" style="width:calc(100% - 40px);margin:auto;margin-bottom: 60px;">
+            <ul>
+                <li><a id="tab1" href="#tabs-1">合同期限分布</a></li>
+                <li><a id="tab2" href="#tabs-2">账龄分布</a></li>
+                <li><a id="tab3" href="#tabs-3">剩余期限分布</a></li>
+                <li><a id="tab4" href="#tabs-4">利率分布</a></li>
+                <li><a id="tab5" href="#tabs-5">合同金额分布</a></li>
+                <li><a id="tab6" href="#tabs-6">本金余额分布</a></li>
+                <li><a id="tab7" href="#tabs-7">贷款行业分布</a></li>
+                <li><a id="tab8" href="#tabs-8">年收入分布</a></li>
+                <li><a id="tab9" href="#tabs-9">年龄分布</a></li>
+                <li><a id="tab10" href="#tabs-10">信用分数分布</a></li>
+                <li><a id="tab11" href="#tabs-11">五级分类分布</a></li>
+                <li><a id="tab12" href="#tabs-12">地域分布</a></li>
+            </ul>
+            <div id="tabs-1">
+                <div id="loanTerm-chart"></div>
+                <div id="loanTerm"></div>
+            </div>
+            <div id="tabs-2">
+                <div id="seasoning-chart"></div>
+                <div id="seasoning"></div>
+            </div>
+            <div id="tabs-3">
+                <div id="remainingTerm-chart"></div>
+                <div id="remainingTerm"></div>
+            </div>
+            <div id="tabs-4">
+                <div id="rate-chart"></div>
+                <div id="rate"></div>
+            </div>
+            <div id="tabs-5">
+                <div id="loanAmount-chart"></div>
+                <div id="loanAmount"></div>
+            </div>
+            <div id="tabs-6">
+                <div id="cpr-chart"></div>
+                <div id="cpr"></div>
+            </div>
+            <div id="tabs-7">
+                <div id="career-chart"></div>
+                <div id="career"></div>
+            </div>
+            <div id="tabs-8">
+                <div id="income-chart"></div>
+                <div id="income"></div>
+            </div>
+            <div id="tabs-9">
+                <div id="age-chart"></div>
+                <div id="age"></div>
+            </div>
+            <div id="tabs-10">
+                <div id="credit-chart"></div>
+                <div id="credit"></div>
+            </div>
+            <div id="tabs-11">
+                <div id="gradeLevel-chart"></div>
+                <div id="gradeLevel"></div>
+            </div>
+            <div id="tabs-12">
+                <div id="address-chart"></div>
+                <div id="address"></div>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title>投后总览</title>
+    <link href="../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../report/ReportGrid.css" rel="stylesheet" />
+    <script src="../../asset/lib/goldenstand/Kendo/jszip.js"></script>
+    <style>
+        .ViewBlock{
+            background:#fff;
+            margin-top:15px;
+            padding:15px;
+        }
+        body{
+            padding:0px;
+        }
+        .header{
+            margin:0px;
+        }
+        .loadpage{
+            margin: 0px;
+        }
+        .viewRoom:nth-child(even){
+            padding-left:7.5px;
+        }
+        .viewRoom:nth-child(odd){
+            padding-right:7.5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading" class="loadpage text-center"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 viewRoom">
+                <div class="ViewBlock">
+                    <div class="header">
+                        <span class="title">
+                            <i class="icon icon-rankfill"></i>
+                            专项计划类别数量统计
+                        </span>
+                        <hr />
+                    </div>
+                    <div class="listRoom">
+                        <div id="chartRoom1" class="chartRoom"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 viewRoom">
+                <div class="ViewBlock">
+                    <div class="header">
+                        <span class="title">
+                            <i class="icon icon-chart-bar"></i>
+                            专项计划剩余期限分布情况
+                        </span>
+                        <hr />
+                    </div>
+                    <div class="listRoom">
+                        <div id="chartRoom2" class="chartRoom"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 viewRoom">
+                <div class="ViewBlock" style="margin-bottom:">
+                    <div class="header">
+                        <span class="title">
+                            <i class="icon icon-asset"></i>
+                            兑付、收益情况
+                        </span>
+                        <hr />
+                    </div>
+                    <div class="listRoom">
+                        <div id="gridPayment"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 viewRoom">
+                <div class="ViewBlock">
+                    <div class="header">
+                        <span class="title">
+                            <i class="icon icon-money"></i>
+                            现金流统计
+                        </span>
+                        <hr />
+                    </div>
+                    <div class="listRoom">
+                        <div id="gridCashFlow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../asset/lib/config'], function (config) {
+            requirejs(['app/riskManagement/riskDashboard']);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>资产池合并</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+
+    <!--<link href="../Contents/style.css" rel="stylesheet" />-->
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <script data-main="./assetPoolMerge.js" src="../../../asset/lib/require.js"></script>
+    <style>
+        body{
+            padding:15px;
+        }
+        .button_layer{
+            display:inline-block;
+            width:100%;
+            text-align:center;
+            margin-top:10px;
+        }
+        .form-panel.drop .col-xs-5,
+        .form-panel.drop .col-xs-7,
+        .form-panel.drop .col-md-5,
+        .form-panel.drop .col-md-7 {
+            padding: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form" id="AssetPoolMergeForm">
+        <div class="form-body default">
+            <div class="form-panel drop container" id="gold-form-panel">
+                <div class="row form-group" id="testView">
+                    <div class="col-xs-5 col-md-5"><label class="gold-group-addon">请选择要合并的资产池</label></div>
+                    <div class="col-xs-7 col-md-7">
+                        <select class="form-control gold-form-control" id="selAssociatedAssetPool"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="buttons pull-right button_layer">
+                <button type="button" class="btn btn-primary" title="提交" id="btnSubmit" style="margin-right:10px">提交</button>
+                <button type="button" class="btn btn-danger btn-single-default" title="取消" id="cancel">取消</button>
+            </div>
+        </div>
+        </div>
+
+</body>
+</html>

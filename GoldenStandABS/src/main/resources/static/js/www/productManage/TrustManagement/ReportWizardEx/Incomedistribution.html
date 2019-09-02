@@ -1,0 +1,105 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>存续期管理</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <link href="../TrustWizard/trustWizard.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <script src="../../../../asset/lib/require.js"></script>
+    <style>
+        .nobottom {
+            border-bottom: none !important;
+        }
+
+        .main {
+            padding: 15px;
+        }
+
+        .form .form-group .col-3 label {
+            background: #f1f1f1;
+            border: 1px solid #efecec;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .form-panel.drop {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            margin: 0px;
+        }
+
+
+        .normal_small_button[disabled] {
+            opacity: .4;
+            cursor: not-allowed;
+        }
+       .stitle{
+            font-size: 16px !important;
+            color: rgba(59,62,93,0.8);
+            font-weight: normal;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 0px;
+            height: 35px;
+            line-height: 35px;
+            margin-bottom:20px;
+       }
+       .form .form-panel.drop .form-group{
+           margin-bottom:20px;
+       }
+    </style>
+</head>
+<body>
+    <div class="body-container form nobottom" id="interest_adjustments_div" style="min-height:0px;">
+        <div class="main">
+            <h3 class="stitle">收益分配</h3>
+            <div class="form-panel drop nobottom">
+                <div class=" form-panel drop list-filters">
+                    <div class="col-12" style="display:flex;flex-wrap:wrap">
+                        <div class="col-10 form-group autoLayout-plugins" style="width:100%">
+                            <div class="col-3" style="font-size:14px;width:30%">
+                                <label style="font-size:14px">收益分配区间</label>
+                            </div>
+                            <div class="col-7" style="font-size:14px;width:70%">
+                                <select style="font-size:14px" id='collectPeriod' class="form-control" data-attr="TrustPared" data-valid="required"></select>
+                            </div>
+                        </div>
+                        <div class="col-10 form-group autoLayout-plugins" style="width:100%">
+                            <div class="col-3" style="width:30%">
+                                <label style="font-size:14px">收益分配期数</label>
+                            </div>
+                            <div class="col-7" style=width:70%>
+                                <input type="text" id="period" class="form-control" data-attr="TrustTerm" data-valid="required int" />
+                            </div>
+                        </div>
+                        <div class="col-10 form-group autoLayout-plugins">
+                            <!--<div class="col-3">
+                                <label style="font-size:14px"></label>
+                            </div>-->
+                            <div class="col-7">
+                                <button id="btnss" onclick="OpenTransactionInput();" type="button" class="normal_small_button">点击录入收益分配数据</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align:center;width:100%">
+                    <button id="Submit" onclick="Submit();" type="button" class="normal_small_button">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/ReportWizardEx/Incomedistribution']);
+
+        });
+    </script>
+</body>
+</html>

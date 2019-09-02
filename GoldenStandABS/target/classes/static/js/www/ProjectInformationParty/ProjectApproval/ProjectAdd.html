@@ -1,0 +1,74 @@
+﻿
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title>新建项目</title>
+    <link href="../../productManage/TrustManagement/ReportWizardEx/css/ReportWizardEx.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body id="app">
+    <div class="layer" v-cloak>
+        <div class="left_nav_style" v-if="addProject">
+            <div class="step-head">
+                <h2>
+                    <span>新建项目</span>
+                </h2>
+            </div>
+            <ul>
+                <li id="addProject" class="current_li" v-on:click="changeIframe($event)">
+                    <span class="mar_dis">1</span>
+                    <span>新建项目</span>
+                    <span class="flag"></span>
+                </li>
+                <li id="ProjectMsg" v-on:click="changeIframe($event)">
+                    <span class="mar_dis">2</span>
+                    <span>新建产品</span>
+                    <span class="flag"></span>
+                </li>
+                <li id="ProjectList" v-on:click="changeIframe($event)">
+                    <span class="mar_dis">3</span>
+                    <span>产品列表</span>
+                    <span class="flag"></span>
+                </li>
+            </ul>
+        </div>
+        <div class="left_nav_style" v-if="!addProject">
+            <div class="step-head">
+                <h2>
+                    <span>编辑项目</span>
+                </h2>
+            </div>
+            <ul>
+                <li id="addProject" class="current_li" v-on:click="changeIframeEdit($event)">
+                    <span class="mar_dis">1</span>
+                    <span>编辑项目</span>
+                    <span class="flag"></span>
+                </li>
+                <li id="ProjectList" v-on:click="changeIframeEdit($event)">
+                    <span class="mar_dis">2</span>
+                    <span>产品列表</span>
+                    <span class="flag"></span>
+                </li>
+            </ul>
+        </div>
+        <div class="iframe_content">
+            <iframe v-bind:src="url" frameborder="0" class="extend_father"></iframe>
+        </div>
+    </div>
+    <script src="../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/ProjectInformationParty/js/project_interface']);
+            requirejs(['app/ProjectInformationParty/ProjectApproval/ProjectAdd']);
+        });
+    </script>
+</body>
+</html>

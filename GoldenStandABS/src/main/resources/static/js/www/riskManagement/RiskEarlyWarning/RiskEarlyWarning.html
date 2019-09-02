@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title>风险预警</title>
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/style/jquery.searchableSelect.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <style>
+        body,html{
+            padding:0;
+            margin:0;
+            height:100%;
+            width:100%;
+        }
+        body{
+            background:rgba(243,245,250,1);
+            padding:15px;
+        }
+        .layer{
+            box-sizing:border-box;
+            width:100%;
+            height:100%;
+            padding:15px;
+            padding-top:0;
+            background:#fff;
+        }
+        .FStitle{
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            border-bottom: 1px solid #DCE0EE;
+        }
+        .fino{
+            font-size: 16px;
+            color: #45569C;
+        }
+         .cr{
+            display: inline-block;
+            font-size: 12px;
+            height: 20px;
+            line-height: 20px;
+            background: #fdf9eb;
+            color: #a79e9e;
+            padding: 0 20px;
+            margin-left: 20px;
+            margin-top: 5px;
+            margin-right:20px;
+        }
+        .changetabs{
+            width:100%;
+            height:40px;
+            line-height:38px;
+            padding:0;
+            border-bottom: 1px solid #DCE0EE;
+            margin:0;
+        }
+        .changetabs li{
+            font-size:14px;
+            margin-right:40px;
+            float:left;
+            cursor:pointer;
+        }
+        ul{
+            list-style:none
+        }
+        .changetabs li.active{
+            color: #45569C;
+            margin-right: 40px;
+            border-bottom: 2px solid #45569C;
+        }
+        .ShouldAlso,.ToCopeWith{
+            clear:both;
+        }
+        .ToCopeWith{
+            display:none;
+        }
+        #ShouldDate,#ToCopeDate{
+            width: 120px;
+            height: 30px;
+            background: rgba(255,255,255,1);
+            border: 1px solid rgba(220,224,238,1);
+            border-radius: 4px;
+            display: inline-block;
+            padding-left: 10px;
+            margin-top: 10px;
+        }
+        .info{
+            font-size: 12px;
+            color: #808080;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        #ShouldAlsoGrid,#ToCopeWithGrid{
+            clear:both;
+        }
+        .k-grid-content.k-auto-scrollable{
+            text-align:left
+        }
+        #loading{
+                width: calc(100% + 30px);
+                height: calc(100% + 30px);
+                background: #fff;
+                position: relative;
+                left: -15px;
+                top: -15px;
+        }
+        .trustcod{
+            width: 120px;
+            height: 30px;
+            background: rgba(255,255,255,1);
+            border: 1px solid rgba(220,224,238,1);
+            border-radius: 4px;
+            display: inline-block;
+            padding-left: 10px;
+            margin-top: 10px;
+        }
+        .searchable-select{
+            top:-2px;
+        }
+        .searchable-select-caret{
+            display:none
+        }
+        .searchable-select-holder{
+            border-radius:4px;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading" class="loadpage text-center"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+    <div class="layer">
+        <div class="changeArea">
+            <div class="changeTab">
+                <div class="headers">
+                    <ul class="changetabs">
+                        <li class="active" value="1">资产还款提醒</li>
+                        <li value="2">产品兑付提醒</li>
+                    </ul>
+                </div>
+                <div class="ShouldAlso">
+                    <div style="margin-bottom: 10px;float: right;">
+                        <div style="display:inline-block;margin-right:20px;position:relative">
+                            <span class="info" style="position:absolute;top:5px;left:-55px">选择产品:</span>
+                            <select class="trustcod" id="sel-1">
+
+                            </select>
+                        </div>
+                        <div style="display:inline-block;">
+                            <span class="info">日期:</span>
+                            <input type="text" class="form-control date-plugins" id="ShouldDate" autocomplete="off"/>
+                        </div>
+                        <span class="cr">注：日期选择只能选择当月最后一天</span>
+                        <button class="btn btn-primary">检索</button>
+                    </div>
+                    <div id="ShouldAlsoGrid">
+
+                    </div>
+                </div>
+                <div class="ToCopeWith">
+                    <div style="margin-bottom: 10px;float:right;">
+                        <div style="display:inline-block;position:relative;margin-right:20px">
+                            <span class="info" style="position:absolute;top:5px;left:-55px">选择产品:</span>
+                            <select class="trustcod" id="sel-2">
+
+                            </select>
+                        </div>
+                        <div style="display:inline-block;">
+                            <span class="info">日期:</span>
+                            <input type="text" class="form-control date-plugins" id="ToCopeDate" autocomplete="off" />
+                        </div>
+                        <span class="cr">注：日期选择只能选择当月最后一天</span>
+                        <button class="btn btn-primary">检索</button>
+                    </div>
+                    <div id="ToCopeWithGrid">
+
+                    </div>
+                </div>
+            </div>
+           </div>
+        </div>
+    <script src="../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../asset/lib/config'], function (config) {
+            requirejs(['app/riskManagement/RiskEarlyWarning/RiskEarlyWarning']);
+        });
+    </script>
+</body>
+</html>

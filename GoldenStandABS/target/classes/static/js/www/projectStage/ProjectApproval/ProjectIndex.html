@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" style="overflow:hidden">
+<head>
+    <title>项目立项</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+
+    <script src="../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/projectStage/ProjectApproval/ProjectIndex']);
+        });
+    </script>
+
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        .body-container {
+            padding: 15px;
+            background: #fafafa;
+            height: 100%;
+        }
+        .main{
+            height: calc(100% - 35px);
+        }
+        #loading {
+            position: absolute;
+            top: 0px;
+            z-index: 1002;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+        }
+
+        #loading > i {
+            color: rgb(107, 147, 216);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .number-display { display: table; width: 100%; }
+        .number-display .number-item { display: table-cell; width: 25%; position: relative; }
+        .number-display .number-item img { position: absolute; right: 20px; top: 15px; width: 60px; }
+        .number-display .number-item .number-box-inner { padding-left: 5px; padding-right: 5px; }
+        .number-display .number-item .number-box-inner > .number-box { 
+            border-radius: 10px;
+            padding: 25px;
+            -webkit-transition: box-shadow .2s linear;
+            -webkit-transition: transform .2s linear;
+            transition: box-shadow .2s linear;
+            transition: transform .2s linear;
+            background: #ffffff;
+        }
+        .number-box > .big-number { margin: 0; padding: 0; font-size: 16px; font-family: "Microsoft Yahei"; color:rgb(54, 61, 93); font-weight: bold; }
+        .number-box > .number-meta { margin-top: 10px; font-size: 14px; font-weight: normal; font-family: "Microsoft Yahei"; color: #555; }
+         .banner_area { width: 100%; margin-top: 10px;height: calc(100% - 100px);position: relative }
+         .chart-display { display: flex; width:400%; flex-wrap: wrap; position: relative;height: 100%; }
+        .chart-display .chart-box { display: table-cell; }
+        .chart-display .chart-box .chart { margin-right: 10px; padding: 10px; border-radius: 10px; background: #ffffff;}
+          #next { position: absolute; top: 50%; right: 0; transition: all 1s; transform: translate(0px,-50%); width: 35px; height: 35px; border-radius: 50%; background: rgba(255,255,255,0); border: 0px; cursor: pointer; text-align: center; }
+        #next i { color: #ccc; position: absolute; left: 20px; top: 50%; transform: translate(-50%,-50%); opacity: 0; transition: all 500ms ease-in-out; }
+        #prev { position: absolute; top: 50%; left: 0; border-radius: 50%; transition: all 1s; transform: translate(0px,-50%); width: 35px; height: 35px; background: rgba(255,255,255,0); border: 0px; cursor: pointer; text-align: center; }
+        #prev i { color: #ccc; position: absolute; left: 14px; top: 50%; transform: translate(-50%,-50%); opacity: 0; transition: all 500ms ease-in-out; }
+        #prev i:hover { color: rgb(116,157,230); }
+        #next i:hover { color: rgb(116,157,230); }
+        .banner_area:hover #prev i { opacity: 1; }
+        .banner_area:hover #next i { opacity: 1; }
+        #topbutton{
+            height: 30px;
+            zoom: 1;
+            clear: both;
+            background: #ffffff;
+            margin: -15px -10px 15px;
+            padding: 10px 10px;
+            box-sizing: content-box;
+            text-align: right;
+        }
+        #refreshinfo{
+            color: #777;
+            background-color: #fff;
+            border-color: #dedede;
+            display: inline-block;
+            height: 30px;
+            padding: 4px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border: 1px solid #dedede;
+            border-radius: 3px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body class="public_font_style gridtrust">
+    <div class="body-container form nobottom" id="app">
+        <div id="loading">
+            <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+        </div>
+        <div class="main">
+            <div id="topbutton"><button id="refreshinfo" onclick="UpdateBaseAssetInfo()">刷新</button></div>
+            <div class="number-display">
+                <div class="number-item" >
+                    <div class="number-box-inner" style="padding-left:0px;">
+                        <div class="number-box">
+                            <h3 class="big-number"></h3>
+                            <div id="assetNumberTotle_all" class="number-meta">资产总笔数</div>
+                        </div>
+                    </div>
+                    <img src="../../../www/basicAsset/style/images/asset.png">
+                </div>
+                <div class="number-item">
+                    <div class="number-box-inner">
+                        <div class="number-box">
+                            <h3 class="big-number" ></h3>
+                            <div id="assetScaleTotle_all" class="number-meta" >资产总规模</div>
+                        </div>
+                    </div>
+                    <img src="../../../www/basicAsset/style/images/asset.png">
+                </div>
+                <div class="number-item" >
+                    <div class="number-box-inner">
+                        <div class="number-box">
+                            <h3 class="big-number" ></h3>
+                            <div id="assetOriginTotle_all" class="number-meta">项目数量</div>
+                        </div>
+                    </div>
+                    <img src="../../../www/basicAsset/style/images/asset.png">
+                </div>
+                <div class="number-item" >
+                    <div class="number-box-inner" style="padding-right:0px;">
+                        <div class="number-box">
+                            <h3 class="big-number"></h3>
+                            <div id="trustTotle_all" class="number-meta">产品总数</div>
+                        </div>
+                    </div>
+                    <img src="../../../www/basicAsset/style/images/asset.png">
+                </div>
+            </div>
+            <div class="banner_area">
+                <div class="chart-display">
+                    <div class="chart-box">
+                        <div id="chart1" class="chart"></div>
+                    </div>
+                    <div class="chart-box">
+                        <div id="chart2" class="chart"></div>
+                    </div>
+                    <div class="chart-box">
+                        <div id="chart3_1" class="chart"></div>
+                    </div>
+                    <div class="chart-box">
+                        <div id="chart3_2" class="chart"></div>
+                    </div>
+                </div>
+                <a id="prev"><i class="icon icon-left-open"></i></a>
+                <a id="next"><i class="icon icon-right-open"></i></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

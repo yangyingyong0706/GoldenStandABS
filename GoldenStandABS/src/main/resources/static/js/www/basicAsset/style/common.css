@@ -1,0 +1,66 @@
+﻿body{
+   background:url('../../../asset/img/body.png') fixed!important;
+   background-size:0px 0px!important;
+   background-repeat:no-repeat!important;
+   color:#666;
+   }
+#grid,#gridByDate,#gridByTrust{color:#606060;background-color: #fff;}
+.k-pager-wrap{
+    background-color:#fff!important;
+}
+.table_btn {     border: none;border-radius: 3px; color: #fff;width: 30px;height: 20px; line-height: 21px; font-size: 12px;}
+.table_btnBlue { background: #6787bf; }
+.table_btnBlue:hover { cursor: pointer; background: #005b9d; }
+.table_btnRed { background-color: rgb(217,83,79); }
+.table_btnRed:hover { cursor: pointer;background: rgb(184, 53, 49) ; }
+.table_btnGray { background: #A9A9A9; }
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+    text-decoration: none;
+	vertical-align: baseline;
+	background: transparent;
+}
+ol, ul {
+	list-style: none;
+}
+body{font-family: Arial;box-sizing: border-box;padding-top: 10px!important;}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+ins {
+	text-decoration: none;
+}
+del {
+	text-decoration: line-through;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.trHover>tr>td{
+    line-height:20px;
+    padding:8px 0px ;
+}
+ /*common.alertMsg弹出的提示框样式*/ 
+.alert_tip{position: fixed;top: 50%;left: 50%;right: 50%;height: 100px;margin-top: -50px;width: 200px;margin-left: -100px;background: #fff;border:1px solid #ddd;box-shadow: 0 0 5px rgba(0,0,0,.10);border-radius: 3px;z-index: 10005}
+.alert_tip .alert_content{padding: 13px 0;text-align: center;}
+.alert_tip .alert_content i{font-size: 55px;font-weight: 500;line-height: 60px;}
+.alert_tip .alert_content .icon-roundcheck{color: #2d64b3;}
+.alert_tip .alert_content .icon-warning{color: #E52D22;font-size:47px;}
+.alert_tip .alert_content p{color: #555;font-size: 12px;display: block;font-weight: bold;width:200px}

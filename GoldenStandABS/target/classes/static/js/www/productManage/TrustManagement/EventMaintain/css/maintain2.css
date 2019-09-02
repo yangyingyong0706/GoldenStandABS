@@ -1,0 +1,914 @@
+.content{
+    min-width: 417px;
+    width:100%;
+    height:100%;
+    margin: 0 auto;
+    background: #fff;
+    border:1px solid #dddddd;
+}
+
+
+
+.head{
+    padding-left:10px;
+    min-width: 417px;
+    height: 35px;
+    background: #5a77a9;
+    line-height: 36px;
+}
+
+.head button{
+    border:1px solid #aaa;
+    background:#ececec;
+    margin-left:10px;
+    padding:3px 7px;
+}
+
+.listTitle{
+    height:30px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 14px;
+    background: #6984b1;
+    border-bottom: 1px solid #ddd;
+}
+
+.listTitle span{
+    font-size: 14px;
+    font-weight: bold;
+    color:#fff;
+}
+
+.listTitle div{
+    float:left;
+    text-align: center;
+    line-height: 30px;
+    color:#fff;
+}
+
+.listTitle div:nth-child(1){
+    min-width: 125px;
+    width:30%;
+}
+
+.listTitle div:nth-child(2){
+    min-width: 125px;
+    width:30%;
+}
+
+.listTitle div:nth-child(3){
+    min-width:166px;
+   width:40%;
+}
+
+.bCont{
+    min-width: 765px;
+    height:94.5%;
+}
+
+.bCont div.leftTi,.bCont div.rightTi,#rationL,.determine{
+    overflow-x:auto; 
+    overflow-x:auto; 
+    overflow-y:auto; 
+}
+
+.leftTi{
+    width:20%;
+    height: 100%;
+    float:left;
+    color:#333;
+    background:#fff;
+    border-right:1px solid #ddd;
+}
+
+.bCont ul li{
+    cursor:pointer; 
+    height:30px;
+    white-space:nowrap;
+    line-height: 30px;
+    font-size: 13px;
+    border-bottom: 1px solid #ddd;
+}
+
+.bCont ul li span.tick{
+    width:37px;
+    height:30px;
+    display: inline-block;
+    border-right: 1px solid #ddd;
+}
+
+.bCont ul li span.textTick{
+    margin-left:5px;
+}
+
+.bCont ul li span.tick i{
+    color:red;
+    margin: 1px 0px 2px 7px;
+}
+
+.determine{
+    height:42.99%;
+}
+
+.determine li{
+    color:#797979;
+    cursor:pointer; 
+}
+
+.determine li span input{
+    float: left;
+    width: 16px;
+    height: 16px;
+    margin: 7px 1px 1px 8px;
+}
+
+.determine li span.check{
+    float: left;
+    border-right: 1px solid #ddd;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+}
+
+.determine li span.list{
+    padding-left: 7px;
+}
+    
+
+.middleTi{
+    width:30%;
+    height:100%;
+    color:#ccc;
+    border-right:1px solid #ddd;
+    background:#fff;
+}
+
+.middleTi ul li.curr,.middleTi ul li:hover{
+    color:#5a77a9;
+    background: #d4dff3;
+}
+
+
+.rightTi{
+    min-width: 532px;
+    width:79.8%;
+    height:100%;
+    float:left;
+    text-overflow:ellipsis; 
+    white-space:nowrap; 
+    overflow:hidden;
+    font-size: 12px;
+}
+
+#rationL{
+    height: 40%;
+    border-bottom:1px solid #ddd;
+    /*padding:20px;*/
+}
+
+#rationL ul{
+    min-width: 512px;
+    border:1px solid #ddd;
+}
+
+#rationL ul li{
+    padding-left: 0;
+    color:#676767;
+    border-bottom: 1px solid #ddd;
+}
+
+#rationL ul li:last-child{
+    border-bottom:0;
+}
+
+
+#rationL ul li div span.check{
+    height: 30px;
+    float: left;
+    border-right: 1px solid #ddd;
+    padding: 0 9px;
+}
+
+#rationL ul li div span.check input{
+    width: 16px;
+    height: 16px;
+    margin-top: 8px;
+    float: left;
+}
+
+
+
+
+
+
+#rationL ul li div.flo{
+    float:left;
+    overflow: hidden;
+    text-align: center;
+    line-height: 30px;
+    border-right: 1px solid #ddd;
+}
+
+#rationL ul li:nth-child(1){
+    background: #efefef;
+    color:#333;
+    font-weight: bold;
+}
+
+#rationL ul li div:nth-child(1){
+    width: 39.4%;
+}
+
+#rationL ul li div:nth-child(2){
+    width:20%;
+}
+
+#rationL ul li div:nth-child(3){
+    width:20%;
+}
+
+#rationL ul li div:nth-child(4){
+    width:20%;
+    border-right: 0;
+}
+
+#rationL ul li input.inputF{
+    width:80%;
+}
+
+
+.determineList{
+    line-height: 30px;
+    border-right: 1px solid #ddd;
+    background:#efefef;
+    font-size: 14px;
+    color: #333;
+    padding-left: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+#selectR{
+    font-size: 16px;
+    padding:20px;
+    border-bottom: 1px solid #ddd;
+}
+
+#sel-1{
+    width: 30%;
+    line-height: 28px;
+    font-size: 16px;
+}
+    
+
+/*弹窗*/
+
+
+#circumstances{
+    display: none;
+}
+
+#circumstances div.circ_title{
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-bottom: 0;
+    background:#efefef;
+}
+
+#circumstances div.circ_title .circ_title_left{
+    width: 57px;
+    height: 42px;
+    border-right:1px solid #ddd;
+}
+
+#circumstances div.circ_title .circ_title_right{
+    color:#333;
+    line-height: 38px;
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+#circumstances div.circ_title div{
+    float:left;
+}
+
+#circumstances ul li{
+/*    line-height: 57px;*/
+}
+
+
+.ui-widget-header{
+    border-radius: 0px !important;
+    border: 0px !important;
+    background:#5a77a9 !important;
+    
+}
+
+.ui-dialog{
+    padding:0;
+}
+
+.ui-dialog .ui-dialog-title{
+    color:#fff;
+}
+
+
+
+.circ ul{
+    border: 1px solid #ddd;
+}
+
+.circ ul li{
+    border-bottom: 1px solid #ddd;
+}
+
+
+.circ ul li:last-child{
+    border-bottom:0;
+}
+
+.circ ul li div{
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.circ ul li div.fIcon_box{
+    height:38px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.circ ul li div input{
+    width: 262px;
+    padding: 3px;
+    margin: 5px 0;
+}
+
+.circ ul li div:nth-child(1){
+    width:57px;
+    border-right: 1px solid #ddd;
+}
+
+.circ ul li div.texta{
+    text-align: center;
+    width: 72%;
+    font-size: 18px;
+}
+
+
+.ui-dialog .ui-dialog-buttonpane button{
+    padding: 6px 17px;
+    background:#6984b1;
+    color:#fff;
+    border: 0px;
+}
+
+.ui-dialog .ui-dialog-content{
+    padding:0 3px;
+}
+
+.circ ul li div.errorT{
+    width:200px;
+    font-size: 12px;
+    color: red;
+    display: none;
+    text-overflow:ellipsis; 
+    white-space:nowrap; 
+    overflow:hidden;
+    position: absolute;
+    bottom: -23px;
+    left: 0;
+    text-align: left;
+}
+
+/*=====*/
+
+#circumstances2{
+    display: none;
+}
+
+#circumstances2 div.circ_title{
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-bottom: 0;
+    background:#efefef;
+}
+
+#circumstances2 div.circ_title .circ_title_left{
+    width: 57px;
+    height: 42px;
+    border-right:1px solid #ddd;
+}
+
+#circumstances2 div.circ_title .circ_title_1{
+    width:23%;
+    border-right: 1px solid #ddd;
+}
+
+#circumstances2 div.circ_title .circ_title_2{
+    width:21%;
+    border-right: 1px solid #ddd;
+}
+
+
+#circumstances2 div.circ_title .circ_title_3{
+    width:21%;
+    border-right: 1px solid #ddd;
+}
+
+#circumstances2 div.circ_title .circ_title_4{
+    width:21%;
+}
+
+#circumstances2 div.circ_title2{
+    width: 399px;
+    line-height: 37px;
+}
+
+#circumstances2 div.circ_title2 .circ_title_1{
+    width: 106px;
+    height:38px;
+    border-right: 1px solid #ddd;
+}
+
+#circumstances2 div.circ_title2 .circ_title_2{
+    height:38px;
+    width: 97px;
+    border-right: 1px solid #ddd;
+}
+
+
+#circumstances2 div.circ_title2 .circ_title_3{
+    height:38px;
+    width: 97px;
+    text-align: center;
+    border-right: 1px solid #ddd;
+}
+
+#circumstances2 div.circ_title2 .circ_title_4{
+    height:38px;
+    width:21%;
+}
+
+
+#circumstances2 div.circ_title div{
+    color:#333;
+    line-height: 42px;
+    font-size: 17px;
+    text-align: center;
+    float:left;
+}
+
+#circumstances2 div.circ_title2 .circ_title_1 input{
+    width:85px;
+}
+
+#circumstances2 div.circ_title2 .circ_title_2 input{
+    width:76px;
+}
+
+#circumstances2 div.circ_title2 .circ_title_4 input{
+    width:81px;
+}
+
+
+.redT{
+    background:#fff;
+    opacity: 1;
+}
+
+#warning{
+    display: none;
+    text-align: center;
+    line-height: 91px;
+}
+
+.fIcon circ_title div{
+    float:left;
+}
+
+.fIcon div textarea{
+    margin-top: 3px;
+}
+
+/*====3===*/
+
+#circumstances3{
+    display: none;
+}
+
+.ui-widget-header{
+    border-radius: 0px !important;
+    border: 0px !important;
+    background:#5a77a9 !important;
+    
+}
+
+.ui-dialog .ui-dialog-title{
+    color:#fff;
+}
+
+.circ3 ul li{
+    margin-top:19px;
+}
+
+
+.circ3 ul li div{
+    display: inline-block;
+    text-align: center;
+    line-height: 29px;
+    font-size: 15px;
+}
+
+.circ3 ul li div input{
+    padding:3px;
+}
+
+.circ3 ul li div:nth-child(1){
+    width:83px;
+}
+
+.ui-dialog .ui-dialog-buttonpane button{
+    padding: 6px 17px;
+    background:#6984b1;
+    color:#fff;
+    border: 0px;
+}
+
+.circ3 ul li div.errorT{
+    width:200px;
+    font-size: 12px;
+    color: red;
+    display: none;
+    text-overflow:ellipsis; 
+    white-space:nowrap; 
+    overflow:hidden;
+    position: absolute;
+    bottom: -23px;
+    left: 0;
+    text-align: left;
+}
+
+
+
+/*ICON*/
+
+.listTitle i{
+    float:right;
+    margin-right:3px;
+    cursor:pointer;    
+}
+
+.listTitle i.Iicon3{
+    font-size: 22px;
+    color: #38941c;
+}
+
+.listTitle i.Iicon2{
+    font-size: 19px;
+    color: #ffa19c;
+}
+
+.listTitle i.Iicon1{
+    font-size: 18px;
+    margin-top: -2px;
+    margin-left:5px;
+    color: #aadd66;
+}
+
+
+.fIcon .addIcon{
+    cursor:pointer; 
+    color: red;
+    margin-left: 13px;
+    font-size: 24px;
+    float: left;
+    margin-top: 4px;
+}
+
+.work-top {
+    margin-left: -14px;
+}
+
+
+    ::-ms-clear{display: none;}
+
+    #ItemsDropdownDiv {
+        font-size: 14px;
+        height:534px;
+    }
+
+    #ItemListDiv {
+        width: 750px;
+        margin: 30px auto 10px;
+    }
+
+    .role-container,
+    .permission-container {
+        position: relative;
+        float: left;
+        width: 300px;
+    }
+    .permission-container {
+        padding-top: 40px;
+    }
+    .role-container {
+    margin-right: 40px;
+    }
+
+    .addpermission-wraper{
+    display:none;
+    position: absolute;
+    top: -10px;
+    right: 100%;
+    width: 180px;
+}
+
+.role-list,
+.flow-list,
+.addpermission-list,
+.permission-list{
+    border: 1px solid #ccc;
+    background:#fff;
+}
+
+    .role-item,
+    .flow-item,
+    .addpermission-item,
+    .permission-item {
+        padding: 0 5px;
+        line-height: 30px;
+        border-bottom: 1px solid #ccc;
+        font-size:14px;
+    }
+
+.flow-list{
+    display:none;
+        position: absolute;
+        top: 40px;
+        right: 0;
+        z-index: 3;
+        width: 180px;
+        background: #fff;
+}
+.flow-list,
+.addpermission-list{
+        box-shadow: 1px 2px 8px 0 rgba(0,0,0,.2);
+}
+.flow-item{
+    position: relative;
+}
+
+    .role-list,
+    .permission-list{
+        height: 380px;
+        overflow: auto;
+    }
+
+.flow-list,
+.addpermission-list{
+    border-radius: 3px;
+}
+
+    .flow-item:hover .addpermission-wraper{
+        display: block;
+    }
+
+    .flow-item:last-child{
+        border-bottom-color: transparent;
+    }
+    .role-item,
+    .addpermission-item{
+        cursor: pointer;
+    }
+    .role-item i{
+        display: none;
+        float: right;
+        font-size: 16px;
+        color: #555;
+    }
+    .flow-item a{
+        color: #333;
+        cursor: default;
+    }
+    .flow-item i{
+        display:none;
+    }
+    .flow-item:hover i{
+        display:inline;
+    }
+    .addpermission-item a{
+        cursor: pointer;
+    }
+    .flow-item a:hover{
+        text-decoration: none;
+    }
+    .role-item:hover,
+    .flow-item:hover,
+    .addpermission-item:hover,
+    .permission-item:hover {
+        background-color: #f5f5f5;
+    }
+    .role-item.active{
+        background-color: #eee;
+    }
+
+    .role-item.active i{
+        display: inline;
+    }
+
+    .dropdown{
+        position: relative;
+    }
+    .btn-remove {
+        float: right;
+        vertical-align: top;
+    }
+
+    .icon-double{
+        display:none;
+    position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 100%;
+        width: 40px;
+        height: 20px;
+        margin: auto;
+        text-align: center;
+        font-size: 18px;
+        color: #555;
+}
+
+.mb10 {
+    margin-bottom: 10px;
+}
+input-group {
+    position: relative;
+    display: table;
+    border-collapse: separate;
+}
+.input-group-sm>.form-control, .input-group-sm>.input-group-addon, .input-group-sm>.input-group-btn>.btn {
+    height: 30px;
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+.input-group-sm>.form-control, .input-group-sm>.input-group-addon, .input-group-sm>.input-group-btn>.btn {
+    height: 30px;
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+.input-group {
+    position: relative;
+    display: table;
+    border-collapse: separate;
+}
+.input-group-addon, .input-group-btn {
+    width: 1%;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+.input-group-btn {
+    position: relative;
+    font-size: 0;
+    white-space: nowrap;
+}
+.input-group .form-control, .input-group-addon, .input-group-btn {
+    display: table-cell;
+}
+
+.role-item i {
+    display: none;
+    float: right;
+    font-size: 16px;
+    color: #555;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

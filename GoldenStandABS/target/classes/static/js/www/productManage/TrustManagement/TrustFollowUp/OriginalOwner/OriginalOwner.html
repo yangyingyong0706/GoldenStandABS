@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>Original</title>
+    <!--<link rel="stylesheet" href="../css/trustFollowUp.css" />-->
+    <link href="../../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <script data-main="OriginalOwner" src="../../../../../asset/lib/require.js"></script>
+    <style>
+        .page{
+            padding-left:0px;
+        }
+        .page .main{
+            padding:15px;
+        }
+        .main .h3 {
+            font-size: 16px;
+            height: 40px;
+            line-height: 40px;
+            border-bottom: 1px solid #dedede;
+            margin: -15px -15px 15px;
+            padding: 0 15px;
+        }
+        .red-border {
+            border: 1px solid #dd0000;
+        }
+         .file_name{
+                    display: inline-block;
+                    height: 30px;
+                    line-height: 30px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    width: calc(100% - 70px);
+                    box-sizing: border-box;
+                    padding-left: 10px;
+                    border:1px solid  #dce0ee;
+            }         [class^=col] {
+             padding: 0px;
+         }
+         #gold-input-data .form-control{
+            box-shadow: none;
+            border-radius: 0px 2px 2px 0px;
+            border: 1px solid  #dce0ee;
+            box-sizing: border-box;
+         }
+         #gold-input-data .form-control:focus{
+            border-color: #45569c;
+            box-shadow: inset 0 0px 0px  #45569c, 0 0 4px  #45569c;
+         }
+    </style>
+</head>
+<body>
+    <div id="loading" class="loadpage text-center">加载配置中...</div>
+    <div class="page">
+        <div class="main">
+            <h3 id="step-title" class="h3">原始权益人信息</h3>
+            <div class="form">
+                <!-- 原始权益人 -->
+                <div class="form-body" id="step0">
+                    <div id="TrustExtensionDiv">
+                        <div class="form-panel item"> 
+                            <div class="col-sm-12" data-bind="foreach:DateSetList.BasicData" id="gold-form-panel">
+                                <!-- ko if : IsDisplay()=='1' -->
+                                <div class="col-sm-6 form-group autoLayout-plugins">
+                                    <div class="col-sm-5">
+                                        <label data-bind="html:ItemAliasValue" class="gold-group-addon"></label>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <!-- ko if: ItemCode()=='AuditReport' -->
+                                        <div class="col-sm-11 file-item fileDiv" style="border-bottom:none;position:relative">
+                                            <!-- ko if: ItemValue.peek() && $.trim(ItemValue()).length > 0 -->
+                                            <div class="col-sm-9" style="width:100%;">
+                                                <label class="file-linkname-label" style="height:30px;line-height:30px;background:#fff"><!--<a data-bind="attr:{href: $root.GetFilePath(ItemValue())}" target="_blank">--><span data-bind="text:ItemValue"></span><!--</a>--><input type="hidden" name="oldvalue" data-bind="value:ItemValue.peek()" /></label>
+                                                <label class="file-updateexited-input" style="display:none; height:auto !important; padding-top:5px;"><input type="file" style="width:125px;" data-bind="attr: {id:'OriginalFileToUpload', itemIndex: $index() }" onchange="OriginalOwner.ModifyNewFileName(this)" /></label>
+                                            </div>
+                                            <div class="col-sm-3  buttons" style="position:absolute;right:0px;text-align:center;width:30px;top:4px">
+                                                <!--<button type="button" class="btn btnUpd" title="更新文档" data-bind="attr: { itemIndex: $index() }" onclick="OriginalOwner.GointUpdatedExitedFile(this,true)"><i class="icon icon-edit"></i></button>-->
+                                                <button type="button" class="btn btnDel" title="删除文档" data-bind="attr: { itemIndex: $index() }" onclick="OriginalOwner.DeleteUploadedFile(this)"><i class="icon icon-trash"></i></button>
+                                                <!--<button type="button" class="btn btnRev" title="放弃更新" data-bind="attr: { itemIndex: $index() }" onclick="OriginalOwner.GointUpdatedExitedFile(this, false)" style="display:none;"><i class="icon icon-chexiao"></i></button>-->
+                                            </div>
+                                            <!-- /ko -->
+                                            <!-- ko if: !ItemValue.peek() || $.trim(ItemValue()).length == 0 -->
+                                            <div>
+                                                <span class="file_name"></span>
+                                                <label for="OriginalFileToUpload" class="input_file_style" style="background:#ebeef5;border:1px solid #dce0ee;border-left:0 none;">
+                                                    <input type="file" style="width:190px" data-bind="attr: { id:'OriginalFileToUpload',itemIndex: $index() }" onchange="OriginalOwner.ModifyNewFileName(this)" />
+                                                    <span style="color:#808080;">上传文件</span>
+                                                </label>
+                                            </div>
+                                            <!-- /ko -->
+                                        </div>
+                                        <!-- /ko -->
+                                        <!-- ko if: ItemCode()!='AuditReport' -->
+                                        <div class="col-sm-11" data-bind="renderControl:ItemValue" id="gold-input-data">
+                                        </div>
+                                        <!-- /ko -->
+                                    </div>
+                                </div>
+
+                                <!-- /ko -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-button" style="text-align: center;"> 
+                <button id="next-step" type="button" class="btn btn-default btn-single-default">确定</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

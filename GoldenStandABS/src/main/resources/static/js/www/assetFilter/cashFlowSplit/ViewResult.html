@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>查看结果</title>
+    <script data-main="ViewResult" src="../../asset/lib/require.js"></script>
+    <link href="../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/pagerlist-style.css" rel="stylesheet" />
+    <link href="../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <!--<link href="../css/trustFollowUp.css" rel="stylesheet" />-->
+    <link href="../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <style>
+        html,body {
+            height: 100%;
+        }
+        .combo {
+            margin:15px 15px 0px 15px;
+            width:calc(100% - 30px);
+        }
+        input[type="checkbox"], input[type="radio"] {
+            margin-top: 0px;
+        }
+        .chk_span {
+            width: calc(33.3333% - 27px);
+            border: 1px solid #dedede;
+            margin: 0 40px 10px 0;
+            padding: 0px 0 0 10px;
+            height: 35px;
+            line-height: 35px;
+            display: inline-block;    
+        }
+        .chk_span:nth-of-type(3n) {
+            margin-right: 0;
+        }
+        .chk_span input {
+            margin-right: 10px;
+        }
+        .chk_span select {
+            float: right;
+            height: 35px;
+            border-left: 1px solid #dedede;
+            margin-left: 10px;
+            padding: 0 10px;
+            outline: none;
+        }
+        .chk_element {
+            zoom:130%;
+            margin-right:5px;
+            vertical-align:middle; 
+            margin-top:5px;
+        }
+        .switch {
+            margin:0 15px 15px;
+        }
+        .content {
+            margin:15px 15px 0 15px;
+        }
+        .main .h3 .titlecur{
+            color: #45569c;
+            border-bottom: 2px solid #45569c;
+        }
+        .main .h3 .title{
+            font-size: 14px;
+            display: inline-block;
+            padding: 8px 0;
+            margin-right: 30px;
+            cursor: pointer;
+        }
+        .main .h3{
+            border-bottom:1px solid #ccc;
+        }
+        [v-cloak] {
+            display: none !important;
+        }
+        #app {
+            width: 100%;
+            height: calc(100% - 15px);
+            padding: 15px 15px 0 15px;
+        }
+        .wrap_all {
+            min-height: calc(100% - 30px);
+            border: 1px solid #dedede;
+            box-sizing: border-box;
+        }
+        .wrap_title {
+            height: 40px;
+            border-bottom: 1px solid #dedede;
+            padding: 0 15px;
+        }
+        .wrap_title h2 {
+            float: left;
+            height: 40px;
+            line-height: 40px;
+            font-size: 16px;
+            color: #45569c;
+            margin: 0;
+        }
+        .wrap_btn {
+            float: right;
+        }
+        .wrap_btn .btn {
+            margin-left: 5px;
+            margin-top: 5px;
+        }
+        .clearfix:after {
+            visibility: hidden;
+            display: block;
+            font-size: 0;
+            content: " ";
+            clear: both;
+        }
+        input[type=checkbox] {
+            margin-top: -4px;
+            width: 18px;
+            height: 18px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: url('../../asset/lib/bootstrap/ischecked/icon@18px.png') no-repeat 0px 0px;
+
+        }
+        input[type='checkbox']:checked {
+            background: url('../../asset/lib/bootstrap/ischecked/icon@18px.png') no-repeat -38px 0px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="public_font_style">
+        <div class="wrap_all">
+            <div class="wrap_title">
+                <h2>选择资产池查看结果</h2>
+                <div class="wrap_btn">
+                    <button type="button" class="btn btn-default" id="btnConfirm" v-show="!isInLastCombo" @click="confirmCombo">
+                        选定
+                    </button>
+                    <button type="button" class="btn btn-default" id="btnViewLast" @click="viewOrbackLastCombo">
+                        {{btnViewOrbackText}}
+                    </button>
+                    <button type="button" class="btn btn-default" id="btnDownloadExcel" @click="downloadExcel">
+                        下载已选定组合
+                    </button>
+                </div>
+            </div>
+            <div class="combo">
+                <div id="chkCombo" v-show="!isInLastCombo" class="combo_Left">
+                    <span class="chk_span" v-for="item in chkOptions" v-cloak>
+                        <input type="checkbox" class="chk_element" v-bind:value="item.id" v-model="hchartCombo" />{{item.type}}：{{item.text}}
+                        <select v-model="item.sel" @change="selChange(item.id)" class="public_font_style">
+                            <option v-for="sta in poolStatus" v-bind:value="sta.value">{{sta.text}}</option>
+                        </select>
+                    </span>
+                </div>
+                <div v-show="isInLastCombo" class="combo_Left">
+                    <span class="chk_span" v-for="item in chkLastComboOptions" v-cloak>
+                        <input type="checkbox" class="chk_element" v-bind:value="item.id" v-model="lastHchartCombo" />{{item.type}}：{{item.text}}
+                        <select v-model="item.sel" @change="selChange(item.id)" class="public_font_style">
+                            <option v-for="sta in poolStatus" v-bind:value="sta.value">{{sta.text}}</option>
+                        </select>
+                    </span>
+                </div>
+                <!--<div class="combo_Right">
+                <button type="button" class="normal_small_button" id="btnConfirm" v-show="!isInLastCombo" @click="confirmCombo">选定</button>
+                <button type="button" class="normal_small_button" id="btnViewLast" @click="viewOrbackLastCombo">{{btnViewOrbackText}}</button>
+                <button type="button" class="normal_small_button" id="btnDownloadExcel" v-show="!isInLastCombo" @click="downloadExcel">下载已选定组合</button>
+            </div>-->
+            </div>
+            <div class="main">
+                <div class="h3 switch">
+                    <span class="title tab-switch titlecur" data-view="#hCharts">图表视图</span>
+                    <span class="title tab-switch " data-view="#hChartsList">列表视图</span>
+                </div>
+                <div class="content">
+                    <div id="hCharts" class="viewcontainer"></div>
+                    <div id="hChartsList" class="list-container viewcontainer clearfix" style="display:none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

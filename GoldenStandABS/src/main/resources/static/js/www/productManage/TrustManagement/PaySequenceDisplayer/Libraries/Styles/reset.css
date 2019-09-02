@@ -1,0 +1,506 @@
+﻿/**
+ * CSS framework
+ *
+ * update : 2016.10.13
+ */
+@charset "utf-8";
+
+*,*:after,*:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;text-rendering:optimizelegibility;}/* 添加让用户可以自定义字体 */
+body,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,menu,nav,section{margin:0;padding:0;}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary{display:block;}
+body{font-family: PingFang SC, Lantinghei SC, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans;}
+audio,canvas,progress,video{display:inline-block;vertical-align:baseline}
+audio:not([controls]){display:none;height:0}
+svg:not(:root){overflow:hidden}
+table{border-collapse:collapse;border-spacing:0} /* 去掉各Table cell 的边距并让其边重合 */
+th{font-weight: normal;}
+thead{display: table-header-group;}
+tr,img{page-break-inside: avoid;}
+input{outline: 0;border: 0}
+button,input,optgroup,select,textarea{color:inherit;font:inherit;}
+button,input,select,textarea{font-family:inherit;font-size:inherit;line-height:inherit}
+button{overflow:visible}
+button,input[type="button"],input[type="submit"],input[type="reset"]{line-height: normal;cursor: pointer;}
+input[type=checkbox],input[type=radio]{margin:4px 0 0;margin-top:1px \9;line-height:normal}
+button[disabled],html input[disabled]{cursor:default}
+code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}
+fieldset,img{border: none}
+label{display:inline-block;max-width:100%;font-weight:bold;font-size: 12px;margin: .5em 1em .5em 0}
+abbr[data-original-title],abbr[title]{cursor:help;border-bottom:1px dotted #777}
+[v-cloak]{display:none} /*Vue模板标签隐藏*/
+[role=button]{cursor:pointer} 
+[hidden]{display: none;} /*支持IE7+*/
+
+a{background-color:transparent;text-decoration:none}
+
+.small,small{font-size:85%}
+.text-right{text-align:right}
+.text-center{text-align:center}/*文本居中*/
+.text-nowrap{white-space:nowrap}/*段落文本不换行*/
+.text-wrap,.text-wrap td,.text-wrap th{word-wrap: break-word;word-break: break-all;} /*强制段落文本换行*/
+.text-ellipsis{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;} /*文本超出省略*/
+.text-lowercase{text-transform:lowercase}
+.text-uppercase{text-transform:uppercase}
+.text-capitalize{text-transform:capitalize}
+.text-underline{text-decoration:underline}
+.text-hide{color: transparent;} /*文本隐藏*/
+.text-muted{color:#777}
+.text-primary{color:#337ab7}
+
+/*浮动*/
+
+.fl{float: left;}
+.fr{float: right;}
+.cf{zoom: 1;} 
+.cf:before,.cf:after{content: '';display: block;height: 0;overflow: hidden;visibility: hidden;}
+.cf:after{clear: both;}
+
+/**
+ * 外边距
+ * .mg => margin
+ * .mt => margin-top
+ * .ml => margin-left
+ * .mb => margin-bottom
+ * .mg => .mg-0
+*/
+.mg{margin: 0;}
+.mg-5{margin: 5px;}
+.mg-10{margin: 10px;}
+.mg-15{margin: 15px;}
+.mg-20{margin: 20px;}
+
+.mt{margin-top: 0;}
+.mt-5{margin-top: 5px;}
+.mt-10{margin-top: 10px;}
+.mt-15{margin-top: 15px;}
+.mt-20{margin-top: 20px;}
+
+.ml{margin-left: 0;}
+.ml-5{margin-left: 5px;}
+.ml-10{margin-left: 10px;}
+.ml-15{margin-left: 15px;}
+.ml-20{margin-left: 20px;}
+
+.mr{margin-right: 0;}
+.mr-5{margin-right: 5px;}
+.mr-10{margin-right: 10px;}
+.mr-15{margin-right: 15px;}
+.mr-20{margin-right: 20px;}
+
+.mb{margin-bottom: 0;}
+.mb-5{margin-bottom: 5px;}
+.mb-10{margin-bottom: 10px;}
+.mb-15{margin-bottom: 15px;}
+.mb-20{margin-bottom: 20px;}
+
+/**
+ * 内边距
+ * .pd => padding
+ * .pt => padding-top
+ * .pl => padding-left
+ * .pb => padding-bottom
+ * .pd => .pd-0
+*/
+.pd{padding: 0;}
+.pd-5{padding: 5px;}
+.pd-10{padding: 10px;}
+.pd-15{padding: 15px;}
+.pd-20{padding: 20px;}
+
+.pt{padding-top: 0;}
+.pt-5{padding-top: 5px;}
+.pt-10{padding-top: 10px;}
+.pt-15{padding-top: 15px;}
+
+.pl{padding-left: 0;}
+.pl-5{padding-left: 5px;}
+.pl-10{padding-left: 10px;}
+.pl-15{padding-left: 15px;}
+
+.pr{padding-right: 0;}
+.pr-5{padding-right: 5px;}
+.pr-10{padding-right: 10px;}
+.pr-15{padding-right: 15px;}
+
+.pb{padding-bottom: 0;}
+.pb-5{padding-bottom: 5px;}
+.pb-10{padding-bottom: 10px;}
+.pb-15{padding-bottom: 15px;}
+
+/**
+ * 圆角
+ * .br => border-radius
+ * .br-50 => 圆形
+*/
+.br{border-radius: 0;}
+.br-2{border-radius: 2px;}
+.br-3{border-radius: 3px;}
+.br-4{border-radius: 4px;}
+.br-5{border-radius: 5px;}
+.br-50{border-radius: 50%;}
+
+/**
+ * 栅格化布局 支持12个单元格排列
+ * .row => 一行
+ * .width => width:100%;
+ * .width-*-* => 栅格默认支持5格和12格 例如 5-1 五分之一 6-3 六分之三 12-3 十二分之三
+ * .row => 修复inline-block产生的间距问题,使栅格并排对齐
+*/
+.row{letter-spacing: -0.31em;*letter-spacing: normal;*word-spacing: -0.43em;text-rendering: optimizespeed;display: -webkit-flex;-webkit-flex-flow: row wrap;display: -ms-flexbox;-ms-flex-flow: row wrap;}
+.opera-only:-o-prefocus,.row{word-spacing: -0.43em;}
+
+.width,[class^=width-]{display:inline-block;zoom:1;letter-spacing: 0.05em;word-spacing:normal;vertical-align:top;text-rendering:auto}
+.width,.width-5-5,.width-6-6,.width-12-12{width: 100%;}
+.width-5-1{width: 20%}
+.width-5-2{width: 40%}
+.width-5-3{width: 60%}
+.width-5-4{width: 80%}
+.width-12-1{width: 8.3333%}
+.width-8-1{width:12.5%}
+.width-12-2,.width-6-1{width:16.6667%}
+.width-12-3,.width-4-1{width:25%}
+.width-12-4,.width-6-2,.width-3-1{width:33.3333%}
+.width-12-5{width:41.6667%}
+.width-12-6,.width-6-3,.width-2-1{width:50%}
+.width-12-7{width:58.3333%}
+.width-12-8,.width-6-4,.width-3-2{width:66.6667%}
+.width-12-9{width:75%}
+.width-12-10,.width-6-5{width:83.3333%}
+.width-12-11{width:91.6667%}
+
+/*表格*/
+.table{width: 100%;text-align: center;margin-bottom: 15px;border-top:1px solid #D6D9E0;border-bottom: 1px solid #DEE0E6;}
+.table>tbody>tr>td,.table>tbody>tr>th,
+.table>tfoot>tr>td,.table>tfoot>tr>th,
+.table>thead>tr>td,.table>thead>tr>th{
+	padding:8px;
+	line-height:1.42857143;
+	border-top: 1px solid #DEE0E6;
+	color: #555;
+}
+.table > thead > tr > th {
+	font-weight: bold;
+	vertical-align: bottom;
+	color: #000;
+}
+.table > caption + thead > tr:first-child > th,
+.table > colgroup + thead > tr:first-child > th,
+.table > thead:first-child > tr:first-child > th,
+.table > caption + thead > tr:first-child > td,
+.table > colgroup + thead > tr:first-child > td,
+.table > thead:first-child > tr:first-child > td {border-top: 0;}
+
+
+/*按钮*/
+/*.btn{display:inline-block;margin-bottom:0;font-weight:400;text-align:center;vertical-align:middle;-ms-touch-action:manipulation;touch-action:manipulation;cursor:pointer;background-image:none;border:1px solid transparent;white-space:nowrap;padding:4px 12px;font-size:14px;line-height:1.42857143;border-radius:3px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;background-color: #dedede;color: #999}*/
+/*.btn:focus,.btn:hover{color:#888;text-decoration:none;outline:0;}
+.btn.btn-primary{background-color: #5A77A9;color: #fff;border-color: #5A77A9;}
+.btn:active,.btn.active{outline:0;background-image:none}*/
+
+.btn-default .badge{color:#fff;background-color:#333;}
+.btn-primary{color:#fff;background-color:#6787BF;border-color:#5A77A9;}
+.btn-primary.focus,.btn-primary:focus{color:#fff;background-color:#286090;border-color:#122b40;}
+.btn-primary:hover{color:#fff;background-color:#5A77A9;border-color:#475E86;}
+.btn-primary.active,.btn-primary:active{color:#fff;background-color:#286090;border-color:#204d74;}
+.btn-primary.active.focus,.btn-primary.active:focus,.btn-primary.active:hover,.btn-primary:active.focus,.btn-primary:active:focus,.btn-primary:active:hover,.open>.dropdown-toggle.btn-primary.focus,.open>.dropdown-toggle.btn-primary:focus,.open>.dropdown-toggle.btn-primary:hover{color:#fff;background-color:#204d74;border-color:#122b40;}
+.btn-primary.active,.btn-primary:active,.open>.dropdown-toggle.btn-primary{background-image:none;}
+.btn-primary.disabled,.btn-primary.disabled.active,.btn-primary.disabled.focus,.btn-primary.disabled:active,.btn-primary.disabled:focus,.btn-primary.disabled:hover,.btn-primary[disabled],.btn-primary[disabled].active,.btn-primary[disabled].focus,.btn-primary[disabled]:active,.btn-primary[disabled]:focus,.btn-primary[disabled]:hover,fieldset[disabled] .btn-primary,fieldset[disabled] .btn-primary.active,fieldset[disabled] .btn-primary.focus,fieldset[disabled] .btn-primary:active,fieldset[disabled] .btn-primary:focus,fieldset[disabled] .btn-primary:hover{background-color:#337ab7;border-color:#2e6da4;}
+/*表单*/
+.form-group{margin-bottom: 0.5em;}
+.form-group label{vertical-align: middle;}
+.form-control{display:inline-block;padding:6px 12px;font-size:14px;color:#555;background-color:#fff;background-image:none;border:1px solid #ccc;border-radius:4px;*display: inline;*zoom: 1;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);box-shadow:inset 0 1px 1px rgba(0,0,0,.075);-webkit-transition:border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;-o-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;}
+.form-control:focus{border-color:#177bbb;outline:0;}
+.form-control::-moz-placeholder{color:#999;opacity:1}
+.form-control:-ms-input-placeholder{color:#999}
+.form-control::-webkit-input-placeholder{color:#999}
+.form-control[disabled],.form-control[readonly],fieldset[disabled] .form-control{background-color:#eee;opacity:1}
+.form-control[disabled],fieldset[disabled] .form-control{cursor:not-allowed}
+input.form-control{-webkit-appearance:none} /*去掉ios表单默认圆角*/
+textarea.form-control{height:auto;resize:none;vertical-align: top;}
+
+/*堆叠式表单*/
+.form .form-control{display: block;width: 100%;}
+.form label{display: block;}
+.form fieldset{margin:0;padding:.35em 0 .75em;border:0}
+.form legend{display:block;width:100%;padding:.3em 0;margin-bottom:.3em;color:#333;border-bottom:1px solid #e5e5e5}
+
+
+/*元素显示与隐藏*/
+.hide{display:none!important}
+.show{display:block!important}
+.invisible{visibility:hidden!important}
+
+.alert{padding:10px;margin-bottom: 10px;border: 1px solid transparent;border-radius: 4px;}
+.alert-danger{color: #a94442;background-color: #f2dede;border-color: #ebccd1;}
+.alert-warning{color: #8a6d3b;background-color: #fcf8e3;border-color: #faebcc;}
+
+/*自定义checkbox样式*/
+.checkbox,.radio{position:absolute;display:none}
+.checkbox[disabled],.radio[disabled]{cursor:not-allowed}
+.checkbox+label,.radio+label{position:relative;display:block;padding-left:30px;cursor:pointer;vertical-align:middle}
+.checkbox+label:hover:before,.radio+label:hover:before{animation-duration:.4s;animation-fill-mode:both;animation-name:hover-color}
+.checkbox+label:before,.radio+label:before{position:absolute;top:0;left:0;display:inline-block;width:20px;height:20px;content:'';border:1px solid silver}
+.checkbox+label:after,.radio+label:after{position:absolute;display:none;content:''}
+.checkbox[disabled]+label,.radio[disabled]+label{cursor:not-allowed;color:#e4e4e4}
+.checkbox[disabled]+label:after,.checkbox[disabled]+label:before,.checkbox[disabled]+label:hover,.radio[disabled]+label:after,.radio[disabled]+label:before,.radio[disabled]+label:hover{cursor:not-allowed}
+.checkbox[disabled]+label:hover:before,.radio[disabled]+label:hover:before{border:1px solid #e4e4e4;animation-name:none}
+.checkbox[disabled]+label:before,.radio[disabled]+label:before{border-color:#e4e4e4}
+.checkbox:checked+label:before,.radio:checked+label:before{animation-name:none}
+.checkbox:checked+label:after,.radio:checked+label:after{display:block}
+.radio+label:before{border-radius:50%}
+.radio+label:after{top:6px;left:6px;width:8px;height:8px;border-radius:50%;background:#3e97eb}
+.radio:checked+label:before{border:1px solid #3e97eb}
+.radio:checked[disabled]+label:before{border:1px solid #c9e2f9}
+.radio:checked[disabled]+label:after{background:#c9e2f9}
+.checkbox+label:before{border-radius:3px}
+.checkbox+label:after{top:2px;left:7px;box-sizing:border-box;width:6px;height:12px;transform:rotate(45deg);border-width:2px;border-style:solid;border-color:#fff;border-top:0;border-left:0}
+.checkbox:checked+label:before{border:#3e97eb;background:#3e97eb}
+.checkbox:checked[disabled]+label:before{border:#c9e2f9;background:#c9e2f9}
+
+
+.nav {
+  margin-bottom: 20px;
+  margin-left: 0;
+  list-style: none;
+}
+
+.nav > li > a {
+  display: block;
+}
+
+.nav-tabs > li,
+.nav-pills > li {
+  float: left;
+}
+
+.nav-tabs > li > a,
+.nav-pills > li > a {
+  padding-right: 12px;
+  padding-left: 12px;
+  margin-right: 2px;
+  line-height: 14px;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid #ddd;
+}
+
+.nav-tabs > li {
+  margin-bottom: -1px;
+}
+
+.nav-tabs > li > a {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 20px;
+  border: 1px solid transparent;
+  -webkit-border-radius: 4px 4px 0 0;
+     -moz-border-radius: 4px 4px 0 0;
+          border-radius: 4px 4px 0 0;
+}
+
+.nav-tabs > li > a:hover,
+.nav-tabs > li > a:focus {
+  border-color: #eeeeee #eeeeee #dddddd;
+}
+
+.nav-tabs > .active > a,
+.nav-tabs > .active > a:hover,
+.nav-tabs > .active > a:focus {
+  color: #555555;
+  cursor: default;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
+}
+
+@keyframes hover-color {
+	from {
+		border-color: #c0c0c0;
+	} to {
+		border-color: #3e97eb;
+	}
+}
+
+@font-face {font-family: "iconfont";
+  src: url('../Fonts/iconfont.eot?t=1478503764093'); /* IE9*/
+  src: url('../Fonts/iconfont.eot?t=1478503764093#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('../Fonts/iconfont.woff?t=1478503764093') format('woff'), /* chrome, firefox */
+  url('../Fonts/iconfont.ttf?t=1478503764093') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('../Fonts/iconfont.svg?t=1478503764093#iconfont') format('svg'); /* iOS 4.1- */
+}
+[class^="icon-"]:before, [class*=" icon-"]:before {
+	font-family:"iconfont" !important;
+	font-weight: normal;
+	font-style:normal;
+	display: inline-block;
+	width: 1em;
+	margin-left: .1em;
+	margin-right: .1em;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+
+.icon-jia:before { content: "\e60e"; }
+
+.icon-tianjia:before { content: "\e60f"; }
+
+.icon-wenjian1:before { content: "\e612"; }
+
+.icon-check:before { content: "\e648"; }
+
+.icon-roundcheckfill:before { content: "\e656"; }
+
+.icon-roundcheck:before { content: "\e657"; }
+
+.icon-roundclosefill:before { content: "\e65a"; }
+
+.icon-roundclose:before { content: "\e65d"; }
+
+.icon-bianji:before { content: "\e613"; }
+
+.icon-shangchuan:before { content: "\e615"; }
+
+.icon-shijian:before { content: "\e653"; }
+
+.icon-shanchu:before { content: "\e616"; }
+
+.icon-iconwenjianjia:before { content: "\e617"; }
+
+.icon-remove:before { content: "\e618"; }
+
+.icon-jiazai:before { content: "\e60b"; }
+
+.icon-chexiao:before { content: "\e619"; }
+
+.icon-lanmupeizhi:before { content: "\e61f"; }
+
+.icon-wanfenshouyi:before { content: "\e655"; }
+
+.icon-yulibao:before { content: "\e65c"; }
+
+.icon-daiban:before { content: "\e620"; }
+
+.icon-hetongqicao:before { content: "\e624"; }
+
+.icon-tiaoxiu:before { content: "\e62b"; }
+
+.icon-tousu:before { content: "\e62d"; }
+
+.icon-yongyin:before { content: "\e630"; }
+
+.icon-gongwenchaxun:before { content: "\e634"; }
+
+.icon-qicaogongwen:before { content: "\e637"; }
+
+.icon-wenzhang:before { content: "\e639"; }
+
+.icon-tongxunlu:before { content: "\e63a"; }
+
+.icon-daiyue:before { content: "\e63f"; }
+
+.icon-zhengfu:before { content: "\e62f"; }
+
+.icon-daiban1:before { content: "\e64a"; }
+
+.icon-yiban:before { content: "\e64b"; }
+
+.icon-yingyongjiankong:before { content: "\e64f"; }
+
+.icon-hetongpingshen:before { content: "\e658"; }
+
+.icon-shouquanweituoshu:before { content: "\e659"; }
+
+.icon-ITjiankong:before { content: "\e65f"; }
+
+.icon-angle-down:before { content: "\e61c"; }
+
+.icon-angle-left:before { content: "\e61d"; }
+
+.icon-angle-right:before { content: "\e61e"; }
+
+.icon-angle-up:before { content: "\e621"; }
+
+.icon-cog:before { content: "\e65b"; }
+
+.icon-envelope:before { content: "\e66d"; }
+
+.icon-navicon:before { content: "\e6d1"; }
+
+.icon-user:before { content: "\e730"; }
+
+.icon-SCMliucheng:before { content: "\e602"; }
+
+.icon-baobiao:before { content: "\e605"; }
+
+.icon-baoxiao:before { content: "\e606"; }
+
+.icon-gongzuozongjie:before { content: "\e607"; }
+
+.icon-goutong:before { content: "\e608"; }
+
+.icon-tongxunlu1:before { content: "\e609"; }
+
+.icon-shenqing:before { content: "\e60a"; }
+
+.icon-zhishihudong:before { content: "\e60c"; }
+
+.icon-feiyongshenqing:before { content: "\e60d"; }
+
+.icon-tuandui:before { content: "\e610"; }
+
+.icon-channeng:before { content: "\e611"; }
+
+.icon-xinjian:before { content: "\e614"; }
+
+.icon-jianbao:before { content: "\e61a"; }
+
+.icon-wenjian:before { content: "\e622"; }
+
+.icon-jiekuan:before { content: "\e623"; }
+
+.icon-lixiang:before { content: "\e625"; }
+
+.icon-daiban2:before { content: "\e629"; }
+
+.icon-xinjiantiezi:before { content: "\e62a"; }
+
+.icon-zuzhijiagou:before { content: "\e62c"; }
+
+.icon-taizhang:before { content: "\e62e"; }
+
+.icon-jiyao:before { content: "\e631"; }
+
+.icon-zhanghu:before { content: "\e632"; }
+
+.icon-zhibiao:before { content: "\e638"; }
+
+.icon-xiangmu:before { content: "\e63d"; }
+
+.icon-shuju:before { content: "\e63e"; }
+
+.icon-xuqiu:before { content: "\e641"; }
+
+.icon-kehu:before { content: "\e642"; }
+
+.icon-wendangzhongxin:before { content: "\e645"; }
+
+.icon-tiaocha:before { content: "\e646"; }
+
+.icon-yuangonghuangye:before { content: "\e647"; }
+
+.icon-renwu:before { content: "\e64c"; }
+
+.icon-guifan:before { content: "\e64d"; }
+
+.icon-liucheng:before { content: "\e64e"; }
+
+.icon-youxiang:before { content: "\e650"; }
+
+.icon-yuangongruzhi:before { content: "\e651"; }
+
+.icon-yishoukuan:before { content: "\e652"; }
+
+.icon-hetongshenpi:before { content: "\e654"; }

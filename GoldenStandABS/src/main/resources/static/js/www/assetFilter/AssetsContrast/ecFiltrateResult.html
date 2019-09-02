@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-compatible" content="IE=edge,chrome=1">
+		<title></title>
+		<link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../../basicAsset/style/iconfont.css" rel="stylesheet" />
+		<link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+		<link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+		<link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+        <link href="../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+		<style>
+			.ecFiltrateResult {
+				padding: 15px;
+				box-sizing: border-box;
+			}
+			.table_title {
+				height: 40px;
+				line-height: 40px;
+				border: 1px solid #dce0ee;
+				border-bottom: none;
+				padding: 0 15px;
+			}
+			.table_title:after {
+				content: '';
+				display: block;
+				width: 0;
+				height: 0;
+				clear: both;
+			}
+			.table_title div {
+				float: left;
+				color: rgba(69,86,156,1);
+			}
+			.table_title div:nth-child(2),
+			.table_title div:nth-child(3) {
+				float: right;
+				color: #5e5e5e;
+				margin-left: 15px;
+			}
+            .table_title div span {
+                color: #f65f6a;
+			}
+			.loadpage {
+				position: absolute;
+				height: 100%;
+				width: 100%;
+				background: #FFFFFF;
+				z-index: 9999;
+			}
+			.loadpage>i {
+				color: rgb(107, 147, 216);
+			}
+			#grid td {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			
+			#grid th {
+				font-size: 13px;
+				height: 25px;
+				vertical-align: middle;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<div id="ecFiltrateResult" class="ecFiltrateResult">
+		<div id="loading" class="loadpage text-center"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+			<div class="table_title">
+				<div>EC列表</div>
+				<div>笔数合计: <span> </span></div>
+				<div>剩余本金余额合计: <span> </span></div>
+			</div>
+			<div id="grid"></div>
+		</div>
+		<script src="../../../asset/lib/require.js"></script>
+		<script>
+			requirejs(['../../../asset/lib/config.js'], function(config) {
+				requirejs(['app/assetFilter/AssetsContrast/ecFiltrateResult']);
+			});
+		</script>
+	</body>
+
+</html>

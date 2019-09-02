@@ -1,0 +1,613 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>产品设计</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/font/GoogleFontDosis.css" rel="stylesheet" />
+    <link href="../css/trustWizard.css" rel="stylesheet" />
+    <link href="../../../asset/style/jquery.searchableSelect.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        a, a:hover { text-decoration: none; }
+        .date_selector { width: 250px; left: 160px; top: 115px; }
+        .container { position: relative; z-index: 1; height: 100%; }
+        .aside_left { width: 184px; position: absolute; left: 0px; top: 0px; z-index: 3; height: 100%; background: rgba(230,233,245,1); }
+        .aside_tit_box { overflow: hidden; padding: 1px 16px; background-color: #f3f3f3; border-bottom: 1px solid #ddd; height: 39px; }
+        .aside_back { width: 20px; float: left; }
+        .aside_back a { display: block; width: 20px; height: 20px; margin: 0 auto; }
+        .changeBox { width: 40px; float: left; text-align: center; cursor: pointer; line-height: 20px; }
+        .aside_list_box { overflow: hidden; }
+        .aside_list_box li { 
+            padding: 10px 0; 
+            line-height: 40px; 
+            cursor: pointer; 
+            height: 50px; 
+            position: relative;
+        }
+        .aside_list_box li:hover .aside_info{ 
+            color:rgba(69,86,156,1);
+        }
+        .aside_info { float: left; line-height: 30px; height: 30px; overflow: hidden; color: #555; }
+        .aside_list_icon { width: 40px; float: left; text-align: center; line-height: 40px; color: #1b5a7a; }
+        .aside_list_box .aside_list_active, .aside_list_box .aside_list_active:hover { 
+           color:rgba(69,86,156,1); 
+        }
+        .aside_list_active .aside_info{
+            color:rgba(69,86,156,1);
+        }
+        /*.aside_list_box .aside_list_active * { color:#ffffff;}*/
+        .aside_right { position: absolute; left: 183px; top: 0px; right: 0px; z-index: 2; overflow: scroll;height: 100%; }
+        .aside_info_main { overflow: hidden; min-width: 700px; padding-bottom: 40px; }
+        .aside_info_each { width: 100%; overflow: hidden; min-height: 500px; display: none;padding: 15px;}
+        .aside_info_tit { overflow: hidden;border-bottom: 1px solid #eaeaea;}
+        .aside_info_tit span { 
+            display: block;
+            line-height: 35px;
+            float: left;
+            font-size: 16px;
+            color: rgb(69, 86, 156);
+            font-weight: normal;
+            padding: 0 15px;
+        }
+        .asset_overview_main {margin-bottom: 30px;}
+        .choseType { overflow: hidden; margin: 10px 0px 0px 0px; }
+        .chose { float: left; margin-right: 10px; line-height: 32px; }
+        .label { float: left; margin-right: 50px; line-height: 32px; cursor: pointer; }
+        #choseYes, #choseNo { float: left; margin-right: 10px; margin-top: 7px; }
+        .choseYes span, .choseNo span { float: left; line-height: 26px; display: block; }
+        .chose_main_box { overflow: hidden;}
+        .chose_each, .chose_main, .choseTit { overflow: hidden; }
+        .chose_info { overflow: hidden; line-height: 26px; color: rgba(59,62,93,0.8); }
+        .info_left { width: 220px; float: left; line-height: 30px; background: rgba(243,245,250,1); padding: 0px 10px; text-align: center; box-sizing: border-box; height: 30px; }
+        .chose_select { cursor: pointer; border: 1px solid #ccc; line-height: 30px; height: 30px; padding-left: 5px; width: calc(100% - 220px); box-sizing: border-box; float: left; }
+        .choseBox { overflow: hidden; margin-bottom: 0px; padding: 15px;}
+        .choseTable { overflow: hidden; margin: 0px 15px 15px; font-size: 14px; }
+        .choseTit { border: 1px solid #d8d8d8; border-bottom: none; border-right: none; margin-top: 10px; }
+        .col { 
+            width: 20%; float: left; text-align: center; line-height: 26px; border-right: 1px solid #d8d8d8; }
+        .choseTit .col { 
+            background: #f3f5fa;
+        }
+        .choseBody { overflow: hidden; border: 1px solid #d8d8d8; border-right: none; cursor: pointer; }
+        .popInfo { /*font-size:12px;*/ text-align: right; line-height: 30px; }
+        .choseInput { border: none; text-align: center; line-height: 24px; height: 24px; width: 90%; margin: 0 auto; font-size:13px}
+        .choseInput:disabled {background: #ffffff;} 
+        .inputAble { border: 1px solid #ddd; border-radius: 4px; }
+        .input_box { 
+                height: 30px;
+                margin: 20px 15px;
+        }
+        .info_left2 { width: 220px; text-align: center; cursor: default; }
+        .btn_table { padding: 2px 8px; }
+        .chose_length, .rateLabel { float: left; }
+        .rateLabel { line-height: 26px; cursor: pointer; }
+        .rateLabel span {
+            font-weight: 400;
+        }
+        .rateLabel input { float: left; margin-right: 5px; margin-top: 3px; }
+        .compuResultTable { overflow: hidden; margin-top: 10px;font-size: 13px; }
+        .compuTit { overflow: hidden; border: 1px solid #ccc; border-bottom: none; border-right: none; background: rgba(243,245,250,1);}
+        .col2 { width: 14.285%; float: left; border-right: 1px solid #ccc; line-height: 30px; text-align: center; }
+        .compuTit .col2 { /*font-weight:bold;*/ }
+        .compuBody { overflow: hidden; border: 1px solid #ccc; border-right: none; border-bottom: none; }
+        .compuEach { overflow: hidden; border-bottom: 1px solid #ccc; }
+        .showCharAndInput { overflow: hidden; display: none; }
+        .showHighCharts { width: 600px; height: 300px; margin: 20px auto; }
+        .jumpButton { overflow: hidden; margin: 30px 0px 25px; text-align: center; }
+        input[type="text"] { cursor: default; }
+        .no { 
+            float: left;
+            width: 21px;
+            height: 21px;
+            border-radius: 50%;
+            border: 1px solid rgba(77,77,77,1);
+            margin-left: 18px;
+            margin-right: 15px;
+            font-size: 14px;
+            text-align: center;
+            line-height: 20px;
+            display: block;
+            margin-top: 4px;
+        }
+        .aside_list_active .no {
+            color:#ffffff;
+            border: 1px solid rgba(69,86,156,1);
+            background-color: rgba(69,86,156,1);
+        }
+        .aside_list_box li:hover .no{
+            border:1px solid rgba(69,86,156,1);
+        }
+        .aside_list_box li .flag { 
+            position: absolute; 
+            left: 28px;
+            top: 37px;
+            width:0px;
+            height:22px;
+            border:0.5px solid rgba(77,77,77,1);    
+        }
+        .aside_list_box li:last-child .flag {
+            display: none;
+        }
+        .aside_list_box .aside_list_active .flag {
+             border:0.5px solid rgba(69,86,156,1);
+         }
+        .aside_list_box li:hover .flag {
+            border:0.5px solid rgba(69,86,156,1);
+        }
+        html, body { height: 100%; }
+        /*内容布局样式,居中表格型*/
+        .layer_box { width: 100%; border: 1px solid rgba(0,0,0,0.1); border-radius: 2px; }
+        .layer_title { 
+            border-bottom: 1px solid rgba(0,0,0,0.1); 
+            padding-left: 15px; 
+            height: 30px; 
+            line-height: 30px; 
+            font-size: 16px; 
+            color: #45569c;
+        }
+        .choseBox {margin: auto; }
+        .normal_small_button { padding: 3px; padding-left: 6px; padding-right: 6px; }
+        .normal_small_button:hover, .normal_small_button:active { padding: 3px; padding-left: 6px; padding-right: 6px; }
+        .buttonI {background-image: none; background: transparent; border: none; height: 27px; line-height: 27px; font-size: 11px; vertical-align: middle; color: #555; font-weight: bold; cursor: pointer; }
+        .icon_font {font-size:13px}
+        .loading { position: fixed; left: 50%; top: 50%;}
+        #StartDate+.date_selector{
+            top: 30px;
+            left: 220px;
+        }
+        .aside_left .step-head h2 {
+            line-height: 37px;
+            color:rgba(69,86,156,1);
+            font-size: 16px;
+            font-weight: normal;    
+        }
+        .aside_left .step-head {
+            padding: 1px 16px;
+            height:39px;
+            position:relative;
+        }
+        .left_div, .right_div {
+            width: calc(50% - 10px);
+            float: left;
+            border: 1px solid rgba(230,233,245,1);
+            min-height: 550px;
+        }
+        .left_div {
+            margin-right: 20px;
+        }
+        .last_step {
+            border: 1px solid rgba(230,233,245,1);
+        }
+        .chose_info.layer_title span {
+            display: inline-block;
+            margin-right: 20px;
+            cursor: pointer;
+            height: 29px;
+        }
+        .chose_info.layer_title span.active {
+            border-bottom: 2px solid rgba(69,86,156,1);
+        }
+        select:disabled {
+            background-color:#F5F5F5;
+        }
+    </style>
+
+    <script data-main="./productDesign.js" src="../../../asset/lib/require.js"></script>
+</head>
+<body style="display:none">
+    <div id="selectLanguageDropdown_qcl" class="localizationTool" style="display:none"></div>
+    <div  id="container">
+        <div id="mask" class="mask"><div class="loading" v-show="loading"><img src="../../../asset/lib/Kendo/styles/Material/loading-image.gif" /></div></div>
+        <div class="aside_left public_font_style">
+            <div class="step-head">
+                <h2>
+                    <span>设计分层产品</span>
+                </h2>
+            </div>
+            <ul class="aside_list_box">
+                <li class="aside_list_active" @click="changeNav('0',$event)">
+                    <div class="aside_list_info">
+                        <div class="aside_info">
+                            <span class="no">1</span>
+                            <span id="tab1">资产池选择</span>
+                            <span class="flag"></span>
+                        </div>
+                    </div>
+                </li>
+                <!--<li @click="changeNav('1',$event)">
+                    <div class="aside_list_info">
+                        <div class="aside_info">
+                            <span class="no">2</span>
+                            <span id="tab2">损失率评估</span>
+                            <span class="flag"></span>
+                        </div>
+                    </div>
+                </li>-->
+                <li @click="changeNav('1',$event,'tip')">
+                    <div class="aside_list_info">
+                        <div class="aside_info">
+                            <span class="no">2</span>
+                            <span id="tab3">发行与期限设定</span>
+                            <span class="flag"></span>
+                        </div>
+                    </div>
+                </li>
+                <li @click="changeNav('2',$event)">
+                    <div class="aside_list_info">
+                        <div class="aside_info">
+                            <span class="no">3</span>
+                            <span id="tab4">初步拟定分层</span>
+                            <span class="flag"></span>
+                        </div>
+                    </div>
+                </li>
+                <!--<li @click="changeNav('4',$event)">
+                    <div class="aside_list_info">
+                        <div class="aside_info">
+                            <span class="no">5</span>
+                            <span id="tab5">初步拟定分层</span>
+                            <span class="flag"></span>
+                        </div>
+                    </div>
+                </li>-->
+            </ul>
+        </div>
+        <div class="aside_right public_font_style">
+            <div class="aside_info_main">
+                <div class="aside_info_each">
+                    <div class="asset_overview_main">
+                        <!--<div class="choseType">
+                            <div class="chose" id="choose1">获取资产方式：</div>
+                            <label for="choseYes" class="label">
+                                <input type="radio" id="choseYes" name="chose" value="0" v-model="chosedRadioStep1" @click="getUserChoseType('step1')" />
+                                <span id="radio1">选择资产池</span>
+                            </label>
+                            <label for="choseNo" class="label">
+                                <input type="radio" id="choseNo" name="chose" value="1" v-model="chosedRadioStep1" @click="getUserChoseType('step1')" />
+                                <span id="radio2">输入资产参数</span>
+                            </label>
+                        </div>-->
+                        <div class="chose_main_box layer_box">
+                            <div class="chose_each" v-show="choseTypeStep1">
+                                <div class="chose_info layer_title" id="pool">选择资产池</div>
+                                <div class="chose_main">
+                                    <div class="choseBox">
+                                        <div class="info_left" id="src">资产来源</div>
+                                        <select class="chose_select public_font_style" disabled v-on:change="getChoseOrganisationPoolId" id="Organisation" v-model="poolComeBind" style="width: calc(50% - 245px);margin-right:50px">
+                                            <option v-for="item in poolComeOption" v-bind:value="item.OrganisationCode">{{item.OrganisationDesc}}</option>
+                                        </select>
+                                        <div class="info_left" id="poolId">资产PoolId</div>
+                                        <select class="chose_select public_font_style" disabled id="PoolId" v-on:change="getChosePoolIdToInfo" v-model="poolIdOptionBind" style="width: calc(50% - 245px);">
+                                            <option v-for="pool in poolIdOption" v-bind:value="pool.PoolId">{{pool.PoolId}}</option>
+                                        </select>
+                                        <!--<button type="button" style="color:#5a77a9;padding:0px 5px;" class="btn btn-plus" @click="ClickshowPoolIdTable('chose')">
+                                            <i class="icon icon-add" style="font-size:16px;"></i>
+                                        </button>-->
+                                    </div>
+                                    <div class="choseTable" v-show="choseTable" >
+                                        <!--<div class="popInfo" style="margin-bottom:10px;" id="double">(*双击单元格修改数据)</div>-->
+                                        <div class="choseTit">
+                                            <div class="col" id="list1">资产池规模</div>
+                                            <div class="col" id="list2">加权平均利率</div>
+                                            <div class="col" id="list3">最长剩余期限</div>
+                                            <div class="col" id="list4">加权平均剩余期限</div>
+                                            <div class="col" id="list5">封包日</div>
+                                        </div>
+                                        <div class="choseBody">
+                                            <div class="col" @dblclick="showInputInput($event)">
+                                            	<span>{{poolIdInfo.TotalBalance}}</span>
+                                                <!--<input disabled="disabled" type="text" class="choseInput" readonly="readonly" onfocus=this.blur(); v-model="poolIdInfo.TotalBalance" v-on:blur="addInputReady($event)" v-on:keyup="Tbadd(poolIdInfo.TotalBalance,$event)" />-->
+                                            </div>
+                                            <div class="col" @dblclick="showInputInput($event)">
+                                            	<span>{{poolIdInfo.WACurrentRate}}</span>
+                                                <!--<input disabled="disabled" type="text" class="choseInput" readonly="readonly" onfocus=this.blur(); v-model="poolIdInfo.WACurrentRate" v-on:blur="addInputReady($event)" />-->
+                                            </div>
+                                            <div class="col" @dblclick="showInputInput($event)">
+                                            	<span>{{poolIdInfo.MaxRemainingTerm}}</span>
+                                                <!--<input disabled="disabled" type="text" class="choseInput" readonly="readonly" onfocus=this.blur(); v-model="poolIdInfo.MaxRemainingTerm" v-on:blur="addInputReady($event)" />-->
+                                            </div>
+                                            <div class="col" @dblclick="showInputInput($event)">
+                                            	<span>{{poolIdInfo.WARemainingTerm}}</span>
+                                                <!--<input disabled="disabled" type="text" class="choseInput" readonly="readonly" onfocus=this.blur(); v-model="poolIdInfo.WARemainingTerm" v-on:blur="addInputReady($event)" />-->
+                                            </div>
+                                            <div class="col" @dblclick="showInputInput($event)">
+                                            	<span>{{poolIdInfo.PoolCloseDate}}</span>
+                                                <!--<input disabled="disabled" type="text" class="choseInput" readonly="readonly" onfocus=this.blur(); v-model="poolIdInfo.PoolCloseDate" v-on:blur="addInputReady($event)" v-on:change="formatData($event)" />-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chose_each" v-show="!choseTypeStep1">
+                                <div class="chose_info" id="data1">请输入以下资产参数</div>
+                                <div class="chose_main">
+                                    <div class="input_box">
+                                        <div class="info_left info_left2" id="src1">资产来源</div>
+                                        <select class="chose_select public_font_style" id="OrganisationInput" v-on:change="choseOrganisationCode" v-model="poolComeBind" style="width: calc(50% - 265px);">
+                                            <option v-for="item in poolComeOption" v-bind:value="item.OrganisationCode">{{item.OrganisationDesc }}</option>
+                                        </select>
+                                        <button type="button" style="color:#5a77a9;padding:0px 5px;" class="btn btn-plus" @click="showPoolIdTable('input')">
+                                            <i class="icon icon-add" style="font-size:16px;"></i>
+                                        </button>
+                                    </div>
+                                    <div class="choseTable" v-show="choseTableInput">
+                                        <div class="choseTit">
+                                            <div class="col" id="list6">资产池规模</div>
+                                            <div class="col" id="list7">加权平均利率</div>
+                                            <div class="col" id="list8">最长剩余期限</div>
+                                            <div class="col" id="list9">加权平均剩余期限</div>
+                                            <div class="col" id="list10">封包日</div>
+                                        </div>
+                                        <div class="choseBody">
+                                            <div class="col">
+                                                <input type="text" class="choseInput inputAble" v-model="poolIdInfoInput.TotalBalance" />
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="choseInput inputAble" v-model="poolIdInfoInput.WACurrentRate" />
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="choseInput inputAble" v-model="poolIdInfoInput.MaxRemainingTerm" />
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="choseInput inputAble" v-model="poolIdInfoInput.WARemainingTerm" />
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="choseInput inputAble" v-model="poolIdInfoInput.PoolCloseDate" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="asset_overview_main">
+                            <div class="chose_main_box layer_box">
+                                <div class="chose_each">
+                                    <div class="chose_info layer_title">
+                                        <span @click="changeChoseTypeStep2(true)" >选择静态池</span> <!--v-bind:class="choseTypeStep2 == true?'active':''"-->
+                                        <!--<span @click="changeChoseTypeStep2(false)" v-bind:class="choseTypeStep2 == false?'active':''">输入静态池参数</span>-->
+                                    </div> 
+                                    <div class="chose_main" style="overflow:auto;height:auto" v-show="choseTypeStep2">
+                                        <div class="choseBox" >
+                                            <div class="info_left" id="type1">资产类型</div>
+                                            <select class="chose_select public_font_style" id="poolType" v-on:change="getChosePoolType" v-model="poolTypeBind" style="margin-right:50px;width: calc(50% - 265px);">
+                                                <option v-for="type in poolTypeOption" v-bind:value="type.AssetType">{{type.AssetTypeDesc}}</option>
+                                            </select>
+                                            <div class="info_left" id="date1">逾期区间</div>
+                                            <select class="chose_select public_font_style" id="poolOverdue" v-on:change="getChoseOverdue" v-model="poolOverdueBind" style="margin-right:10px;width: calc(50% - 340px);">
+                                                <option v-for="over in poolOverdueOption" v-bind:value="over.value">{{over.text}}</option>
+                                            </select>
+                                            <button type="button" class="btn btn-primary" @click="toOrganisationChart" id="show">显示图表</button>
+                                        </div>
+                                        <!--点击“显示图表按钮”，显示图表位置-->
+                                        <div class="showCharAndInput" id="showCharAndInput" style="width:80%;margin:auto">
+                                            <div class="showHighCharts" id="showHighChart"></div>
+                                        </div>
+                                    </div>
+                                    <div class="chose_main" style="overflow:auto;height:auto" v-show="!choseTypeStep2">
+                                        <div class="choseBox">
+                                            <div class="info_left info_left2" id="average">静态值损失率均值</div>
+                                            <input type="text" class="chose_select public_font_style" v-model="productPoolInput.lossAverage" style="margin-right:50px;width: calc(50% - 265px);" />
+                                            <div class="info_left info_left2" id="standard">静态值损失率标准差</div>
+                                            <input type="text" class="chose_select public_font_style" v-model="productPoolInput.lossStddev" style="margin-right:10px;width: calc(50% - 340px);" />
+                                            <button type="button" class="btn btn-primary" id="curve">拟合曲线</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="jumpButton">
+                                <button @click="changeNav('1',$event,'tip')" type="button" class="btn btn-primary" id="next">下一步</button>
+                            </div>
+                        </div>
+                    <!--</div>-->
+                </div>
+                <div class="aside_info_each">
+                    <div class="left_div">
+                        <div class="aside_info_tit">
+                            <span id="title4">发行设定</span>
+                        </div>
+                        <div class="asset_overview_main" style="padding-top: 10px;">
+                            <div class="input_box">
+                                <div class="info_left info_left2" id="lab1">发行规模(元)</div>
+                                <input type="text" class="chose_select public_font_style" v-model="issue[0].TotalIssueAmount" v-on:blur="scaleBlur" v-on:keyup="Tbadd(issue[0].TotalIssueAmount,$event)" />
+                            </div>
+                            <div class="input_box">
+                                <div class="info_left info_left2" id="lab2">超额覆盖比例(%)</div>
+                                <input type="text" class="chose_select public_font_style" v-model="cover" id="cover" v-on:change="coverBlur($event)" />
+                            </div>
+                            <div class="input_box">
+                                <div class="info_left info_left2" id="lab3">最优先档利率(%)</div>
+                                <input type="text" class="chose_select public_font_style" v-model="issue[0].FirstLayerInterestRate" v-on:change="theNumberCall($event)" />
+                            </div>
+                            <div class="input_box">
+                                <div class="info_left info_left2" id="lab4">最优先档评级</div>
+                                <select class="chose_select public_font_style" v-model="issue[0].FirstLayerRating">
+                                    <option value="AAA">AAA</option>
+                                    <option value="AA+">AA+</option>
+                                    <option value="AA">AA</option>
+                                    <option value="AA-">AA-</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A">A</option>
+                                    <option value="A-">A-</option>
+                                    <option value="BBB">BBB</option>
+                                </select>
+                            </div>
+                            <div class="input_box">
+                                <div class="info_left info_left2" id="lab5">最优先级比例下限(%)</div>
+                                <input type="text" class="chose_select public_font_style" v-model="issue[0].FirstLayerPercentage" v-on:change="theNumberCall($event)" />
+                            </div>
+                            <div class="input_box">
+                                <div class="info_left info_left2" id="lab6">夹层票面利率(%)</div>
+                                <input type="text" class="chose_select public_font_style" v-model="issue[0].SecondLayerInterestRate" v-on:change="theNumberCall($event)" />
+                            </div>
+                            <div class="input_box">
+                                <div class="info_left info_left2" id="lab7">夹层目标评级</div>
+                                <select class="chose_select public_font_style" v-model="issue[0].SecondLayerRating">
+                                    <option value="AAA">AAA</option>
+                                    <option value="AA+">AA+</option>
+                                    <option value="AA">AA</option>
+                                    <option value="AA-">AA-</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A">A</option>
+                                    <option value="A-">A-</option>
+                                    <option value="BBB">BBB</option>
+                                </select>
+                            </div>
+
+                            <div class="input_box">
+                                <div class="info_left info_left2" id="lab8">次级比例(%)</div>
+                                <input type="text" class="chose_select public_font_style" v-model="issue[0].SubordinaryLayerPercentage" v-on:change="theNumberCall($event)" />
+                            </div>
+
+                            <div class="input_box">
+                                <div class="info_left info_left2" id="lab9">层数</div>
+                                <input type="text" class="chose_select public_font_style" v-model="issue[0].Layers" id="Layers" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right_div">
+                        <div class="aside_info_tit">
+                            <span id="title5">期限设定</span>
+                        </div>
+                        <div class="asset_overview_main" style="padding-top: 10px;">
+                            <div class="input_box">
+                                <div class="info_left info_left2" id="circle">是否设置循环期</div>
+                                <select class="chose_select public_font_style" v-model="circulationPeriod" @click="choseCirculation">
+                                    <option value="1" id="yes">是</option>
+                                    <option value="0" id="no">否</option>
+                                </select>
+                            </div>
+                            <div class="input_box" v-show="circulation">
+                                <div class="info_left info_left2" id="length">循环期长度</div>
+                                <input type="text" class="chose_select public_font_style" v-model="circulationInput" />
+                            </div>
+                            <div class="input_box">
+                                <div class="info_left info_left2" id="frequency">设置兑付频率</div>
+                                <div style="display:flex;justify-content:space-around;border:1px solid #e6e9f5;height:30px;">
+                                    <label for="month" class="rateLabel">
+                                        <input type="radio" name="rate" id="month" value="月" v-model="rateBind" />
+                                        <span id="month1">月</span>
+                                    </label>
+                                    <label for="quarter" class="rateLabel">
+                                        <input type="radio" name="rate" id="quarter" value="季" v-model="rateBind" />
+                                        <span id="quarter1">季</span>
+                                    </label>
+                                    <label for="halfYear" class="rateLabel">
+                                        <input type="radio" name="rate" id="halfYear" value="半年" v-model="rateBind" />
+                                        <span id="half">半年</span>
+                                    </label>
+                                    <label for="year" class="rateLabel">
+                                        <input type="radio" name="rate" id="year" value="年" v-model="rateBind" />
+                                        <span id="year3">年</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="input_box">
+                                <div class="info_left info_left2" id="day1">设置产品设立日</div>
+                                <div class="info-left" style="position: relative;">
+                                    <input type="text" class="chose_select public_font_style date-plugins" onfocus="inputNull(this)" id="StartDate" v-on:change="formatData($event)" />
+                                </div>
+                            </div>
+                            <div class="input_box">
+                                <div class="info_left info_left2" id="day2">设置产品期限(月)</div>
+                                <input type="text" class="chose_select public_font_style" v-model="ProjectLength" />
+                            </div>
+                            <div class="input_box">
+                                <div class="info_left info_left2" id="name1">方案名称</div>
+                                <input type="text" class="chose_select public_font_style" v-model="SolutionName" style="width:calc(100% - 312px)" />
+                                <button type="button" @click="trialHierarchy" class="btn btn-primary" style="margin-left:10px" id="layer">试算分层</button>
+                            </div>
+                        </div>
+                    </div> 
+                    <div style="clear: both;"></div>
+                    <div class="jumpButton" style="margin-bottom:0px">
+                        <button @click="changeNav('0',$event)" type="button" class="btn btn-primary" id="pre1">上一步</button>
+                        <button @click="changeNav('2',$event)" type="button" class="btn btn-primary" id="next1">下一步</button>
+                    </div>
+                </div>
+                <div class="aside_info_each">
+                    <div class="last_step">
+                        <div class="aside_info_tit">
+                            <span id="title6">初步分层</span>
+                        </div>
+                        <div class="asset_overview_main" style="padding: 15px;margin-bottom: 0;">
+                            <div style="width:100%;padding:0px;margin-bottom:15px;display:flex">
+                                <div  style="padding: 0px;width:200px;margin-right:25px">
+                                    <select class="chose_select public_font_style" v-model="solutionSelect" v-on:change="getSolutionInfo" id="TryLists">
+                                        <option v-for="item in solution" v-bind:value="item.SolutionName">{{item.SolutionName}}</option>
+                                    </select>
+                                </div>
+                                <div  style="padding: 0px;width:400px;margin-right:25px">
+                                    <select class="chose_select public_font_style" v-model="applySelect" v-on:change="choseApplySelect" id="applyTrust">
+                                        <option v-for="item in applySolutionInfo" v-bind:value="item.TrustId">{{item.TrustCode}}</option>
+                                    </select>
+                                </div>
+                                <button type="button" @click="productGeneration" class="btn btn-primary" id="product" style="float:left">生成产品</button>
+                            </div>
+                            
+                            <div class="compuResultTable">
+                                <div class="compuTit">
+                                    <div class="col2" id="Id">债券编号</div>
+                                    <div class="col2">
+                                        <span id="layer1">分层比例</span>&nbsp;
+                                        <span v-show="c_SolPercentageReadOnly">
+                                            <button type="button" class="buttonI" @click="editPercentage"><i class="icon icon-edit icon_font"></i></button>
+                                        </span>
+                                        <span v-show="!c_SolPercentageReadOnly">
+                                            <button type="button" class="buttonI" @click="savePercentage"><i class="icon icon-check icon_font"></i></button>
+                                            <button type="button" class="buttonI" @click="cancelPercentage"><i class="icon icon-close icon_font"></i></button>
+                                        </span>
+                                    </div>
+                                    <div class="col2" id="money2">金额</div>
+                                    <div class="col2">
+                                        <span id="rate1">票面利率</span>&nbsp;
+                                        <span v-show="c_SolInterestRateReadOnly">
+                                            <button type="button" class="buttonI" @click="editInterestRate"><i class="icon icon-edit icon_font"></i></button>
+                                        </span>
+                                        <span v-show="!c_SolInterestRateReadOnly">
+                                            <button type="button" class="buttonI" @click="saveInterestRate"><i class="icon icon-check icon_font"></i></button>
+                                            <button type="button" class="buttonI" @click="cancelInterestRate"><i class="icon icon-close icon_font"></i></button>
+                                        </span>
+                                    </div>
+                                    <div class="col2" id="col1">发行日期</div>
+                                    <div class="col2" id="col2">到期日</div>
+                                    <div class="col2" id="col3">评级</div>
+                                </div>
+                                <div class="compuBody">
+                                    <div class="compuEach" v-for="info in solutionInfo">
+                                        <div class="col2">{{info.BondCode}}</div>
+                                        <!--<div class="col2">{{info.Percentage}}</div>-->
+                                        <div class="col2">
+                                            <input type="text" class="public_font_style choseInput" v-bind:class="{'inputAble':!c_SolPercentageReadOnly}" v-bind:readonly="c_SolPercentageReadOnly" v-model="info.Percentage" />
+                                        </div>
+                                        <div class="col2">{{info.OfferAmount | numFormt}}</div>
+                                        <!--<div class="col2">{{info.InterestRate}}</div>-->
+                                        <div class="col2">
+                                            <input type="text" class="public_font_style choseInput" v-bind:class="{'inputAble':!c_SolInterestRateReadOnly}" v-bind:readonly="c_SolInterestRateReadOnly" v-model="info.InterestRate" />
+                                        </div>
+                                        <div class="col2">{{info.StartDate}}</div>
+                                        <div class="col2">{{info.EndDate}}</div>
+                                        <div class="col2">{{info.CreditRating}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="jumpButton">
+                        <button @click="changeNav('1',$event)" type="button" class="btn btn-primary" id="pre3">上一步</button>
+                        <!--<button @click="changeNav('5',$event)" type="button" class="normal_small_button" v-show="false">下一步</button>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+

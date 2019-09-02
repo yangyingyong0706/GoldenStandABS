@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>透视报表x</title>
+    <!--<script src="../pre/vue.js"></script>-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <link href="../style/style.css" rel="stylesheet" />
+    <style>
+        ul {
+            padding-left: 0px;
+        }
+
+            ul > li > div > a {
+                text-decoration: none;
+                font-family: 'Microsoft YaHei';
+                font-size: 14px;
+            }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        .list {
+            float: left;
+            text-align: center;
+            width: 105px;
+            height: 20px;
+            border: 1px solid #c3c3c3;
+            background-color: rgba(244,244,244,1);
+            margin-top: 7px;
+            border-bottom: none;
+            border-top-right-radius: 2px;
+            border-top-left-radius: 2px;
+        }
+
+        .act {
+                float: left;
+                text-align: center;
+                width: 105px;
+                border: 1px solid #c3c3c3;
+                border-bottom: hidden;
+                margin-left: 0px;
+                height: 23px;
+                background-color: white;
+                margin-top: 0px;
+                padding-top: 5px;
+                line-height: 17px;
+        }
+
+        #title {
+            height: 28px;
+            width: 536px;
+            display:none;
+        }
+
+        #content {
+            width: 536px;
+            height: 279px;
+            overflow: hidden;
+            position: relative;
+            margin-top: 0px;
+        }
+
+        #div1, #div2, #div3, #div4, #div5 {
+                float: left;
+                width: 536px;
+                height: 230px;
+        }
+
+        #contentdiv {
+            position: absolute;
+            width: 30000px;
+            height: 200px;
+        }
+
+        table {
+            border: 1px solid #c3c3c3;
+            margin: auto;
+            font-size:14px;
+            width:536px;
+            height:279px;
+        }
+
+        thead > tr {
+            background-color: #E1E9FD;
+            height: 24px;
+        }
+
+        tbody > tr {
+            height: 28px;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        #container {
+            width: 540px;
+            margin: auto;
+            margin-top: 30px;
+        }
+    </style>
+
+
+    <script data-main="assetReport" src="../../../asset/lib/require.js"></script>
+
+
+
+
+</head>
+<body style="display:none">
+    <div id="selectLanguageDropdown" class="localizationTool" style="display:none"></div>
+    <div id="container">
+        <div id="title">
+            <ul type="none">
+                <li class="act list">
+                    <div><a id="assetTemplate" href="#">资产模板</a></div>
+                </li>
+            </ul>
+        </div>
+        <div id="content">
+            <div id="contentdiv">
+                <div id="div1">
+                    <table cellspacing="1px">
+                        <thead><tr><td id="no" width="120">序号</td><td id="templateName" width="240">模板名称</td><td id="download" width="120">点击下载</td></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td id="creditCard">信用卡</td>
+                                <td><a class="a1" href="/PoolCut/Files/Reports/DailyReport/资产池日统计报表_信用卡.xlsm">下载</a></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td id="publicLoan">对公贷款</td>
+                                <td><a class="a1" href="/PoolCut/Files/Reports/DailyReport/资产池日统计报表_对公贷.xlsm">下载</a></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td id="consumerLoan">消费贷款</td>
+                                <td><a class="a1" href="/PoolCut/Files/Reports/DailyReport/资产池日统计报表_消费贷.xlsm">下载</a></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td id="asset-backedCommercialPaper">资产支持票据</td>
+                                <td><a class="a1" href="/PoolCut/Files/Reports/DailyReport/资产池日统计报表_资产支持票据.xlsm">下载</a></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td id="carLoan">汽车贷款</td>
+                                <td><a class="a1" href="/PoolCut/Files/Reports/DailyReport/资产池日统计报表_车贷.xlsm">下载</a></td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td id="personalHousingLoan">个人住房贷</td>
+                                <td><a class="a1" href="/PoolCut/Files/Reports/DailyReport/资产池日统计报表_房贷.xlsm">下载</a></td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td id="accountsReceivable">应收账款</td>
+                                <td><a class="a1" href="/PoolCut/Files/Reports/DailyReport/资产池日统计报表_应收账款.xlsm">下载</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <style>
+        .loadpage {
+            position: absolute;
+            top: 45%;
+            left: 45%;
+            background:transparent
+        }
+        .loadpage >i{
+            color:rgb(107, 147, 216);
+            font-size:58px
+        }
+    </style>
+</head>
+<body>
+    <!--<div id="loading" class="loadpage text-center"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>-->
+    <div id="main" style="width: 700px;height:430px;margin:0 auto"></div>
+    <script src="../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/assetFilter/poolProcess/RemainingTermMain']);
+
+        });
+    </script>
+</body>
+</html>

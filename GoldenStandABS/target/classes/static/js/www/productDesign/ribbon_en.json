@@ -1,0 +1,41 @@
+﻿{
+    "app": "ProductDesign",
+    "title": "Product Design",
+    "group": [ 
+        {
+            "module": "Index",
+            "title": "Business Guide",
+            "titleclass": "icon-directionLeft01",
+            "elements": [
+                {
+                    "title": "Product design wizard",
+                    "type": "button",
+                    "icon": "icon icon-user-add",
+                    "linkname": "ProductDesign",
+                    "linkurl": "javascript:ProductDesign"
+                },
+                {
+                    "title": "Product pressure test",
+                    "type": "button",
+                    "icon": "icon icon-gauge",
+                    "linkname": "StressTest",
+                    "linkurl": "javascript:StressTest"
+                },
+                {
+                    "title": "Quick pressure test",
+                    "type": "button",
+                    "icon": "icon icon-gauge",
+                    "linkname": "QuickStressTest",
+                    "linkurl": "javascript:QuickStressTest"
+                },
+                {
+                    "title": "Product rapid desig",
+                    "type": "button",
+                    "icon": "icon icon-gauge",
+                    "linkname": "DynamicProDesign",
+                    "linkurl": "javascript:DynamicProDesign"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,187 @@
+﻿* {
+    font-family: 'Microsoft YaHei';
+}
+label {
+    line-height: 30px;
+}
+.k-grouping-header {
+    color: #555 !important;
+    background-color: transparent;
+}
+.k-group-footer,.k-footer-template{
+    text-align:center;
+}
+.k-icon.k-i-reload {
+    background-position-x: -32px;
+    background-position-y: -112px;
+}
+.header{
+    margin:10px 0;
+}
+.title{
+    color: rgba(69,86,156,1);
+    font-size: 16px;
+    padding: 4px 0;
+    position: relative;
+    top: 6px;
+}
+#dateSelect{
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    position: relative;
+    top: 2px;
+    font-size: 13px;
+}
+.selectLabel{
+    position: relative;
+    top: 7px;
+    font-size: 13px;
+}
+hr{
+    margin-bottom:0;
+    margin-top:15px;
+}
+body{
+    background-color:#F5F5F5;
+    padding: 15px 15px 0 15px;
+}
+#reportGetTrustDiv,.mainContent{
+    background: #fff;
+}
+#tabList{
+    padding-bottom:15px;
+}
+.loadpage{
+    margin-left: -20px;
+    margin-top: -15px;
+}
+
+.btn-default{
+    color:rgba(69,86,156,1);
+    margin-left:10px;
+}
+.btn-default:active:hover{
+    color: #fff;
+    background: #45569c;
+    border-color: #45569c;
+}
+.k-group-indicator>a,.k-link{
+    color: #fff!important;
+}
+
+.k-grid tr td {
+    border-width: 0 0 1px 1px;
+    border-style: solid;
+    border-color: #e6e6e6 !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0.586em 1.486em !important;
+}
+.k-link, .table-cell, .tight-cell, .k-pager-wrap, .k-grid-pager, .k-widget, .k-floatwrap {
+    font-size: 13px !important;
+    color: #555 !important;
+}
+.k-icon.k-i-filter {
+    background-image: url(../../asset/lib/Kendo/styles/Material/filter.png) !important;
+    background-size: 100% 100% !important;
+    transform: scale(0.8);
+    margin-top: 2px;
+}
+
+.container{
+    width:1000px;
+    padding-top:25px;
+}
+.report-list{
+    width:100%;
+    border:1px solid #eee;
+}
+.report-list dt{
+    background:#fff;
+    padding:6px 15px;
+    cursor:pointer;
+    color:rgba(69,86,156,1);
+    font-weight:bold;
+    border-bottom:1px solid #e8e8e8;
+}
+.report-list dt i{
+    color:#d0d0d0
+}
+.report-list dd{
+    padding:15px;
+    margin:0;
+    zoom: 1;
+    background: #fff;
+}
+.report-list dd .ReportContentRoom{
+    padding: 20px 40px;
+    background: rgba(243,245,250,1);
+    cursor:pointer;
+}
+.ReportContentRoom span{
+    padding-left:15px;
+}
+.report-list dd .col-md-3{
+    padding-right: 0px;
+}
+.report-list dd svg{
+    fill:rgb(69, 86, 156);
+    width:50px;
+    height:50px;
+    vertical-align: middle;
+}
+
+.report-list dd p{
+    padding:3px 6px;
+    color:rgba(69,86,156,1);
+    font-weight:bold;
+    border:1px solid transparent;
+    font-size: 12px;
+    margin:0;
+}
+.report-list dd p:hover{
+    border-color:#eee;
+    border-radius:3px;
+    text-decoration:none;
+}
+.report-list dd:before,.report-list dd:after{
+    content: '';
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+.report-list dd:after{
+    clear: both;
+}
+
+.loadpage {
+    position: absolute;
+    background: #fff;
+    height: 100%;
+    width: 100%;
+    z-index: 12;
+}
+
+.loadpage > i {
+    color: rgb(107, 147, 216);
+    position: absolute;
+    top: 50%;
+}
+
+*::-webkit-scrollbar {
+    width:10px;
+    height:10px;
+}
+*::-webkit-scrollbar-track     {
+    background:#eee;
+}
+*::-webkit-scrollbar-thumb{
+    background:#ddd;
+    border-radius:4px;
+}
+*::-webkit-scrollbar-thumb:hover{
+    background:#ccc;
+}

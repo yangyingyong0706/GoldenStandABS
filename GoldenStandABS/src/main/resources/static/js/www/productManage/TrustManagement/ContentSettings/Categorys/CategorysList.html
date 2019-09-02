@@ -1,0 +1,334 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>类别设置</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link href="./TrustFollowUp/css/pagerlist-style.css" rel="stylesheet" />
+    <link href="./ContentSettings/css/zTreeStyle.css" rel="stylesheet" />
+
+    <script src="./../../../config/globalVariable.js"></script>
+    <script src="./Common/Scripts/common.js"></script>
+
+    <script src="./../../../asset/lib/jquery/jquery-1.7.2.min.js"></script>
+    <script src="./Common/Scripts/anyDialog.js"></script>
+    <script src="./TrustFollowUp/js/jquery.datagrid.js"></script>
+    <script src="./TrustFollowUp/js/jquery.datagrid.options.js"></script>
+
+    <script src="./../../../asset/lib/jquery/jquery.ztree.core.js"></script>
+    <script src="./../../../asset/lib/jquery/jquery.ztree.excheck.js"></script>
+    <script src="./../../../asset/lib/jquery/jquery.ztree.exedit.js"></script>
+
+    <script src="./ContentSettings/Items/ItemList.js"></script>
+
+    <script type="text/javascript">
+
+        var svcUrl = GlobalVariable.DataProcessServiceUrl+"CommonExecuteGet?";
+        function getCategoryData()
+        {           
+            var executeParam = { SPName: 'usp_GetListWithPager', SQLParams: [] };
+
+            //TrustManagement.tblAssetDetails
+            executeParam.SQLParams.push({ Name: 'tableName', Value: 'TrustManagement.ItemCategory', DBType: 'string' });
+            executeParam.SQLParams.push({ Name: 'start', Value: 0, DBType: 'int' });
+            executeParam.SQLParams.push({ Name: 'end', Value: 100, DBType: 'int' });
+            executeParam.SQLParams.push({ Name: 'orderby', Value: 'CategoryId', DBType: 'string' });
+            executeParam.SQLParams.push({ Name: 'direction', Value: null, DBType: 'string' });
+            executeParam.SQLParams.push({ Name: 'where', Value: '', DBType: 'string' });
+            var executeParams = encodeURIComponent(JSON.stringify(executeParam));
+
+            var sourceData = [];
+            $.ajax({
+                cache: false,
+                type: "GET",
+                async: false,
+                url: svcUrl + 'appDomain=TrustManagement&executeParams=' + executeParams + '&resultType=common',
+                dataType: "json",
+                contentType: "application/xml;charset=utf-8",
+                data: {},
+                success: function (response) {
+                    if (typeof response === 'string') { sourceData = JSON.parse(response); }
+                    else { sourceData = response; }
+                },
+                error: function (response) { alert('Error occursed while requiring the remote source data!'); }
+            });
+            return sourceData;
+        }
+
+        function searchByWhere() {
+            var filterWhere = '';
+            $('.list-filters .filter').each(function () {
+                var $this = $(this);
+                var value = $this.val();
+                if (value.length < 1) { return true; }
+
+                var param = $this.attr('name');
+                if ($this.hasClass('like')) {
+                    filterWhere += ' and ' + param + ' like N\'%' + value + '%\'';
+                } else {
+                    filterWhere += ' and ' + param + ' = N\'' + value + '\'';
+                }
+            });
+            PagerListModule.Filter({ 'where': filterWhere });
+        }
+
+        var setting = {
+            edit: {
+                enable: true,
+                showRemoveBtn: false,
+                showRenameBtn: false
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            callback: {
+                beforeClick: beforeClick,
+                onClick: onClick,
+                beforeRemove: beforeRemove,
+                onRemove: onRemove,
+                onRightClick: OnRightClick
+            }
+        };
+       
+
+       
+        function beforeClick(treeId, treeNode, clickFlag) {
+            return true;
+        }
+
+        function onClick(event, treeId, treeNode)
+        {
+            ItemListModel.InitData(treeNode.CategoryId);
+        }
+        function removeTreeNode()
+        {
+            hideRMenu();
+            var nodes = zTree.getSelectedNodes();
+            if (nodes && nodes.length > 0) {
+                if (confirm("确定删除分类及其所有内容么？")) {
+                    var delNode = nodes[0];
+                    var executeParam = {
+                        SPName: 'usp_DeleteCategoryById', SQLParams: [
+                               { Name: 'CategoryId', value: delNode.CategoryId, DBType: 'int' }
+                        ]
+                    };
+                    ExecuteGetData(true, svcUrl, "TrustManagement", executeParam, function (data) {
+                        if (data[0].Result == 1) {
+                            zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                            bindTree();
+                            var node = zTree.getNodeByParam('id', treeNodes.length);
+                            zTree.selectNode(node);//选择点  
+                            zTree.setting.callback.onClick(null, zTree.setting.treeId, node);//调用事件
+                        }
+                    });
+                }
+            }
+        }
+        
+
+        function beforeRemove(treeId, treeNode)
+        {
+            if (confirm("确定删除分类及其所有内容么？")) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        function onRemove(event, treeId, treeNode)
+        {
+            var executeParam = {
+                SPName: 'usp_DeleteCategoryById', SQLParams: [
+                       { Name: 'CategoryId', value: treeNode.CategoryId, DBType: 'int' }
+                ]
+            };
+            ExecuteGetData(true, svcUrl, "TrustManagement", executeParam, function (data) {
+                if (data[0].Result == 1) {
+                    zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                    bindTree();
+                    var node = zTree.getNodeByParam('id', treeNodes.length);
+                    zTree.selectNode(node);//选择点  
+                    zTree.setting.callback.onClick(null, zTree.setting.treeId, node);//调用事件
+                }
+            });
+        }
+             
+        function showCode(str) {
+            var code = $("#code");
+            code.empty();
+            for (var i = 0, l = str.length; i < l; i++) {
+                code.append("<li>" + str[i] + "</li>");
+            }
+        }
+
+        var treeNodes = [];
+        function bindTree()
+        {
+            var data = getCategoryData();
+            var i = 1;
+            treeNodes = [];
+            $.each(data, function (index, ele) {
+                treeNodes.push({ id: i, pId: 0, name: ele.CategoryValue, CategoryId: ele.CategoryId, CategoryCode: ele.CategoryCode });
+                i++;
+            });
+            $.fn.zTree.init($("#treeDemo"), setting, treeNodes);           
+        }
+
+        function InitTree()
+        {
+            bindTree();
+            zTree = $.fn.zTree.getZTreeObj("treeDemo");//获取ztree对象  
+            var node = zTree.getNodeByParam('id', 1);//获取id为1的点  
+            zTree.selectNode(node);//选择点  
+            zTree.setting.callback.onClick(null, zTree.setting.treeId, node);//调用事件
+        }
+
+        var treeObj;
+        var zTree;
+        var rMenu;
+        $(function () {
+
+           InitTree()
+           rMenu = $("#rMenu");
+            $("#addbtn").anyDialog({
+                width: 900,	// 弹出框内容宽度
+                height: 430, // 弹出框内容高度
+                title: '类型设置',	// 弹出框标题
+                url: './ContentSettings/Categorys/CategoryDetail.html?random=' + Math.random(),
+                onClose: function () {
+                    //关闭的回调 list 的刷新方             
+                }
+            });
+        });
+
+        function OnRightClick(event, treeId, treeNode) {
+          if (treeNode) {
+                zTree.selectNode(treeNode);
+                showRMenu("node", event.clientX, event.clientY);
+            }
+        }
+
+        function showRMenu(type, x, y) {
+            $("#rMenu ul").show();
+            if (type == "root") {
+                $("#m_del").hide();
+                //$("#m_check").hide();
+                //$("#m_unCheck").hide();
+            } else {
+                $("#m_del").show();
+                //$("#m_check").show();
+                //$("#m_unCheck").show();
+            }
+            rMenu.css({ "top": y + "px", "left": x + "px", "visibility": "visible" });
+
+            $("body").bind("mousedown", onBodyMouseDown);
+        }
+        function hideRMenu() {
+            if (rMenu) rMenu.css({ "visibility": "hidden" });
+            $("body").unbind("mousedown", onBodyMouseDown);
+        }
+        function onBodyMouseDown(event) {
+            if (!(event.target.id == "rMenu" || $(event.target).parents("#rMenu").length > 0)) {
+                rMenu.css({ "visibility": "hidden" });
+            }
+        }
+    </script>
+    <style>
+        .ztree {
+            margin-top: 10px;border: none;background: white;width:230px;height:auto;overflow-y:auto;overflow-x:auto;position:absolute
+        }
+        div#rMenu {position:absolute; visibility:hidden; top:0; background-color: #555;text-align: left;padding: 2px;}
+        div#rMenu ul li{
+	        margin: 1px 0;
+	        padding: 0 5px;
+	        cursor: pointer;
+	        list-style: none outside none;
+	        background-color: #DFDFDF;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td style="vertical-align:top;width:10%;">
+                <div style="vertical-align:top;margin-top:30px;width:230px">
+                   <span style="margin-left:22px">字段类别</span><button type="button" id="addbtn" class="btn btn-plus"><i class="icon icon-add"></i></button>                                      
+                    <ul id="treeDemo" class="ztree"></ul>                  
+                    </div>
+            </td>           
+            <td style="width:90%;">
+                <div style="vertical-align:top" class="body-container form nobottom;width:100%;">
+                    <div class="main">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-default btn-sm" id="btnAddNew">新增</button>
+                            <button type="reset" class="btn btn-default btn-sm" id="btnReset">重置</button>
+                            <button type="button" class="btn btn-primary btn-sm" id="btnSearch">检索</button>
+                        </div>
+                        <h3 class="h3">
+                            <span class="title">内容设置</span>
+                        </h3>
+                        <div class="form-panel drop nobottom">
+                            <div class="form-panel drop list-filters">
+                                <div class="col-12">
+                                    <div class="col-3 form-group">
+                                        <div class="col-4">
+                                            <label>语言：</label>
+                                        </div>
+                                        <div class="col-7">
+                                            <select class="filter eq form-control" name="ItemAliasSetName">
+                                                <option value="zh-CN">中文</option>
+                                                <option value="en-US">英文</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 form-group">
+                                        <div class="col-4">
+                                            <label>编码：</label>
+                                        </div>
+                                        <div class="col-7">
+                                            <input class="filter like form-control" name="ItemCode" />
+                                        </div>
+                                    </div>
+                                    <div class="col-3 form-group">
+                                        <div class="col-4">
+                                            <label>中文名称：</label>
+                                        </div>
+                                        <div class="col-7">
+                                            <input class="filter like form-control" name="ItemAliasValue" />
+                                        </div>
+                                    </div>
+                                    <div class="col-3 form-group">
+                                        <div class="col-4">
+                                            <label>是否关联存续期：</label>
+                                        </div>
+                                        <div class="col-7">
+                                            <select class="filter eq form-control" name="IsRequired">
+                                                <option value="">所有</option>
+                                                <option value="1">是</option>
+                                                <option value="0">否</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="divDataList" class="list-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div id="rMenu">
+        <ul>
+            <!--<li id="m_add" onclick="addTreeNode();">增加节点</li>-->
+            <li id="m_del" onclick="removeTreeNode();">删除类型</li>
+            <!--<li id="m_check" onclick="checkTreeNode(true);">Check节点</li>
+            <li id="m_unCheck" onclick="checkTreeNode(false);">unCheck节点</li>
+            <li id="m_reset" onclick="resetTree();">恢复zTree</li>-->
+        </ul>
+    </div>
+</body>
+</html>

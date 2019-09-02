@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title>违约率明细</title>
+    <!--<link href="../../../css/bootstrap.css" rel="stylesheet" />-->
+    <link href="../../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <style type="text/css">
+        html,body {
+            height: 100%;
+        }
+        body {
+            padding: 15px;
+        }
+        .fixed-table-loading {
+            display: none;
+        }
+
+        .table-font {
+            font-size: 13px;
+        }
+        .table-bordered{
+             border:1px solid #dce0ee;
+        }
+        .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
+            border-color:#dce0ee;
+        }
+        .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
+            border-bottom-width:1px;
+        }
+        .table-bottom {
+            margin-bottom: 5px;
+        }
+        .table-div {
+            margin-top:10px;
+            overflow:auto;
+        }
+        .refreshBtn {
+            position: relative;
+            z-index: 99;
+            margin-bottom: -32px;
+            margin-top: 20px;
+        }
+        [class^=col] {
+            padding: 0;
+        }
+        .form-horizontal .form-group {
+            margin: 0 0 15px;
+        }
+        label {
+            background: #f3f5fa;
+            font-weight: 400;
+            height: 30px;
+            line-height: 20px;
+        }
+        .form-horizontal .control-label {
+            text-align: center!important;
+            border:1px solid #dce0ee;
+            background-color:#ebeef5;
+            border-radius: 2px 0px 0px 2px;
+            border-right:0 none;
+        }
+        .form-control{
+            border:1px solid #dce0ee;
+            border-radius:0px 2px 2px 0px;
+        }
+        .form-control:focus{
+            border-color: #45569c;
+            box-shadow: inset 0 0px 0px #45569c, 0 0 4px #45569c;
+        }
+        .red-border{border:1px solid red !important;}
+    </style>
+    <script data-main="CurveDialog_CD" src="../../../../../asset/lib/require.js"></script>
+</head>
+<body>
+    <div id="loading" class="loadpage">
+        <i class="icon icon-setting bigicon am-rotate pa"></i>
+        <i class="icon icon-setting smicon am-rotate pa"></i>
+        <p class="text pa">Configuration Loading...</p>
+    </div>
+    <div id="page_main_container" class="main-dialog public_font_style">
+        <div class="col-xs-9 form-row form-horizontal" data-bind="foreach:Fields()">
+            <!--ko if: (UIType()=='Select')-->
+            <div class="col-xs-6 form-row autoLayout-plugins">
+                <div class="form-group">
+                    <label data-bind="text:Text" class="col-xs-4 control-label"></label>
+                    <div class="col-xs-5">
+                        <select type="text" class="form-control" data-bind="attr:{id: Code}, foreach:Options()">
+                            <option data-bind="text:Text, attr: { value: Value}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!--/ko-->
+            <!--ko if: (UIType()=='Input')-->
+            <div class="col-xs-6 form-row autoLayout-plugins">
+                <div class="form-group">
+                    <label data-bind="text:Text" class="col-xs-4 control-label"></label>
+                    <div class="col-xs-5">
+                        <input type="text" class="form-control" data-bind="attr:{id: Code, disabled: Disabled}, value: Value" />
+                    </div>
+                </div>
+            </div>
+            <!--/ko-->
+        </div>
+        <div class="pull-right">
+            <button class="btn btn-primary" data-bind="text: DisplayText.Generate,click:Methods.Generate"></button>
+            <button class="btn btn-primary" data-bind="text: DisplayText.Clear,click:Methods.Clear" style="margin-left: 5px;"></button>
+            <button class="btn btn-primary" data-bind="text: DisplayText.Save,click:Methods.Save" style="margin-left: 5px;"></button>
+        </div>
+        <div style="clear:both"></div>
+
+        <div class="table-div">
+            <table class="table table-bordered table-font table-bottom" id="tblRates"></table>
+        </div>
+        <div class="pull-left refreshBtn">
+            <button class="btn btn-primary" data-bind="text: DisplayText.Refresh,click:Methods.RefreshCurve"></button>
+        </div>
+        <div id="divRatesChart" style="width:830px"></div>
+
+    </div>
+    <textarea id="textArea" rows="5" style="width:0px !important; height:0px !important; position:absolute; top:-100px; left:-100px;"></textarea>
+</body>
+</html>

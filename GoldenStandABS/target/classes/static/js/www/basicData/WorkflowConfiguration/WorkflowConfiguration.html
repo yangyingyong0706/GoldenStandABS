@@ -1,0 +1,90 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="overflow:hidden">
+<head>
+    <title>产品列表</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+
+    <script src="../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+
+        requirejs(['../../../asset/lib/config'], function (config) {
+            requirejs(['app/basicData/WorkflowConfiguration/WorkflowConfiguration']);
+        });
+    </script>
+
+    <style>
+        .allSelectTitle {
+            cursor: pointer;
+        }
+
+        .h3 {
+            margin: -15px -15px 15px;
+            font-size: 16px;
+            color: #4d4d4d;
+            height: 40px;
+            line-height: 40px;
+            border-bottom: 1px solid #dedede;
+            padding: 0 15px;
+        }
+
+            .h3 .title {
+                color: #4d4d4d;
+            }
+
+        .nobottom {
+            border-bottom: none !important;
+        }
+
+        .body-container {
+            padding: 15px;
+        }
+
+        body .form .form-panel {
+            padding-bottom: 0px;
+        }
+
+        .k-webkit .k-pager-wrap .k-pager-nav {
+            position: relative;
+            top: 7px;
+        }
+
+        .k-pager-refresh.k-link, .k-icon.k-i-arrow-60-down {
+            position: relative;
+            top: 8px;
+        }
+
+        body .k-grid tr.k-state-selected > td {
+            border-color: rgba(0,0,0,0.1);
+        }
+    </style>
+
+</head>
+<body class="public_font_style gridtrust" style="display:none">
+    <div id="selectLanguageDropdown_qcl" class="localizationTool" style="display:none"></div>
+    <div class="body-container form nobottom">
+        <div class="main">
+            <h3 class="h3">
+                <span class="title">项目列表</span>
+            </h3>
+            <div class="pull-right" style="margin-top: -50px;">
+                <button type="button" class="btn btn-default" id="workline"><i class="icon icon-attach-outline"></i>工作流配置</button>
+            </div>
+            <div class="form-panel drop nobottom">
+                <div id="grid"></div>
+                <div id="divDataList" class="list-container"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

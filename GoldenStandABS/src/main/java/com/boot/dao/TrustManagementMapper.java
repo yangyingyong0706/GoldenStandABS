@@ -8,6 +8,9 @@ import org.apache.ibatis.annotations.Mapper;
 import com.boot.entity.Trust;
 import com.boot.entity.TrustInfo;
 
+/*import com.boot.entity.Trust;
+import com.boot.entity.TrustInfo;*/
+
 //----sqlserver-----
 @Mapper
 public interface TrustManagementMapper {
@@ -20,7 +23,11 @@ public interface TrustManagementMapper {
 	List<TrustInfo>  GetTrustInfoFromWizard(String TrustId);
 	
 	
-	List<Map<String,Object>>  GetTrustInfoFromWizardMap(String TrustId);
+	List<Map<String,Object>>  GetTrustInfoFromWizardMap(String trustId);
+	
+	Map<String,Object> getABSversion();
+	
+	List<Map<String,Object>> GetAllCodeDictionary(String aliasSetName);
 	
 	List<Trust>  GetTrust();
 }

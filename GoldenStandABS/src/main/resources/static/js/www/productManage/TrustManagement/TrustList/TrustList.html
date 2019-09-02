@@ -1,0 +1,135 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>存续期管理</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+
+    <link href="../TrustWizard/trustWizard.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../TrustFollowUp/css/pagerlist-style.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/metisMenu/dist/metisMenu.min.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/goldenstand/uiFrame/css/gs-admin-2.css" rel="stylesheet" />
+    <link href="../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <style>
+        .allSelectTitle {
+            cursor: pointer;
+        }
+
+        .nobottom {
+            border-bottom: none !important;
+        }
+        .ribbon_span{
+            font-size:13px;
+            /*-webkit-transform: scale(0.9);*/
+        }
+        .ribbonGroup {
+           float: right;
+           margin-right: 16px;
+           margin-top: -9px;
+           box-sizing: border-box;
+           padding: 1px;
+           min-width:45px;
+           border: 1px solid rgba(0,0,0,0.0);
+        }
+        .ribbonGroup:first-child{
+            margin-right:0px;
+        }
+        .ribbonGroup:hover{
+           background: rgb(239, 239, 255);
+           border: 1px solid rgba(0,0,0,0.12);
+        }
+        .ribbonGroup:hover a{
+            text-decoration:none;
+            color:rgb(85,94,147);
+        }
+        .ribbonGroup >a{
+            display:flex;
+            flex-direction:column;
+            text-align:center;
+            font-size:13px !important;
+            font-family: "Microsoft Yahei", 微软雅黑, Simsun, 宋体, Arial, sans-serif;  
+            color:#555; 
+        }
+        .fa-fw{
+            width:100%;
+        }
+        .form .form-panel.drop {
+            padding-top:29px
+        }
+        .k-link,.table-cell,.tight-cell {
+            font-size:13px!important;
+        }
+        .ribbonBox {
+            margin-right:20px
+        }
+        .ribbonButton{
+            text-decoration:none;
+        }
+        #grid{
+            border-left:none;
+        }
+          .loadpage {
+                position: absolute;
+                top: 46%;
+                left: 46%;
+                background: transparent;
+            }
+            .loadpage > i {
+                color: rgb(107, 147, 216);
+            }
+        #grid {
+            font-size:13px;
+            color:#555;
+            font-family: "Microsoft Yahei";
+            font-weight:normal;
+        }
+        .k-grid-header-wrap > table,
+        .k-grid-content > table {
+            border-right: 1px solid #ccc;
+        }
+        .k-grid tr td {
+            border-width: 0 0 1px 1px;
+            border-style: solid;
+            border-color:#e6e6e6!important;
+        }
+    </style>
+    <script src="../../../../asset/lib/require.js"></script>
+</head>
+<body class="public_font_style">
+    <div id="loading" class="loadpage text-center"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+
+    <div id="DashBoard" class="ribbonBox" v-cloak=v-cloak>
+        <ul>
+            <li class="ribbonGroup nav_list_style" v-for="item in obj.group[0].elements">
+                <a v-bind:href="creatLink(item.linkname,item.linkurl)" class="ribbonButton">
+                    <i v-bind:class="item.icon"></i>
+                    <span class="ribbon_span">{{item.title}}</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="body-container form nobottom">
+        <div class="main">
+            <div class="pull-right">
+            </div>
+            <div class="form-panel drop nobottom">
+                <div id="grid"></div>
+                <div id="divDataList" class="list-container"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TrustList/TrustList']);
+        })
+    </script>
+</body>
+</html>

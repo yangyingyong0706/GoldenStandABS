@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>贷款服务报告</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <!--<link href="./TrustFollowUp/css/pagerlist-style.css" rel="stylesheet" />-->
+    <link href="./css/demo.css" rel="stylesheet" />
+    <!--<link href="./Dashboard/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />-->
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+
+        requirejs(['../../../asset/lib/config'], function (config) {
+            requirejs(['app/basicData/PythonReport/LoanServiceReportMapping']);
+        });
+    </script>
+    <style>
+        .allSelectTitle {
+            cursor: pointer;
+        }
+
+        .h3 {
+            margin: -15px -15px 15px;
+            font-size: 16px;
+            color: #4d4d4d;
+            height: 40px;
+            line-height: 40px;
+            border-bottom: 1px solid #dedede;
+            padding: 0 15px;
+        }
+
+            .h3 .title {
+                color: #4d4d4d;
+            }
+
+        .nobottom {
+            border-bottom: none !important;
+        }
+
+        .body-container {
+            padding: 15px;
+        }
+
+        body .form .form-panel {
+            padding-bottom: 0px;
+        }
+
+        .k-webkit .k-pager-wrap .k-pager-nav {
+            position: relative;
+            top: 7px;
+        }
+
+        .k-pager-refresh.k-link, .k-icon.k-i-arrow-60-down {
+            position: relative;
+            top: 8px;
+        }
+
+        body .k-grid tr.k-state-selected > td {
+            border-color: rgba(0,0,0,0.1);
+        }
+    </style>
+
+</head>
+<body>
+    <div class="body-container form nobottom">
+        <div class="main">
+            <h3 class="h3">
+                <span id="TrustCode" class="title">产品名称：</span>
+            </h3>
+            <div class="pull-right" style="margin-top: -50px;">
+                <button type="button" class="btn btn-default" id="getReportDate" >获取报告日</button>
+                <button type="button" class="btn btn-default" id="btnImport" style="margin-left: 5px;">解析原始服务贷款报告</button>
+                <button type="button" class="btn btn-default" id="btnImportExcel" style="margin-left: 5px;">上传转置报告</button>
+                <button type="button" class="btn btn-default" id="deleteBtn" style="margin-left: 5px;">删除</button>
+            </div>
+            <div class="form-panel drop nobottom">
+                <div id="grid"></div>
+                <div id="divDataList" class="list-container"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

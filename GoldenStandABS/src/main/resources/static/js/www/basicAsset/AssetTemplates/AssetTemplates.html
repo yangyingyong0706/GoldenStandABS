@@ -1,0 +1,348 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>数据模板文件下载</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <style>
+        html{
+            /*overflow:hidden;*/
+        }
+        body,html{
+            width:100%;
+            height:100%;
+            font-family: 'Microsoft YaHei';
+            font-size: 14px;
+        }
+        body {
+            padding: 15px;
+            box-sizing: border-box;
+            margin: 0px;
+        }
+        a {
+            text-decoration: none;
+        }
+        #container {
+            height: 100%;
+            border: 1px solid #dce0ee;;
+        }
+        #title, #title ul {
+            height: 36px;
+            line-height: 36px;
+        }
+        #title {
+            border-bottom: 1px solid #dce0ee;
+        }
+        #title ul {
+            margin: 0px;
+            padding: 0px 5px;
+        }
+        #title ul li {
+            float: left;
+            margin: 0 10px;
+            text-align: center;
+        }
+        #title ul li a {
+            color:rgba(77,77,77,1);
+            font-size: 14px;
+        }
+        #title ul li.act {
+            border-bottom: 2px solid #45569c;
+        }
+        #title ul li.act a {
+            color: #45569c;
+        }
+        #content {
+            margin: 15px;
+            height: calc(100% - 60px);
+        }
+        #content table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            border: 1px solid #dce0ee;
+        }
+         #content table thead td {
+             color:rgba(128,128,128,1);
+             font-size: 14px;
+             padding: 8px 10px;
+             background:rgba(243,245,250,1);
+         }
+         #content table td {
+             padding: 0 10px;
+             border-bottom: 1px solid #dce0ee;
+         }
+         #content table tbody td {
+             height: 35px;
+             line-height: 35px;
+             color:rgba(77,77,77,1);
+         }
+          #content table tbody td a {
+              color: #45569c;
+          }
+          #content table tbody td a:hover {
+              color: #45569c;
+          }
+          #contentdiv>div {
+              display: none;
+          }
+    </style>
+    <script src="../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+
+        requirejs(['../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/basicAsset/AssetTemplates/AssetTemplates']);
+        });
+
+    </script>
+</head>
+<body style="display:none">
+    <div id="selectLanguageDropdown" class="localizationTool" style="display:none"></div>
+    <div id="container">
+        <div id="title">
+            <ul type="none">
+                <li class="act list">
+                    <div><a id="assetTemplate" href="#">资产模板</a></div>
+                </li>
+                <li class="list">
+                    <div><a id="repaymentTemplate" href="#">还款模板</a></div>
+                </li>
+                <li class="list">
+                    <div><a id="plannedCashFlow" href="#">计划现金流</a></div>
+                </li>
+                <li class="list">
+                    <div><a id="accountAssets" href="#">账户资产</a></div>
+                </li>
+                <li class="list">
+                    <div><a id="statistics" href="#">统计信息</a></div>
+                </li>
+                <li class="list">
+                    <div><a id="ino" href="#">资产出入池</a></div>
+                </li>
+                <li class="list">
+                    <div><a id="cashFlowManagement" href="#">回款现金流管理</a></div>
+                </li>
+            </ul>
+        </div>
+        <div id="content">
+            <div id="contentdiv">
+                <div id="div1" style="display:block">
+                    <table cellspacing="1px">
+                        <thead><tr><td class="no" width="120">序号</td><td class="templateName" width="240">模板名称</td><td class="a1" width="120">点击下载</td></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td id="creditCard">信用卡</td>
+                                <td id="downLoadCard"></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td id="publicLoan">对公贷款</td>
+                                <td id="downLoadPLoan"></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td id="consumerLoan">消费贷款</td>
+                                <td id="downLoadCLoan"></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td id="asset-backedCommercialPaper">资产支持票据</td>
+                                <td id="downLoadPaper"></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td id="carLoan">汽车贷款</td>
+                                <td id="downLoadCarLoan"></td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td id="personalHousingLoan">个人住房贷</td>
+                                <td id="downLoadHLoan"></td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td id="Receivable">应收账款</td>
+                                <td id="downLoadRcv"></td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td id="consumerLoanCSV">消费贷款_CSV</td>
+                                <td id="downLoadCLoanCSV"></td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td id="CarLoan">汽车贷款_CSV</td>
+                                <td id="downLoadCarloansCSV"></td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td id="financeLease">融资租赁</td>
+                                <td id="downLoadFinanceLease"></td>
+                            </tr>
+                            <tr>
+                                <td>11</td>
+                                <td id="FullAccount_orderFile">全账户_订单文件</td>
+                                <td id="downLoadFullAccount_orderFile"></td>
+                            </tr>
+                            <tr>
+                                <td>12</td>
+                                <td id="FullAccount_AccountFile">全账户_账户文件</td>
+                                <td id="downLoadFullAccount_AccountFile"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="div2">
+                    <table cellspacing="1px">
+                        <thead>
+                            <tr>
+                                <td class="no" width="120">序号</td>
+                                <td class="templateName" width="240">模板名称</td>
+                                <td class="a1" width="120">点击下载</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!--<tr>
+                                <td>1</td>
+                                <td id="repaymentClassificationTemplate">还款分类模板</td>
+                                <td><a class="a1" href="/PoolCut/Files/AssetTypeTemplates/AssetPaymentFiles/还款分类模板.xlsx">下载</a></td>
+                            </tr>-->
+                            <tr>
+                                <td>1</td>
+                                <td id="groupTemplate">还款分类+还款明细模板</td>
+                                <td id="downLoadGT"></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td id="housingLoanRepaymentDetailTemplate">还款模板</td>
+                                <td id="downLoadHLRDT"></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td id="historyPaymentDetailTemplate">资产测算历史还款模板</td>
+                                <td id="downLoadHPDT"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="div3">
+                    <table cellspacing="1px">
+                        <thead><tr><td class="no" width="120">序号</td><td class="templateName" width="240">模板名称</td><td class="a1" width="120">点击下载</td></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td id="plannedCashFlowImportTemplate">计划现金流导入模板</td>
+                                <td id="downLoadPCFIT"></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td id="plannedCashFlowImportTemplate2">计划归集现金流导入模板</td>
+                                <td id="downLoadPCFIT2"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="div4">
+                    <table cellspacing="1px">
+                        <thead><tr><td class="no" width="120">序号</td><td class="templateName" width="240">模板名称</td><td class="a1" width="120">点击下载</td></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td id="accountAssetsTemplate">账户资产模板</td>
+                                <td id="downLoadAT"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="div5">
+                    <table cellspacing="1px">
+                        <thead><tr><td class="no" width="120">序号</td><td class="templateName" width="240">模板名称</td><td class="a1" width="120">点击下载</td></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td id="durationPoolStatistic_housingLoan_consumerLoan">存续池统计信息_房贷消费贷</td>
+                                <td id="downLoadHC"></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td id="durationPoolStatistic_carLoan">存续池统计信息_车贷</td>
+                                <td id="downLoadDPC"></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td id="cyclePoolStatistic_housingLoan_consumerLoan">循环池统计信息_房贷消费贷</td>
+                                <td id="downLoadCSHC"></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td id="cyclePoolStatistic_carLoan">循环池统计信息_车贷</td>
+                                <td id="downLoadCSC"></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td id="assetPoolReturn">资产池回款信息</td>
+                                <td id="downLoadAPR"></td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td id="assetPoolReturn">贷款服务报告导入模板</td>
+                                <td id="downLoadAP"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="div6">
+                    <table cellspacing="1px">
+                        <thead><tr><td class="no" width="120">序号</td><td class="templateName" width="240">模板名称</td><td class="a1" width="120">点击下载</td></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td id="AssetIno">资产出入池模板</td>
+                                <td id="downLoadAI"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div id="div7">
+                    <table cellspacing="1px">
+                        <thead><tr><td class="no" width="120">序号</td><td class="templateName" width="240">模板名称</td><td class="a1" width="120">点击下载</td></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td id="CashFlowCollectionSchedule">回款现金流管理归集计划模板</td>
+                                <td id="downLoadCFCS"></td>
+                            </tr>
+                            <tr class="CashFlowOAPaymentSchedule">
+                                <td>2</td>
+                                <td id="CashFlowOAPaymentSchedule">回款现金流管理分期回款计划模板</td>
+                                <td id="downLoadCFOAPS"></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td id="CashFlowOAPaymentDetails">回款现金流管理分期实际回款模板</td>
+                                <td id="downLoadCFOAPD"></td>
+                            </tr>
+                            <tr class="CashFlowOAPaymentScheduleCSV">
+                                <td>4</td>
+                                <td id="CashFlowOAPaymentScheduleCSV">回款现金流管理分期回款计划模板(CSV)</td>
+                                <td id="downLoadCFOAPSCSV"></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td id="CashFlowOAPaymentDetailsCSV">回款现金流管理分期实际回款模板(CSV)</td>
+                                <td id="downLoadCFOAPDCSV"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

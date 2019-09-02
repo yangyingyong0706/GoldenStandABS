@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link href="css/FeeSettings.css" rel="stylesheet" />
+
+    <title>费用推送设置</title>
+    <style>
+        body{
+            background-color:#f8f8f8;
+        }
+        .ft12{
+            font-size:12px;
+        }
+        .table{
+            background:#fff;
+        }
+        .table > thead > tr > th{
+            border-bottom:none;
+            background:#e0e0e0;
+        }
+        .panel{
+            padding:10px 20px;
+        }
+        .panel h3{
+            color:#000099;
+            margin-bottom:10px;
+            font-size:12px;
+            font-weight:bold;
+            border-bottom:1px solid #dcdcdc;
+        }
+        .panel h3 span{
+            position:relative;
+            padding-bottom:5px;
+            border-bottom:2px solid #000099;
+            display:inline-block;
+        }
+        .panel h3 span:before{
+            position:absolute;
+            content:"";
+            bottom:0;
+            border:5px solid transparent;
+            border-bottom-color:#000099;
+            left:50%;
+            margin-left:-5px;
+        }
+        .panel h3 span:after{
+            position:absolute;
+            content:"";
+            bottom:-2.5px;
+            border:5px solid transparent;
+            border-bottom-color:#fff;
+            left:50%;
+            margin-left:-5px;
+        }
+        .setting{
+            border-bottom:#eaeaea 1px solid;
+        }
+        .setting.fixed{
+            position:fixed;
+            top:0;
+            left:0;
+            right:0;
+            box-shadow:0 2px 5px rgba(0,0,0,.15);
+            z-index:99;
+        }
+        .form-middle{
+            vertical-align:middle;
+            padding:10px 0;
+        }
+        .form-middle label {
+            font-weight: bold;
+            color: #333;
+            padding: 0 3px;
+            overflow: hidden;
+            display: inline-block;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            vertical-align:middle;
+        }
+        .form-middle .btn{
+            vertical-align:1px;
+        }
+        .form-middle input[type=checkbox]{
+            vertical-align:middle;
+        }
+        .form-middle .form-control{
+            display:inline-block;
+            width:auto;
+        }
+        .form-inline{
+            margin-right:20px;
+            display:inline-block;
+        }
+    </style>
+</head>
+<body>
+<div>
+
+    <div class="panel">
+        <h3><span>推送设置</span></h3>
+        <div class="setting form-middle">
+            <span class="form-inline">
+                <label>专项计划：</label>
+                <select id="ddlTrustCode" data-bind="options: trustCodes, selectedOptions: trustCodes[0], event:{ change: trustCodeChanged }" class="form-control"></select>
+            </span>
+            <span class="form-inline">
+                <label>费用日期：</label>
+                <select id="ddlTransactionDate" data-bind="options: transactionDates, selectedOptions: transactionDates[0], event:{ change: transactionDateChanged }" class="form-control"></select>
+            </span>
+            <button class="btn btn-primary btn-sm" data-bind="click: updateTransactionStatus">保存</button>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>费用类型</th>
+                    <th>费用名称</th>
+                    <th>开始日期</th>
+                    <th>结束日期</th>
+                    <th>费用金额（元）</th>
+                    <th>费用日期</th>
+                    <th>当前状态</th>
+                    <th>是否推送</th>
+                </tr>
+            </thead>
+            <!-- ko if:trustFees -->
+            <tbody data-bind="foreach: trustFees">
+                <tr>
+                    <td style="width: 80px;" data-bind="text: id"></td>
+                    <td style="width: 200px" data-bind="text: name"></td>
+                    <td style="width: 200px;" data-bind="text: startDate"></td>
+                    <td style="width: 200px" data-bind="text: endDate"></td>
+                    <td style="width: 200px" data-bind="text: payAmount"></td>
+                    <td style="width: 200px" data-bind="text: transactionDate"></td>
+                    <td style="width: 80px" data-bind="text: status"></td>
+                    <td style="width: 80px"><input type="checkbox" data-bind="checked: allowPush" /></td>
+                </tr>
+            </tbody>
+            <!-- /ko -->
+            <!-- ko ifnot:trustFees -->
+            <tbody>
+                <tr>
+                    <td style="width: 80px;">-</td>
+                    <td style="width: 200px">-</td>
+                    <td style="width: 200px;">-</td>
+                    <td style="width: 200px">-</td>
+                    <td style="width: 200px">-</td>
+                    <td style="width: 200px">-</td>
+                    <td style="width: 80px">-</td>
+                    <td style="width: 80px"></td>
+                </tr>
+            </tbody>
+            <!-- /ko -->
+        </table>
+    </div>
+    <!--<script src="../Common/Scripts/common.js"></script>
+    <script src="../../../../config/globalVariable.js"></script>
+    <script src="../../../../asset/lib/jquery/jquery-1.7.2.min.js"></script>
+    <script src="../../../../asset/lib/knockout/knockout-3.4.0.js"></script>
+    <script src="TrustFeePaymentSettings.js"></script>-->
+    <script src="../../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/FeeSettings/TrustFeePaymentSettings']);
+ 
+        }); 
+    </script>
+</body>
+</html>

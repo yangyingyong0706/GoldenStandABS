@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>任务单上传多个文件</title>
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .layer_each {
+            display: flex;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .progress {
+            height: 20px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            background-color: #f3f5fa;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+        }
+
+        .progress > .progress-bar {
+            float: left;
+            width: 0;
+            height: 100%;
+            font-size: 12px;
+            line-height: 20px;
+            text-align: right;
+            background: #6c78bd;
+            background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+            background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+            background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+            -webkit-transition: width .6s ease;
+            -o-transition: width .6s ease;
+            -webkit-background-size: 40px 40px;
+            background-size: 40px 40px;
+            -webkit-animation: progress-bar-stripes 2s linear infinite;
+            -o-animation: progress-bar-stripes 2s linear infinite;
+            animation: progress-bar-stripes 2s linear infinite;
+        }
+
+        input[type=file] {
+            display: none;
+        }
+
+        .container-fluid {
+            padding: 15px;
+            margin: 15px;
+        }
+
+        .input_file_style span {
+            font-weight: normal;
+        }
+
+        .input-right-layer {
+            width: calc(100% - 200px);
+        }
+
+        .select-area {
+            margin-bottom: 20px;
+        }
+
+        #trustChoice {
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 2px;
+            padding-left: 10px;
+            border: 1px solid #dedede;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid" id="app">
+        <div class="layer_each" v-for="item in selectList">
+            <label class="input-group-addon" style="width:200px;line-height:20px;">{{item.dateinfo}}_资产服务报告</label>
+            <div class="input-right-layer">
+                <span class="file_name"></span>
+                <label v-bind:for="item.dateinfo" class="input_file_style form" style="box-sizing:border-box;height:30px">
+                    <input type="file" v-bind:id="item.dateinfo" @change="inputFileClick($event)" />
+                    <span>选择文件</span>
+                </label>
+            </div>
+            <div class="progress" style="width:100%;position:relative;top:-10px;margin:0px;display:none">
+                <div class="progress-bar"><span></span></div>
+            </div>
+        </div>
+        <div class="row" style="text-align:center">
+            <button class="btn btn-primary" id="UpTrustBeeExcl" @click="UpfileExcels">上传</button>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TaskListVerify/TaskListVerifyChild/TaskUploadsMultipleFiles']);
+        });
+    </script>
+</body>
+</html>

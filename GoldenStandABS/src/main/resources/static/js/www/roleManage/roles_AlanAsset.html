@@ -1,0 +1,78 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>角色权限管理</title>
+    <link href="../../asset/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="css/roles.css" rel="stylesheet" />
+    <link href="../../asset/font/font-awesome/css/font-awesome.css" rel="stylesheet" />
+
+
+    <!--<script type="text/javascript">
+        var Pages = {}
+
+        function loginOut()
+        {
+            RoleOperate.cookieNameRemove();
+            window.location.href('./roles.html');
+        }
+    </script>-->
+</head>
+<body>
+
+    <div class="page">
+        <div class="aside nav">
+            <div class="title"><i class="fa fa-home"></i><span>主页</span></div>
+            <ul class="menu">
+                <li id="UsersManagement" class="menu-item">
+                    <a href="./userManage/userList.html" title="用户管理">
+                        <i class="fa fa-user-plus fa-fw"></i>
+                        <span>用户管理</span>
+                    </a>
+                </li>
+                <li id="RolesManagement" class="menu-item">
+                    <a href="./roleManage/roleList.html" title="角色管理">
+                        <i class="fa fa-users fa-fw"></i>
+                        <span>角色管理</span>
+                    </a>
+                </li>
+                <li id="ApplicationsManagement" class="menu-item">
+                    <a href="./appModule/appList.html" title="应用管理">
+                        <i class="fa fa-th-large fa-fw"></i>
+                        <span>应用管理</span>
+                    </a>
+                </li>
+                <li id="ChildMenuManagement" class="menu-item">
+                    <a href="./pathManage/pathList.html" title="子菜单管理">
+                        <i class="fa fa-list fa-fw"></i>
+                        <span>子菜单管理</span>
+                    </a>
+                </li>
+                <!--<li id="ApproveManagement" class="menu-item">
+                    <a href="./approvePermission/approvePermission.html" title="审批权限管理">
+                        <i class="fa fa-vcard-o fa-fw"></i>
+                        <span>审批权限管理</span>
+                    </a>
+                </li>-->
+                <li id="BusinessManagement" class="menu-item">
+                    <a href="./businessPermission/businessPermission.html" title="业务权限管理">
+                        <i class="fa fa-align-center fa-fw"></i>
+                        <span>业务权限管理</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="work">
+            <iframe src="/userManage/userList.html" frameborder="0"></iframe>
+        </div>
+    </div>
+    <script src="../../asset/lib/require.js"></script>
+    <script>
+    requirejs(['../../asset/lib/config'], function (common) {
+        requirejs(['app/roleManage/roles']);
+    });
+    </script>
+
+</body>
+</html>

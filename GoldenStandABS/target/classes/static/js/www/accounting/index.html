@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>会计核算</title>
+    <link href="../../asset/font/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="../../asset/style/reset.css" rel="stylesheet" />
+    <link href="../../asset/style/common.css" rel="stylesheet" />
+    <link href="../../asset/style/bootstrap.css" rel="stylesheet" />
+    <link href="../../asset/lib/goldenstand/uiFrame/css/gs-admin-2.css" rel="stylesheet" />
+    <link href="../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../asset/font/font-icon/css/iconfont.css" rel="stylesheet" />
+    <link href="../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+
+    <script src="../../asset/lib/require.js" data-main="script/index"></script>
+    <style>
+        .accountingMenu{
+            margin-top:45px;
+        }
+        .col-md-4{
+            padding:0;
+        }
+         .nav-tabs,.Duration-content,.work{
+            display:block;
+            height:100%;
+        }
+         .work {
+            padding-left:200px
+        }
+    </style>
+</head>
+<body style="display:none">
+    <div id="selectLanguageDropdown_qcl" class="localizationTool" style="display:none"></div>
+    <div class="page" id="wrapper">
+        <!--<section class="Duration-content container-fluid" id="transactionManage">
+            <div class="work row">
+                <div id="tabs" class="nav-tabs col-md-4">
+                    <div class="home-tab">
+                        <i class="fa fa-home"></i>
+                        <span class="home-title">主页</span>
+                    </div>
+                    <div id="DashBoard" class="ribbonBox" v-cloak=v-cloak>
+                        <ul>
+                            <li class="ribbonGroup" v-for="group in obj.group">
+                                <span class="click_direction dot"><i v-bind:class="group.titleclass"></i>{{group.title}}<i class="icon-directionRight"></i></span>
+                                <div class="hidden_area">
+                                    <div v-for="item in group.elements" track-by="$index">
+                                        <div v-if="item!=empty">
+                                            <a v-bind:href="creatLink(item.linkname,item.linkurl)" class="ribbonButton">
+                                                <!-- <a v-bind:data-action="item.linkname" v-bind:href="" class="ribbonButton">-->
+        <!--<i v-bind:class="item.icon"></i>
+                                                <span>{{item.title}}</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="fixed_control">
+                        <i></i>
+                    </div>
+                </div>
+                <div id="main">
+                    <iframe height="100%" width="100%" id="iframeMainContent" name="iframeMainContent" src="" frameborder="0"></iframe>
+                </div>
+            </div>
+        </section>-->
+
+
+        <div id="tabs" class="nav-tabs bgColor">
+            <div class="fixed_control">
+                <i></i>
+            </div>
+            <div class="ribbonBox" id="DashBoard">
+                <ul>
+                    <li class="ribbonGroup">
+                        <span class="click_direction dot"><i class="icon-directionLeft01 rotate_fr"></i>业务向导<i class="icon icon-bottom" style="float: right;"></i></span>
+                        <span v-for="item in liSource" class="ribbonButton" v-bind:class="item.active" v-bind:data-url="item.url" v-on:click="switchPage(item)">
+                            <i class="item.iClass"></i>
+                            <span v-cloak>{{item.name}}</span>    <!--v-cloak解决数据渲染闪烁{{item.name}}的问题-->
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="main">
+            <iframe frameborder="0" id="ifame_content" v-if="sel!=''" v-bind:src="sel" style="width:100%;height:100%;display:block;margin:0 auto"></iframe>
+        </div>
+    </div>
+</body>
+</html>

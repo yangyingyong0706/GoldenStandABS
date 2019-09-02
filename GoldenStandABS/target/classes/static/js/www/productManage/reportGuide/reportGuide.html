@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="./reportGuide.css" rel="stylesheet" />
+    <link href="../../assetFilter/css/chrome-tabs.css" rel="stylesheet" />
+    <link href="../../../asset/lib/toast/toast.css" rel="stylesheet" />
+    <title>报告向导</title>
+</head>
+<body>
+    <div class="loading" style="position:fixed;width:100%;height:100%;background:rgba(0,0,0,.2) url(../../../asset/img/loading-image.gif) center no-repeat;display:none;"></div>
+    <div id="PageMainContainer" class="main-content" v-cloak>
+        <div class="data_no" v-show="Periods.length==0">
+            <div class="content_nodata">
+                <span class="nodata_img"></span>
+                <span class="nodata_text">当前还没有数据哦！</span>
+            </div>
+        </div>
+        <div class="loading" id="loading" v-if="Periods.length>0">
+            <div class="bar"></div>
+            <div class="stateText">文档已完成<div class="progress" id="progress">0%</div></div>
+        </div>
+        <div id="mask" class="mask" v-show="loading">
+            <i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i>
+        </div>
+        <div class="inline-block-container" v-if="Periods.length>0">
+            <ul id="DC_TimeLine" class="timeline">
+                <li v-for="(period,index) in Periods" @click="ShowPeriodDetail($event, index, period); getReportTypeList(period.EndDate,index);">
+                    <div class="upside">
+                        <div class="time">
+                            {{period.StartDate}}~{{period.EndDate}}
+                        </div>
+                        <div class="points">
+                            <span class="f-left">第{{index+1}}期</span>
+                        </div>
+                    </div>
+                    <div class="underside">
+                        {{DaysArr[index] + 2}}天
+                    </div>
+                </li>
+            </ul>
+        </div> 
+        <div class="catalog-content form container-fluid" v-if="Periods.length>0">
+            <div style="border: 1px solid rgba(0,0,0,.1);padding: 0 15px 15px 15px;" class="row">     
+                <span style="display: block;border-bottom: 1px solid rgba(0,0,0,.1);height: 40px;line-height: 40px;padding: 0 15px;color:rgba(69,86,156,1);font-size: 16px;margin: 0 -15px 15px;">报告</span>
+                <div class="form-group" v-cloak>
+                    <div class="col-md-3" style="padding: 0px;"><label id="gold-label">报告类型</label></div>
+                    <div class="col-md-4 mr-xs" style="padding: 0px;">
+                        <select type="text" class="form-control date-plugins" data-valid="required" v-model='Periods[nowIndex].selectReportType'>
+                            <option value="">--请选择--</option>
+                            <option v-for="types in reportTypeList" v-bind:value="types.reportTypeId">{{types.reporterName}}</option>
+                        </select>
+                    </div>
+                    <div class=' col-md-2' >
+                        <button @click='addReport(nowIndex, Periods[nowIndex].selectReportType)' class="btn btn-primary">添加</button> 
+                    </div>  
+                </div>
+                <div style="clear: both;"></div>
+                <div class="table_wrap">
+                    <table class="table">
+                        <thead v-if="Periods[nowIndex].reportData.length > 0">
+                            <tr>
+                                <td v-for='thead in table_head'>{{thead}}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for='stateList in Periods[nowIndex].reportData'>
+                                <td width="10%">{{stateList.selectedReportName}}</td>
+                                <td width="20%">{{Periods[nowIndex].StartDate}}~{{Periods[nowIndex].EndDate}}</td>
+                                <td width="10%"><a @click="taskDetail(stateList)" class="oper_btn">数据详情</a></td>  <!---->
+                                <td width="25%">
+                                    <div class="taskProsess">
+                                        <div class="bar">
+                                            <span class="done" v-bind:style="{width:(getTaskDoneNum(stateList)/stateList.length)*100 + '%'}"></span> <!---->
+                                        </div>
+                                        <span class="prosessdata">{{getTaskDoneNum(stateList)}}/{{stateList.length}}</span>
+                                    </div>
+                                </td>
+                                <td width="15%"><span class="badge" v-bind:class="{'badge-info':stateList.reportStatus==5}">{{stateList.reportCurrentStatusName}}</span></td>
+                                <td width="20%">
+                                    <a class="oper_btn btn_generate" v-bind:class="stateList.reportStatus!=3?'ateList.oper_btn':'btn_drop'" @click="confirmGenReport(Periods[nowIndex].EndDate,stateList,nowIndex)">生成</a>   <!---->
+                                    <a href="###" class="oper_btn btn_verify" v-bind:class="stateList.reportStatus=='3'?'oper_btn':'btn_drop'" @click=checkReport(stateList)>审核</a>    <!---->
+                                    <a class="oper_btn" @click="downLoadReport(stateList)">下载</a> <!---->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--向导一二三-->
+            <div style="border: 1px solid rgba(0,0,0,.1);padding: 0 15px 15px 15px;margin: 15px -15px 0;">
+                <span style="display: block;border-bottom: 1px solid rgba(0,0,0,.1);height: 40px;line-height: 40px;padding: 0 15px;color:rgba(69,86,156,1);font-size: 16px;margin: 0 -15px 15px;">向导</span>
+                <div class="select-guide" v-bind:class="{'select-guide-cols-2':!isGuide1Show}" v-show="tabShow">
+                    <div class="guide_same" v-show="isGuide1Show">
+                        <p class="guide_title">向导一生成步骤</p>
+                        <div class="guide_step">
+                            <p><span> <span class="circle-border">1</span> 资产服务报告导入</span></p>
+                            <p><span> <span class="circle-border">2</span> 收益分配</span></p>
+                        </div>
+                        <div class="open-iframe">
+                            <a class="btn btn-primary" id="reportOne" @click="openNewIframe(pageOne, TrustID + '_report', '向导一_' + TrustID)">立即使用 → </a>
+                        </div>
+                    </div>
+                    <div class="guide_same">
+                        <p class="guide_title">向导二生成步骤</p>
+                        <div class="guide_step">
+                            <p><span> <span class="circle-border">1</span> 底部资产数据导入</span></p>
+                            <p><span> <span class="circle-border">2</span> 现金流拆分与归集</span></p>
+                            <p><span> <span class="circle-border">3</span> 收益分配</span></p>
+                        </div>
+                        <div class="open-iframe">
+                            <a class="btn btn-primary" id="reportTwo" @click="openNewIframe(pageTwo, TrustID + '_report', '向导二_' + TrustID)">立即使用 → </a>
+                        </div>
+                    </div>
+                    <div class="guide_same">
+                        <p class="guide_title">向导三生成步骤</p>
+                        <div class="guide_step">
+                            <p><span> <span class="circle-border">1</span> 底部资产数据导入</span></p>
+                            <p><span> <span class="circle-border">2</span> 现金流拆分与归集</span></p>
+                            <p><span> <span class="circle-border">3</span> 还款计划</span></p>
+                            <p><span> <span class="circle-border">4</span> 回款数据</span></p>
+                            <p><span> <span class="circle-border">5</span> 收益分配</span></p>
+                            <p><span> <span class="circle-border">6</span> 产品统计视图</span></p>
+                        </div>
+                        <div class="open-iframe">
+                            <a class="btn btn-primary" id="reportThree" @click="openNewIframe(pageThree, TrustID + '_report', '向导三_' + TrustID)">立即使用 → </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--数据详情-->
+            <div id='task-dialog' style="display: none;">
+                <div class="table-btn">
+                    <div style="width:100%;display:flex;justify-content: space-between;">
+                        <!--<div style="width: calc(100% - 120px);display: flex;justify-content: flex-end;margin-top: 10px;">
+                        <span style="margin-right: 5px;margin-top: -4px;">清空资产服务报告数据 </span>
+                        <input id="IsDelImport" type="checkbox" />
+                    </div>-->
+                        <div class='btn btn-default sinle-btn' @click='pullAllData()'>获取全部数据</div>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>数据名称</td>
+                            <td>完成状态</td>
+                            <td>操作</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="stateItem in reportDataTemp">
+                            <td>{{stateItem.DataSourceDescription}}</td>
+                            <td><span class="badge" v-bind:class="stateItem.state=='1'?'badge-info':stateItem.state=='2'?'badge-denger':''">{{stateItem.state=="1"?"完成":stateItem.state=="2"?"未获取":"未完成"}}</span></td>
+                            <td><a @click="pullReportData(stateItem,reportDataTemp.selectedReportId,reportDataTemp.prieodData)" class="oper_btn" href="###">获取数据</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--审核-->
+            <div id="status-dialog" style="display:none">
+                <div class="resson">
+                    <textarea id="reason_input"></textarea>
+                </div>
+                <div class="btns">
+                    <div class='btn btn-default sinle-btn' id="btn_pass" @click="addCheckReport('pass')">同意</div>
+                    <div class='btn btn-default sinle-btn' id="btn_reject" @click="addCheckReport('reject')">拒绝</div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script data-main="reportGuide.js" src="../../../asset/lib/require.js"></script>
+
+</body>
+
+</html>

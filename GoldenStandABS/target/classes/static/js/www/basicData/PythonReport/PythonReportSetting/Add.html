@@ -1,0 +1,563 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>新增</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+
+    <link href="./css/style.css" rel="stylesheet" />
+	<link href="./css/uploadStyle.css" rel="stylesheet" />
+
+    <script src="../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/basicData/PythonReport/PythonReportSetting/Add']);
+        });
+    </script>
+
+    <style>
+        fieldset {
+            border-top: 1px solid #eee;
+        }
+
+            fieldset > legend {
+                padding: 0 10px;
+                margin: auto;
+                color: #c5c5c5;
+            }
+
+        .check-main {
+            width: 100%;
+            height: 100%;
+            padding: 15px;
+            margin:0;
+            box-sizing: border-box;
+        }
+
+        .check-upload {
+            margin-bottom: 15px;
+        }
+
+        .tb {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+            .tb > thead > tr,
+            .tb > tfoot > tr {
+                background: #e8e8e8;
+            }
+
+                .tb > thead > tr > th {
+                    color: #777;
+                }
+
+            .tb > tbody > tr:nth-child(2n+0) {
+                background: #fafafa;
+            }
+
+            .tb > thead > tr > th,
+            .tb tr > td {
+                padding: 5px;
+            }
+
+            .tb > tfoot > tr > td {
+                color: #333;
+            }
+
+                .tb > tfoot > tr > td input {
+                    width: 30px;
+                    padding: 2px;
+                    height: 15px;
+                    line-height: 15px;
+                }
+
+        .check-upload-btn {
+            position: relative;
+            width: 20%;
+            height: 30px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+            .check-upload-btn input[type=file] {
+                position: absolute;
+                top: 0;
+                width: 100%;
+                height: 30px;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                opacity: .0;
+                font-size: 0;
+                cursor: pointer;
+            }
+
+            .check-upload-btn button[type=button] {
+                height: 30px;
+                width: 80%;
+            }
+
+        .check-select {
+            width: 100%;
+        }
+
+        .check-group-btns {
+            width: 60%;
+            margin-left:50px;
+          
+        }
+
+            .check-group-btns .bbtn {
+                height: 30px;
+                width: 100%;
+                display: block;
+                float: left;
+                cursor: pointer;
+            }
+
+           
+        .bbtn {
+            color: #333;
+            background-color: #fff;
+            border-radius: 3px;
+            border: 1px solid rgba(27,31,35,0.2);
+			
+        }
+
+            .bbtn:hover:not([disabled]) {
+                color: #444d56;
+                border-color: rgba(27,31,35,0.35);
+            }
+
+            .bbtn[disabled] {
+                opacity: .4;
+                cursor: not-allowed;
+            }
+
+            .bbtn.b1 {
+                background-color: #6c78bd;
+                color: #fff;
+			
+            }
+
+                .bbtn.b1:hover {
+                    color: #fff !important;
+                }
+
+        .run-task {
+            background-color: #f1f8ff;
+            border: 1px solid #c8e1ff;
+            padding: 3px 5px;
+            border-radius: 2px;
+            color: #333;
+            margin-bottom: 5px;
+			height:150px;
+			margin-top:215px;
+			width:750px;
+			margin-left:28px;
+			white-space: pre-line;
+        }
+
+        .progress {
+            height: 20px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+        }
+        
+            .progress > .progress-bar {
+                float: left;
+                width: 0;
+                height: 100%;
+                font-size: 12px;
+                line-height: 20px;
+                text-align: right;
+                background: #6c78bd;
+                background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                -webkit-transition: width .6s ease;
+                -o-transition: width .6s ease;
+                -webkit-background-size: 40px 40px;
+                background-size: 40px 40px;
+                -webkit-animation: progress-bar-stripes 2s linear infinite;
+                -o-animation: progress-bar-stripes 2s linear infinite;
+                animation: progress-bar-stripes 2s linear infinite;
+            }
+
+                .progress > .progress-bar > span {
+                    color: #fff;
+                    padding: 0 10px;
+                }
+
+        @-webkit-keyframes progress-bar-stripes {
+            from {
+                background-position: 40px 0;
+            }
+
+            to {
+                background-position: 0 0;
+            }
+        }
+
+        @-o-keyframes progress-bar-stripes {
+            from {
+                background-position: 40px 0;
+            }
+
+            to {
+                background-position: 0 0;
+            }
+        }
+
+        @keyframes progress-bar-stripes {
+            from {
+                background-position: 40px 0;
+            }
+
+            to {
+                background-position: 0 0;
+            }
+        }
+
+        .normal {
+            color: #000;
+        }
+
+        .red {
+            color: #f00;
+        }
+
+        .pointer {
+            cursor: pointer;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+		
+       .popContainer
+		{
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0,0,0,0.3);
+		z-index:-1;
+		}
+	    body,html{
+            width:100%;
+            height:100%;
+            padding:0;
+            margin:0;
+	    }
+    </style>
+</head>
+<body  style="overflow:hidden">
+
+	<div id="taskIndicatorArea" style="display:none;width:auto; height:440px;z-index:10">
+		<object id="TaskProcessCtl" data="data:application/x-silverlight-2," type="application/x-silverlight-2" style="display:block" width="100%" height="440px" class="ms-dlgDisable">
+			<param name="source" value="/TaskProcessEngine/ClientBin/UI.TaskProcessIndicator.xap" />
+			<param name="enablehtmlaccess" value="True" />
+		</object>
+	</div>
+
+    <div id="app"  class="check-main" >
+			<div class="col-12" style="margin-bottom:20px">
+				<div class="check-upload-btn col-6" role="button" v-bind:title="filename">
+                    <input id="fileUploadFile" type="file" name="file" v-on:change="selectFile($event)" accept=".py" v-bind:disabled="!uploadBtnDisable" />
+					<button type="button" class="bbtn" v-if="filename == ''" v-text="'选择Python文件'"></button>
+					<button type="button" class="bbtn" v-else v-text="'已选中Python文件'" v-bind:disabled="!uploadBtnDisable"></button>
+				</div>	
+				<div class="check-upload-btn" role="button" v-bind:title="filename1">
+                    <input id="fileUploadFile1" type="file" name="file1" v-on:change="selectFile1($event)" accept=".xml" v-bind:disabled="!uploadBtnDisable1" />
+					<button type="button" class="bbtn" v-if="filename1 == ''" v-text="'选择Xml文件'"></button>
+					<button type="button" class="bbtn" v-else v-text="'已选中Xml文件'" v-bind:disabled="!uploadBtnDisable1"></button>
+				</div>	
+			</div>
+			 <div class="col-12" style="margin-bottom:20px" >
+			 <div class="check-select">
+                <input class="form-control" id="functionName" style="height: 60px;" v-model="FunDesc" v-on:change="Verification" placeholder="功能名称"></input>
+            </div>
+            </div>
+			 <div class="col-12" style="margin-bottom:20px" >
+			 <div class="check-select">
+                <textarea class="form-control" style="height: 120px;" v-model="FileDesc" placeholder="功能描述" style="height:90px"></textarea>
+            </div>
+            </div>
+			
+			
+			<div class="col-12" style="margin-bottom:20px">
+		
+		
+            <div class="check-group-btns check-select" style="width:100%;margin:0">
+                <button type="button" class="bbtn b1" v-on:click="uploadFile" style="width: 200px;position: absolute;left: 50%;transform: translate(-50%);" v-text="uploadBtn" v-bind:disabled="uploadBtnDisable2"></button>
+            </div>
+			
+
+			<div class="clearfix" v-bind:vuex="states"></div>
+			 <div class="progress" v-show="percent>0" style="display:none">
+            <div class="progress-bar" v-bind:style="{width:percent + '%'}"><span v-text="percent + '%'"></span></div>
+			</div>	
+
+			<div class="progress" v-show="percent1>0" style="display:none">
+            <div class="progress-bar" v-bind:style="{width:percent1 + '%'}"><span v-text="percent1 + '%'"></span></div>
+		
+			</div>				
+		</div> 
+		
+		<div class="run-task" v-show="runTaskStatus" v-html="runTaskHtml" style="margin-top:300px"></div>	
+        </div>
+		
+	
+
+    <!--<script src="../Common/Scripts/jquery-1.7.2.min.js"></script>
+    <script src="../Common/Scripts/jquery.cookie.js"></script>
+    <script src="../Common/Scripts/common.js"></script>
+    <script src="../Common/Scripts/calendar.min.js"></script>
+    <script src="../Common/Scripts/gs-admin-2.pages.js"></script>
+    <script src="../Common/Scripts/App.Global.js"></script>
+    <script src="../Common/Scripts/PoolCutCommon.js"></script>
+    <script src="../Common/Scripts/vue.js"></script>
+	<script src="../Common/Scripts/jquery-ui-latest.js"></script>
+	<script src="../Common/Scripts/anyDialog.js"></script>
+	<script src="../Common/Scripts/TaskIndicatorScript.js"></script>-->
+	
+    <!--<script type="text/javascript">
+
+        var currentPage=window;
+        new Vue({
+            el: '#app',
+            data: {
+                options: []
+                , result: {
+                    total: 0
+                    , data: []
+                }
+                , current: 1
+                , pageSize: 15
+                , jump: 1
+                , file: null
+				, file1: null
+                , filename: ''
+				, filename1: ''
+                , sourceFilePath: ''
+				, sourceFilePath1: ''
+                , sessionId: ''
+                , selected: {}
+				, FunDesc:''
+				, FileDesc:''
+                , percent: 0
+				, percent1: 0
+                , xhr: null
+                , uploadBtn: '上传'
+                , uploadBtnDisable: true
+				, uploadBtnDisable1: true
+				, uploadBtnDisable2: true
+                , runTaskStatus: false
+                , runTaskHtml: ''
+				, xhr1: null
+				, isShow:true
+
+
+            },
+            created: function () {
+			
+               this.file = document.getElementById('fileUploadFile');
+			   this.file1 = document.getElementById('fileUploadFile1');
+				 
+            },
+            methods: {
+                uploadFile: function () {
+                    if (this.filename === '') return;
+					 if (this.filename1 === '') return;   
+				   if(!this.uploadBtnDisable2)
+                   {					 
+                    this.xhr = UploadFile('fileUploadFile', this.filename, 'LoanServiceReports\\PythonScripts', function (file) {
+                        this.xhr = null;
+                        this.percent = 0;
+                        this.runTaskHtml += '“' + this.filename + '” 文件上传成功。\n';
+                        this.sourceFilePath = file;	
+						
+                    }.bind(this)
+                    , function (percent) {
+                        this.uploadBtn = '等待上传';
+                        this.runTaskStatus = true;
+                        this.runTaskHtml += '“' + this.filename + '” 文件正在上传中...'+percent+'%\n';
+                        this.percent = percent;
+                       
+                    }.bind(this));  
+
+					this.xhr1 = UploadFile('fileUploadFile1', this.filename1, 'LoanServiceReports\\Configs', function (file1) {
+
+                        this.xhr1 = null;
+                        this.percent1= 0;
+                        this.runTaskHtml += '“' + this.filename1 + '” 文件上传成功。\n';
+                        this.sourceFilePath1 = file1;  
+						this.runTask();
+                    }.bind(this)
+                    , function (percent1) {
+                        this.uploadBtn = '等待上传';
+                        this.runTaskStatus= true;
+                        this.runTaskHtml += '“' + this.filename1 +'” 文件正在上传中...'+percent1+'%\n';
+                        this.percent1 = percent1;
+                      
+                    }.bind(this)); 
+                    				
+				}	
+                },			 
+                selectFile: function () {
+				
+				    var filePath = this.file.value;
+                    if (filePath != '') {
+                        this.filename = filePath.substring(filePath.lastIndexOf('\\') + 1);
+                        this.uploadBtnDisable = false;
+                    }
+					
+                },
+				selectFile1: function () {
+			
+				    var filePath1 = this.file1.value;
+                    if (filePath1 != '') {
+                        this.filename1 = filePath1.substring(filePath1.lastIndexOf('\\') + 1);
+                        this.uploadBtnDisable1 = false;
+                    }
+					
+                },
+                openVerificationResult: function (index, event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    var sessionId = this.result.data[index].SessionId;
+                    var filename = this.result.data[index].FileName;
+                    var status = this.result.data[index].Status;
+                    viewVerifyWithStatus(sessionId, filename, status);
+                },
+				
+                Verification: function () {	
+				
+				       
+						var funNmae=$("#functionName").val();
+					
+						if (funNmae.length == 0){
+							alert("请输入功能名称！"); 
+							return false;
+						}
+						
+						else
+						{
+						 var executeParam = {
+							SPName: 'TrustManagement.usp_CheckPythonFunctionName', SQLParams: [
+							   { Name: 'FunctionName', Value: funNmae, DBType: 'string'}
+							 , { Name: 'Result', Value: 0, DBType: 'int', IsOutput: true }						
+							]
+						};
+						var executeParams = encodeURIComponent(JSON.stringify(executeParam));
+						var serviceUrl = GlobalVariable.PoolCutServiceURL + 'CommonGet?connName=TrustManagement&exeParams=' + executeParams;
+						CallWCFSvc(serviceUrl, true, 'GET', function (res) {
+
+							if (res.Result==1) { 
+								this.uploadBtnDisable2=false;	
+								return true;
+							}
+							else {
+							    alert("功能名称已存在，请修改！"); 
+								return false;
+							}
+						}.bind(this));
+					}
+                },
+				 runTask: function () {	
+				
+                   var executeParam = {
+                        SPName: 'TrustManagement.usp_SavePythonTask', SQLParams: [
+						   { Name: 'FunctionName', Value: this.FunDesc, DBType: 'string'}
+						 , { Name: 'FunctionDescription', Value: this.FileDesc, DBType: 'string'}
+						 , { Name: 'ConfigFilePath', Value: this.filename1, DBType: 'string'}
+                         , { Name: 'PythonFilePath', Value: this.filename, DBType: 'string' }  
+						 , { Name: 'Result', Value: 0, DBType: 'int', IsOutput: true }
+							
+                        ]
+                    };
+                    var executeParams = encodeURIComponent(JSON.stringify(executeParam));
+                    var serviceUrl = GlobalVariable.PoolCutServiceURL + 'CommonGet?connName=TrustManagement&exeParams=' + executeParams;
+                    CallWCFSvc(serviceUrl, true, 'GET', function (res) {
+
+                        if (res.Result==1) { 
+                            						
+							console.log("保存数据库成功！");
+							window.parent.document.getElementById('modal-close').click();	
+                        }
+                        else {
+                           alert("保存数据库失败！"); 
+                        }
+                    }.bind(this));
+                }
+        
+            },
+            watch: {
+                sessionId: function (SessionId) {
+                    if (SessionId === '') return;
+                    var executeParam = {
+                        SPName: 'Verification.usp_GetVerificationDetailList', SQLParams: [
+                            { Name: 'SessionId', Value: SessionId, DBType: 'string' }
+                            , { Name: 'total', Value: 0, DBType: 'int', IsOutput: true }
+                        ]
+                    };
+                    var executeParams = encodeURIComponent(JSON.stringify(executeParam));
+                    var serviceUrl = GlobalVariable.PoolCutServiceURL + 'CommonGet?connName=TaskProcess&exeParams=' + executeParams;
+                    CallWCFSvc(serviceUrl, true, 'GET', function (res) {
+                        if (res.total > 0 || res.data.length > 0) {
+                            var filename = this.filename.slice(0, -5);
+
+                            viewVerify(SessionId, filename);
+                        }
+                        else {
+                            GSDialog.Reload(10001);
+
+                        }
+                    }.bind(this));
+                }
+            },
+            computed: {
+
+                totalPage: function () {
+                    return Math.round(this.result.total / this.pageSize);
+                }
+            }
+        });
+
+        var closeDialogCallback = function () {
+            GSDialog.Reload(10001);
+        };
+
+        function viewVerify(SessionId, fileName) {
+            openViewVerifyDialog({ SessionId: SessionId, fileName: fileName, cache: Math.ceil(Math.random() * 100 * 380) });
+        }
+
+        function viewVerifyWithStatus(SessionId, fileName, Status) {
+            openViewVerifyDialog({ SessionId: SessionId, fileName: fileName, Status: Status, cache: Math.ceil(Math.random() * 100 * 380) });
+        }
+
+        function openViewVerifyDialog(data) {
+            if (!data || !data.SessionId) return;
+            var width = $(top).width() / 1.4;
+            var height = $(top).height() / 1.3;
+            var url = 'Pages/DataCheckDetail.html?SessionId=' + data.SessionId + '&cache=' + data.cache;
+            if (data && data.Status) {
+                url += '&Status=' + data.Status;
+            }
+            GSDialog.Open(data.fileName + ' 校验结果', url, null, closeDialogCallback, width, height);
+        }
+    </script>-->
+</body>
+</html>

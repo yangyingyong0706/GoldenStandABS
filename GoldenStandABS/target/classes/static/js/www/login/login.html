@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../asset/style/reset.css" rel="stylesh">
+    <link href="../../asset/img/icon.png" mce_href="../../asset/img/icon.png" rel="icon">
+    <link href="../../asset/style/common.css" rel="stylesheet" />
+    <link href="../../asset/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="login.css" rel="stylesheet" />
+    <link href="../../asset/style/jquery.localizationTool.css" rel="stylesheet" />
+    <link href="../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+	<title>高登世德ABS系统登录</title>
+	<!--[if lt IE 9]>
+	<script src="Contents/html5shiv.min.js"></script>
+	<![endif]-->
+    <script src="../../asset/lib/require.js"></script>
+    <style>
+        .localizationTool .ltool-dropdown-label .ltool-language-name{
+            color:#333
+        }
+        .localizationTool .ltool-language-name{
+            color:#333;
+        }
+        .alert-danger{
+            color: #F52F3E;
+            position: absolute;
+            right: 258px;
+            bottom: 120px;
+            padding: 0px;
+            margin: 0px;
+            border: none;
+            background:none;
+        }
+         @media screen and (max-device-width: 1400px){
+             .wrap_login{
+                  transform:translate(-50%, -50%) scale(0.8);
+             }
+         }
+         input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
+    </style>
+</head>
+<body style="display:none">
+    <div id="selectLanguageDropdown" class="localizationTool"></div>
+    <div class="wrap_login clearfix">
+        <div class="show_photo">
+            <img src="../../asset/img/summer_theme.png" />
+        </div>
+        <section class="login-box">
+            <div class="logo">
+                <img src="../../asset/img/login_logo .png" />
+            </div>
+            <div class="form" style="width:316px">
+                <div class="form-group">
+                    <!--<label id="userlabel" for="" class="f12">用户名</label>-->
+                    <input id="username" type="text" class="form-control" placeholder="请输入用户名">
+                </div>
+                <div class="form-group mb20">
+                    <!--<label id="passlabel" for="" class="f12">密码</label>-->
+                    <input id="password" type="password" class="form-control" placeholder="密码">
+                </div>
+                <div class="alert alert-danger" role="alert" id="alertinfo"></div>
+                <button class="btn btn-primary" id="login">登录</button>
+            </div>
+        </section>
+    </div>
+    <div class="footer_box">Copyright © 2015-2019 高登世德 版权所有</div>
+    <script>
+        requirejs(['../../asset/lib/config'], function (common) {
+            requirejs(['app/login/login']);
+        });
+    </script>
+
+
+</body>
+</html>

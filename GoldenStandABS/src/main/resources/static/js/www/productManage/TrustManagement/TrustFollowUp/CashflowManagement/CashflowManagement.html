@@ -1,0 +1,296 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link href="../../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="../../../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="CashflowMangement.css" rel="stylesheet" />
+    <title>回款管理</title>
+    <style>
+        .input_style{
+            margin: 0px;
+            padding: 0px;
+            padding-left: 5px;
+            box-sizing: border-box;
+            outline: none;
+            font-size:12px;
+        }
+        textarea{
+            resize: none;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            padding-top: 5px;
+            padding-left:10px;
+            box-sizing: border-box;
+            font-size: 12px;
+            height: 30px;
+            vertical-align: middle;
+            width:200px;
+            outline:none;
+
+        }
+        .normal_small_button{
+            font-size: 12px;
+            padding: 3px;
+            position: initial
+        }
+        textarea::-webkit-scrollbar { width: 2px; height: 12px; background-color: #f5f5f5; }
+        .normal_small_button:hover{
+            font-size:12px;
+        }
+        .chart-box{
+            width:100%;
+            height:250px;
+            margin-top:30px;
+            margin-bottom:15px;
+            display:none;
+        }
+        #linechart{
+            width:100%;
+            height:100%;
+        }
+        .UpFile_layer{
+            width:100%;
+            height:auto;
+            display:flex;
+            justify-content: space-between;
+        }
+        .layer_each{
+            display:flex;
+            margin-bottom:30px;
+        }
+        .file_name{
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            width: calc(60% - 70px);
+            box-sizing: border-box;
+            padding-left: 10px;
+            border:1px solid rgba(0,0,0,0.2);
+            font-size:12px;
+            }
+       .label_title{
+            background: #f1f1f1; border: 1px solid #efecec; text-align: center; box-sizing: border-box; 
+            line-height: 30px; color: #555; padding: 0 3px; height: 30px; overflow: hidden; display: block; white-space: nowrap; text-overflow: ellipsis; font-size: 14px;
+            width:30%;
+        }
+        .progress {
+            height: 20px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+        }
+
+        .progress > .progress-bar {
+            float: left;
+            width: 0;
+            height: 100%;
+            font-size: 12px;
+            line-height: 20px;
+            text-align: right;
+            background: #6c78bd;
+            background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+            background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+            background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+            -webkit-transition: width .6s ease;
+            -o-transition: width .6s ease;
+            -webkit-background-size: 40px 40px;
+            background-size: 40px 40px;
+            -webkit-animation: progress-bar-stripes 2s linear infinite;
+            -o-animation: progress-bar-stripes 2s linear infinite;
+            animation: progress-bar-stripes 2s linear infinite;
+        }
+        .layer_b{
+            width:49%;
+        }
+        #loading {
+            position: absolute;
+            top: 0px;
+            z-index: 1002;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+        }
+        #loading > i {
+            color: rgb(107, 147, 216);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .hight_light{
+            background:rgba(59, 62, 93, 0.1)
+        }
+        .table_layer{
+            width:100%;
+            height:500px;
+            border:1px solid rgba(0,0,0,0.1);
+            margin-bottom:20px;
+            box-size:border-box;
+            position:relative;
+        }
+        .table_first{
+            border-right:1px solid rgba(0,0,0,0.1);
+            width:11%;
+            height:449px;
+            box-size:border-box;
+        }
+        .table_last{
+            position:absolute;
+            right:0px;
+            top:0px;
+            box-size:border-box;
+            border-left:1px solid rgba(0,0,0,0.1);
+            width:5%;
+            height:449px;
+        }
+        .talbe_bottom{
+             position:absolute;
+             bottom:0px;
+             left:0px;
+             height:51px;
+             border-top:1px solid rgba(0,0,0,0.1);
+             width:100%;
+        }
+        .table_content{
+            position: absolute;
+            left: 11%;
+            width: 84%;
+            height: 449px;
+            top: 0px;
+        }
+        tr > :first-child {
+            position: relative;
+        }
+        .title_first{
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 64px;
+            height: 33px;
+            background: #f8f8f8;
+            z-index: 999;
+            font-size: 12px;
+            line-height: 33px;
+            box-sizing: border-box;
+            padding-left: 5px;
+            color: rgb(89, 109, 127);
+            box-shadow:rgba(0, 0, 0, 0.1) 0px 1px 0px 0px
+        }
+        .footer_layer{
+            position:absolute;
+            left: 0px;
+            bottom: 0px;
+            height:30px;
+            width:100%;
+            background:#f8f8f8;
+            z-index:999;
+            text-align:center;
+            padding-top:6px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="loading">
+            <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+        </div>
+        <div class="UpFile_layer">
+            <!--<div class="layer_b">
+                <div class="layer_each">
+                    <label class="label_title">导入现金流归集信息</label>
+                    <span class="file_name"></span>
+                    <label for="ImportCashFlowOAAssetPool" class="input_file_style" style="box-sizing:border-box;height:30px">
+                        <input type="file" id="ImportCashFlowOAAssetPool" />
+                        <span>选择文件</span>
+                    </label>
+                    <button class="normal_small_button" style="width: 11%;font-size: 14px;margin-left: 1%;display:none" @click="UpCashflowCollection()">上传</button>
+                </div>
+                <div class="progress" style="width:90%;position:relative;top:-20px;margin:0px;display:none">
+                    <div class="progress-bar"><span></span></div>
+                </div>
+            </div>-->
+            <div class="layer_b">
+                <div class="layer_each">
+                    <label class="label_title">导入现金流详细信息</label>
+                    <span class="file_name"></span>
+                    <label for="ImportCashFlowOAAccounts" class="input_file_style" style="box-sizing:border-box;height:30px">
+                        <input type="file" id="ImportCashFlowOAAccounts" />
+                        <span>选择文件</span>
+                    </label>
+                    <button class="normal_small_button" style="width: 11%;font-size: 14px;margin-left: 1%;display:none;" @click="UpCashflowDetails()">上传</button>
+                </div>
+                <div class="progress" style="width:90%;position:relative;top:-20px;margin:0px;display:none">
+                    <div class="progress-bar"><span></span></div>
+                </div>
+            </div>
+        </div>
+        <div class="inline-block-container">
+            <ul id="TimeLine" class="timeline">
+                <li v-for="(Periodlist,index) in CashflowPeriod" @click="loadingPeriod(Periodlist.PayTerm,$event)">
+                    <div class="upside">
+                        <div class="points">
+                            <span class="f-left">第{{Periodlist.PayTerm}}期</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="layertba">
+            <div class="title_first">
+                <span>资产编号</span>
+            </div>
+            <div class="footer_layer">
+                <button @click="saveAllItem()" class="normal_small_button">保存</button>
+            </div>
+            <div class="tableArea" @scroll="tableHeader($event)">
+                <table class="table" id="table_cont">
+                    <thead style="box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1px 2px;">
+                        <tr style="background:#f8f8f8" id="tablehead">
+                            <th v-for="item in thNameList" v-bind:style="{width:item.thWidth,border:'none'}">{{item.thName}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(lists,$index) in cashflowList" @click="addHightLight($event)" style="cursor:default">
+                            <td @click="RenderFoldline(lists.AccountNo)" style="cursor: pointer;border-left:none;background:#f8f8f8;border-right:1px solid rgba(0,0,0,0.1);box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px 0px;" class="tablef_fixed"><a>{{lists.AccountNo}}</a></td><!--资产编号-->
+                            <td style="text-align:center;border-left:none;">{{lists.PayDate_Due}}</td><!--计划回款日-->
+                            <td style="text-align:center">{{lists.PayDate_Paid}}</td><!--实际回款日-->
+                            <td style="padding:10px">{{lists.PrincipalAmt_Due}}</td><!--计划回款本金-->
+                            <td style="padding:10px"><input class="input_style" id="PrincipalAmt_Paid" v-model="lists.PrincipalAmt_Paid" /></td><!--实际回款本金-->
+                            <td style="padding:10px">{{lists.InterestAmt_Due}}</td><!--计划回款利息-->
+                            <td style="padding:10px"><input class="input_style" id="InterestAmt_Paid" v-model="lists.InterestAmt_Paid" /><!--实际回款利息-->
+                            <td style="padding:10px">{{lists.PayDate_Adjustment}}</td><!--调整后回款日-->
+                            <td style="padding:10px">{{lists.PrincipalAmt_Adjustment}}</td><!--调整后应还本金-->
+                            <td style="padding:10px">{{lists.InterestAmt_Adjustment}}</td><!--调整后应还利息-->
+                            <td>{{lists.Account_Status}}</td><!--状态-->
+                            <td style="padding:10px"><textarea id="Annotate" v-model="lists.Annotate"></textarea></td><!--注释-->
+                            <!--<td style="text-align:center;position:initial"><button class="normal_small_button" @click="saveItem(lists.AccountNo,lists.PrincipalAmt_Paid,lists.InterestAmt_Paid,lists.PayDate_Adjustment,lists.PrincipalAmt_Adjustment,lists.InterestAmt_Adjustment,lists.Annotate)">保存</button></td>保存-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="chart-box">
+            <div id="linechart"></div>
+        </div>
+    </div>
+    <script  src="../../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TrustFollowUp/CashflowManagement/CashflowManagement']);
+    });
+    </script>
+</body>
+</html>

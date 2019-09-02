@@ -1,0 +1,117 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title>压力测试选择日期</title>
+    <link href="../../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../css/magic/magic.dialog.css" rel="stylesheet" />
+    <link href="../../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <style type="text/css">
+        body {
+            padding: 15px;
+        }
+
+        .nopadding {
+            padding-right: 0px;
+            padding-left: 5px;
+        }
+
+            .nopadding label {
+                margin-top: 5px;
+            }
+
+        ul {
+            list-style: none;
+        }
+
+        .basicInfo, .basicInfo-item {
+            padding-right: 0px;
+        }
+
+            .basicInfo .col-4 label {
+                margin-top: 5px;
+            }
+
+            .basicInfo-item .col-4, .basicInfo-item .col-6, .basicInfo-item .col-2 {
+                padding: 0px;
+            }
+
+        .form-group label.control-label {
+            background: #ebeef5;
+            height: 30px;
+            text-align: left;
+            line-height: 30px;
+            padding:0px 0px 0px 20px;
+            width: 30%;
+            color: #808080;
+            font-weight: 400;
+             border:1px solid #dce0ee;
+             border-right:0 none;
+             border-radius:2px 0px 0px 2px;
+        }
+
+        .form-horizontal .form-group {
+            margin: 0px;
+            margin-bottom: 15px;
+        }
+
+        .form-save {
+            width: 100%;
+            text-align: center;
+        }
+
+        [class^=col] {
+            padding: 0;
+        }
+        [v-cloak] {
+            display: none;
+        }
+        .form-control{
+            border:1px solid #dce0ee;
+            border-radius:0px 2px 2px 0px;
+        }
+        .form-control:focus{
+            border-color: #45569c;
+            box-shadow: inset 0 0px 0px #45569c, 0 0 4px #45569c;
+        }
+    </style>
+</head>
+<body>
+    <div id="mainDiv" class="main-dialog">
+        <div class="col-xs-12 form-row form-horizontal" v-cloak>
+            <div class="col-12 form-row autoLayout-plugins">
+                <div class="form-group">
+                    <label class="col-xs-3 control-label">开始日期</label>
+                    <div class="col-xs-8" style="width:70%;padding:0px">
+                        <select class="form-control" v-model="startDate">
+                            <option v-for="(item,index) in startDateArray" v-bind:value="item.Period">{{item.Period}}.{{item.PaymentDate}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label">结束日期</label>
+                    <div class="col-xs-8" style="width:70%;padding:0px">
+                        <select class="form-control" v-model="endDate">
+                            <option v-for="(item,index) in startDateArray" v-bind:value="item.Period">{{item.Period}}.{{item.PaymentDate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-save pull-right" v-cloak>
+            <button class="btn btn-default btn-single-default" @click="Submit">确定</button>
+            <button class="btn btn-default btn-single-default" style="margin-left: 10px;" id="unDo" @click="Cancel">取消</button>
+        </div>
+    </div>
+    <script src="../../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productDesign/stresstest/StressScenarios/SelectDate/SelectDate']);
+        });
+    </script>
+</body>
+</html>

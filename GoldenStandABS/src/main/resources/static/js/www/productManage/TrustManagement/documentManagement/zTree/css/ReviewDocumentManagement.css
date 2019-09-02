@@ -1,0 +1,80 @@
+﻿.page .main {
+    padding: 15px 30px !important;
+}
+
+.unfolder, .foldered {
+    cursor: pointer;
+}
+
+ul li {
+    min-height: 22px;
+    line-height: 22px;
+    font-weight: 400;
+}
+
+li > ul {
+    padding-left: 15px;
+}
+
+.ckb {
+    vertical-align: middle;
+}
+
+.mt-5 {
+    margin-top: 5px;
+}
+
+.file-title {
+    padding: 10px 0px 8px 0px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.file-title label{
+    font-weight: normal;
+    color:rgb(54,61,93);
+}
+.p10 {
+    padding: 5px 10px;
+}
+
+
+.author {
+    width: 100px;
+}
+
+.date {
+    width: 120px;
+}
+
+.zhanwei {
+    width: 11px;
+    display: inline-block;
+}
+
+.title {
+    color:rgb(54,61,93);
+    font-size: 16px;
+    border-bottom: 1px solid #eaeaea;
+    padding: 8px 0;
+}
+
+.archive1 {
+    float: left;
+    width: 100%;
+}
+
+.archive2 {
+    margin-right: 10px;
+}
+
+.archive2 {
+    margin-right: 10px;
+    width: 8%;
+}
+
+.archive3 {
+    width: 90%;
+}
+.main{
+    padding:0px 15px;
+}

@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>任务列表</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="taskList-style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="main">
+        <!--<h3 class="h3"><span class="title" id="taskTitle"></span></h3>-->
+        <div class="content">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th width="50px">序号</th>
+                        <th width="200px">任务</th>
+                        <th>任务描述</th>
+                        <th width="80px">状态</th>
+                        <th width="230px">完成时间</th>
+                        <th width="100px">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="divProcessStatusList"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="run-loading" id="divLoading">
+        <div class="loading">
+            <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+        </div>
+    </div>
+    <script src="../../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/TaskListVerify/TaskList']);
+        })
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="../Contents/page.css" rel="stylesheet" />
+    <link href="../Contents/common.css" rel="stylesheet" />
+    <link href="../Contents/bootstrap.css" rel="stylesheet" />
+    <link href="../Scripts/jquery-ui.css" rel="stylesheet" />
+
+    <script src="../Scripts/jquery-1.7.2.min.js"></script>
+    <script src="../Scripts/jquery-ui.min.js"></script>
+    <script src="../Scripts/anyDialog.js"></script>
+    <script src="../Scripts/wcfProxy.js"></script>
+    <script src="../Scripts/common.js"></script>
+    <script src="../Scripts/jquery.md5.js"></script>
+    <script src="../Scripts/roleOperate.js"></script>
+    <script src="register.js"></script>
+</head>
+<body>
+<div class="page">
+    <div class="main">
+        <h3 class="h3">
+            <span class="title tab-switch titlecur">注册新用户</span>
+        </h3>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-4 control-label">用户名：</label>
+                <div class="col-4">
+                    <input id="nameUser" type="text" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-4 control-label">密码：</label>
+                <div class="col-4">
+                    <input id="passwordUser" type="password" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-4 control-label">确认密码：</label>
+                <div class="col-4">
+                    <input id="passwordSure" type="password" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-4 control-label">电子邮件：</label>
+                <div class="col-4">
+                    <input id="emailUser" type="text" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-4 control-label">安全提示问题：</label>
+                <div class="col-4">
+                    <select id="askUser" class="form-control">
+                       <option value="">请选择问题....</option>     
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-4 control-label">安全问题答案：</label>
+                <div class="col-4">
+                 <input id="answerUser" type="text" class="form-control" /> 
+                </div>
+            </div>
+            <div class="form-panel">
+                <div class="col-4">
+                    <button type="button" id="register" class="btn btn-sm btn-primary">注册帐号</button>&nbsp;&nbsp;
+                 
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>底稿匹配规则明细</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+</head>
+<body>
+    <div class="body-container form nobottom">
+        <div class="main">
+            <h3 class="h3">
+                <span class="title" style="font-weight:normal;font-size:16px;">底稿匹配规则明细</span>
+            </h3>
+            <div class="form-panel drop nobottom">
+                <div id="divDataList" class="list-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <link href="../../../../asset/style/bootstrap.css" />
+    <link href="../../../../components/viewDateSet/css/trustWizard.css" rel="stylesheet" />
+    <link href="zTree/css/zTreeStyle/pagerlist-style.css" rel="stylesheet" />
+
+    <script src="../../../../asset/lib/require.js"></script>
+
+    <script>
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            require(['app/productManage/TrustManagement/documentManagement/zTree/js/manageDueDiligenceDefault'])
+        });
+    </script>
+
+</body>
+</html>
