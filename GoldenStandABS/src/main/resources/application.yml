@@ -1,0 +1,75 @@
+spring:
+ 
+# #返回的页面设置
+  mvc:
+    view:
+      prefix: classpath:/templates/
+      suffix: .html  
+
+#
+## 定位模板的目录,spring boot此配置默认为classpath:/templates/
+#spring.mvc.view.prefix=classpath:/templates/
+## 给返回的页面添加后缀名，spring boot默认为.html
+
+
+
+#  thymeleaf:
+#    mode: HTML5
+#    encoding: UTF-8
+#    content-type: text/html
+#    # 开发禁用缓存
+#    cache: false
+    
+  datasource: ##172.16.7.104\mssql
+    #url: jdbc:sqlserver://172.16.7.118:52482;databasename=LoanManagement #sqlserver数据库连接  1433
+    url: jdbc:sqlserver://172.16.7.184:52482;databasename=TrustManagement #sqlserver数据库连接  1433
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver #连接的驱动
+    username: gsuser #账号
+    password: Password01  #密码 
+    
+    
+    
+    
+#  datasource:
+#    url: jdbc:mysql://59.110.222.251:3306/ssmDb?characterEncoding=UTF-8&useSSL=false
+##    url: jdbc:mysql://59.110.222.251:3306/ssmDb?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8 
+#    username: root
+#    password: root
+#    # 可省略驱动配置, sprin-boot 会由url检测出驱动类型
+#    # driver-class-name: com.mysql.jdbc.Driver
+#    hikari:
+#      connection-timeout: 60000
+
+#mybatis:
+#  mapperLocations: classpath:com/boot/mapper/*.xml
+#  typeAliasesPackage: cn.boot.domain
+  
+  
+# spring-boot默认打印输出info级别以上的，可在此处修改输出级别
+logging:
+  level:
+    root: DEBUG#FATAL、ERROR、WARN、INFO、DEBUG、ALL或者您定义的级别。
+    
+#--------------------------start---------------sql  SqlServer 相关配置信息---------------------------------  
+## SqlServer 配置
+
+#spring:
+#  datasource: ##172.16.7.104\mssql
+#    url: jdbc:sqlserver://172.16.7.104:1433;databasename=test #sqlserver数据库连接
+#    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver #连接的驱动
+#    username: gsuser #账号
+#    password: Password01  #密码 
+
+# mybatis 配置
+mybatis: 
+        typeAliasesPackage: com.boot.entity #映射到哪个包下的实体类
+        mapperLocations: classpath:com/boot/mapper/SqlServer/*.xml  #使用哪种连接方式
+        configuration: 
+          mapUnderscoreToCamelCase: true    
+    
+#--------------------------end---------------sql  SqlServer 相关配置信息---------------------------------  
+
+  
+
+
+  

@@ -1,0 +1,32 @@
+<!-- <%@ page contentType="text/html;charset=UTF-8" language="java" %> -->
+<html>
+<head>
+	<meta charset="UTF-8">
+    <title>Title</title>
+    <!-- <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script> -->
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+</head>
+<body>
+<input type="button" value="测试jsonp请求123456"  onclick="testJsonp()"   />
+<script type="text/javascript">
+    function testJsonp() {
+    	alert("中韩歌");
+        $.ajax({
+            type:'get',
+            url:'http://127.0.0.1:8080/user/getProvince',
+            //url:'http://localhost:8003/jsonp/testJsonp',
+            dataType:'jsonp',
+            jsonp:"callback",
+            success:function (data) {
+            	
+                alert(data[0].ProvinceName+"  "+data[0].ProvinceCode);
+            },
+            error:function (err) {
+                alert('出现错误了!!!');
+            }
+        });
+    }
+</script>
+</body>
+</html>  

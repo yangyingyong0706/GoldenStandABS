@@ -1,0 +1,266 @@
+﻿/*表单、表格、按钮通用样式表*/
+/* *
+* 定义变量
+    (1)定义在根元素Html中
+    (2)变量后面不能使用<!important>
+    (3)此处修改能联动到大部分，很少部分在相应文件中修改
+    (4)此文件中的Id选择器作用仅在于提升选择器权重，不能用于获取值或者操作DOM
+* */
+:root{
+    --themeColor: #45569c;      /*主题色*/
+
+    --labelColor: #808080;      /*表头字体色*/
+    --labelBg: #ebeef5;         /*表头背景色*/
+    --inputBorderColor: #dce0ee;/*表单边框色*/
+    --disabledBg: #eee;         /*禁用背景色*/
+    --inputHeight: 30px;        /*表单高度*/
+
+    --tdHeight: 30px;           /*表格td高度*/
+    --tableBorderColor: #dce0ee;/*表格边框色*/
+    --tableHoverColor: #e6e9f5; /*表格tr hover色*/
+
+    --btnBroderColor: #ccd0de;  /*默认按钮边框色(独立)*/
+}
+
+
+/*带表头表单*/
+#gold-form-panel {
+    display: flex;
+    flex-wrap: wrap;
+}
+#gold-form-panel .form-group, .gold-form-group {
+    display: flex;
+    font-size: 14px;
+    position: relative;
+}
+#gold-form-panel .gold-group-addon {
+    display: block;
+    height: var(--inputHeight);
+    line-height: var(--inputHeight);
+    padding: 0px 0px 0px 20px;
+    font-weight: normal;
+    box-sizing: border-box;
+    text-align: left;
+    color: var(--labelColor);
+    background-color: var(--labelBg);
+    border: 1px solid var(--inputBorderColor);
+    border-radius: 2px 0px 0px 2px;
+    border-right: 0 none;
+}
+#gold-form-panel .gold-single-addon {
+    height: var(--inputHeight);
+    line-height: var(--inputHeight);
+    padding: 0px 0px 0px 20px;
+    border-radius: 2px;
+    text-align: left;
+    background-color: var(--labelBg);
+    border: 1px solid var(--inputBorderColor);
+}
+#gold-form-panel .gold-form-control {
+    height: var(--inputHeight);
+    line-height: var(--inputHeight);
+    padding: 4px 10px;
+    box-shadow: none;
+    border-radius: 0px 2px 2px 0px;
+    border: 1px solid var(--inputBorderColor);
+    box-sizing: border-box;
+}
+#gold-form-panel .gold-form-control:focus {
+    border-color: var(--themeColor);
+    box-shadow: inset 0 0px 0px var(--themeColor), 0 0 4px var(--themeColor);
+}
+#gold-form-panel .gold-form-control:disabled {
+    background-color: var(--disabledBg);
+}
+/*带表头只读输入框 */
+#gold-form-panel .gold-form-onlyready {
+    background-color: #fff;
+    border:1px solid var(--inputBorderColor);
+    border-radius: 0px 2px 2px 0px;
+    text-align: left;
+    padding-left: 10px;
+}
+
+
+/*独立表单*/
+#single-form .gold-single-input {
+    width:100%;
+    height: var(--inputHeight);
+    line-height: var(--inputHeight);
+    outline: none;
+    border-radius: 2px;
+    border: 1px solid var(--inputBorderColor);
+    box-sizing: border-box;
+    box-shadow: none;
+    padding: 2px 0px 2px 10px;
+}
+#single-form .gold-single-input:focus {
+    border-color: var(--themeColor);
+    box-shadow: inset 0 0px 0px var(--themeColor), 0 0 4px var(--themeColor);
+}
+#single-form .gold-single-input:disabled {
+   border: 0 none;
+   background-color: var(--disabledBg);
+}
+
+
+/*文件上传*/
+#gold-form-panel .gold-file-name {
+    display: inline-block;
+    height: var(--inputHeight);
+    font-weight: normal;
+    border: 1px solid var(--inputBorderColor);
+    padding: 4px 10px;
+    box-sizing: border-box;
+}
+#gold-form-panel .gold-form-file {
+    display: inline-block;
+    height: var(--inputHeight);
+    line-height: var(--inputHeight);
+    font-weight: normal;
+    text-align: center;
+    padding: 0px 15px;
+    background-color: var(--labelBg);
+    border-radius: 0px  2px 2px 0px;
+    border: 1px solid var(--inputBorderColor);
+    border-left: 0 none;
+    box-sizing: border-box;
+}
+
+
+/*按钮样式*/
+.btn.btn-primary {
+    background-color: var(--themeColor);
+    border-color: var(--themeColor);
+}
+.btn.btn-primary:hover {
+    background-color:RGBA(69, 86, 156, 1);
+    opacity:0.9;
+}
+
+.btn-single-default{
+    border:1px solid var(--btnBroderColor);
+    border-radius: 2px;
+}
+
+.btn-single-default:hover {
+    color: #fff;
+    background: var(--themeColor);
+    border-color: var(--themeColor);
+}
+/*单独按钮组合边框颜色*/
+.btn-group-broderColor{
+    border-color: var(--inputBorderColor);
+}
+
+
+
+/*Kendo UI表格样式*/
+.k-grid, .k-widget {
+    border-color: var(--tableBorderColor);
+}
+.k-grid .k-grid-header, .k-grid-content-locked,.k-grid-header-wrap, .k-grid-header-locked, .k-pager-wrap{
+    border-color: var(--tableBorderColor);
+}
+.k-grid .k-grid-header th.k-header{
+    vertical-align: middle;
+    border-color: var(--tableBorderColor);
+}
+.k-grid .k-grid-content a { /* 链接颜色 */
+    color: var(--themeColor) ;
+}
+.k-grid table tr:hover {
+    background-color: var(--tableHoverColor);
+}
+.k-state-hover {
+    background-color: var(--tableHoverColor);
+}
+.k-grid .k-state-hover {
+    background-color: var(--tableHoverColor);
+}
+.k-grid tr td {
+    height: var(--tdHeight);
+    line-height: var(--tdHeight);
+    border-color: var(--tableBorderColor);
+}
+.k-grid tr:hover{
+    background-color: var(--tableHoverColor);
+}
+.k-grid td.k-state-selected, .k-grid .k-grid-content-locked tr.k-state-selected>td, .k-grid .k-grid-content tr.k-state-selected>td {
+    border-color: var(--tableBorderColor);
+}
+
+
+
+/*自定义bootsatrp Table样式*/
+.gold-table {
+    border: 1px solid var(--tableBorderColor);
+}
+.gold-table > tbody > tr > td, .gold-table > tbody > tr > th, .gold-table > tfoot > tr > td, .gold-table > tfoot > tr > th, .gold-table > thead > tr > td, .gold-table > thead > tr > th {
+    border: 1px solid var(--tableBorderColor);
+}
+.gold-table > tbody > tr > td, .gold-table > tbody > tr > th, .gold-table > tfoot > tr > td, .gold-table > tfoot > tr > th, .gold-table > thead > tr > td, .gold-table > thead > tr > th{
+    padding: 6px 15px;
+    height: var(--tdHeight);
+    line-height: var(--tdHeight);
+    box-sizing: border-box;
+}
+.gold-table > thead > tr > th {
+    text-align:left;
+}
+
+
+
+/*单选框、复选框样式*/
+input[type=radio], input[type=checkbox] {
+    width: 20px;
+    height: 20px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    appearance: none;
+     -webkit-appearance: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+input[type=checkbox]:focus, input[type=radio]:focus {
+    outline:none;
+}
+input[type=checkbox] {
+    background: url(../lib/bootstrap/ischecked/icon@18px.png) no-repeat 0px 0px;
+}
+input[type=radio] {
+    background: url(../lib/bootstrap/ischecked/icon@18px.png) no-repeat -152px 0px;
+}
+input[type='checkbox']:checked {
+    outline:none;
+    background: url(../lib/bootstrap/ischecked/icon@18px.png) no-repeat -38px 0px;
+}
+input[type=radio]:checked {
+    outline:none;
+    background: url(../lib/bootstrap/ischecked/icon@18px.png) no-repeat -133px 0px;
+}
+
+
+/*Jquery UI SearcheInput样式*/
+.searchable-select .searchable-select-holder{
+    border: 1px solid var(--inputBorderColor);
+    box-shadow: none;
+}
+.searchable-select .searchable-select-dropdown,.searchable-select-input{
+    border: 1px solid var(--inputBorderColor);
+}
+.searchable-select .searchable-select-caret{ /*修改倒三角箭头*/
+     border-width: 6px 3px 6px 3px;
+     right: 7px;
+}
+
+
+.input::-webkit-input-placeholder {
+     color: #ccc;
+}
+.input::-moz-placeholder {
+     color: #ccc;
+}
+.input::-ms-input-placeholder {
+    color: #ccc;
+}

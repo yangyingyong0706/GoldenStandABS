@@ -1,0 +1,1814 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>费用信息</title>
+    <link href="/GoldenStandABS/asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/GoldenStandABS/www/components/FeeSettings/css/FeeSettings.css" rel="stylesheet" />
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../basicAsset/style/loan.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/lib/toast/toast.css" rel="stylesheet" />
+    <script src="../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../asset/lib/config'], function (config) {
+            requirejs(['app/components/FeeSettings/FeeSettingsNew']);
+        });
+    </script>
+
+    <style>
+        html {
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .fee-header {
+            padding-left: 15px;
+            background: #fff;
+            border-bottom: 1px solid #eaeaea; /*border: 1px solid rgba(0,0,0,0.1);*/
+            text-align: left;
+            height: 35px;
+            line-height: 30px;
+            color: #1052e6;
+        }
+
+            .fee-header .showBtn {
+                float: right;
+                vertical-align: middle;
+            }
+
+        .fee-container {
+            font-size: 16px;
+            border-bottom: none;
+            font-weight: normal;
+            width: auto;
+            padding: 20px 15px;
+            box-sizing: border-box;
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+        }
+
+        .fee-setting {
+            background: #fff;
+        }
+
+            .fee-setting.fee-fixed {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                box-shadow: 0 2px 5px rgba(0,0,0,.15);
+                z-index: 99;
+            }
+
+        .form-middle {
+            vertical-align: middle;
+            padding-left: 0px;
+        }
+            /*.form-inline label { color: #fff !important; }*/
+            .form-middle label {
+                color: #555;
+                padding: 0 3px;
+                overflow: hidden;
+                display: inline-block;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                vertical-align: middle;
+                font-weight: normal;
+                font-size: 14px;
+                height: 30px;
+                line-height: 30px;
+            }
+
+            .form-middle .btn {
+                vertical-align: 1px;
+            }
+
+            .form-middle input[type=checkbox] {
+                vertical-align: middle;
+            }
+
+        .form-control {
+            border-radius: 0px 2px 2px 0px;
+            box-shadow: none;
+            border: 1px solid #dce0ee;
+        }
+
+            .form-control:focus {
+                border-color: #45569c;
+                box-shadow: inset 0 0px 0px #45569c, 0 0 4px #45569c;
+            }
+
+        .form-inline {
+            display: inline-block;
+        }
+
+        .fee-table {
+            width: 100%;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+            .fee-table > thead > tr > th {
+                color: #fff;
+                font-size: 13px;
+                height: 30px;
+                text-align: center;
+                background: #667183; /*background:linear-gradient(linear,left top,left bottom,color-stop(0.05,rgb(96, 106, 152)),color-stop(1,rgb(54, 61, 93)));
+                background: -webkit-gradient(linear,left top,left bottom,color-stop(0.05,rgb(96, 106, 152)),color-stop(1,#1a1b1c));
+                background: -moz-linear-gradient(center top,rgb(96, 106, 152) 5%,#1a1b1c 100%);
+                background:-o-linear-gradient(90deg,rgb(96, 106, 152),#1a1b1c);*/
+            }
+
+                .fee-table > thead > tr > th.form-middle label .fee-table > tbody > tr > td {
+                    padding: 4px;
+                    border: 1px solid #20236c;
+                    vertical-align: middle;
+                    text-align: center;
+                }
+
+            .fee-table > tbody > tr:nth-child(odd) { /*background:linear-gradient(linear,left top,left bottom,color-stop(0.05,rgb(66, 75, 115)),color-stop(1,rgb(54, 61, 93)));
+              background: -webkit-gradient(linear,left top,left bottom,color-stop(0.05,rgb(66, 75, 115)),color-stop(1,rgb(54, 61, 93)));
+              background: -moz-linear-gradient(center top,rgb(119, 126, 156) 5%,rgb(66, 75, 115) 100%);
+              background:-o-linear-gradient(90deg,rgb(119, 126, 156),rgb(66, 75, 115));*/
+                background: #526077;
+            }
+
+        .icon.icon-asset {
+            color: #3c5a91;
+            margin: 0px;
+        }
+
+        .fee-table > tbody > tr .fee-name strong, .fee-table > tbody > tr .form-middle label, .fee-table > tbody > tr td .description, .fee-table > tbody > tr .fee-table td > .icon.icon-asset {
+            color: #222;
+            font-size: 12px;
+        }
+
+        .fee-table > tbody > tr:nth-child(even) {
+            background-color: #404f68;
+        }
+
+        .fee-table td {
+            border-left: 1px solid rgba(0,0,0,0.2);
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        .fee-table tr > td:first-child {
+            border-left: none;
+        }
+
+        .fee-table th {
+            text-align: center;
+            border-collapse: collapse;
+        }
+
+        .fee-name {
+            background: rgba(243,245,250,1);
+            width: auto;
+            transition: all 500ms;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fee-input-group {
+            width: 33%;
+            margin-bottom: 10px;
+        }
+            /*    .fee-input-group:last-child{
+            margin-bottom:20px;
+        }*/
+            .fee-input-group .fee-inner {
+                padding-top: 10px;
+                padding-right: 25px;
+            }
+
+                .fee-input-group .fee-inner .form-label {
+                    width: 42%;
+                    float: left;
+                    background: #ebeef5;
+                    text-align: left;
+                    padding-left: 15px;
+                    border-radius: 2px 0 0 2px;
+                    height: 30px;
+                    line-height: 30px;
+                    border: 1px solid #dce0ee;
+                    border-right: 0px;
+                }
+
+                .fee-input-group .fee-inner .form-container {
+                    width: 58%;
+                    float: left;
+                    display: flex;
+                }
+
+        .fee-table .description {
+            color: #666;
+            font-size: 13px;
+            height: 30px;
+            line-height: 30px;
+            width: 94%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            border: 1px solid rgba(220,224,238,1);
+            padding-left: 20px;
+        }
+
+        .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+            background-color: #fff !important;
+            border-color: #ddd !important;
+            border-radius: 3px;
+        }
+
+        .custom-combobox {
+            position: relative;
+            display: block;
+            display: flex;
+        }
+
+        .custom-combobox-toggle { /*position: absolute;*/
+            top: 0;
+            right: 0;
+            bottom: 0;
+            padding: 0;
+            margin-bottom: 2px;
+            height: 30px;
+        }
+
+        .custom-combobox-input { /*padding: 3px 35px 3px 3px;*/
+            padding: 3px 3px 3px 12px;
+            border-radius: 0px;
+            border-right: none;
+        }
+
+        .red-border-left {
+            border: 1px solid red !important;
+            border-right: none !important;
+        }
+
+        .red-border-right {
+            border: 1px solid red !important;
+            border-left: none !important;
+        }
+
+        .col-11 > .date-plugins {
+            position: relative !important;
+        }
+
+        .fee-name strong {
+            font-size: 16px;
+            height: 38px;
+            font-weight: normal;
+            line-height: 38px;
+            display: inline-block;
+            width: calc(100% - 110px);
+            text-align: left;
+            padding-left: 25px;
+        }
+
+        .mask {
+            position: absolute;
+            top: 0px;
+            filter: alpha(opacity=60);
+            background-color: #777;
+            z-index: 1002;
+            left: 0px;
+            opacity: 0.1;
+            -moz-opacity: 0.1;
+        }
+
+        .block_each {
+            border: 1px solid rgba(230,233,245,1);
+            margin-bottom: 20px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+            .block_each:hover {
+                box-shadow: 0px 2px 4px 0px rgba(65,81,151,0.2);
+            }
+
+        .info_style {
+            display: inline-block;
+            font-size: 13px;
+            height: 30px;
+            line-height: 30px;
+            color: #555;
+            width: calc(42% - 10px);
+            background: #ebeef5;
+            text-align: left;
+            padding-left: 15px;
+            border: 1px solid #dce0ee;
+            border-radius: 2px 0px 0px 2px;
+            border-right: 0px;
+        }
+
+        .bg_c {
+            width: calc(100% - 40px);
+            margin: auto;
+        }
+
+        .bg_c_line {
+            border-bottom: 1px dashed #dadada;
+            text-align: center;
+            font-size: 15px;
+            color: #2768de;
+            padding-bottom: 10px;
+            margin-top: -10px;
+        }
+        /*.fee-input-group:nth-child(even) .fee-inner .form-label{
+            padding-left:11%
+        }*/
+        .fee-name:hover {
+            cursor: pointer;
+        }
+
+        .eachborder_style {
+            border-top: 1px solid rgba(230,233,245,1);
+            width: 100%;
+            margin: auto;
+            padding: 12px;
+            background: #fff;
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            line-height: 35px;
+            font-size: 14px;
+        }
+
+            .eachborder_style .btn.btn-remove {
+                position: absolute;
+                right: 10px;
+                top: 10px;
+            }
+
+        .loadpage > i {
+            color: rgb(107, 147, 216);
+            position: absolute;
+            top: 50%;
+        }
+
+        .loadpage {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+        }
+
+        .top-fixed {
+            position: fixed;
+            z-index: 2;
+        }
+
+        .form-main {
+            margin-top: 100px;
+            margin-bottom: 40px;
+            overflow: auto;
+            height: calc(100% - 180px);
+        }
+
+        .block_each_wrap {
+            padding: 0 15px;
+        }
+
+        a.btn-oper {
+            padding: 4px 12px;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+            top: 2px;
+            position: relative;
+            width: 30px;
+            display: inline-block;
+            height: 30px;
+            position: relative;
+            top: 0px;
+        }
+
+        .block_each_wrap.slide {
+            width: 50%;
+            display: inline-block;
+        }
+
+        body .block_each_wrap.slides {
+            width: 50%;
+            display: inline-block;
+        }
+
+        .fee-setting select {
+            border-radius: 2px !important;
+        }
+
+        .arrow-down {
+            width: 0;
+            height: 0;
+            border-right: 8px solid transparent;
+            border-left: 8px solid transparent;
+            border-top: 8px solid #444141;
+            float: right;
+            margin-top: 15px;
+            margin-right: 10px;
+        }
+
+        .arrow-up {
+            width: 0;
+            height: 0;
+            border-right: 8px solid transparent;
+            border-left: 8px solid transparent;
+            border-bottom: 8px solid #444141;
+            float: right;
+            margin-top: 15px;
+            margin-right: 10px;
+        }
+
+        .eachborder_style .btn-remove {
+            display: none;
+        }
+
+        .eachborder_style:hover .btn-remove {
+            display: inline-block;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .ver_middle {
+            vertical-align: middle;
+        }
+
+        #prev-day, #next-day {
+            font-size: 28px;
+            line-height: 18px;
+        }
+
+            #prev-day:hover, #next-day:hover {
+                text-decoration: none;
+                opacity: 0.8;
+            }
+
+        .cipianlayer {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .col-color {
+        }
+
+        .col-font {
+            display: inline-block;
+        }
+
+        .title_font {
+            color: #808080;
+        }
+
+        .icon.icon-calendar {
+            margin-right: 10px;
+            color: #5767A6;
+            cursor: pointer;
+        }
+
+        .ant-drawer > * {
+            -webkit-transition: -webkit-transform .3s cubic-bezier(.9, 0, .3, .7),-webkit-box-shadow .3s cubic-bezier(.9, 0, .3, .7);
+            transition: -webkit-transform .3s cubic-bezier(.9, 0, .3, .7),-webkit-box-shadow .3s cubic-bezier(.9, 0, .3, .7);
+            transition: transform .3s cubic-bezier(.9, 0, .3, .7),box-shadow .3s cubic-bezier(.9, 0, .3, .7);
+            transition: transform .3s cubic-bezier(.9, 0, .3, .7),box-shadow .3s cubic-bezier(.9, 0, .3, .7),-webkit-transform .3s cubic-bezier(.9, 0, .3, .7),-webkit-box-shadow .3s cubic-bezier(.9, 0, .3, .7);
+        }
+
+        .ant-drawer-mask.open {
+            height: 100%;
+            opacity: .3;
+            -webkit-transition: none;
+            transition: none;
+            -webkit-animation: antdDrawerFadeIn .3s cubic-bezier(.7, .3, .1, 1);
+            animation: antdDrawerFadeIn .3s cubic-bezier(.7, .3, .1, 1);
+        }
+
+        .ant-drawer-bottom {
+            width: 100%;
+        }
+
+            .ant-drawer-bottom.ant-drawer-open {
+                height: 100%;
+            }
+
+        .ant-drawer-open {
+            -webkit-transition: -webkit-transform .3s cubic-bezier(.7, .3, .1, 1);
+            transition: -webkit-transform .3s cubic-bezier(.7, .3, .1, 1);
+            transition: transform .3s cubic-bezier(.7, .3, .1, 1);
+            transition: transform .3s cubic-bezier(.7, .3, .1, 1), -webkit-transform .3s cubic-bezier(.7, .3, .1, 1);
+        }
+
+        .ant-drawer {
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            width: 0%;
+            height: 100%;
+        }
+
+        .ant-drawer-mask {
+            position: fixed;
+            width: 100%;
+            height: 0;
+            background-color: rgba(0,0,0,0.65);
+            opacity: 0;
+            filter: alpha(opacity=50);
+            -webkit-transition: opacity .3s linear,height 0s ease .3s;
+            transition: opacity .3s linear,height 0s ease .3s;
+        }
+
+        .ant-drawer-content-wrapper {
+            bottom: 0;
+            width: 100%;
+            height: 0;
+            position: fixed;
+            background: #fff;
+            overflow: hidden;
+            padding-bottom: 35px;
+        }
+
+        #matrixRate .ant-drawer .ant-drawer-content-wrapper {
+            bottom: 0;
+            width: 100%;
+            height: 0;
+            position: fixed;
+            background: #fff;
+            overflow: hidden;
+            padding-bottom: 35px;
+            transform: translateY(100%);
+        }
+
+        .ant-drawer-content-wrapper.open {
+            transform: translateY(0%) !important;
+            height: 100% !important;
+        }
+
+        .field-details {
+            display: inline-block;
+            cursor: pointer;
+            margin: 3px 0px 0px 8px;
+        }
+
+        .titlestyle {
+            height: 40px;
+            line-height: 40px;
+            border-bottom: 1px solid #ddd;
+        }
+
+            .titlestyle span {
+                font-size: 16px;
+                padding-left: 20px;
+            }
+
+        .eidtbox {
+            display: none;
+        }
+
+        .icon.icon-calendar.noColor {
+            color: #ccc;
+            cursor: no-drop !important;
+        }
+
+        .checkeach {
+            top: 4px;
+            position: relative;
+            left: 20px;
+            cursor: pointer;
+        }
+
+        .Thegofun {
+            height: 40px;
+            line-height: 40px;
+            width: calc(100% - 30px);
+            background: rgba(243,245,250,1);
+            position: relative;
+            top: 85px;
+            margin-left: 15px;
+            padding: 0 10px;
+            border: 1px solid #ddd;
+        }
+
+        #flexbtn {
+            float: right;
+            margin-right: 5px;
+            color: #45569C;
+            cursor: pointer;
+        }
+
+        #checkall {
+            top: 4px;
+            position: relative;
+            left: 10px;
+            cursor: pointer;
+        }
+
+        .fontStyleS {
+            margin-left: 20px;
+            display: inline-block;
+            font-size: 14px;
+            color: #808080;
+        }
+
+        #dialog_content {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        #dialog_contentEX {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .tabchange, .tabchangeEX {
+            height: 50px;
+        }
+
+            .tabchange ul, .tabchangeEX ul {
+                border-bottom: 1px solid #DCE0EE;
+                width: 100%;
+                height: 100%;
+                line-height: 50px;
+            }
+
+        .liC {
+            float: left;
+            font-size: 14px;
+            height: 49px;
+            cursor: pointer;
+        }
+
+        .activeli.liC {
+            border-bottom: 2px solid #45569C;
+            color: #45569C;
+        }
+
+        .ipre {
+            height: 50px;
+            line-height: 50px;
+        }
+
+            .ipre span {
+                font-size: 12px;
+                color: #CCCCCC;
+                margin-left: 15px;
+                margin-right: 25px;
+            }
+
+        .choiceH {
+            width: 160px;
+            height: 30px;
+            background: rgba(255,255,255,1);
+            border: 1px solid #dce0ee;
+            border-radius: 2px;
+            padding-left: 10px;
+            margin-right: 12px;
+        }
+
+        .ipre input {
+            width: 160px;
+            height: 30px;
+            background: rgba(255,255,255,1);
+            border: 1px solid #dce0ee;
+            border-radius: 2px;
+            padding-left: 10px;
+        }
+
+        .ulstyle {
+            width: 100%;
+        }
+
+            .ulstyle li {
+                width: 33.3%;
+                float: left;
+                padding: 0 15px;
+                height: 30px;
+                line-height: 30px;
+            }
+
+        .eachlis input {
+            margin: 0px;
+        }
+
+        .eachlis span {
+            display: inline-block;
+        }
+
+        .Conperiod {
+            height: calc(100% - 100px);
+            overflow: auto;
+            padding-bottom: 20px;
+        }
+
+        .periodSa {
+            height: calc(100% - 70px);
+            overflow: auto;
+            overflow-x: hidden;
+            width: calc(100% - 30px);
+            margin-left: 15px;
+            border: 1px solid #dce0ee;
+        }
+
+        .bottom-l {
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border-top: 1px solid #DCE0EE;
+        }
+
+        .periodSaDate {
+            display: inline-block;
+        }
+
+        .startPer {
+            width: 260px;
+            height: 30px;
+            background: rgba(255,255,255,1);
+            border: 1px solid #dce0ee;
+            border-radius: 2px;
+            margin-left: 15px;
+            margin-right: 7.5px;
+            padding-left: 10px;
+        }
+
+        .EndPer {
+            width: 260px;
+            height: 30px;
+            background: rgba(255,255,255,1);
+            border: 1px solid #dce0ee;
+            border-radius: 2px;
+            margin-left: 7.5px;
+            padding-left: 10px;
+        }
+
+        .startPerEX {
+            width: 260px;
+            height: 30px;
+            background: rgba(255,255,255,1);
+            border: 1px solid #dce0ee;
+            border-radius: 2px;
+            margin-left: 15px;
+            margin-right: 7.5px;
+            padding-left: 10px;
+        }
+
+        .EndPerEX {
+            width: 260px;
+            height: 30px;
+            background: rgba(255,255,255,1);
+            border: 1px solid #dce0ee;
+            border-radius: 2px;
+            margin-left: 7.5px;
+            padding-left: 10px;
+        }
+
+            .EndPerEX:focus, .startPerEX:focus, .EndPer:focus, .startPer:focus {
+                border-color: #45569c;
+                box-shadow: inset 0 0px 0px #45569c, 0 0 4px #45569c;
+            }
+
+        #AuditTimeline {
+            width: calc(100% - 30px);
+            background: #fff;
+            height: calc(100% - 110px);
+            overflow: auto;
+            border: 1px solid #dce0ee;
+            margin-bottom: 30px;
+            margin-top: 20px;
+            margin-left: 15px;
+            overflow-x: hidden;
+        }
+
+        .table > thead > tr > th {
+            border-bottom-width: 1px;
+            font-weight: normal;
+        }
+
+        .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+            text-align: left;
+            padding-left: 15px;
+            border-left: 0;
+            vertical-align: middle;
+        }
+
+        .table {
+            margin-bottom: 0px;
+        }
+
+        .grayEx span {
+            color: #ccc !important;
+        }
+
+        .nodrap {
+            color: #ccc;
+            cursor: no-drop !important;
+        }
+
+        .orEx span {
+            color: rgba(222,175,44,1) !important;
+        }
+
+        .greenEX span {
+            color: rgba(70,174,48,1) !important;
+        }
+
+        #thesky {
+            display: none;
+            padding-bottom: 35px;
+            display: block;
+            height: 400px;
+            position: absolute;
+            bottom: 0px;
+            z-index: 99999;
+            width: 100%;
+            background: rgb(255, 255, 255);
+        }
+
+        .edit-b {
+            cursor: pointer;
+        }
+
+        #bbbname {
+            color: #45569C;
+        }
+
+        #searchPer {
+            padding-left: 10px;
+            width: auto;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-left: 20px;
+            height: 26px;
+        }
+
+        .Sapplicable {
+            display: none;
+            height: calc(100% - 50px);
+        }
+
+        .SapplicableEX {
+            display: none;
+            height: calc(100% - 50px);
+        }
+
+        .ConsecutivePeriods {
+            height: calc(100% - 50px);
+        }
+
+        .ConsecutivePeriodsEX {
+            height: calc(100% - 50px);
+        }
+
+        .RunTheApplicable {
+            position: relative;
+            float: right;
+            right: 15px;
+            top: 10px;
+        }
+
+        .RunTheApplicableEX {
+            position: relative;
+            float: right;
+            right: 15px;
+            top: 10px;
+        }
+
+        .grayEx {
+            color: #ccc;
+        }
+
+        #loadfont {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            color: #fff;
+            font-size: 20px;
+            display: none;
+        }
+
+        .FormulaArea {
+            width: 100%;
+            border: 1px solid #DCE0EE;
+        }
+
+        .FStitle {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            border-bottom: 1px solid #DCE0EE;
+        }
+
+        .fino {
+            font-size: 16px;
+            color: #45569C;
+            margin-left: 15px;
+        }
+
+        .cr {
+            display: inline-block;
+            font-size: 12px;
+            height: 20px;
+            line-height: 20px;
+            background: #fdf9eb;
+            color: #a79e9e;
+            padding: 0 20px;
+            margin-left: 20px;
+            margin-top: 5px;
+        }
+
+        .changeArea {
+            padding: 10px;
+        }
+
+        .changeTab {
+            width: 32%;
+            background: rgba(243,245,250,1);
+            border: 1px solid rgba(220,224,238,1);
+            display: inline-block;
+        }
+
+        .showArea {
+            width: 68%;
+            display: inline-block;
+            border: 1px solid rgba(220,224,238,1);
+            border-left: 0;
+            box-sizing: border-box;
+            float: right;
+            height: 266px;
+        }
+
+        .headers {
+            height: 40px;
+            border-bottom: 1px solid rgba(220,224,238,1);
+            box-sizing: border-box;
+        }
+
+        .ht {
+            width: 100%;
+            line-height: 40px;
+            padding-left: 15px;
+        }
+
+        .ffs {
+            color: #808080;
+            font-size: 12px;
+            height: 40px;
+            line-height: 40px;
+            display: inline-block;
+            width: 100%;
+            padding-left: 30px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .changetabs {
+            width: 100%;
+            height: 40px;
+            line-height: 38px;
+            padding-left: 30px;
+        }
+
+            .changetabs li {
+                font-size: 14px;
+                margin-right: 40px;
+                float: left;
+                cursor: pointer;
+            }
+
+                .changetabs li.active {
+                    color: #45569C;
+                    margin-right: 40px;
+                    border-bottom: 2px solid #45569C;
+                }
+
+        .FeeBase {
+            height: 224px;
+            overflow: auto;
+            overflow-x: hidden;
+            float: left;
+            text-align: center;
+            padding-top: 10px;
+            padding-bottom: 5px;
+        }
+
+        .PeriodBase {
+            display: none;
+            text-align: center;
+            height: 224px;
+            overflow: auto;
+            overflow-x: hidden;
+            float: left;
+            text-align: center;
+            padding-top: 10px;
+            padding-bottom: 5px;
+        }
+
+        .elements {
+            width: calc(90% - 15px);
+            height: 30px;
+            background: rgba(255,255,255,1);
+            border: 1px solid rgba(220,224,238,1);
+            border-radius: 4px;
+            line-height: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #45569C;
+            margin: 5px;
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            cursor: pointer;
+        }
+
+        .showtitle {
+            width: 100%;
+            border-bottom: 1px solid rgba(220,224,238,1);
+            height: 80px;
+            background: rgba(243,245,250,1);
+            position: relative;
+        }
+
+        .titlemiddle {
+            width: 25%;
+            height: 100%;
+            border-right: 1px solid rgba(220,224,238,1);
+            display: flex;
+            flex-wrap: wrap;
+            position: absolute;
+            left: 40%;
+            top: 0;
+        }
+
+        .tilteLeft {
+            width: 40%;
+            height: 100%;
+            border-right: 1px solid rgba(220,224,238,1);
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+            .tilteLeft span {
+                font-size: 12px;
+                color: #808080;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                margin-top: -5px;
+            }
+
+        .titleRight {
+            width: 35%;
+            height: 100%;
+            display: flex;
+            float: right;
+            display: flex;
+            flex-wrap: wrap;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+            .titleRight span {
+                font-size: 12px;
+                color: #808080;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+        .numberv {
+            width: 120px;
+            height: 30px;
+            background: rgba(255,255,255,1);
+            border: 1px solid rgba(220,224,238,1);
+            border-radius: 4px;
+            display: inline-block;
+            padding-left: 10px;
+            margin-top: 10px;
+        }
+
+        .operators {
+            min-width: 0;
+            height: 30px;
+            background: rgba(255,255,255,1);
+            border: 1px solid rgba(220,224,238,1);
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+            line-height: 30px;
+            margin: 5px;
+            padding: 0 5px;
+            box-sizing: border-box;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .addNumberv {
+            margin-top: 10px;
+            margin-left: 5px;
+            border-radius: 4px;
+        }
+
+        .DisplayArea {
+            position: relative;
+            height: 130px;
+            width: 100%;
+            border-bottom: 1px solid rgba(220,224,238,1);
+        }
+
+        .resultArea {
+            overflow: auto;
+            height: 54px;
+        }
+
+        .dis, .res {
+            width: 100%;
+            padding: 15px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .xro {
+            margin-right: 10px;
+        }
+
+        .clearArea {
+            position: absolute;
+            right: 10px;
+            bottom: 0;
+            margin-bottom: 10px;
+            cursor: pointer;
+            color: #D40000;
+        }
+
+        .goback {
+            position: absolute;
+            right: 80px;
+            bottom: 0;
+            margin-bottom: 10px;
+            cursor: pointer;
+            color: #45569C;
+        }
+
+        .infonv {
+            min-width: 30px;
+            height: 30px;
+            background: rgba(255,255,255,1);
+            border: 1px solid rgba(220,224,238,1);
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+            line-height: 30px;
+            margin: 5px;
+            padding: 0 5px;
+        }
+
+        #feeSelect {
+            min-width: 120px;
+        }
+
+        .form-title {
+            display: flex;
+            align-items: center;
+            height: 40px;
+            line-height: 40px;
+            width: 100%;
+            background: rgba(243,245,250,1);
+            padding: 0 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+            .form-title input {
+                margin: 0;
+            }
+
+        .form-rows {
+            display: flex;
+            align-items: center;
+            height: 40px;
+            line-height: 40px;
+            width: 100%;
+            padding: 0 10px;
+            border-top: 1px solid #ddd;
+        }
+
+            .form-rows:hover {
+                background: rgb(230, 233, 245);
+            }
+
+            .form-rows input {
+                margin: 0;
+            }
+
+        .tableContainer-matrixRate {
+            margin: 0px 20px;
+            width: calc(100% - 40px);
+            overflow: auto;
+            padding-bottom: 20px;
+        }
+
+        .form-rows i.fa-chevron-right {
+            transition: transform 0.3s;
+        }
+
+            .form-rows i.fa-chevron-right.active {
+                transform: rotate(90deg);
+            }
+
+        .table-matrixRate th {
+            border: 1px solid #DCE0EE;
+            background: #F3F5FA;
+            text-align: center;
+            padding: 14px 20px;
+            color: #808080;
+            white-space: nowrap;
+        }
+
+        .table-matrixRate tr th {
+            border: 1px solid #DCE0EE;
+            background: #F3F5FA;
+            text-align: center;
+            padding: 14px 20px;
+            color: #808080;
+            white-space: nowrap;
+        }
+
+        .table-matrixRate tr td {
+            border: 1px solid #DCE0EE;
+            text-align: center;
+            padding: 14px 20px;
+            white-space: nowrap;
+        }
+
+        .form-MatrixRate {
+            height: calc(100% - 127px);
+            overflow: auto;
+            border-bottom: 1px solid #ddd;
+            margin: 0px 20px;
+        }
+
+        .divLine {
+            width: 100%;
+            height: 1px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .specialThead {
+            text-align: left !important;
+            padding: 5px 8px !important;
+            background-size: 100% 100% !important;
+            background-image: url('data:image/png;base64,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') !important;
+        }
+
+        .specialThead-div-top {
+            position: relative;
+            top: 0;
+            right: -50%;
+            width: 250px;
+        }
+
+        .specialThead-div-left {
+            position: relative;
+            bottom: 0;
+            left: 0;
+            width: 250px;
+        }
+    </style>
+</head>
+<body id="rootNode">
+    <div id="mask" class="mask"></div>
+    <div id="loading" class="loadpage text-center"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+    <!--<div class="fee-header">
+        <div class="fee-container">
+             费用信息
+        </div>
+    </div>-->
+
+    <div class="fee-setting form-middle col-12 top-fixed">
+        <div class="fee-container">
+            <span class="form-inline fl" style="display:flex" id="single-form">
+                <label style="margin-bottom:0px;width:160px;">选择费用：</label>
+                <select class="form-control gold-single-input" id="feeSelect" data-bind="foreach:viewModel.Hide" style="font-size:14px;">
+                    <option data-bind="html:DisplayName,attr:{dataIndex: $index}"></option>
+                </select>
+                <a id="addShowColumn" type="button" class="btn btn-primary" style="position: relative;top: 0;left:6px">添加</a>
+            </span>
+            <span class="form-inline fr" style="margin-left:auto;display:flex">
+                <span class="cr" style="margin-right:10px">配置偿付顺序前请先配置费用时间轴</span>
+                <button type="button" class="btn btn-single-default" id="MatrixRateButton" style="font-size:13px;margin-right:6px"><i class="fa fa-upload" style="margin-right:5.4px;"></i>矩阵型费率</button>
+                <button type="button" class="btn btn-danger btn-single-default" id="CoveragePeriod" style="font-size:13px;margin-right:6px"><i class="icon icon-attach-outline"></i>关联至相应期数</button>
+                <button type="button" class="btn btn-danger btn-single-default" id="UpdentaPeriod" style="font-size:13px;margin-right:6px"><i class="icon icon-ccw"></i>更新费用时间轴</button>
+                <button type="button" class="btn btn-primary" id="btnSearch" onclick="SaveFee()" style="font-size:13px">保存</button>
+            </span>
+        </div>
+    </div>
+    <!--全选和折叠功能安放处-->
+    <div class="Thegofun">
+        <input type="checkbox" id="checkall" /><span class="fontStyleS">全选</span>
+        <i class="icon icon-list-1" id="flexbtn" title="折叠或展开"></i>
+    </div>
+    <div class="form-main col-12">
+        <div class="fee-table">
+            <div data-bind="foreach: viewModel.Json">
+                <div class="block_each_wrap col-12 slide">
+                    <div class="block_each " data-bind="attr:{feeGroupIndex: $index}">
+                        <div class="fee-name">
+                            <input type="checkbox" data-bind="attr:{dataIndex: $index}" class="checkeach" />
+                            <strong data-bind="text: DisplayName"></strong>
+                            <div style="display:inline-block;position: absolute;margin-top: 5px;right:0px">
+                                <i title="时间轴" class="icon icon-calendar" data-bind="attr:{dataIndex: $index},css:{'noColor':status()=='0'}"></i>
+                                <i class="icon icon-edit edit-a" title="编辑" data-bind="attr:{dataIndex: $index},value:FeeTypeDisplayName"></i>
+                                <button id="removeShowColumn" title="删除" data-bind="attr:{dataIndex: $index}" class="btn btn-remove">
+                                    <i class="icon icon-remove"></i>
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <div class="eachborder_style">
+
+                            <div class="cipianlayer">
+                                <div style="width:100%;display:flex">
+                                    <span class="title_font">费用描述:</span>
+                                    <div class="col-font" data-bind="text:MethodDisplayName,attr:{title:MethodDisplayName}" style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer"></div>
+                                </div>
+                                <!-- ko foreach: Parameters -->
+                                <!--ko if:DataType()!='assembly'-->
+                                <div style="width:33.3%;">
+                                    <span class="title_font" data-bind="ReturnCaName:DisplayName" style="margin-right:auto">
+                                    </span>
+                                    <div class="col-font text-fun" data-bind="returnName:ItemValue"></div>
+                                </div>
+                                <!-- /ko -->
+                                <!-- /ko -->
+                            </div>
+                        </div>
+                        <div>
+                            <!-- ko if:isDebug()==true -->
+                            <p data-bind="text:ActionCode"></p>
+                            <!-- /ko -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--矩阵型费率抽屉-->
+    <div id="matrixRate">
+        <div class="ant-drawer-bottom ant-drawer">
+            <div class="ant-drawer-mask" v-bind:class="{ open:isMatrixRateDrawerOpen }"></div>
+            <div class="ant-drawer-content-wrapper" v-bind:class="{ open:isMatrixRateDrawerOpen }">
+                <div class="titlestyle">
+                    <span>矩阵型费率</span><i class="icon icon-close" style="cursor:pointer;float:right;padding-right: 10px;" id="closebox"></i>
+                </div>
+                <div style="display:flex;height:52px;">
+                    <span class="form-inline fl" style="display: flex; font-size: 16px; margin-left: 19px; line-height: 52px;">请上传矩阵型费率</span>
+                    <div class="form-inline fr" style="margin-left: auto; display: flex; margin-right: 20px; align-items: center;">
+                        <button type="button" class="btn btn-single-default" @click="downloadMatrixTemplate" style="font-size: 13px;margin-right: 6px">
+                            <i class="fa fa-download" style="margin-right: 5.4px;"></i>下载模板
+                        </button>
+                        <button type="button" class="btn btn-single-default" style="font-size: 13px;margin-right: 6px; padding: 0;">
+                            <label for="input-uploadRate" style="font-weight: 400; cursor: pointer; padding: 5px 12px;">
+                                <input id="input-uploadRate" type="file" @change="uploadRate">
+                                <i class="fa fa-upload" style="margin-right: 5.4px;"></i>上传费率
+                            </label>
+                        </button>
+                        <button type="button" @click="deleteSelected" class="btn btn-danger btn-single-default" id="DeleteMatrix" style="font-size: 13px;">
+                            <i class="fa fa-trash" style="margin-right: 5.4px;"></i>删除
+                        </button>
+                    </div>
+                </div>
+                <div class="form-MatrixRate">
+                    <div class="form-title">
+                        <i class="fa fa-chevron-right" style="margin: 0px 23px; opacity: 0;"></i>
+                        <input type="checkbox" v-bind:checked="checkAll" @click.stop="selectAll" /><span class="fontStyleS">矩阵名称</span>
+                        <span class="fontStyleS" style="float: right; margin-left: auto; margin-right: 15px;">操作</span>
+                    </div>
+                    <div v-for="(item, index) in matrixRate">
+                        <div class="form-rows" @click.stop="setActiveMatrixIndex(index)">
+                            <i class="fa fa-chevron-right" v-bind:class="{ active: activeMatrixIndex === index }" style="margin: 0px 23px; color: #45569C; cursor: pointer; font-size: 14px;"></i>
+                            <input type="checkbox" v-bind:checked="checkboxAttr[index]" @click.stop="selectRow(item[0].MatrixId, index)" />
+                            <span class="fontStyleS" v-if="isEditing[index] === false">{{ item[0].Displayname }}</span>
+                            <div v-else>
+                                <input type="text" @click.stop style="width: 150px; margin-left: 20px; margin-right: 6px;" v-model="editingName[index]">
+                                <button type="button" class="btn btn-single-default" @click.stop="saveEdit(item[0].MatrixId, index)" style="font-size: 13px;margin-right: 6px">
+                                    保存
+                                </button>
+                                <button type="button" class="btn btn-danger btn-single-default" @click.stop="cancelEdit(index)" style="font-size: 13px;margin-right: 6px">
+                                    取消
+                                </button>
+                            </div>
+                            <div class="form-inline fr" style="margin-left: auto; display: flex; margin-right: 13px; align-items: center;">
+                                <i class="fa fa-edit" @click.stop="editMatrixName(index)" style="margin-right: 5.4px; cursor: pointer; font-size: 14px; color: #45569C;"></i>
+                                <i class="fa fa-trash" @click.stop="deleteRow(item[0].MatrixId)" style="margin-right: 5.4px; cursor: pointer; font-size: 14px; color: #D00000;"></i>
+                            </div>
+                        </div>
+                        <div class="divLine" v-if="index === matrixRate.length - 1"></div>
+                        <div class="tableContainer-matrixRate" v-show="activeMatrixIndex === index">
+                            <table class="table-matrixRate">
+                                <th class="specialThead">
+                                    <div class="specialThead-div-top">{{ item[0].HorizontalDisplayName }}</div>
+                                    <div class="specialThead-div-left">{{ item[0].VerticalDisplayName }}</div>
+                                </th>
+                                <th v-for="(elementOfTopArea, col) in tableData[index].topArea">
+                                    <span>
+                                        {{ elementOfTopArea.left < -1 ? '' : elementOfTopArea.left + "%" + elementOfTopArea.leftStatus }}
+                                        {{ elementOfTopArea.left < -1 || elementOfTopArea.right > 100  ? '' : '~' }}
+                                        {{ elementOfTopArea.right > 100 ? '以上' : elementOfTopArea.right + "%" + elementOfTopArea.rightStatus }}
+                                        {{ elementOfTopArea.left < -1 ? '以下' : '' }}
+                                    </span>
+                                </th>
+                                <tr v-for="(childRateData, indexOfRateData) in rateData[index]">
+                                    <th>
+                                        <span>
+                                            {{ childRateData.left < -1 ? '' : childRateData.left + "%" + childRateData.leftStatus }}
+                                            {{ childRateData.left < -1 || childRateData.right > 100  ? '' : '~' }}
+                                            {{ childRateData.right > 100 ? '以上' : childRateData.right + "%" + childRateData.rightStatus }}
+                                            {{ childRateData.left < -1 ? '以下' : '' }}
+                                        </span>
+                                    </th>
+                                    <td v-for="(rate, indexOfChildRateData) in childRateData.rates">
+                                        <span>
+                                            {{ rate }}%
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--新增和编辑的抽屉-->
+    <div id="aaa">
+        <div class="ant-drawer-bottom ant-drawer">
+            <div class="ant-drawer-mask"></div>
+            <div class="ant-drawer-content-wrapper">
+                <div class="titlestyle">
+                    <span>动态标题</span><i class="icon icon-close" style="cursor:pointer;float:right;padding-right: 10px;" id="closebox"></i>
+                </div>
+                <div data-bind="foreach: viewModel.Json" style="padding-bottom:15px">
+
+                    <!--ko if:FeeType()!='Formular'--><!--正常渲染-->
+                    <div class="eidtbox" style="padding:15px">
+                        <div style="display:flex;width:100%;padding-right:75px;margin-bottom:10px;">
+                            <span class="info_style form-label" style="width: 13.86%;">费用名称:</span>
+                            <input class="form-control" data-bind="value:DisplayName" style="width: calc(52.14% + 25px);" />
+                        </div>
+                        <div style="display:flex;flex-wrap:wrap;">
+                            <!-- ko foreach: Parameters -->
+                            <div class="fee-input-group">
+                                <div class="fee-inner form-middle">
+                                    <div class="form-label"><label data-bind="text: DisplayName"></label></div>
+                                    <div data-bind="renderControl:ItemValue" class="form-container"></div>
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                        <div style="width:100%;text-align:center;position:absolute;bottom:45px">
+                            <button class="btn btn-primary" id="UpDate">更新</button>
+                        </div>
+                    </div>
+                    <!--/ko-->
+                    <!--ko if:FeeType()=='Formular'--><!--特殊渲染-->
+                    <div class="eidtbox" style="padding:15px">
+                        <div style="display:flex;width:100%;padding-right:75px;margin-bottom:10px;">
+                            <span class="info_style form-label" style="width: 13.86%;">费用名称:</span>
+                            <input class="form-control" data-bind="value:DisplayName" style="width: calc(52.14% + 25px);" />
+                        </div>
+                        <div style="display:flex;flex-wrap:wrap;">
+                            <!-- ko foreach: Parameters -->
+                            <!--ko if:DataType()!='assembly'-->
+                            <div class="fee-input-group">
+                                <div class="fee-inner form-middle">
+                                    <div class="form-label"><label data-bind="text: DisplayName"></label></div>
+                                    <div data-bind="renderControl:ItemValue" class="form-container"></div>
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                            <!-- /ko -->
+                        </div>
+                        <!--公式区域-->
+                        <div class="FormulaArea">
+                            <div class="FStitle"><span class="fino">计算公式</span><span class="cr">提示：点击下面条件至组合区域进行组合。注意公式格式: 例：计费基准*税率/（1+税率）+税费*（城建税率+教育税率+地方教育税率）</span></div>
+                            <div class="changeArea">
+                                <div class="changeTab">
+                                    <div class="headers">
+                                        <ul class="changetabs">
+                                            <li class="active" value="1">计费基准</li>
+                                            <li value="2">计息期间</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="FeeBase">
+                                        <!-- ko foreach: FeeBase -->
+                                        <div class="elements" data-bind="attr:{dataIndex: $index,title:Title,values:Value}"><span data-bind="text:Title"></span></div>
+                                        <!-- /ko -->
+                                    </div>
+                                    <div class="PeriodBase">
+                                        <!-- ko foreach: PeriodBase -->
+                                        <div class="elements" data-bind="attr:{dataIndex: $index,title:Title,values:Value}"><span data-bind="text:Title"></span></div>
+                                        <!-- /ko -->
+                                    </div>
+                                </div>
+                                <div class="showArea">
+                                    <div class="showtitle">
+                                        <div class="tilteLeft">
+                                            <div class="headers ht">
+                                                <span style="color:#45569C;font-size:14px">数字选择</span>
+                                            </div>
+                                            <div style="width:100%;display:flex;padding-left:10px">
+                                                <div class="operators Numbers">
+                                                    <span>1</span>
+                                                </div>
+                                                <div class="operators Numbers">
+                                                    <span>2</span>
+                                                </div>
+                                                <div class="operators Numbers">
+                                                    <span>3</span>
+                                                </div>
+                                                <div class="operators Numbers">
+                                                    <span>4</span>
+                                                </div>
+                                                <div class="operators Numbers">
+                                                    <span>5</span>
+                                                </div>
+                                                <div class="operators Numbers">
+                                                    <span>6</span>
+                                                </div>
+                                                <div class="operators Numbers">
+                                                    <span>7</span>
+                                                </div>
+                                                <div class="operators Numbers">
+                                                    <span>8</span>
+                                                </div>
+                                                <div class="operators Numbers">
+                                                    <span>9</span>
+                                                </div>
+                                                <div class="operators Numbers">
+                                                    <span>0</span>
+                                                </div>
+                                                <div class="operators Numbers">
+                                                    <span>.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="titlemiddle">
+                                            <div class="headers ht">
+                                                <span style="color:#45569C;font-size:14px">特殊符号</span>
+                                            </div>
+                                            <div style="width:100%;display:flex;padding-left:10px">
+                                                <div class="operators Special">
+                                                    <span>+</span>
+                                                </div>
+                                                <div class="operators Special">
+                                                    <span>-</span>
+                                                </div>
+                                                <div class="operators Special">
+                                                    <span>*</span>
+                                                </div>
+                                                <div class="operators Special">
+                                                    <span>/</span>
+                                                </div>
+                                                <div class="operators Special">
+                                                    <span>(</span>
+                                                </div>
+                                                <div class="operators Special">
+                                                    <span>)</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="titleRight">
+                                            <!--<input type="text"  placeholder="请输入数值" class="numberv"/>
+                                            <div class="btn btn-primary addNumberv">添加</div>-->
+                                            <div class="headers ht">
+                                                <span style="color:#45569C;font-size:14px">操作符</span>
+                                            </div>
+                                            <div style="width:100%;display:flex;padding-left:10px">
+                                                <div class="operators strings" style="width:100px">
+                                                    <span>Round</span>
+                                                </div>
+                                                <div class="operators strings" style="width:100px">
+                                                    <span>RoundUp</span>
+                                                </div>
+                                                <div class="operators strings" style="width:100px">
+                                                    <span>RoundDown</span>
+                                                </div>
+                                                <div class="operators strings">
+                                                    <span>,</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--渲染添加区域-->
+                                    <div class="DisplayArea">
+                                        <!-- ko foreach: Parameters -->
+                                        <!--ko if:DataType()=='assembly'-->
+                                        <div data-bind="renderDom:ItemValue" class="dis" style="height:90px;overflow:auto;padding-bottom:0"></div>
+                                        <!-- /ko -->
+                                        <!-- /ko -->
+                                        <div class="btn btn-danger  goback">回退</div>
+                                        <div class="btn btn-danger  clearArea">清除</div>
+                                    </div>
+                                    <!---->
+                                    <div class="resultArea">
+                                        <!-- ko foreach: Parameters -->
+                                        <!--ko if:DataType()=='assembly'-->
+                                        <div data-bind="renderStr:ItemValue" class="res" style="padding:0px;padding-left:15px;padding-top:5px;"></div>
+                                        <!-- /ko -->
+                                        <!-- /ko -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="width:100%;text-align:center;margin-top:10px">
+                            <button class="btn btn-primary" id="UpDate">更新</button>
+                        </div>
+                    </div>
+                    <!--/ko-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--新增和编辑的抽屉-->
+    <!--关联至相应期数界面-->
+    <div id="dialog_content">
+        <div class="tabchange">
+            <ul>
+                <li class="activeli liC" style="margin-left:15px;margin-right:30px;" value="1">关联至连续期数</li>
+                <li class="liC" value="2">关联至指定期数</li>
+            </ul>
+        </div>
+        <div class="Sapplicable">
+            <!--指定期数-->
+            <div class="ipre">
+                <span>请选择指定关联关系中的期数进行关联</span>
+                <!--<select class="choiceH">
+                    <option value="3">发生且兑付</option><option value="2">发生且不兑付</option><option value="1">不发生且兑付</option><option value="0">不发生且不兑付</option>
+
+                </select>-->
+                <button class="btn btn-danger RunTheApplicable btn-single-default">确认关联</button>
+                <input type="text" placeholder="查找期数,输入期数查找" class="searchon" style="float:right;position:relative;top:10px;right:30px;border:1px solid #dce0ee;" />
+            </div>
+            <div class="periodSa">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th width="50"></th>
+                            <th width="80">期数</th>
+                            <th width="120">日期</th>
+                            <th>状态</th>
+                        </tr>
+                    </thead>
+
+                </table>
+            </div>
+        </div>
+        <div class="ConsecutivePeriods">
+            <!--连续期数-->
+            <div class="ipre">
+                <span>请选择连续期数进行关联</span>
+                <span style="width:380px;background:rgba(212,0,0,0.04);display:inline-block;height:20px;line-height:20px;text-align:center;color:#808080">关联关系由发生频率和兑付频率自动计算</span>
+            </div>
+            <div class="Conperiod" style="padding-top:10px;">
+                <select class="startPer"></select>
+                <span>至</span>
+                <select class="EndPer"></select>
+            </div>
+            <div class="bottom-l">
+                <button class="btn btn-danger RunTheConsecutivePeriods btn-single-default">确认关联</button>
+            </div>
+        </div>
+    </div>
+    <!--关联至相应期数界面-->
+    <!--更新至相应期数界面-->
+    <div id="dialog_contentEX">
+        <div class="tabchangeEX">
+            <ul>
+                <li class="activeli liC" style="margin-left:15px;margin-right:30px;" value="1">更新至连续期数</li>
+                <li class="liC" value="2">更新至指定期数</li>
+            </ul>
+        </div>
+        <div class="SapplicableEX">
+            <!--指定期数-->
+            <div class="ipre">
+                <span>请选择指定关联关系中的期数进行关联</span>
+                <!--<select class="choiceH">
+                    <option value="3">发生且兑付</option><option value="2">发生且不兑付</option><option value="1">不发生且兑付</option><option value="0">不发生且不兑付</option>
+
+                </select>-->
+                <button class="btn btn-danger RunTheApplicableEX btn-single-default">确认更新</button>
+                <input type="text" placeholder="查找期数,输入期数查找" class="searchon" style="float:right;position:relative;top:10px;right:30px" />
+            </div>
+            <div class="periodSa">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th width="50"></th>
+                            <th width="80">期数</th>
+                            <th width="120">日期</th>
+                            <th>状态</th>
+                        </tr>
+                    </thead>
+
+                </table>
+            </div>
+        </div>
+        <div class="ConsecutivePeriodsEX">
+            <!--连续期数-->
+            <div class="ipre">
+                <span>请选择连续期数进行关联</span>
+                <span style="width:380px;background:rgba(212,0,0,0.04);display:inline-block;height:20px;line-height:20px;text-align:center;color:#808080">关联关系由发生频率和兑付频率自动计算</span>
+            </div>
+            <div class="Conperiod" style="padding-top:10px;">
+                <select class="startPerEX"></select>
+                <span>至</span>
+                <select class="EndPerEX"></select>
+            </div>
+            <div class="bottom-l">
+                <button class="btn btn-danger RunTheConsecutivePeriodsEX">确认更新</button>
+            </div>
+        </div>
+    </div>
+    <!--关联至相应期数界面-->
+    <!--审计费时间轴-->
+    <div id="bbb">
+        <div class="ant-drawer-bottom ant-drawer">
+
+            <div class="ant-drawer-content-wrapper">
+                <div class="titlestyle">
+                    <span id="bbbname">审计费所有期数</span><i class="icon icon-close" style="cursor:pointer;float:right;padding-right: 10px;" id="closeboxEX"></i>
+                </div>
+                <div class="ant-drawer-mask" style="z-index:9999;"><span id="loadfont">信息加载中请稍后.....</span></div>
+                <div id="AuditTimeline">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>期数 <!--<input type="text" id="searchPer" style="width:auto" placeholder="请输入期数,进行检索" @change="searchPer($event)"/>--></th>
+                                <th>时间</th>
+                                <th>状态</th>
+                                <th>公式</th>
+                                <th>编辑</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="items in AuditTable" class="eachsearch">
+                                <td>{{items.period}}</td>
+                                <td>{{items.EndDate}}</td>
+                                <td v-bind:class="items.Relationship==='不发生且不兑付'?'grayEx':(items.Relationship==='发生且不兑付'?'orEx':'greenEX')"><span>{{items.Relationship}}</span></td>
+                                <td v-bind:class="items.IsStandard=='1'?'grayEx':''">{{items.Formula}}</td>
+                                <td><i class="icon icon-edit edit-b" title="编辑" v-bind:class="items.Relationship=='不发生且不兑付'?'nodrap':''"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--加载费用信息模板-->
+                <div style="padding-bottom:35px" id="thesky">
+                    <div class="titlestyle" style="border-top:1px solid #ddd">
+                        <span style="color:#45569C">编辑费用</span><i class="icon icon-close" style="cursor:pointer;float:right;padding-right: 10px;" id="closeboxon"></i>
+                    </div>
+                    <div style="padding:15px;">
+                        <div style="display:flex;flex-wrap:wrap;" data-bind="foreach: viewModel.Group">
+                            <!-- ko if:ItemCode().indexOf("Fee_IsEffective")>0||ItemCode().indexOf("Fee_ToBePaid")>0-->
+                            <div class="fee-input-group">
+                                <div class="fee-inner form-middle">
+                                    <div class="form-label"><label data-bind="text: DisplayName"></label></div>
+                                    <div data-bind="renderControl:ItemValue" class="form-container"></div>
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                        <div style="width:100%;text-align:center;position:absolute;bottom:50px">
+                            <button class="btn btn-primary" id="UpDateInner">更新</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--审计费时间轴-->
+</body>
+</html>

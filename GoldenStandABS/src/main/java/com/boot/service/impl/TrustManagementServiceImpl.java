@@ -1,0 +1,32 @@
+package com.boot.service.impl;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.boot.dao.TrustManagementMapper;
+import com.boot.entity.Trust;
+import com.boot.entity.TrustInfo;
+import com.boot.service.TrustManagementService;
+
+@Service
+public class TrustManagementServiceImpl implements TrustManagementService{
+	@Autowired  
+	private TrustManagementMapper trustManagementMapper;
+	//Map<String, Object> GetTrustInfoFromWizard(String TrustId){
+	public List<TrustInfo>   GetTrustInfoFromWizard(String TrustId){
+		return trustManagementMapper.GetTrustInfoFromWizard(TrustId);
+	}
+	
+	
+	public List<Map<String,Object>>  GetTrustInfoFromWizardMap(String TrustId){
+		return trustManagementMapper.GetTrustInfoFromWizardMap(TrustId);
+	}
+	
+	
+	public List<Trust>  GetTrust(){
+		return trustManagementMapper.GetTrust();
+	}
+}

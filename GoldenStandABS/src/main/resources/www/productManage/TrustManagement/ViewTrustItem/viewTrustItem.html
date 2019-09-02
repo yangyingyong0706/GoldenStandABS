@@ -1,0 +1,335 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>Trust Config</title>
+
+    <link href="../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/bootstrap/ischecked/_all.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/toast/toast.css" rel="stylesheet" />
+
+    <style>
+        html {
+            height: 100%;
+        }
+
+        .btn-sm {
+            padding: 3px 5px !important;
+        }
+
+        .col-6 {
+            width: 48%;
+        }
+
+        .layer_style {
+            overflow-y: auto;
+            width: 100%;
+            height: 100%;
+        }
+
+        .form-body {
+            padding-left: 0px;
+        }
+        .form-control:focus{
+            border-color: #45569c;
+            box-shadow: inset 0 0px 0px #45569c, 0 0 4px #45569c;
+        }
+        .loadpage {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background: #FFFFFF;
+            z-index: 9999;
+        }
+
+            .loadpage > i {
+                color: rgb(107, 147, 216);
+            }
+        /*.main {
+            padding:20px 0;
+        }*/
+        .main {
+            padding: 0 15px;
+        }
+
+        #step-title {
+            font-size: 16px !important;
+            color: rgba(69,86,156,1);
+            font-weight: normal;
+            margin: 0 -15px 0 -15px;
+            height: 40px;
+            line-height: 40px;
+            border-bottom: 1px solid #dedede;
+            padding: 0 15px;
+        }
+        .form {
+            padding: 15px 0;
+        }
+        .form-button {
+            padding-top: 15px;
+            text-align: center;
+        }
+
+        .mask {
+            position: absolute;
+            top: 0px;
+            filter: alpha(opacity=60);
+            background-color: #777;
+            z-index: 1002;
+            left: 0px;
+            opacity: 0.1;
+            -moz-opacity: 0.1;
+        }
+
+        .label_style {
+            line-height: 30px;
+            color: #555;
+            padding: 0 3px;
+            height: 30px;
+            overflow: hidden;
+            display: block;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: 14px;
+            background: #f1f1f1;
+            border: 1px solid #efecec;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        @media (min-width: 768px) {
+            .col-8 {
+                width: 75%;
+            }
+        }
+        .red-border {
+            border: 1px solid #dd0000!important;
+        }
+        .step-box {
+            position: relative;
+        }
+        #flexbtn {
+            position: absolute;
+            top: 4px;
+            right: 0px;
+        }
+        .icon-add{
+            color:#45569c;
+        }
+        .btn[disabled]{
+            opacity:1;
+        }
+        .input-group-addon:first-child{
+            border: 1px solid #dce0ee;
+        }
+        .input-group input, .input-group select{
+            border-left:0 none;
+        }
+    </style>
+
+</head>
+<body class="layer_style" style="display:none">
+    <div id="selectLanguageDropdown_vti" class="localizationTool" style="display:none"></div>
+    <div id="mask" class="mask"></div>
+    <div id="loading" class="loadpage text-center"><i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i></div>
+    <div class="main">
+       <!-- <div class="step-box">
+            <button type="button" class="btn btn-info" id="flexbtn" style="font-size:14px" onclick="TrustItemModule.Flexbtn(this)">隐藏删除按钮</button>
+        </div>-->
+        <h3 id="step-title" class="h3 vti_ProductInformation">产品信息</h3>
+        <div class="form">
+            <!-- 产品信息 -->
+            <div class="form-body" id="step0">
+                <div id="TrustItemDiv">
+                    <div class="form-panel drop">
+                        <div class="col-md-12 form-group" style="margin-top: 15px;padding: 0;">
+                            <div class="col-md-3">
+                                <select class="form-control" data-bind="foreach: optionalFields" id="selOptionalFields" style="border:1px solid #dce0ee;">
+                                    <option data-bind="attr: {value: $index}, text: ItemAliasValue"></option>
+                                </select>
+                            </div>
+                            <div class="col-md-2" style="padding-left:0px;">
+                                <button type="button" onclick="TrustItemModule.AddItem(this)" class="btn btn-link" style="outline:none;box-shadow:none"><i class="icon icon-add"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid form_layerStyle">
+                        <div class="row" data-bind="foreach:displayFields">
+                            <div class="col-md-6 form_marginBottom">
+                                <div class="row">
+                                    <div class="input-group input-width">
+                                        <!--<div class="col-md-4 col-start">-->
+                                        <div class="input-group-addon col-md-4 col-width-ex" data-bind="css:{datarequired:IsCompulsory},attr:{dataIndex:$index},text:ItemAliasValue"></div>
+                                        <!--</div>-->
+
+                                        <!--ko if: ItemCode().toLocaleLowerCase()=='issueamount' || ItemCode() =='BaseAssetPoolBalance'||ItemCode() == 'EstablishmentDatePoolBalance'-->
+                                        <!--<div class="col-md-4 form-input-style">-->
+                                        <input class="form-control mminput col-md-4  col-width-ex" type="text" id="mminput" data-bind="value:$root.formatp(ItemValue()),event: { keyup: function(data,event){$root.logkeyup(data,event)}}, attr: {'data-valid': (+' '+(IsCompulsory()=='True'?'Required':''))}" class="form-control  mminput" />
+                                        <!--</div>-->
+
+                                        <!--/ko-->
+                                        <!--ko if: ItemCode().toLocaleLowerCase()=='issueamount' || ItemCode() =='BaseAssetPoolBalance'||ItemCode() == 'EstablishmentDatePoolBalance'-->
+                                        <!--<div class="col-md-1 col-1-height">-->
+                                        <div id="field1" class="field1 col-md-1 col-1-height" style="display:inline; position:relative" data-toggle="tooltip" data-placement="bottom">
+                                            <i class="icon icon-asset" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                        </div>
+                                        <!--</div>-->
+                                        <!--/ko-->
+                                        <!--ko if: ItemCode().toLocaleLowerCase()=='trustcode'-->
+                                        <!--<div class="col-md-4 form-input-style">-->
+                                        <input class="form-control col-md-4  col-width-ex" type="text" id="trustcodeinput" data-bind="value: ItemValue, event: { change: function (data, event) { validTrustCodeRemote(event) } }, attr: { 'data-valid': (+' ' + (IsCompulsory() == 'True' ? 'remoteRequired' : '')) }" onchange="CheckStyle(this)"  class="form-control" />
+                                        <!--</div>-->
+                                        <!--<div class="col-md-1">
+                                            <button id="editTrustCodeBtn" class="input-group-addon" style="margin: 1px;">编辑</button>
+                                        </div>-->
+                                        <!--<div class="col-md-1">-->
+                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom" title="即核心系统中的产品编码">
+                                            <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                        </div>
+                                        <!--</div>-->
+                                        <!--/ko-->
+                                        <!-- ko  if: (ItemCode().toLocaleLowerCase()!='issueamount')&&(ItemCode().toLocaleLowerCase()!='trustcode') &&(ItemCode() !='BaseAssetPoolBalance') && (ItemCode() != 'EstablishmentDatePoolBalance')-->
+                                        <div data-bind="renderControl:ItemValue" style="width:45%"></div>
+                                        <!-- ko if: (ItemCode().toLocaleLowerCase() == 'organisationname') -->
+                                        <!--<div class="col-md-1 input-group-addon">
+                                            <button class="" id="createOrgisationBtn" style=" margin: 1px; display:none">新增</button>
+                                        </div>-->
+                                        <!-- /ko -->
+                                        <!-- /ko -->
+                                        <!-- ko  if: IsCompulsory()=='False'-->
+                                        <!--<div class="col-md-1 col-1-height">-->
+                                        <div data-bind="attr: { dataIndex: $index }" onclick="TrustItemModule.RemoveItem(this)" style="cursor:pointer" class="col-md-1 col-1-height">
+                                            <i class="icon icon-remove"></i>
+                                        </div>
+                                        <!--</div>-->
+                                        <!-- /ko -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display:none">
+                        <h3 id="step-title" class="h3"><span class="title">资产支持证券基本情况</span></h3>
+                        <div class="form-panel drop">
+                            <div class="col-12 form-group">
+                                <div class="col-3">
+                                    <select class="form-control" data-bind="foreach: BondOptionalFields" id="bondOptionalFields">
+                                        <option data-bind="attr: {value: $index}, text: ItemAliasValue"></option>
+                                    </select>
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" onclick="TrustItemModule.AddBond(this)" class="btn btn-plus"><i class="icon icon-add"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-panel default" data-bind="foreach:BondFields">
+                            <div class="col-6 form-group autoLayout-plugins">
+                                <div class="col-4">
+                                    <label data-bind="css:{datarequired:IsCompulsory},attr:{dataIndex:$index},text:ItemAliasValue"></label>
+                                </div>
+
+                                <!--ko if: ItemCode().toLocaleLowerCase()=='issueamount'-->
+                                <!--onkeyup="ItemValue:TrustItemModule.fmoney(this, $(this).val(), 0)"-->
+                                <div class="col-6">
+                                    <input type="text" id="mminput"
+                                           data-bind="value:$root.formatp(ItemValue()),event: { keyup: function(data,event){$root.logkeyup(data,event)}}, attr: {'data-valid': (+' '+(IsCompulsory()=='True'?'Required':''))}" onchange="validControlValue(this)" class="form-control mminput" />
+                                </div>
+                                <!--/ko-->
+                                <!-- ko if:ItemCode().toLocaleLowerCase()=='issueamount'-->
+                                <div class="col-1">
+                                    <div id="fieldT" class="field-details field1" style="display:inline-block;">
+                                        <i class="icon icon-asset" style="margin-top: 4px;display: block;color:rgba(69,86,156,1);"></i>
+                                        <div id="fieldtipT" class="field-detail-box fieldtip" style="width:100px;font-size:12px;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/ko-->
+                                <!-- ko  if: ItemCode().toLocaleLowerCase()!='issueamount' -->
+                                <div class="col-6" data-bind="renderControl:ItemValue"></div>
+                                <!-- /ko -->
+                                <!-- ko  if: IsCompulsory()=='False'-->
+                                <div class="col-2">
+                                    <button data-bind="attr: { dataIndex: $index }" onclick="TrustItemModule.RemoveBond(this)" class="btn btn-remove">
+                                        <i class="icon icon-remove"></i>
+                                    </button>
+                                </div>
+                                <!-- /ko -->
+                            </div>
+                        </div>
+                        <h3 id="step-title" class="h3"><span class="title">增信措施</span></h3>
+                        <div class="form-panel item">
+                            <div class="form-panel table-scroll">
+
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th width="40">
+                                                <button onclick="TrustItemModule.addZXItem(this)" type="button" class="btn btn-plus" style="padding:0">
+                                                    <i class="icon icon-add" style="margin-right:0"></i>
+                                                </button>
+                                            </th>
+                                            <th width="40">ID</th>
+                                            <th>增信描述</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach:ZXFields">
+                                        <tr>
+                                            <td>
+                                                <button type="button" data-bind="attr: { dataIndex: $index() }" onclick="    TrustItemModule.removeZXItem(this)" class="btn btn-remove" style="padding:0"><i class="icon icon-remove" style="margin-right:0"></i></button>
+                                            </td>
+                                            <td data-bind="text:$index()+1"></td>
+                                            <td>
+                                                <input type="text" onchange="validControlValue(this)" data-bind="    value: ItemValue, attr: { 'data-valid': ' Required' }" class="form-control " />
+                                                <!--<div class="col-12" data-bind="renderControl:ItemValue"></div>-->
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-button">
+            <button id="next-step" type="button" class="btn btn-primary"><span class="vti_Next">下一步</span><i class="icon icon-right"></i></button>    
+        </div>
+    </div>
+    <div id="addOrganisation" class="col-12 form-panel" style="display: none; padding: 15px">
+        <div class="col-12 form-group" style="margin-bottom: 20px; line-height: 30px;">
+            <div class="col-3">
+                <label class="vti_OrganisationCode label_style">资产方编码</label>
+            </div>
+            <div class="col-8">
+                <input type="text" maxlength="10" class="form-control" id="organisationCode" data-bind="textInput: organisationData.code" />
+            </div>
+        </div>
+        <div class="col-12 form-group" style="margin-bottom: 20px; line-height: 30px;">
+            <div class="col-3">
+                <label class="vti_OrganisationName label_style">资产方名称</label>
+            </div>
+            <div class="col-8">
+                <input type="text" class="form-control" data-bind="textInput: organisationData.name" />
+            </div>
+        </div>
+        <div class="col-12 form-group">
+            <div class="form-button" style=" padding: 0px;">
+                <button id="saveOrganisation" type="button" class="normal_small_button vti_Confirm" data-bind="click: saveOrganisation">确定</button>
+            </div>
+        </div>
+    </div>
+    <script src="../../../../asset/lib/require.js"></script>
+    <script type="text/javascript">
+        requirejs(['../../../../asset/lib/config'], function (config) {
+            requirejs(['app/productManage/TrustManagement/ViewTrustItem/viewTrustItem']);
+        });
+    </script>
+</body>
+</html>

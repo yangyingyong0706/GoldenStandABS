@@ -1,0 +1,1385 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+    <title>分层信息</title>
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet">
+    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!--<link href="../../productManage/TrustManagement/Common/css/trustWizard.css" rel="stylesheet" />-->
+    <link href="Layered.css" rel="stylesheet" />
+    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../asset/lib/toast/toast.css" rel="stylesheet" />
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        html {
+            overflow: hidden;
+        }
+
+        .mask {
+            position: absolute;
+            top: 0px;
+            filter: alpha(opacity=60);
+            background-color: #777;
+            z-index: 1002;
+            left: 0px;
+            opacity: 0.1;
+            -moz-opacity: 0.1;
+        }
+
+        #TrustItem_Detail {
+            overflow-y: auto;
+            border: 1px solid #dedede;
+            border-bottom: none;
+            padding: 15px;
+        }
+
+        .loadpage {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background: #FFFFFF;
+            z-index: 9999;
+            padding-top: 12%;
+        }
+
+            .loadpage i {
+                position: absolute;
+                left: 50%;
+                top: 40%;
+                transform: translate(-50%,-40%);
+                color: rgb(107, 147, 216);
+            }
+
+        label {
+            background: #ebeef5;
+            border: 1px solid #dce0ee;
+            box-sizing: border-box;
+            line-height: 30px;
+            color: #555;
+            border-radius:2px 0px 0px 2px;
+            padding: 0px 3px 0px 20px;
+            height: 30px;
+            overflow: hidden;
+            display: block;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: 14px;
+            border-right: 0;
+        }
+        .btn-link{
+            color: #45569c;
+        }
+        .form-control{
+            border-radius:0px 2px 2px 0px;
+            border:1px solid #dce0ee;
+        }
+        .form-control:focus{
+            border-color: #45569c;
+            box-shadow: inset 0 0px 0px #45569c, 0 0 4px #45569c;
+        }
+        .table > thead > tr > th {
+            background: rgba(243,245,250,1);
+        }
+
+        h3.h3 {
+            height: 40px;
+            line-height: 32px;
+            border-bottom: 1px solid #dedede;
+            margin: 0;
+            padding: 0 15px;
+        }
+
+        .h3 .title {
+            font-size: 16px;
+            color: rgba(69,86,156,1);
+        }
+
+        .table {
+            border: 1px solid #dce0ee;
+            margin-bottom: 0;
+        }
+
+            .table tr th, .table tr td {
+                font-weight: 400;
+                border: 1px solid #dce0ee;
+                text-align: center;
+            }
+
+            .table > thead > tr > th {
+                border-bottom: 1px solid #dce0ee;
+            }
+
+            .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+                vertical-align: middle;
+            }
+
+
+
+        .row {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        [class^=col-] {
+            padding: 0;
+        }
+
+        .field-details {
+            position: relative;
+        }
+
+            .field-details .field-detail-box {
+                position: absolute;
+                left: -10px;
+                width: 200px;
+                background: #fff;
+                border: 1px solid #4078d8;
+                padding: 10px;
+                z-index: 99;
+                box-shadow: 0 5px 10px rgba(0,0,0,.1);
+                color: #555;
+                display: none;
+            }
+
+                .field-details .field-detail-box:before {
+                    position: absolute;
+                    content: "";
+                    top: -12px;
+                    left: 12px;
+                    border: 5px solid transparent;
+                    border-bottom-width: 7px;
+                    border-bottom-color: #4078d8;
+                }
+
+                .field-details .field-detail-box:after {
+                    position: absolute;
+                    content: "";
+                    top: -10.5px;
+                    left: 12px;
+                    border: 5px solid transparent;
+                    border-bottom-width: 7px;
+                    border-bottom-color: #fff;
+                }
+
+            .field-details:hover .field-detail-box {
+                display: block;
+            }
+
+        label {
+            font-weight: 400;
+            color: #777777;
+        }
+
+        .field-details .field-detail-box.special {
+            bottom: 25px;
+        }
+
+            .field-details .field-detail-box.special:before {
+                top: inherit;
+                left: 300px;
+                bottom: -7px;
+                border-top-width: 7px;
+                border-top-color: #4078d8;
+                border-bottom-width: 0;
+            }
+
+            .field-details .field-detail-box.special:after {
+                top: inherit;
+                left: 300px;
+                bottom: -5px;
+                border-top-width: 7px;
+                border-top-color: #fff;
+                border-bottom-width: 0;
+            }
+
+        .red-border {
+            border: 1px solid #dd0000;
+        }
+
+        .ant-drawer-bottom {
+            width: 100%;
+        }
+
+            .ant-drawer-bottom.ant-drawer-open {
+                height: 100%;
+            }
+
+        .ant-drawer-open {
+            -webkit-transition: -webkit-transform .3s cubic-bezier(.7, .3, .1, 1);
+            transition: -webkit-transform .3s cubic-bezier(.7, .3, .1, 1);
+            transition: transform .3s cubic-bezier(.7, .3, .1, 1);
+            transition: transform .3s cubic-bezier(.7, .3, .1, 1), -webkit-transform .3s cubic-bezier(.7, .3, .1, 1);
+        }
+
+        .ant-drawer {
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            width: 0%;
+            height: 100%;
+        }
+
+        .ant-drawer-mask {
+            position: absolute;
+            width: 100%;
+            height: 0;
+            background-color: rgba(0,0,0,0.65);
+            opacity: 0;
+            filter: alpha(opacity=50);
+            -webkit-transition: opacity .3s linear,height 0s ease .3s;
+            transition: opacity .3s linear,height 0s ease .3s;
+        }
+
+        .ant-drawer-content-wrapper {
+            bottom: 0;
+            height: 100%;
+            position: fixed;
+            box-shadow: none;
+            background: #fff;
+            overflow: auto;
+        }
+
+        .tab_title {
+            line-height: 30px;
+            margin: 0;
+            padding: 0 15px;
+            background: rgba(243,245,250,1);
+            height: 40px;
+            width: 100%;
+        }
+
+            .tab_title .title {
+                font-size: 16px;
+                color: rgba(69,86,156,1);
+            }
+
+        .btn-ssd {
+            color: #45569c;
+            width: 80px;
+            height: 30px;
+            background: rgba(255,255,255,1);
+            border: 1px solid rgba(230,233,245,1);
+            border-radius: 4px;
+            position: absolute;
+            right: -100%;
+            top: -50px;
+            line-height: 1;
+        }
+
+        #tb_PrincipalPaymentSchedule_div {
+            display: flex;
+            width: 100%;
+            flex-wrap: wrap;
+            border: 1px solid #dedede;
+            border-top: none;
+        }
+
+            #tb_PrincipalPaymentSchedule_div .tabs_title {
+                width: 100%;
+                height: 40px;
+                padding: 0 15px;
+                background: rgba(243,245,250,1);
+            }
+
+                #tb_PrincipalPaymentSchedule_div .tabs_title::after {
+                    content: '';
+                    display: block;
+                    width: 0;
+                    height: 0;
+                    clear: both;
+                }
+
+                #tb_PrincipalPaymentSchedule_div .tabs_title div {
+                    float: left;
+                    height: 40px;
+                    line-height: 40px;
+                    margin-right: 40px;
+                    font-size: 14px;
+                    cursor: pointer;
+                    color: #4D4D4D;
+                    box-sizing: border-box;
+                }
+
+                    #tb_PrincipalPaymentSchedule_div .tabs_title div:nth-child(3) {
+                        float: right;
+                        margin-right: 0;
+                        margin-top: 5px;
+                        height: 30px;
+                        line-height: 30px;
+                        padding: 0 10px;
+                        background: white;
+                        border-radius: 4px;
+                    }
+
+                        #tb_PrincipalPaymentSchedule_div .tabs_title div:nth-child(3) span,
+                        #tb_PrincipalPaymentSchedule_div .tabs_title div:nth-child(3) i {
+                            color: #4D4D4D;
+                            font-size: 14px;
+                        }
+
+                #tb_PrincipalPaymentSchedule_div .tabs_title .tabs_titleActive {
+                    color: #45569C;
+                    border-bottom: 2px solid #45569C;
+                }
+
+        #addPPS.btn:hover {
+            color: #45569c;
+            text-decoration: none;
+        }
+
+        .ant-drawer > * {
+            -webkit-transition: -webkit-transform .3s cubic-bezier(.9, 0, .3, .7),-webkit-box-shadow .3s cubic-bezier(.9, 0, .3, .7);
+            transition: -webkit-transform .3s cubic-bezier(.9, 0, .3, .7),-webkit-box-shadow .3s cubic-bezier(.9, 0, .3, .7);
+            transition: transform .3s cubic-bezier(.9, 0, .3, .7),box-shadow .3s cubic-bezier(.9, 0, .3, .7);
+            transition: transform .3s cubic-bezier(.9, 0, .3, .7),box-shadow .3s cubic-bezier(.9, 0, .3, .7),-webkit-transform .3s cubic-bezier(.9, 0, .3, .7),-webkit-box-shadow .3s cubic-bezier(.9, 0, .3, .7);
+        }
+
+        .ant-drawer-mask.open {
+            height: 100%;
+            -webkit-transition: none;
+            opacity: 1;
+            transition: none;
+            -webkit-animation: antdDrawerFadeIn .3s cubic-bezier(.7, .3, .1, 1);
+            animation: antdDrawerFadeIn .3s cubic-bezier(.7, .3, .1, 1);
+            z-index: 99999;
+        }
+
+        .flotR {
+            float: right;
+            font-size: 14px;
+            width: auto;
+            height: 30px;
+            background: rgba(255,255,255,1);
+            border: 1px solid rgba(230,233,245,1);
+            border-radius: 4px;
+            color: #808080;
+            line-height: 30px;
+            padding: 0px 5px;
+            position: relative;
+            top: 4px;
+            cursor: pointer;
+        }
+        /**/
+        #bannerArea {
+            width: 100%;
+            position: relative;
+            overflow: auto;
+        }
+
+        .bannerArea {
+            width: 100%;
+        }
+
+            .bannerArea > div {
+                padding: 0px;
+                margin: 0px;
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+                .bannerArea > div .eachstyle {
+                    border: 1px solid rgba(230,233,245,1);
+                    list-style: none;
+                    float: left;
+                    width: calc(25% - 30px);
+                    padding: 15px;
+                    margin: 15px;
+                    border-radius: 4px;
+                    line-height: 26px;
+                }
+
+                    .bannerArea > div .eachstyle:hover {
+                        box-shadow: 0px 2px 4px 0px rgba(65,81,151,0.2);
+                    }
+
+        .eachinter {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .eachtitle {
+            background: rgba(243,245,250,1);
+            height: 40px;
+            line-height: 40px;
+            margin: -15px;
+            margin-bottom: 0px;
+            border-radius: 4px 4px 0px 0px;
+            border-bottom: 1px solid rgba(230,233,245,1);
+            position: relative;
+            padding-left: 15px;
+        }
+
+            .eachtitle .icon.icon-remove {
+                position: absolute;
+                right: 10px;
+            }
+
+            .eachtitle .icon.icon-edit {
+                position: absolute;
+                right: 50px;
+                top: -2px;
+                cursor: pointer;
+            }
+
+        .tiltespan {
+            display: inline-block;
+            font-size: 16px;
+            color: rgba(69,86,156,1);
+            margin-top: 10px;
+            position: relative;
+            padding-left: 15px;
+            cursor: pointer;
+        }
+
+        #bold_bod {
+            position: relative;
+            height: 60px;
+            background: #fff;
+            top: -15px;
+            z-index: 9999;
+            width: calc(100% + 30px);
+            margin-left: -15px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .bannerArea {
+            position: relative;
+        }
+
+            .bannerArea:after {
+                position: absolute;
+                content: "";
+                bottom: 0px;
+                width: calc(100% - 30px);
+                height: 1px;
+                background: #E6E9F5;
+                left: 15px;
+            }
+
+        .square {
+            width: 10px;
+            height: 10px;
+            background: rgba(69,86,156,1);
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .eachtitle .icon.icon-calendar {
+            position: absolute;
+            right: 90px;
+            top: -1px;
+            cursor: pointer;
+            color: #5767A6;
+        }
+
+        .payInterestPlan {
+            width: 100%;
+            padding: 10px 15px 50px 15px;
+        }
+
+            .payInterestPlan table {
+                border: 1px solid #E6E6E6;
+            }
+
+                .payInterestPlan table thead tr th {
+                    background: #FAFAFA;
+                    font-weight: normal;
+                    color: #666;
+                }
+
+                .payInterestPlan table tbody tr:nth-child(2n + 1) th {
+                    background: #F5F5F5;
+                }
+
+                .payInterestPlan table tbody tr td input {
+                    text-align: center;
+                    width: 70%;
+                    display: inline-block;
+                }
+
+                .payInterestPlan table tr th, .payInterestPlan table tr td {
+                    height: 35px;
+                    border: 1px solid #E6E6E6;
+                    padding: 10px 0 10px 20px;
+                }
+
+                .payInterestPlan table .icon-edit {
+                    cursor: pointer;
+                }
+
+        .ceshi {
+            border: 1px solid #dedede !important;
+        }
+
+        .groupone, .grouptwo, .groupthree, .groupfour {
+            border: 1px solid #dedede;
+            border-bottom: none;
+            padding: 15px;
+            display: inline-block;
+            width: 100%;
+            padding-bottom: 0;
+        }
+        .groupfour {
+            border: 1px solid #dedede;
+        }
+
+        @media (min-width: 992px) {
+            .col-md-6 {
+                width: 33.3%;
+            }
+
+            .col-md-7 {
+                width: 50%;
+            }
+
+            .col-md-2 {
+                width: 16%;
+            }
+        }
+
+        .icon_position button {
+            width: auto;
+            padding: 0px;
+            padding: 0 5px;
+        }
+
+        body{
+            border-bottom: 1px solid #dedede;
+        }
+
+        .myClass {
+            background: #fdf9eb;
+        }
+
+        .removeinfos {
+            background: #fff;
+            box-shadow: none;
+            border: none;
+        }
+
+            .removeinfos[disabled] .icon.icon-remove {
+                color: #ccc;
+            }
+
+        .infotitle {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .cr {
+            display: inline-block;
+            font-size: 12px;
+            height: 20px;
+            line-height: 20px;
+            background: #fdf9eb;
+            color: #a79e9e;
+            padding: 0 20px;
+            margin-left: 20px;
+        }
+
+        #modal-wrap div div:nth-child(2) {
+            overflow: hidden !important;
+        }
+        .form .form-group label{
+            border:1px solid #dce0ee;
+            background-color:#ebeef5;
+            border-radius:2px 0px 0px 2px;
+            border-right:0 none;
+            text-align:left;
+            padding-left:20px;
+            box-sizing:border-box;
+        }
+    </style>
+    <script src="../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../asset/lib/config'], function (config) {
+            require(['app/components/Layered/js/LayeredMain'])
+        });
+    </script>
+</head>
+<body class="public_font_style public_table_font_size container-fluid" style="padding:0px;">
+    <div id="mask" class="mask"></div>
+    <div id="loading" class="loadpage text-center">
+        <i class="fa fa-spinner fa-pulse fa-4x fa-fw margin-bottom"></i>
+    </div>
+    <div class="container-fluidLayered main">
+        <div class="step-box">
+        </div>
+        <div class="form-body">
+            <div id="TrustBondDiv">
+                <div class="form-panel item">
+                    <h3 class="h3" style="border:none;border-bottom:1px solid #dedede">
+                        <span class="title">债券信息</span>
+                        <span class="flotR" id="showbox">
+                            <i class="icon icon-plus" style="position:relative;top:-1px"></i>
+                            <span>添加分层信息</span>
+                        </span>
+                    </h3>
+                    <div style="border-top: none;">
+                        <!--<table class="table public_table_font_size">
+                            <thead>
+                                <tr>
+                                    <th data-bind="renderTitle:'SecurityExchangeCode'"></th>
+                                    <th data-bind="renderTitle:'ShortName'"></th>
+                                    <th data-bind="renderTitle:'OriginalCreditRating'"></th>
+                                    <th data-bind="renderTitle:'OfferAmount'"></th>
+                                    <th data-bind="renderTitle:'CouponBasis'"></th>
+                                    <th data-bind="renderTitle:'IssueDate'"></th>
+                                    <th data-bind="renderTitle:'LegalMaturityDate'"></th>
+                                    <th data-bind="renderTitle:'PaymentConvention'"></th>
+                                    <th width="170">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="result" data-bind="foreach:GridView">
+                                <tr>
+                                    <td data-bind="text: SecurityExchangeCode"></td>
+                                    <td data-bind="text: ShortName"></td>
+                                    <td data-bind="text: OriginalCreditRating"></td>
+                                    <td data-bind="text: $parent.formatp(OfferAmount())"></td>
+                                    <td data-bind="text: CouponBasis"></td>
+                                    <td data-bind="text: IssueDate"></td>
+                                    <td data-bind="text: LegalMaturityDate"></td>
+                                    <td data-bind="text: PaymentConvention"></td>
+
+                                    <td class="row">
+                                        <button type="button" id="tb_edit" onclick="TrustBondModule.TrustBond_Detail(this)" class="btn btn-link" style="margin-right:5px; padding:2px" data-bind="    attr: { dataIndex: $index }">
+                                            编辑
+                                        </button>
+                                        <button type="button" onclick="TrustBondModule.TrustBond_Delete(this)" class="btn btn-danger" style=" margin-left:5px;" data-bind="attr: { dataIndex: $index }">
+                                            <i class="icon icon-trash-empty"></i>
+                                            删除
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>-->
+                        <div id="bannerArea">
+                            <div class="typeone">
+                                <div class="tiltespan"><span class="square"></span>优先级<i class="icon icon-bottom"></i></div>
+                                <div class="bannerArea">
+                                    <div data-bind="foreach:GridView">
+                                        <div class="eachstyle" data-bind="visible:ClassType()=='FirstClass'">
+                                            <div>
+                                                <div class="eachtitle">
+                                                    <span data-bind="text: ShortName"></span>
+                                                    <i class="icon icon-calendar" data-bind="attr: { dataIndex: $index }" title="附加信息"></i>
+                                                    <i class="icon icon-edit" data-bind="attr: { dataIndex: $index }" title="编辑"></i>
+                                                    <i class="icon icon-remove" data-bind="attr: { dataIndex: $index }" title="删除"></i>
+                                                </div>
+                                                <div class="eachinter">
+                                                    <span data-bind="renderTitleR:'SecurityExchangeCode'"></span>
+                                                    <span data-bind="text: SecurityExchangeCode"></span>
+                                                </div>
+                                                <div class="eachinter">
+                                                    <span data-bind="renderTitleR:'OriginalCreditRating'"></span>
+                                                    <span data-bind="text: OriginalCreditRating"></span>
+                                                </div>
+                                                <div class="eachinter">
+                                                    <span data-bind="renderTitleR:'OfferAmount'"></span>
+                                                    <span data-bind="text: $parent.formatp(OfferAmount())"></span>
+                                                </div>
+                                                <div class="eachinter">
+                                                    <span data-bind="renderTitleR:'CouponBasis'"></span>
+                                                    <span data-bind="text: CouponBasis"></span>
+                                                </div>
+                                                <div class="eachinter">
+                                                    <span data-bind="renderTitleR:'IssueDate'"></span>
+                                                    <span data-bind="text: IssueDate"></span>
+                                                </div>
+                                                <div class="eachinter">
+                                                    <span data-bind="renderTitleR:'LegalMaturityDate'"></span>
+                                                    <span data-bind="text: LegalMaturityDate"></span>
+                                                </div>
+                                                <div class="eachinter">
+                                                    <span data-bind="renderTitleR:'PaymentConvention'"></span>
+                                                    <span data-bind="text: PaymentConvention"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="typetwo">
+                                <div class="tiltespan"><span class="square"></span>次优先级<i class="icon icon-bottom"></i></div>
+                                <div class="bannerArea">
+                                    <div data-bind="foreach:GridView">
+                                        <div class="eachstyle" data-bind="visible:ClassType()=='SubClass'">
+                                            <div>
+                                                <div class="eachtitle">
+                                                    <span data-bind="text: ShortName"></span>
+                                                    <i class="icon icon-calendar" data-bind="attr: { dataIndex: $index }" title="附加信息"></i>
+                                                    <i class="icon icon-edit" data-bind="attr: { dataIndex: $index }" title="编辑"></i>
+                                                    <i class="icon icon-remove" data-bind="attr: { dataIndex: $index }" title="删除"></i>
+                                                </div>
+                                                <div class="eachinter">
+                                                    <span data-bind="renderTitleR:'SecurityExchangeCode'"></span>
+                                                    <span data-bind="text: SecurityExchangeCode"></span>
+                                                </div>
+                                                <div class="eachinter">
+                                                    <span data-bind="renderTitleR:'OriginalCreditRating'"></span>
+                                                    <span data-bind="text: OriginalCreditRating"></span>
+                                                </div>
+                                                <div class="eachinter">
+                                                    <span data-bind="renderTitleR:'OfferAmount'"></span>
+                                                    <span data-bind="text: $parent.formatp(OfferAmount())"></span>
+                                                </div>
+                                                <div class="eachinter">
+                                                    <span data-bind="renderTitleR:'CouponBasis'"></span>
+                                                    <span data-bind="text: CouponBasis"></span>
+                                                </div>
+                                                <div class="eachinter">
+                                                    <span data-bind="renderTitleR:'IssueDate'"></span>
+                                                    <span data-bind="text: IssueDate"></span>
+                                                </div>
+                                                <div class="eachinter">
+                                                    <span data-bind="renderTitleR:'LegalMaturityDate'"></span>
+                                                    <span data-bind="text: LegalMaturityDate"></span>
+                                                </div>
+                                                <div class="eachinter">
+                                                    <span data-bind="renderTitleR:'PaymentConvention'"></span>
+                                                    <span data-bind="text: PaymentConvention"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="typethree">
+                                <div class="tiltespan"><span class="square"></span>次级<i class="icon icon-bottom"></i></div>
+                                <div class="bannerArea">
+                                    <div data-bind="foreach:GridView">
+                                        <div class="eachstyle" data-bind="visible:ClassType()=='EquityClass'">
+                                            <div>
+                                                <div class="eachtitle">
+                                                    <span data-bind="text: ShortName"></span>
+                                                    <i class="icon icon-calendar" data-bind="attr: { dataIndex: $index }" title="附加信息"></i>
+                                                    <i class="icon icon-edit" data-bind="attr: { dataIndex: $index }" title="编辑"></i>
+                                                    <i class="icon icon-remove" data-bind="attr: { dataIndex: $index }" title="删除"></i>
+                                                </div>
+                                                <div class="eachinter">
+                                                    <span data-bind="renderTitleR:'SecurityExchangeCode'"></span>
+                                                    <span data-bind="text: SecurityExchangeCode"></span>
+                                                </div>
+                                                <div class="eachinter">
+                                                    <span data-bind="renderTitleR:'OriginalCreditRating'"></span>
+                                                    <span data-bind="text: OriginalCreditRating"></span>
+                                                </div>
+                                                <div class="eachinter">
+                                                    <span data-bind="renderTitleR:'OfferAmount'"></span>
+                                                    <span data-bind="text: $parent.formatp(OfferAmount())"></span>
+                                                </div>
+                                                <div class="eachinter">
+                                                    <span data-bind="renderTitleR:'CouponBasis'"></span>
+                                                    <span data-bind="text: CouponBasis"></span>
+                                                </div>
+                                                <div class="eachinter">
+                                                    <span data-bind="renderTitleR:'IssueDate'"></span>
+                                                    <span data-bind="text: IssueDate"></span>
+                                                </div>
+                                                <div class="eachinter">
+                                                    <span data-bind="renderTitleR:'LegalMaturityDate'"></span>
+                                                    <span data-bind="text: LegalMaturityDate"></span>
+                                                </div>
+                                                <div class="eachinter">
+                                                    <span data-bind="renderTitleR:'PaymentConvention'"></span>
+                                                    <span data-bind="text: PaymentConvention"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ant-drawer-bottom ant-drawer">
+                        <div class="ant-drawer-mask">
+                            <span class="infotitle">处理数据中,请等待...</span>
+                        </div>
+                        <div class="ant-drawer-content-wrapper">
+                            <form id="TrustBond" class="form-panel-bond row" style="padding-bottom:35px">
+                                <div class="form-panel item" style="overflow:auto;">
+                                    <h3 class="h3" style="z-index:999;background:#fff;position:relative">
+                                        <span class="title" id="tb_name">添加分层</span><i class="icon icon-close" style="cursor:pointer;float:right" id="closebox"></i>
+                                        <span class="cr">
+                                            <span>注:此背景色标注的信息会影响收益分配、压力测试、风险报酬转移的测算</span>
+                                        </span>
+                                    </h3>
+                                    <div style="padding: 15px;border-top: none;">
+                                        <div class="form-panel drop">
+                                            <div id="bold_bod">
+                                                <div class="col-md-12 form-group" style="margin-bottom: 0px;margin-top: 20px;">
+                                                    <div class="col-md-3">
+                                                        <select id="tb_CompulsoryDDL" class="form-control" v-model="selectedCompulsory">
+                                                            <option v-for="option in selectCompulsory" v-bind:value="option.code">{{ option.name }}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <button type="button" class="btn btn-link" onclick="TrustBondModule.CreateCompulsory()"><i class="icon icon-add" id="tb_AddCompulsory"></i></button>
+                                                    </div>
+
+                                                    <div class="pull-right buttons">
+                                                        <input type="button" class="btn btn-danger" id="tb_Clear" value="清空" style="border:1px solid #ccd0de;"/>
+                                                        <input type="button" class="btn btn-primary" id="tb_Add" value="添加" style="margin-left: 5px;" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!--添加信息分层-->
+                                        <div class="groupone">
+                                            <div class="tiltespan" style="padding:0;margin:0;margin-bottom:15px"><span class="square"></span>分档要素</div>
+                                            <div class="form-panel item TrustItem_Detail" data-bind="foreach:Detail">
+                                                <!--ko   if:ItemType()=='GradingElement'-->
+                                                <!-- ko  if: IsDisplay() -->
+                                                <div class="col-md-6 form-group autoLayout-plugins">
+                                                    <div class="col-md-4">
+                                                        <label data-bind="text:ItemAliasValue,css:{myClass:ItemCode()=='IssueDate'||ItemCode()=='LegalMaturityDate'||ItemCode()=='OfferAmount'||ItemCode()=='Denomination'||ItemCode()=='IsChinabondDelimit'||ItemCode()=='BookKeepingDate'||ItemCode()=='HoldingPercentage'},attr:{title:ItemAliasValue}" data-toggle="tooltip" data-placement="bottom"></label>
+                                                    </div>
+                                                    <div class="col-md-7">
+
+                                                        <!--改了这里，使用if单独绑定OfferAmount-->
+                                                        <!--ko   if:ItemCode()=='OfferAmount'-->
+                                                        <input id="OfferAmount" type="text" class="form-control" data-bind="value:$parent.formatp(ItemValue()),event: { keyup:TrustBondModule.mymodel.logkeyupItemValue.bind($index,$data,'#OfferAmount')}," data-valid="Required" onchange="validControlValue(this)" autocomplete="off" />
+
+                                                        <!-- /ko-->
+                                                        <!--ko   if:ItemCode()=='Denomination'-->
+                                                        <input id="Denomination" type="text" class="form-control" data-bind="value:$parent.formatp(ItemValue()),event: { keyup:TrustBondModule.mymodel.logkeyupItemValue.bind($index,$data,'#Denomination')}," data-valid="Required" onchange="validControlValue(this)" autocomplete="off" />
+
+                                                        <!-- /ko-->
+                                                        <!-- ko  if:DataType()!='Select' -->
+                                                        <!-- ko  if:ItemCode()!='OfferAmount'-->
+                                                        <!-- ko  if:ItemCode()!='Denomination'-->
+                                                        <!-- ko  if:ItemCode()=='SecurityExchangeCode'-->
+                                                        <span id="SecurityExchangeCode">
+                                                            <input type="text" class="form-control" id="validItemValueInput6" data-bind="value: ItemValue" onchange="validControlValue(this)" data-valid="word Required" autocomplete="off" />
+                                                        </span>
+                                                        <!-- /ko -->
+                                                        <!-- ko  if:ItemCode()!='SecurityExchangeCode'-->
+                                                        <span data-bind="renderControl:ItemCode,attr:{'id':ItemCode}"></span>
+                                                        <!-- /ko -->
+                                                        <!-- /ko -->
+                                                        <!-- /ko -->
+                                                        <!-- /ko -->
+                                                        <!-- ko  if:DataType()=='Select' -->
+                                                        <!-- ko  if:ItemCode()!='RatingAgent'-->
+                                                        <span data-bind="renderControl:ItemCode,id:'bn_'"></span>
+                                                        <!-- /ko -->
+                                                        <!-- ko  if:ItemCode()=='RatingAgent'-->
+                                                        <select class="form-control" data-bind="options:$parent.DDL.RatingAgent, optionsText:'ItemAliasValue', optionsValue:'SPId',value:ItemValue"></select>
+                                                        <!-- /ko -->
+                                                        <!-- /ko -->
+                                                    </div>
+                                                    <!--ko   if:ItemCode()=='OfferAmount'-->
+                                                    <div class="col-md-1">
+                                                        <div id="field1" class="col-md-1 col-1-height" style="display:inline; position:relative;padding:0px 5px" data-toggle="tooltip" data-placement="bottom">
+                                                            <i class="icon icon-asset" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                    </div>
+                                                    <!--/ko-->
+                                                    <!--ko   if:ItemCode()=='Denomination'-->
+                                                    <div class="col-md-1">
+                                                        <div id="field2" class="col-md-1 col-1-height" style="display:inline; position:relative;padding:0px 5px" data-toggle="tooltip" data-placement="bottom">
+                                                            <i class="icon icon-asset" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                    </div>
+                                                    <!--/ko-->
+                                                    <!-- ko  if:ItemCode()=='RatingAgent'-->
+                                                    <div class="col-md-1" style="padding:0 5px" data-toggle="tooltip" data-placement="bottom" title="增加评级机构种类">
+                                                        <i class="icon icon-plus" id="createRatingAgencyBtn" style="position:relative;top:2px;cursor:pointer;color:#45569c;"></i>
+                                                    </div>
+                                                    <div class="col-md-1" data-toggle="tooltip" data-placement="bottom" title="该档证券添加多家评级机构">
+                                                        <button type="button" id="btnMutipleRating" class="btn btn-link" style="padding:0"><i class="icon icon-add"></i></button>
+                                                    </div>
+                                                    <!-- /ko -->
+                                                    <div class="col-md-2" data-bind="attr:{id:ItemCode()}">
+                                                        <!-- ko  if: IsNew() -->
+                                                        <button id="btn_RemoveCompulsory" type="button" data-bind="attr: { itemCode: ItemCode }" onclick="TrustBondModule.RemoveCompulsory(this)" class="btn "><i class="icon icon-remove"></i></button>
+                                                        <!-- /ko -->
+                                                        <!-- ko  if: ItemCode()=='CouponPaymentReference' -->
+                                                        <button id="TrustBondModule_btn_CouponPaymentReference" data-bind="attr: { rowindex: $index }" type="button" onclick="TrustBondModule.OpenBondInterestAdjustment(this)" class="btn btn-link" style="display:none;padding:0px;"><i class="icon icon-add"></i></button>
+                                                        <!-- /ko -->
+                                                        <!--ko if: ItemCode() =="SecurityExchangeCode"-->
+                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom" title="即核心系统中的产品编码" style="padding:0px 5px">
+                                                            <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                        <!--/ko-->
+                                                        <!--ko if: ItemCode() =="PAIInterestPrecision" || ItemCode() =="PAIPrincipalPrecision"-->
+                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom" title="此项设置针对该档债券精度与整体不同的情况" style="padding:0px 5px">
+                                                            <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                        <!--/ko-->
+                                                        <!--ko if: ItemCode() =="InterestRateCalculation"-->
+                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom"
+                                                             title="指计算应付利息的时间单位:<br><br>
+                                             若'以天为单位':<br><br>则应付利息=A*B*计息期间实际天数/全年计息天数<br><br>
+                                             若'以月为单位':<br><br>则应付利息=A*B*计息期间间隔月数/12<br><br>
+                                             若'以季为单位':<br><br>则应付利息=A*B*计息期间间隔信托季度数/4<br><br>
+                                             …………<br><br>
+                                             其中 A:证券期初未偿本金总额  B:当期证券执行利率<br><br>
+                                             不满一个单位，按一个单位计算"
+                                                             style="padding:0px 5px">
+                                                            <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                        <!--/ko-->
+                                                        <!--ko if: ItemCode() =="ClassType"-->
+                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom" title=" 次优先级: 次于优先级档" style="padding:0px 5px">
+                                                            <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                        <!--/ko-->
+                                                    </div>
+                                                </div>
+                                                <!-- /ko -->
+                                                <!-- /ko-->
+                                            </div>
+                                        </div>
+                                        <div class="grouptwo">
+                                            <div class="tiltespan" style="padding:0;margin:0;margin-bottom:15px"><span class="square"></span>本金要素</div>
+                                            <div class="form-panel item TrustItem_Detail" data-bind="foreach:Detail">
+                                                <!--ko   if:ItemType()=='PrincipalElement'-->
+                                                <!-- ko  if: IsDisplay() -->
+                                                <div class="col-md-6 form-group autoLayout-plugins">
+                                                    <div class="col-md-4">
+                                                        <label data-bind="text:ItemAliasValue,attr:{title:ItemAliasValue}" class="myClass" data-toggle="tooltip" data-placement="bottom"></label>
+                                                    </div>
+                                                    <div class="col-md-7">
+
+                                                        <!--改了这里，使用if单独绑定OfferAmount-->
+                                                        <!--ko   if:ItemCode()=='OfferAmount'-->
+                                                        <input id="OfferAmount" type="text" class="form-control" data-bind="value:$parent.formatp(ItemValue()),event: { keyup:TrustBondModule.mymodel.logkeyupItemValue.bind($index,$data,'#OfferAmount')}," data-valid="Required" onchange="validControlValue(this)" autocomplete="off" />
+
+                                                        <!-- /ko-->
+                                                        <!--ko   if:ItemCode()=='Denomination'-->
+                                                        <input id="Denomination" type="text" class="form-control" data-bind="value:$parent.formatp(ItemValue()),event: { keyup:TrustBondModule.mymodel.logkeyupItemValue.bind($index,$data,'#Denomination')}," data-valid="Required" onchange="validControlValue(this)" autocomplete="off" />
+
+                                                        <!-- /ko-->
+                                                        <!-- ko  if:DataType()!='Select' -->
+                                                        <!-- ko  if:ItemCode()!='OfferAmount'-->
+                                                        <!-- ko  if:ItemCode()!='Denomination'-->
+                                                        <!-- ko  if:ItemCode()=='SecurityExchangeCode'-->
+                                                        <span id="SecurityExchangeCode">
+                                                            <input type="text" class="form-control" id="validItemValueInput6" data-bind="value: ItemValue" onchange="validControlValue(this)" data-valid="word Required" autocomplete="off" />
+                                                        </span>
+                                                        <!-- /ko -->
+                                                        <!-- ko  if:ItemCode()!='SecurityExchangeCode'-->
+                                                        <span data-bind="renderControl:ItemCode,attr:{'id':ItemCode}"></span>
+                                                        <!-- /ko -->
+                                                        <!-- /ko -->
+                                                        <!-- /ko -->
+                                                        <!-- /ko -->
+                                                        <!-- ko  if:DataType()=='Select' -->
+                                                        <!-- ko  if:ItemCode()!='RatingAgent'-->
+                                                        <span data-bind="renderControl:ItemCode,id:'bn_'"></span>
+                                                        <!-- /ko -->
+                                                        <!-- ko  if:ItemCode()=='RatingAgent'-->
+                                                        <select class="form-control" data-bind="options:$parent.DDL.RatingAgent, optionsText:'ItemAliasValue', optionsValue:'SPId',value:ItemValue"></select>
+                                                        <!-- /ko -->
+                                                        <!-- /ko -->
+                                                    </div>
+                                                    <!--ko   if:ItemCode()=='OfferAmount'-->
+                                                    <div class="col-md-1">
+                                                        <div id="field1" class="col-md-1 col-1-height" style="display:inline; position:relative;padding:0px 5px" data-toggle="tooltip" data-placement="bottom">
+                                                            <i class="icon icon-asset" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                    </div>
+                                                    <!--/ko-->
+                                                    <!--ko   if:ItemCode()=='Denomination'-->
+                                                    <div class="col-md-1">
+                                                        <div id="field2" class="col-md-1 col-1-height" style="display:inline; position:relative;padding:0px 5px" data-toggle="tooltip" data-placement="bottom">
+                                                            <i class="icon icon-asset" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                    </div>
+                                                    <!--/ko-->
+                                                    <!-- ko  if:ItemCode()=='RatingAgent'-->
+                                                    <div class="col-md-1" style="padding:0 5px">
+                                                        <a class="btn btn-primary" id="createRatingAgencyBtn" style="padding:4px 6px;">新增</a>
+                                                    </div>
+                                                    <div class="col-md-1 icon_position">
+                                                        <button type="button" id="btnMutipleRating" class="btn btn-link" style="padding:0 5px;left:0px"><i class="icon icon-add"></i></button>
+                                                    </div>
+                                                    <!-- /ko -->
+                                                    <div class="col-md-2" data-bind="attr:{id:ItemCode()}">
+                                                        <!-- ko  if: ItemCode()=='CouponPaymentReference' -->
+                                                        <button id="TrustBondModule_btn_CouponPaymentReference" data-bind="attr: { rowindex: $index }" type="button" onclick="TrustBondModule.OpenBondInterestAdjustment(this)" class="btn btn-link" style="display:none;padding: 0px 5px;"><i class="icon icon-add"></i></button>
+                                                        <!-- /ko -->
+                                                        <!--ko if: ItemCode() =="SecurityExchangeCode"-->
+                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom" title="即核心系统中的产品编码" style="padding:0px 5px">
+                                                            <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                        <!--/ko-->
+                                                        <!--ko if: ItemCode() =="PAIInterestPrecision" || ItemCode() =="PAIPrincipalPrecision"-->
+                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom" title="此项设置针对该档债券精度与整体不同的情况" style="padding:0px 5px;display: inline-block;width: auto;">
+                                                            <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                        <!--/ko-->
+                                                        <!-- ko  if: IsNew() -->
+                                                        <button id="btn_RemoveCompulsory" type="button" data-bind="attr: { itemCode: ItemCode }" onclick="TrustBondModule.RemoveCompulsory(this)" class="btn "><i class="icon icon-remove"></i></button>
+                                                        <!-- /ko -->
+                                                        <!--ko if: ItemCode() =="InterestRateCalculation"-->
+                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom"
+                                                             title="指计算应付利息的时间单位:<br><br>
+                                             若'以天为单位':<br><br>则应付利息=A*B*计息期间实际天数/全年计息天数<br><br>
+                                             若'以月为单位':<br><br>则应付利息=A*B*计息期间间隔月数/12<br><br>
+                                             若'以季为单位':<br><br>则应付利息=A*B*计息期间间隔信托季度数/4<br><br>
+                                             …………<br><br>
+                                             其中 A:证券期初未偿本金总额  B:当期证券执行利率<br><br>
+                                             不满一个单位，按一个单位计算"
+                                                             style="padding:0px 5px">
+                                                            <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                        <!--/ko-->
+                                                        <!--ko if: ItemCode() =="ClassType"-->
+                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom" title=" 次优先级: 次于优先级档" style="padding:0px 5px">
+                                                            <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                        <!--/ko-->
+                                                        <!--ko if: ItemCode() =="InterestDays"-->
+                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom" title="全年计息天数,如:360,365" style="padding:0px 5px">
+                                                            <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                        <!--/ko-->
+                                                    </div>
+                                                </div>
+                                                <!-- /ko -->
+                                                <!-- /ko-->
+                                            </div>
+                                        </div>
+                                        <div class="groupthree">
+                                            <div class="tiltespan" style="padding:0;margin:0;margin-bottom:15px"><span class="square"></span>利息要素</div>
+                                            <div class="form-panel item TrustItem_Detail" data-bind="foreach:Detail">
+                                                <!--ko   if:ItemType()=='InterestElement'-->
+                                                <!-- ko  if: IsDisplay() -->
+                                                <div class="col-md-6 form-group autoLayout-plugins">
+                                                    <div class="col-md-4">
+                                                        <label data-bind="text:ItemAliasValue,attr:{title:ItemAliasValue}" class="myClass" data-toggle="tooltip" data-placement="bottom"></label>
+                                                    </div>
+                                                    <div class="col-md-7">
+
+                                                        <!--改了这里，使用if单独绑定OfferAmount-->
+                                                        <!--ko   if:ItemCode()=='OfferAmount'-->
+                                                        <input id="OfferAmount" type="text" class="form-control" data-bind="value:$parent.formatp(ItemValue()),event: { keyup:TrustBondModule.mymodel.logkeyupItemValue.bind($index,$data,'#OfferAmount')}," data-valid="Required" onchange="validControlValue(this)" autocomplete="off" />
+
+                                                        <!-- /ko-->
+                                                        <!--ko   if:ItemCode()=='Denomination'-->
+                                                        <input id="Denomination" type="text" class="form-control" data-bind="value:$parent.formatp(ItemValue()),event: { keyup:TrustBondModule.mymodel.logkeyupItemValue.bind($index,$data,'#Denomination')}," data-valid="Required" onchange="validControlValue(this)" autocomplete="off" />
+
+                                                        <!-- /ko-->
+                                                        <!-- ko  if:DataType()!='Select' -->
+                                                        <!-- ko  if:ItemCode()!='OfferAmount'-->
+                                                        <!-- ko  if:ItemCode()!='Denomination'-->
+                                                        <!-- ko  if:ItemCode()=='SecurityExchangeCode'-->
+                                                        <span id="SecurityExchangeCode">
+                                                            <input type="text" class="form-control" id="validItemValueInput6" data-bind="value: ItemValue" onchange="validControlValue(this)" data-valid="word Required" autocomplete="off" />
+                                                        </span>
+                                                        <!-- /ko -->
+                                                        <!-- ko  if:ItemCode()!='SecurityExchangeCode'-->
+                                                        <span data-bind="renderControl:ItemCode,attr:{'id':ItemCode}"></span>
+                                                        <!-- /ko -->
+                                                        <!-- /ko -->
+                                                        <!-- /ko -->
+                                                        <!-- /ko -->
+                                                        <!-- ko  if:DataType()=='Select' -->
+                                                        <!-- ko  if:ItemCode()!='RatingAgent'-->
+                                                        <span data-bind="renderControl:ItemCode,id:'bn_'"></span>
+                                                        <!-- /ko -->
+                                                        <!-- ko  if:ItemCode()=='RatingAgent'-->
+                                                        <select class="form-control" data-bind="options:$parent.DDL.RatingAgent, optionsText:'ItemAliasValue', optionsValue:'SPId',value:ItemValue"></select>
+                                                        <!-- /ko -->
+                                                        <!-- /ko -->
+                                                    </div>
+                                                    <!--ko   if:ItemCode()=='OfferAmount'-->
+                                                    <div class="col-md-1">
+                                                        <div id="field1" class="col-md-1 col-1-height" style="display:inline; position:relative;padding:0px 5px" data-toggle="tooltip" data-placement="bottom">
+                                                            <i class="icon icon-asset" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                    </div>
+                                                    <!--/ko-->
+                                                    <!--ko   if:ItemCode()=='Denomination'-->
+                                                    <div class="col-md-1">
+                                                        <div id="field2" class="col-md-1 col-1-height" style="display:inline; position:relative;padding:0px 5px" data-toggle="tooltip" data-placement="bottom">
+                                                            <i class="icon icon-asset" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                    </div>
+                                                    <!--/ko-->
+                                                    <!-- ko  if:ItemCode()=='RatingAgent'-->
+                                                    <div class="col-md-1" style="padding:0 5px">
+                                                        <a class="btn btn-primary" id="createRatingAgencyBtn" style="padding:4px 6px;">新增</a>
+                                                    </div>
+                                                    <div class="col-md-1 icon_position">
+                                                        <button type="button" id="btnMutipleRating" class="btn btn-link" style="padding:0 5px;left:0px"><i class="icon icon-add"></i></button>
+                                                    </div>
+                                                    <!-- /ko -->
+                                                    <div class="col-md-2" data-bind="attr:{id:ItemCode()}">
+                                                        <!-- ko  if: ItemCode()=='CouponPaymentReference' -->
+                                                        <button id="TrustBondModule_btn_CouponPaymentReference" data-bind="attr: { rowindex: $index }" type="button" onclick="TrustBondModule.OpenBondInterestAdjustment(this)" class="btn btn-link" style="display:none;padding: 0px 5px;"><i class="icon icon-add"></i></button>
+                                                        <!-- /ko -->
+                                                        <!--ko if: ItemCode() =="SecurityExchangeCode"-->
+                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom" title="即核心系统中的产品编码" style="padding:0px 5px">
+                                                            <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                        <!--/ko-->
+                                                        <!--ko if: ItemCode() =="PAIInterestPrecision" || ItemCode() =="PAIPrincipalPrecision"-->
+                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom" title="此项设置针对该档债券精度与整体不同的情况" style="padding:0px 5px;display: inline-block;width: auto;">
+                                                            <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                        <!--/ko-->
+                                                        <!-- ko  if: IsNew() -->
+                                                        <button id="btn_RemoveCompulsory" type="button" data-bind="attr: { itemCode: ItemCode }" onclick="TrustBondModule.RemoveCompulsory(this)" class="btn "><i class="icon icon-remove"></i></button>
+                                                        <!-- /ko -->
+                                                        <!--ko if: ItemCode() =="InterestRateCalculation"-->
+                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom"
+                                                             title="指计算应付利息的时间单位:<br><br>
+                                             若'以天为单位':<br><br>则应付利息=A*B*计息期间实际天数/全年计息天数<br><br>
+                                             若'以月为单位':<br><br>则应付利息=A*B*计息期间间隔月数/12<br><br>
+                                             若'以季为单位':<br><br>则应付利息=A*B*计息期间间隔信托季度数/4<br><br>
+                                             …………<br><br>
+                                             其中 A:证券期初未偿本金总额  B:当期证券执行利率<br><br>
+                                             不满一个单位，按一个单位计算"
+                                                             style="padding:0px 5px">
+                                                            <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                        <!--/ko-->
+                                                        <!--ko if: ItemCode() =="ClassType"-->
+                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom" title=" 次优先级: 次于优先级档" style="padding:0px 5px">
+                                                            <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                        <!--/ko-->
+                                                        <!--ko if: ItemCode() =="InterestDays"-->
+                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom" title="全年计息天数,如:360,365" style="padding:0px 5px">
+                                                            <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                        <!--/ko-->
+                                                    </div>
+                                                </div>
+                                                <!-- /ko -->
+                                                <!-- /ko-->
+                                            </div>
+                                        </div>
+                                        <div class="groupfour">
+                                            <div class="tiltespan" style="padding:0;margin:0;margin-bottom:15px"><span class="square"></span>其他</div>
+                                            <div class="form-panel item TrustItem_Detail" data-bind="foreach:Detail">
+                                                <!--ko   if:ItemType()=='other'-->
+                                                <!-- ko  if: IsDisplay() -->
+                                                <div class="col-md-6 form-group autoLayout-plugins">
+                                                    <div class="col-md-4">
+                                                        <label data-bind="text:ItemAliasValue"></label>
+                                                    </div>
+                                                    <div class="col-md-7">
+
+                                                        <!--改了这里，使用if单独绑定OfferAmount-->
+                                                        <!--ko   if:ItemCode()=='OfferAmount'-->
+                                                        <input id="OfferAmount" type="text" class="form-control" data-bind="value:$parent.formatp(ItemValue()),event: { keyup:TrustBondModule.mymodel.logkeyupItemValue.bind($index,$data,'#OfferAmount')}," data-valid="Required" onchange="validControlValue(this)" autocomplete="off" />
+
+                                                        <!-- /ko-->
+                                                        <!--ko   if:ItemCode()=='Denomination'-->
+                                                        <input id="Denomination" type="text" class="form-control" data-bind="value:$parent.formatp(ItemValue()),event: { keyup:TrustBondModule.mymodel.logkeyupItemValue.bind($index,$data,'#Denomination')}," data-valid="Required" onchange="validControlValue(this)" autocomplete="off" />
+
+                                                        <!-- /ko-->
+                                                        <!-- ko  if:DataType()!='Select' -->
+                                                        <!-- ko  if:ItemCode()!='OfferAmount'-->
+                                                        <!-- ko  if:ItemCode()!='Denomination'-->
+                                                        <!-- ko  if:ItemCode()=='SecurityExchangeCode'-->
+                                                        <span id="SecurityExchangeCode">
+                                                            <input type="text" class="form-control" id="validItemValueInput6" data-bind="value: ItemValue" onchange="validControlValue(this)" data-valid="word Required" autocomplete="off" />
+                                                        </span>
+                                                        <!-- /ko -->
+                                                        <!-- ko  if:ItemCode()!='SecurityExchangeCode'-->
+                                                        <span data-bind="renderControl:ItemCode,attr:{'id':ItemCode}"></span>
+                                                        <!-- /ko -->
+                                                        <!-- /ko -->
+                                                        <!-- /ko -->
+                                                        <!-- /ko -->
+                                                        <!-- ko  if:DataType()=='Select' -->
+                                                        <!-- ko  if:ItemCode()!='RatingAgent'-->
+                                                        <span data-bind="renderControl:ItemCode,id:'bn_'"></span>
+                                                        <!-- /ko -->
+                                                        <!-- ko  if:ItemCode()=='RatingAgent'-->
+                                                        <select class="form-control" data-bind="options:$parent.DDL.RatingAgent, optionsText:'ItemAliasValue', optionsValue:'SPId',value:ItemValue"></select>
+                                                        <!-- /ko -->
+                                                        <!-- /ko -->
+                                                    </div>
+                                                    <!--ko   if:ItemCode()=='OfferAmount'-->
+                                                    <div class="col-md-1">
+                                                        <div id="field1" class="col-md-1 col-1-height" style="display:inline; position:relative;padding:0px 5px" data-toggle="tooltip" data-placement="bottom">
+                                                            <i class="icon icon-asset" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                    </div>
+                                                    <!--/ko-->
+                                                    <!--ko   if:ItemCode()=='Denomination'-->
+                                                    <div class="col-md-1">
+                                                        <div id="field2" class="col-md-1 col-1-height" style="display:inline; position:relative;padding:0px 5px" data-toggle="tooltip" data-placement="bottom">
+                                                            <i class="icon icon-asset" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                    </div>
+                                                    <!--/ko-->
+                                                    <!-- ko  if:ItemCode()=='RatingAgent'-->
+                                                    <div class="col-md-1" style="padding:0 5px">
+                                                        <a class="btn btn-primary" id="createRatingAgencyBtn" style="padding:4px 6px;">新增</a>
+                                                    </div>
+                                                    <div class="col-md-1 icon_position">
+                                                        <button type="button" id="btnMutipleRating" class="btn btn-link" style="padding:0 5px;left:0px"><i class="icon icon-add"></i></button>
+                                                    </div>
+                                                    <!-- /ko -->
+                                                    <div class="col-md-2" data-bind="attr:{id:ItemCode()}">
+                                                        <!-- ko  if: IsNew() -->
+                                                        <button id="btn_RemoveCompulsory" type="button" data-bind="attr: { itemCode: ItemCode }" onclick="TrustBondModule.RemoveCompulsory(this)" class="btn "><i class="icon icon-remove"></i></button>
+                                                        <!-- /ko -->
+                                                        <!-- ko  if: ItemCode()=='CouponPaymentReference' -->
+                                                        <button id="TrustBondModule_btn_CouponPaymentReference" data-bind="attr: { rowindex: $index }" type="button" onclick="TrustBondModule.OpenBondInterestAdjustment(this)" class="btn btn-link" style="display:none;padding: 0px 5px;"><i class="icon icon-add"></i></button>
+                                                        <!-- /ko -->
+                                                        <!--ko if: ItemCode() =="SecurityExchangeCode"-->
+                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom" title="即核心系统中的产品编码" style="padding:0px 5px">
+                                                            <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                        <!--/ko-->
+                                                        <!--ko if: ItemCode() =="PAIInterestPrecision" || ItemCode() =="PAIPrincipalPrecision"-->
+                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom" title="此项设置针对该档债券精度与整体不同的情况" style="padding:0px 5px;display: inline-block;width: auto;">
+                                                            <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                        <!--/ko-->
+                                                        <!--ko if: ItemCode() =="InterestRateCalculation"-->
+                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom"
+                                                             title="指计算应付利息的时间单位:<br><br>
+                                             若'以天为单位':<br><br>则应付利息=A*B*计息期间实际天数/全年计息天数<br><br>
+                                             若'以月为单位':<br><br>则应付利息=A*B*计息期间间隔月数/12<br><br>
+                                             若'以季为单位':<br><br>则应付利息=A*B*计息期间间隔信托季度数/4<br><br>
+                                             …………<br><br>
+                                             其中 A:证券期初未偿本金总额  B:当期证券执行利率<br><br>
+                                             不满一个单位，按一个单位计算"
+                                                             style="padding:0px 5px">
+                                                            <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                        <!--/ko-->
+                                                        <!--ko if: ItemCode() =="ClassType"-->
+                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom" title=" 次优先级: 次于优先级档" style="padding:0px 5px">
+                                                            <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                        <!--/ko-->
+                                                        <!--ko if: ItemCode() =="InterestDays"-->
+                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom" title="全年计息天数,如:360,365" style="padding:0px 5px">
+                                                            <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
+                                                        </div>
+                                                        <!--/ko-->
+                                                    </div>
+                                                </div>
+                                                <!-- /ko -->
+                                                <!-- /ko-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="DivRatingDialog" style="display:none;padding:10px 20px;">
+                                    <div class="form" style="min-height:0px;border-bottom:none">
+                                        <div class="form-panel item" style="margin-top:15px">
+                                            <div class="col-md-12 row" data-bind="foreach:MultipleRatings" style="margin:0px">
+                                                <div class="form-group autoLayout-plugins" style="width:33%;float:left">
+                                                    <div class="col-md-5" style="position:static;padding:0px">
+                                                        <label>评级日期</label>
+                                                    </div>
+                                                    <div class="col-md-7" style="position:static;padding:0px;padding-right:20px">
+                                                        <input class="form-control date-plugins" data-bind="value:RatingDate" data-valid="Required" onchange="validControlValue(this)" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group autoLayout-plugins" style="width:33%;float:left">
+                                                    <div class="col-md-5" style="padding:0px">
+                                                        <label>评级机构</label>
+                                                    </div>
+                                                    <div class="col-md-7" style="padding:0px;padding-right:20px">
+                                                        <select class="form-control" data-bind="options:$parent.DDL.RatingAgent, optionsText:'ItemAliasValue', optionsValue:'SPId',value:AgentId"></select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group autoLayout-plugins" style="width:32%;float:left">
+                                                    <div class="col-md-5" style="padding:0px">
+                                                        <label>评级</label>
+                                                    </div>
+                                                    <div class="col-md-7" style="padding:0px;padding-right:10px">
+                                                        <input type="text" class="form-control form-item" data-bind="value:Rating" data-valid="required" onchange="validControlValue(this)" />
+                                                    </div>
+                                                </div>
+                                                <div style="width:2%;float:left">
+                                                    <!--ko if:IsPlus-->
+                                                    <button id="RemoveRating" type="button" class="btn btn-remove" onclick="TrustBondModule.RemoveRating(this)" data-bind="attr: { dataIndex: $index }" style="display:inline-block;width:auto;height:auto;padding:0px;float:right;outline:none;box-shadow:none;background:none;border:0 none;margin-top: 4px;"><i class="icon icon-remove"></i></button>
+                                                    <!-- /ko -->
+                                                    <!--ko ifnot:IsPlus-->
+                                                    <button id="AddRating" onclick="TrustBondModule.AddRating()" type="button" class="btn btn-link" style="display:inline-block;width:auto;height:auto;padding:0px;float:right;outline:none;box-shadow:none;margin-top: 4px;"><i class="icon icon-add"></i></button>
+                                                    <!-- /ko -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-button col-md-12" style="text-align: center;display:none">
+                                    <input type="button" class="btn btn-primary" id="next-step" value="保存" style="margin-top:20px" />
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="addRatingAgencyContainer" class="col-md-12 form-panel" style="display: none; padding: 15px">
+            <div class="col-md-12 form-group" style="margin-bottom: 10px; line-height: 30px;" data-bind="foreach:ratingAgencyData">
+                <div class="col-md-12  form-group" style="padding-bottom: 10px">
+                    <div class="col-md-2 form-group">
+                        <div class="col-md-3">
+                            <label>ID</label>
+                        </div>
+                        <div class="col-md-7" style="width:calc(72% - 20px)">
+                            <input type="text" class="form-control" data-bind="textInput: ServiceProviderId" disabled="disabled" />
+                        </div>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <div class="col-md-3">
+                            <label>机构简称</label>
+                        </div>
+                        <div class="col-md-7" style="width:calc(72% - 20px)">
+                            <input type="text" maxlength="100" class="form-control" data-bind="textInput: ServiceProviderCode" />
+                        </div>
+                    </div>
+                    <div class="col-md-5 form-group" style="width:47.66666667%">
+                        <div class="col-md-3">
+                            <label>机构名称</label>
+                        </div>
+                        <div class="col-md-8" style="width:72%">
+                            <input type="text" maxlength="200" class="form-control" data-bind="textInput: ServiceProviderName" required="required" onchange="validControlValue(this)" />
+                        </div>
+                    </div>
+                    <!--ko if: $index() == "0"-->
+                    <div class="col-md-1" style="width:2.333333%">
+                        <button type="button" class="btn btn-link" style="color: green;float:right;padding:0px" data-bind="click: $parent.addRatingAgency"><i class="icon icon-add" style="color:#45569c;"></i></button>
+                    </div>
+                    <!-- /ko -->
+                    <!--ko if: $index() != "0"-->
+                    <div class="col-md-1" style="width:2.333333%">
+                        <button type="button" class="btn btn-link" style="color: red;float:right;padding:0px" data-bind="click: $parent.removeRatingAgency.bind($data, $index())"><i class="icon icon-remove"></i></button>
+                    </div>
+                    <!-- /ko -->
+                </div>
+            </div>
+            <div class="col-md-12 form-group">
+                <div class="form-button" style="padding-top: 5px;text-align:center">
+                    <button id="saveRatingAgency" type="button" class="btn btn-primary" data-bind="click: saveRatingAgency">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

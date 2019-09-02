@@ -1,0 +1,40 @@
+body{
+  padding: 5px 20px;
+}
+.list-filters{
+  overflow: hidden;
+  padding: 8px 0px;
+}
+.list-filters .form-group .form-control{
+  width: 60%;
+  margin-left: 10px;
+}
+.list-filters .form-control.shortItem{
+  width: 40%;
+}
+.table thead tr{
+  background-color: #efefef;
+}
+
+/*提示框样式*/
+
+.alert_tip{position: fixed;
+    top: 0;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 100px;
+    width: 200px;
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 5px rgba(0,0,0,.10);
+    border-radius: 3px;
+    z-index: 10;}
+.alert_tip .alert_content{position: relative;text-align: center;padding-top: 15px;}
+.alert_tip .alert_content i{display: block;line-height: 50px;font-size: 50px;font-weight: 500;margin-bottom: 5px;}
+.alert_tip .alert_content p{color: #555;font-size: 12px;line-height: normal;font-weight: bold;}
+.k-multiselect-wrap{
+    height: 30px;
+}
+li{list-style:none;}

@@ -1,0 +1,33 @@
+﻿ *{margin: 0;padding: 0;}
+
+.body-container{padding:0px 15px;}
+.page .main{padding:15px 20px!important;}
+
+.upload-sourcefile{display:none; padding:5px;}
+.file-option{height:30px; padding:10px 5px 5px 5px; line-height:30px;}
+.file-option input[type=text]{border:1px solid #ccc; height:25px; line-height:25px;}
+.file-option select{border:1px solid #ccc; height:25px; line-height:25px; font-size:14px; color:#555;}
+#spanUploadProgressMsg{display:none;}
+#BasicAssetSourceFileUpload{width:330px; height:25px; line-height:25px;}
+
+.list-container {}
+.list-container .noData{ }
+
+.mytable {border-collapse: collapse; width:100%;}
+.mytable .table-th {height: 26px;padding: 0 8px;border: 1px solid #ddd; background-color: #efefef; text-align: center;}
+.mytable .table-td {height: 26px;padding: 0 8px;text-align:center;border: 1px solid #ddd;}
+.mytable .table-td-left {height: 26px;padding: 0 8px;text-align: left;border: 1px solid #ddd;}
+.mytable .table-td.active {outline: 1px solid #5292F7;}
+
+.nobottom{border-bottom:none !important;}
+
+.pager{border:none; float:right;}
+.pager>li {display: inline-block;position: relative; padding: 4px 8px;margin-left: -1px;
+    line-height: 1.428571429; text-decoration: none;}
+.pager>li.current{}
+.pager>li.prev, .pager>li.next{font-weight:bolder; color:black;}
+.pager>li.prev:hover, .pager>li.next:hover{background-color:#f7f7f7; cursor:pointer !important;}
+.pager>li:hover { text-decoration: none;}
+.pager>li.disabled {color: #ddd;}
+.pager>li a{text-decoration:none; cursor:pointer;}
+

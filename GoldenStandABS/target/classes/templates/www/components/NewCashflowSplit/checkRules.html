@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<title></title>
+		<link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+		<link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+		<link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			li {
+				list-style: none;
+			}
+			[v-cloak] {
+				display: none;
+			}
+			.checkRules {
+				padding: 15px;
+			}
+			.checkRules div {
+				margin-bottom: 15px;
+			}
+			.checkRules div p {
+				font-size: 16px;
+				color: #333;
+				line-height: 40px;
+				margin-bottom: 10px;
+			}
+            .checkRules div ul {
+                border: 1px solid #ccc;
+            }
+			.checkRules div ul li {
+			    height: 40px;
+			    line-height: 40px;
+			    font-size: 14px;
+			    box-sizing: border-box;
+			    border-bottom: 1px solid #ccc;
+			    
+			}
+			.checkRules div ul li:first-child {
+				background: #FAFAFA;
+			}
+			/*.checkRules div ul li:nth-child(2n + 1) {
+				background: #FAFAFA;
+			}
+			.checkRules div ul li:nth-child(2n) {
+				background: white;
+			}*/
+			.checkRules div ul li span {
+				display: inline-block;
+				width: 16.6%;
+				 box-sizing: border-box;
+				 padding-left: 20px;
+				border-right: 1px solid #ccc;
+			}
+			.checkRules div ul li span:last-child {
+				border: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="checkRules" id="checkRules">
+			<!--案例-->
+			<div v-for="(item, index) in checkRules" :key="index" v-cloak>
+				<p>{{item.title}}</p>
+				<ul>
+					<li v-for="(iterm, index1) in item.content" :key="index1">
+						<span v-for="(data, index2) in iterm.table" :key="index2">{{data}}</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<script src="../../../asset/lib/require.js"></script>
+		<script type="text/javascript">
+			requirejs(['../../../asset/lib/config'], function(config) {
+				requirejs(['app/components/NewCashflowSplit/checkRules']);
+			});
+		</script>
+	</body>
+
+</html>

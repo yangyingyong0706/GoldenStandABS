@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boot.dao.TrustManagementMapper">
+
+	
+	
+	<select id="GetTrustInfoFromWizard" parameterType="String"  resultType="com.boot.entity.TrustInfo">
+		exec [TrustManagement].[usp_GetTrustInfoFromWizard] #{TrustId}
+	</select>
+	
+	<select id="GetTrustInfoFromWizardMap" parameterType="String"   resultType="java.util.HashMap">
+		exec [TrustManagement].[usp_GetTrustInfoFromWizard] #{TrustId}
+	</select>
+	
+		<resultMap id="TrustMap"
+		type="com.boot.entity.Trust">
+		<!-- <id property="TrustId" column="TrustId" javaType="int"></id> -->
+		<result property="TrustCode" column="TrustCode" javaType="java.lang.String"></result>
+		<result property="TrustName" column="TrustName" javaType="java.lang.String"></result>
+	</resultMap>
+	
+	<select id="GetTrust" resultMap="TrustMap" >
+		select * from Working.Trust
+	</select>
+	
+	
+</mapper>

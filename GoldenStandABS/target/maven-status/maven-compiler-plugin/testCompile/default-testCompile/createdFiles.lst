@@ -1,0 +1,4 @@
+com\boot\util\UnicodeConvertUtil.class
+com\boot\baseTest\SpringTestCase.class
+com\boot\util\StringUnicodeTest.class
+com\boot\serviceTest\UserServiceTest.class
