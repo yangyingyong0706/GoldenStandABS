@@ -3,8 +3,30 @@
 <mapper namespace="com.boot.dao.TrustManagementMapper">
 
 	
+	<resultMap id="TrustInfoMap"
+		type="com.boot.entity.TrustInfo">
+		<!-- <id property="TrustId" column="TrustId" javaType="int"></id> -->
+		<result property="Category" column="Category" javaType="java.lang.String"></result>
+		<result property="SPId" column="SPId" javaType="java.lang.String"></result>
+		<result property="SPCode" column="SPCode" javaType="java.lang.String"></result>
+		<result property="SPRItemCode" column="SPRItemCode" javaType="java.lang.String"></result>
+		<result property="TBId" column="tbId" javaType="java.lang.String"></result>
+		<result property="ItemId" column="ItemId" javaType="java.lang.String"></result>
+		<result property="ItemCode" column="itemcode" javaType="java.lang.String"></result>
+		<result property="ItemValue" column="itemvalue" javaType="java.lang.String"></result>
+		<result property="ItemAliasValue" column="ItemAliasValue" javaType="java.lang.String"></result>
+		<result property="IsCalculated" column="IsCalculated"  javaType="boolean"></result>
+		<result property="IsCompulsory" column="IsCompulsory"  javaType="boolean"></result>
+		<result property="DataType" column="DataType" javaType="java.lang.String"></result>
+		<result property="SequenceNo" column="SequenceNo" javaType="java.lang.String"></result>
+		<result property="Precise" column="Precise" javaType="java.lang.String"></result>
+		<result property="UnitOfMeasure" column="UnitOfMeasure" javaType="java.lang.String"></result>
+		<result property="IsPrimary" column="IsPrimary" javaType="boolean"></result>
+		
+	</resultMap>
 	
-	<select id="GetTrustInfoFromWizard" parameterType="String"  resultType="com.boot.entity.TrustInfo">
+<!-- 	<select id="GetTrustInfoFromWizard" parameterType="String"  resultType="com.boot.entity.TrustInfo"> -->
+	<select id="GetTrustInfoFromWizard" parameterType="String"  resultMap="TrustInfoMap">
 		exec [TrustManagement].[usp_GetTrustInfoFromWizard] #{TrustId}
 	</select>
 	
@@ -16,7 +38,13 @@
 		exec dbo.getABSversion
 	</select>
 	
-	<select id="GetAllCodeDictionary"  parameterType="String"   resultType="java.util.HashMap">
+	
+	<select id="GetAllCodeDictionaryMap"  parameterType="String"   resultType="java.util.HashMap">
+		exec [TrustManagement].[usp_GetAllCodeDictionary] #{AliasSetName}
+	</select> 
+	
+	
+	<select id="GetAllCodeDictionary"  parameterType="String"   resultType="com.boot.entity.Dictionary">
 		exec [TrustManagement].[usp_GetAllCodeDictionary] #{AliasSetName}
 	</select>
 	

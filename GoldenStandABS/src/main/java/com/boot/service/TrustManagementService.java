@@ -18,6 +18,7 @@ public interface TrustManagementService {
 	
 	Map<String,Object> getABSversion();
 	
-	List<Map<String,Object>> GetAllCodeDictionary(String aliasSetName);
-	
+    List<Map<String,Object>> GetAllCodeDictionaryMap(String aliasSetName);
+   
+	List<com.boot.entity.Dictionary> GetAllCodeDictionary(String aliasSetName);	
 }

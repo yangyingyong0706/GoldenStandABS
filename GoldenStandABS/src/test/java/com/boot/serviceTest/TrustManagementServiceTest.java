@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.boot.baseTest.SpringTestCase;
+import com.boot.entity.Dictionary;
 import com.boot.entity.Trust;
 import com.boot.entity.TrustInfo;
 import com.boot.service.DistrictService;
@@ -64,8 +65,14 @@ public class TrustManagementServiceTest extends SpringTestCase{
 	public void GetAllCodeDictionaryTest(){  
 //		Map<String, Object> map = trustManagementService.GetTrustInfoFromWizard("9");  
 		logger.info("--------------------start---GetAllCodeDictionaryTest--------------------------------------------------------------------------------------------------");
-		List<Map<String,Object>>  list=trustManagementService.GetAllCodeDictionary("zh-CN");
-		for (Map<String, Object> map : list) {
+		List<com.boot.entity.Dictionary> list=trustManagementService.GetAllCodeDictionary("zh-CN");
+		for (Dictionary trust : list) {
+			logger.info("查找结果" + trust.getSequenceNo());  
+		}
+		
+		
+		
+		/*for (Map<String, Object> map : list) {
 			Set<String> set=map.keySet();
 			for (String string : set) {
 				logger.info("查找结果getItemValue-----map--set----键key:("+string+")     值value:" +map.get(string) );  
@@ -73,11 +80,23 @@ public class TrustManagementServiceTest extends SpringTestCase{
 			}
 
 		}
-
+*/
 		
 		logger.info("--------------------end---GetAllCodeDictionaryTest--------------------------------------------------------------------------------------------------");
 	}  
 	
+	
+	
+	@Test  
+    public void GetTrustInfoFromWizardTest1(){  
+	logger.info("--------------------start--GetTrustInfoFromWizardTest---------------------------------------------------------------------------------------------------");
+	List<TrustInfo>  list=trustManagementService.GetTrustInfoFromWizard("9");
+		for (TrustInfo trustInfo : list) {
+			logger.info("查找结果getItemValue-----map--set----键key:("+trustInfo.getCategory()+")     值value:" +trustInfo.getItemId() );  
+		}
+
+    logger.info("--------------------end----GetTrustInfoFromWizardTest-------------------------------------------------------------------------------------------------");
+    } 
 	
 	
 	@Test  

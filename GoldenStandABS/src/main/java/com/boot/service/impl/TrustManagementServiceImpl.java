@@ -32,7 +32,12 @@ public class TrustManagementServiceImpl implements TrustManagementService{
 	public List<Trust>  GetTrust(){
 		return trustManagementMapper.GetTrust();
 	}
-	public List<Map<String,Object>> GetAllCodeDictionary(String aliasSetName){
+	
+	public List<Map<String,Object>> GetAllCodeDictionaryMap(String aliasSetName){
+		return trustManagementMapper.GetAllCodeDictionaryMap(aliasSetName);
+	}
+	
+	public List<com.boot.entity.Dictionary> GetAllCodeDictionary(String aliasSetName){
 		return trustManagementMapper.GetAllCodeDictionary(aliasSetName);
 	}
 	

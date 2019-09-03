@@ -338,7 +338,8 @@ define(function (require) {
         }
 
         function TrustInfoExtensionjson(obj) {
-            var temp = obj.ItemValue.split('|')
+        	var value = obj.ItemValue?obj.ItemValue:""
+            var temp = value.split('|')
             Categorytemp = obj.Category;
             itemidtemp = obj.ItemId;
             itemcodetemp = obj.ItemCode;
@@ -384,8 +385,8 @@ define(function (require) {
                         //    break;
                     case "TrustInfoExtensionItem":
                         oNew = Trustjson(obj[i]);
-
-                        //TODO yyy  if (obj[i].IsCompulsory.toLowerCase() == "true" || obj[i].ItemValue != "") {
+                      //TODO yyy  
+//                       if (obj[i].IsCompulsory.toLowerCase() == "true" || obj[i].ItemValue != "") {
                         if (obj[i].IsCompulsory || obj[i].ItemValue != "") {
                             if (obj[i].ItemCode.endWith("_T")) {
                                 trustitemdata.BondFields.push(oNew);
