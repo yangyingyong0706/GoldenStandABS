@@ -1244,3 +1244,154 @@ java.lang.IllegalArgumentException: Invalid character found in the request targe
 2019-09-08 16:41:13,616 [http-nio-8080-exec-5] INFO  com.boot.web.TrustManagementController - connName：PoolCut_Database exeParams:""
 2019-09-08 16:41:13,738 [http-nio-8080-exec-5] INFO  com.boot.web.TrustManagementController - CommonGet--最新改造的获取到了多少个：2
 2019-09-08 16:41:13,921 [http-nio-8080-exec-7] INFO  com.boot.web.TrustManagementController - GetTrustData----/DataProcessService.svc/jsAccessEP/GetTrustData----:applicationDomain:TrustManagement---contextInfo:{'SPName':'usp_GetAllCodeDictionary','Params':[{'AliasSetName':'zh-CN'}]}
+2019-09-08 17:00:11,414 [http-nio-8080-exec-2] INFO  com.boot.web.MainController - 跳转到产品管理-分层信息----html跳转到:www/components/Layered/Layered
+2019-09-08 17:00:12,840 [http-nio-8080-exec-3] INFO  com.boot.web.TrustManagementController - applicationDomain：TrustManagement contextInfo:{'SPName':'usp_GetTrustInfoFromWizard','Params':{'TrustId':'7893'}}
+2019-09-08 17:00:12,841 [http-nio-8080-exec-10] INFO  com.boot.web.TrustManagementController - GetTrustData-------applicationDomain：TrustManagement contextInfo:{'SPName':'usp_GetAllCodeDictionary','Params':{'AliasSetName':'zh-CN'},}
+2019-09-08 17:00:12,841 [http-nio-8080-exec-3] INFO  com.boot.web.TrustManagementController - GetItemsPlus----TrustId:7893
+2019-09-08 17:00:12,842 [http-nio-8080-exec-3] INFO  com.boot.web.TrustManagementController - GetItemsPlus----TrustManagementService.svc/jsAccessEP/GetItemsPlus----:applicationDomain:TrustManagement----contextInfo:{'SPName':'usp_GetTrustInfoFromWizard','Params':{'TrustId':'7893'}}
+2019-09-08 17:00:13,110 [http-nio-8080-exec-3] INFO  com.boot.web.TrustManagementController - GetItemsPlus----最新改造的获取到了多少个：330
+2019-09-08 17:00:17,955 [http-nio-8080-exec-8] INFO  com.boot.web.MainController - 跳转到产品管理-分层信息----html跳转到:www/components/Layered/Layered
+2019-09-08 17:00:19,622 [http-nio-8080-exec-2] INFO  com.boot.web.TrustManagementController - applicationDomain：TrustManagement contextInfo:{'SPName':'usp_GetTrustInfoFromWizard','Params':{'TrustId':'7893'}}
+2019-09-08 17:00:19,622 [http-nio-8080-exec-2] INFO  com.boot.web.TrustManagementController - GetItemsPlus----TrustId:7893
+2019-09-08 17:00:19,622 [http-nio-8080-exec-2] INFO  com.boot.web.TrustManagementController - GetItemsPlus----TrustManagementService.svc/jsAccessEP/GetItemsPlus----:applicationDomain:TrustManagement----contextInfo:{'SPName':'usp_GetTrustInfoFromWizard','Params':{'TrustId':'7893'}}
+2019-09-08 17:00:19,631 [http-nio-8080-exec-5] INFO  com.boot.web.TrustManagementController - GetTrustData-------applicationDomain：TrustManagement contextInfo:{'SPName':'usp_GetAllCodeDictionary','Params':{'AliasSetName':'zh-CN'},}
+2019-09-08 17:00:20,011 [http-nio-8080-exec-2] INFO  com.boot.web.TrustManagementController - GetItemsPlus----最新改造的获取到了多少个：330
+2019-09-08 17:00:24,253 [http-nio-8080-exec-7] INFO  com.boot.web.MainController - 跳转到产品管理-分层信息----html跳转到:www/components/Layered/Layered
+2019-09-08 17:01:29,699 [http-nio-8080-exec-2] INFO  com.boot.web.MainController - 跳转到产品管理-分层信息----html跳转到:www/components/Layered/Layered
+2019-09-08 17:01:58,599 [http-nio-8080-exec-8] INFO  com.boot.web.MainController - 跳转到产品管理-分层信息----html跳转到:www/components/Layered/Layered
+2019-09-08 17:01:59,532 [http-nio-8080-exec-6] INFO  com.boot.web.TrustManagementController - applicationDomain：TrustManagement contextInfo:{'SPName':'usp_GetTrustInfoFromWizard','Params':{'TrustId':'7893'}}
+2019-09-08 17:01:59,534 [http-nio-8080-exec-6] INFO  com.boot.web.TrustManagementController - GetItemsPlus----TrustId:7893
+2019-09-08 17:01:59,534 [http-nio-8080-exec-6] INFO  com.boot.web.TrustManagementController - GetItemsPlus----TrustManagementService.svc/jsAccessEP/GetItemsPlus----:applicationDomain:TrustManagement----contextInfo:{'SPName':'usp_GetTrustInfoFromWizard','Params':{'TrustId':'7893'}}
+2019-09-08 17:01:59,537 [http-nio-8080-exec-7] INFO  com.boot.web.TrustManagementController - GetTrustData-------applicationDomain：TrustManagement contextInfo:{'SPName':'usp_GetAllCodeDictionary','Params':{'AliasSetName':'zh-CN'},}
+2019-09-08 17:01:59,739 [http-nio-8080-exec-6] INFO  com.boot.web.TrustManagementController - GetItemsPlus----最新改造的获取到了多少个：330
+2019-09-08 17:02:04,075 [http-nio-8080-exec-8] INFO  com.boot.web.MainController - 跳转到产品管理-分层信息----html跳转到:www/components/Layered/Layered
+2019-09-08 17:03:54,572 [http-nio-8080-exec-8] INFO  com.boot.web.MainController - 跳转到产品管理-分层信息----html跳转到:www/components/Layered/Layered
+2019-09-08 17:03:55,606 [http-nio-8080-exec-7] INFO  com.boot.web.TrustManagementController - applicationDomain：TrustManagement contextInfo:{'SPName':'usp_GetTrustInfoFromWizard','Params':{'TrustId':'7893'}}
+2019-09-08 17:03:55,606 [http-nio-8080-exec-7] INFO  com.boot.web.TrustManagementController - GetItemsPlus----TrustId:7893
+2019-09-08 17:03:55,606 [http-nio-8080-exec-7] INFO  com.boot.web.TrustManagementController - GetItemsPlus----TrustManagementService.svc/jsAccessEP/GetItemsPlus----:applicationDomain:TrustManagement----contextInfo:{'SPName':'usp_GetTrustInfoFromWizard','Params':{'TrustId':'7893'}}
+2019-09-08 17:03:55,609 [http-nio-8080-exec-10] INFO  com.boot.web.TrustManagementController - GetTrustData-------applicationDomain：TrustManagement contextInfo:{'SPName':'usp_GetAllCodeDictionary','Params':{'AliasSetName':'zh-CN'},}
+2019-09-08 17:03:55,838 [http-nio-8080-exec-7] INFO  com.boot.web.TrustManagementController - GetItemsPlus----最新改造的获取到了多少个：330
+2019-09-08 17:04:03,174 [http-nio-8080-exec-8] INFO  com.boot.web.TrustManagementController - GetTrustData-------applicationDomain：TrustManagement contextInfo:{'SPName':'usp_GetAllCodeDictionary','Params':{'AliasSetName':'zh-CN'},}
+2019-09-08 17:04:21,292 [http-nio-8080-exec-2] INFO  com.boot.web.MainController - 跳转到产品管理-分层信息----html跳转到:www/components/Layered/Layered
+2019-09-08 17:04:26,912 [http-nio-8080-exec-5] INFO  com.boot.web.TrustManagementController - applicationDomain：TrustManagement contextInfo:{'SPName':'usp_GetTrustInfoFromWizard','Params':{'TrustId':'7893'}}
+2019-09-08 17:04:26,912 [http-nio-8080-exec-5] INFO  com.boot.web.TrustManagementController - GetItemsPlus----TrustId:7893
+2019-09-08 17:04:26,913 [http-nio-8080-exec-5] INFO  com.boot.web.TrustManagementController - GetItemsPlus----TrustManagementService.svc/jsAccessEP/GetItemsPlus----:applicationDomain:TrustManagement----contextInfo:{'SPName':'usp_GetTrustInfoFromWizard','Params':{'TrustId':'7893'}}
+2019-09-08 17:04:26,919 [http-nio-8080-exec-8] INFO  com.boot.web.TrustManagementController - GetTrustData-------applicationDomain：TrustManagement contextInfo:{'SPName':'usp_GetAllCodeDictionary','Params':{'AliasSetName':'zh-CN'},}
+2019-09-08 17:04:27,140 [http-nio-8080-exec-5] INFO  com.boot.web.TrustManagementController - GetItemsPlus----最新改造的获取到了多少个：330
+2019-09-08 17:10:12,484 [main] INFO  com.boot.WarApplication - Starting WarApplication on DESKTOP-CPM0NVP with PID 18320 (D:\shenzhenDev\GoldenStandABS\target\classes started by DELL in D:\shenzhenDev\GoldenStandABS)
+2019-09-08 17:10:12,486 [main] INFO  com.boot.WarApplication - No active profile set, falling back to default profiles: default
+2019-09-08 17:10:12,986 [main] INFO  o.s.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@7748410a: startup date [Sun Sep 08 17:10:12 CST 2019]; root of context hierarchy
+2019-09-08 17:10:13,249 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.6.Final
+2019-09-08 17:10:15,982 [main] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8080 (http)
+2019-09-08 17:10:16,001 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2019-09-08 17:10:16,006 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2019-09-08 17:10:16,220 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2019-09-08 17:10:16,227 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3241 ms
+2019-09-08 17:10:16,489 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2019-09-08 17:10:16,496 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-09-08 17:10:16,496 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-09-08 17:10:16,497 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2019-09-08 17:10:16,497 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+2019-09-08 17:10:17,862 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@7748410a: startup date [Sun Sep 08 17:10:12 CST 2019]; root of context hierarchy
+2019-09-08 17:10:17,876 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Detected ResponseBodyAdvice bean in jsonpAdvice
+2019-09-08 17:10:17,987 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/GoldenStandABS/service/DataProcessService.svc/jsAccessEP/CommonExecuteGet],methods=[GET]}" onto public java.lang.String com.boot.web.CommonExecuteController.CommonExecuteGet(java.lang.String,java.lang.String)
+2019-09-08 17:10:17,991 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/GoldenStandABS/service/DataProcessService.svc/jsAccessEP/GetRulesAndAccountsFromXMLFile]}" onto public java.lang.String com.boot.web.DataProcessController.GetRulesAndAccountsFromXMLFile(java.lang.String)
+2019-09-08 17:10:17,992 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/GoldenStandABS/service/DataProcessService.svc/jsAccessEP/GetFeesFromXMLFile]}" onto public java.lang.String com.boot.web.DataProcessController.GetFeesFromXMLFile(java.lang.String)
+2019-09-08 17:10:17,996 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/service/DataProcessService.svc/jsAccessEP/GetTrustData]}" onto public java.util.List<java.util.Map<java.lang.String, java.lang.Object>> com.boot.web.DataProcessController.GetTrustData(java.lang.String,java.lang.String)
+2019-09-08 17:10:17,997 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/GoldenStandABS/service/DataProcessService.svc/jsAccessEP/ExecuteDataTable],methods=[POST],consumes=[application/json;charset=utf-8]}" onto public java.lang.String com.boot.web.DataProcessController.ExecuteDataTable(com.boot.entity.req.ExecuteDataTableReq)
+2019-09-08 17:10:17,998 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/service/DataProcessService.svc/jsAccessEP/CommonExecuteGet],methods=[GET]}" onto public java.lang.String com.boot.web.DataProcessController.CommonExecuteGet(java.lang.String,java.lang.String)
+2019-09-08 17:10:18,010 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/GoldenStandABS/]}" onto java.lang.String com.boot.web.MainController.home()
+2019-09-08 17:10:18,011 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/GoldenStandABS/www/components/PaymentSequence/PaymentSequenceSetting.html],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.boot.web.MainController.PaymentSequenceSetting()
+2019-09-08 17:10:18,011 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/GoldenStandABS/www/components/PaymentSequence/PayoffOrderFormula.html],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.boot.web.MainController.PayoffOrderFormula()
+2019-09-08 17:10:18,012 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/GoldenStandABS/www/productManage/TrustManagement/RefreshCashflowModel/RefreshCashflowModel.html],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.boot.web.MainController.RefreshCashflowModel()
+2019-09-08 17:10:18,012 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/GoldenStandABS/www/components/AccountInformation/AccountInformation.html],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.boot.web.MainController.AccountInformation()
+2019-09-08 17:10:18,013 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/GoldenStandABS/www/ProductDesignTools/index.html],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.boot.web.MainController.ProductDesignTools()
+2019-09-08 17:10:18,014 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/GoldenStandABS/www/components/AccountInformation/AccountInformationPortfolio.html],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.boot.web.MainController.AccountInformationPortfolio()
+2019-09-08 17:10:18,015 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/GoldenStandABS/www/components/trustList/TrustList.html],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.boot.web.MainController.TrustList()
+2019-09-08 17:10:18,015 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/GoldenStandABS/www/components/Layered/Layered.html],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.boot.web.MainController.Layered()
+2019-09-08 17:10:18,015 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/GoldenStandABS/www/productManage/TrustManagement/PaymentSetWizard/EventManagement.html],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.boot.web.MainController.EventManagement()
+2019-09-08 17:10:18,016 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/GoldenStandABS/www/productManage/TrustManagement/ViewTrustItem/viewTrustItem.html],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.boot.web.MainController.viewTrustItem()
+2019-09-08 17:10:18,016 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/GoldenStandABS/www/components/viewDateSet/viewDateSet.html],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.boot.web.MainController.viewDateSet()
+2019-09-08 17:10:18,017 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/GoldenStandABS/www/components/FeeSettings/FeeSettingsNew.html],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.boot.web.MainController.FeeSettingsNew()
+2019-09-08 17:10:18,018 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/GoldenStandABS/service/DataProcessService.svc/jsAccessEP/DataReadKendoGridEx]}" onto public java.util.List<java.util.Map<java.lang.String, java.lang.Object>> com.boot.web.TrustManagementController.DataReadKendoGridEx()
+2019-09-08 17:10:18,019 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/GoldenStandABS/service/DataProcessService.svc/jsAccessEP/GetPublicHolidays/TrustManagement/{date}/{text}]}" onto public java.lang.String com.boot.web.TrustManagementController.GetPublicHolidays(java.lang.String,java.lang.String)
+2019-09-08 17:10:18,019 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/GoldenStandABS/service/DataProcessService.svc/jsAccessEP/GetTrustData]}" onto public java.util.List<java.util.Map<java.lang.String, java.lang.Object>> com.boot.web.TrustManagementController.GetTrustData(java.lang.String,java.lang.String)
+2019-09-08 17:10:18,020 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/GoldenStandABS/service/TrustManagementService.svc/jsAccessEP/GetItemsPlus]}" onto public java.util.List<com.boot.entity.TrustInfo> com.boot.web.TrustManagementController.GetItemsPlus(java.lang.String,java.lang.String)
+2019-09-08 17:10:18,022 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/GoldenStandABS/service/PoolCutService.svc/jsAccessEP/CommonGet]}" onto public java.util.Map<java.lang.String, java.lang.Object> com.boot.web.TrustManagementController.CommonGet(java.lang.String,java.lang.String)
+2019-09-08 17:10:18,025 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/test],methods=[GET]}" onto public java.util.List<com.boot.entity.District> com.boot.web.UserController.test(java.lang.String,java.lang.String)
+2019-09-08 17:10:18,026 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/test]}" onto public java.lang.String com.boot.web.UserController.getIndex(org.springframework.ui.Model)
+2019-09-08 17:10:18,026 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/html],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.boot.web.UserController.html()
+2019-09-08 17:10:18,026 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/html1],methods=[GET]}" onto public java.lang.String com.boot.web.UserController.html1()
+2019-09-08 17:10:18,026 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/getProvince],methods=[GET]}" onto public java.util.List<com.boot.entity.District> com.boot.web.UserController.getProvince()
+2019-09-08 17:10:18,029 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2019-09-08 17:10:18,029 [main] INFO  o.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2019-09-08 17:10:18,079 [main] INFO  org.springframework.web.servlet.handler.SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-09-08 17:10:18,079 [main] INFO  org.springframework.web.servlet.handler.SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-09-08 17:10:18,106 [main] INFO  o.s.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Detected ResponseBodyAdvice implementation in jsonpAdvice
+2019-09-08 17:10:18,150 [main] INFO  org.springframework.web.servlet.handler.SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-09-08 17:10:19,091 [main] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2019-09-08 17:10:19,214 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2019-09-08 17:10:19,263 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2019-09-08 17:10:19,374 [main] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2019-09-08 17:10:19,435 [main] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8080 (http)
+2019-09-08 17:10:19,448 [main] INFO  com.boot.WarApplication - Started WarApplication in 7.794 seconds (JVM running for 8.521)
+2019-09-08 17:10:43,021 [http-nio-8080-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2019-09-08 17:10:43,021 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2019-09-08 17:10:43,056 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 35 ms
+2019-09-08 17:10:43,121 [http-nio-8080-exec-1] INFO  com.boot.web.MainController - 跳转到产品管理-分层信息----html跳转到:www/components/Layered/Layered
+2019-09-08 17:10:43,161 [http-nio-8080-exec-1] INFO  org.thymeleaf.TemplateEngine - [THYMELEAF] INITIALIZING TEMPLATE ENGINE
+2019-09-08 17:10:43,242 [http-nio-8080-exec-1] INFO  org.thymeleaf.templateresolver.AbstractTemplateResolver - [THYMELEAF] INITIALIZING TEMPLATE RESOLVER: org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver
+2019-09-08 17:10:43,242 [http-nio-8080-exec-1] INFO  org.thymeleaf.templateresolver.AbstractTemplateResolver - [THYMELEAF] TEMPLATE RESOLVER INITIALIZED OK
+2019-09-08 17:10:43,242 [http-nio-8080-exec-1] INFO  org.thymeleaf.messageresolver.AbstractMessageResolver - [THYMELEAF] INITIALIZING MESSAGE RESOLVER: org.thymeleaf.spring4.messageresolver.SpringMessageResolver
+2019-09-08 17:10:43,242 [http-nio-8080-exec-1] INFO  org.thymeleaf.messageresolver.AbstractMessageResolver - [THYMELEAF] MESSAGE RESOLVER INITIALIZED OK
+2019-09-08 17:10:43,251 [http-nio-8080-exec-1] INFO  org.thymeleaf.TemplateEngine.CONFIG - [THYMELEAF] TEMPLATE ENGINE CONFIGURATION:
+[THYMELEAF] * Cache Factory implementation: org.thymeleaf.cache.StandardCacheManager
+[THYMELEAF] * Template modes:
+[THYMELEAF]     * XML
+[THYMELEAF]     * HTML5
+[THYMELEAF]     * VALIDXML
+[THYMELEAF]     * XHTML
+[THYMELEAF]     * VALIDXHTML
+[THYMELEAF]     * LEGACYHTML5
+[THYMELEAF] * Template resolvers (in order):
+[THYMELEAF]     * org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver
+[THYMELEAF] * Message resolvers (in order):
+[THYMELEAF]     * org.thymeleaf.spring4.messageresolver.SpringMessageResolver
+[THYMELEAF] * Dialect [1 of 2]: org.thymeleaf.spring4.dialect.SpringStandardDialect
+[THYMELEAF]     * Prefix: "th"
+[THYMELEAF] * Dialect [2 of 2]: nz.net.ultraq.thymeleaf.LayoutDialect
+[THYMELEAF]     * Prefix: "layout"
+[THYMELEAF] TEMPLATE ENGINE CONFIGURED OK
+2019-09-08 17:10:43,252 [http-nio-8080-exec-1] INFO  org.thymeleaf.TemplateEngine - [THYMELEAF] TEMPLATE ENGINE INITIALIZED
+2019-09-08 17:10:48,944 [http-nio-8080-exec-10] INFO  com.boot.web.TrustManagementController - applicationDomain：TrustManagement contextInfo:{'SPName':'usp_GetTrustInfoFromWizard','Params':{'TrustId':'7893'}}
+2019-09-08 17:10:48,944 [http-nio-8080-exec-1] INFO  com.boot.web.TrustManagementController - GetTrustData-------applicationDomain：TrustManagement contextInfo:{'SPName':'usp_GetAllCodeDictionary','Params':{'AliasSetName':'zh-CN'}}
+2019-09-08 17:10:49,130 [http-nio-8080-exec-10] INFO  com.boot.web.TrustManagementController - GetItemsPlus----TrustId:7893
+2019-09-08 17:10:49,130 [http-nio-8080-exec-10] INFO  com.boot.web.TrustManagementController - GetItemsPlus----TrustManagementService.svc/jsAccessEP/GetItemsPlus----:applicationDomain:TrustManagement----contextInfo:{'SPName':'usp_GetTrustInfoFromWizard','Params':{'TrustId':'7893'}}
+2019-09-08 17:10:52,767 [http-nio-8080-exec-1] INFO  com.boot.web.TrustManagementController - GetTrustData----/DataProcessService.svc/jsAccessEP/GetTrustData----:applicationDomain:TrustManagement---contextInfo:{'SPName':'usp_GetAllCodeDictionary','Params':{'AliasSetName':'zh-CN'}}
+2019-09-08 17:10:53,072 [http-nio-8080-exec-10] INFO  com.boot.web.TrustManagementController - GetItemsPlus----最新改造的获取到了多少个：330
+2019-09-08 17:10:53,764 [http-nio-8080-exec-3] INFO  com.boot.web.CommonExecuteController - -----进入/service/DataProcessService.svc/jsAccessEP/CommonExecuteGet方法--
+2019-09-08 17:10:53,764 [http-nio-8080-exec-3] INFO  com.boot.web.CommonExecuteController - 跳转到公共调用方法----参数信息--appDomain:TrustManagement-----executeParams:{"SPName":"usp_GetServiceProviderByType","SQLParams":[{"Name":"Type","value":"RatingAgency","DBType":"string"}]}
+2019-09-08 17:11:10,079 [http-nio-8080-exec-5] INFO  com.boot.web.MainController - 跳转到产品管理-分层信息----html跳转到:www/components/viewDateSet/viewDateSet
+2019-09-08 17:11:10,597 [http-nio-8080-exec-2] INFO  com.boot.web.TrustManagementController - applicationDomain：TrustManagement contextInfo:{'SPName':'usp_GetTrustInfoFromWizard','Params':{'TrustId':'3627'}}
+2019-09-08 17:11:10,598 [http-nio-8080-exec-2] INFO  com.boot.web.TrustManagementController - GetItemsPlus----TrustId:3627
+2019-09-08 17:11:10,598 [http-nio-8080-exec-2] INFO  com.boot.web.TrustManagementController - GetItemsPlus----TrustManagementService.svc/jsAccessEP/GetItemsPlus----:applicationDomain:TrustManagement----contextInfo:{'SPName':'usp_GetTrustInfoFromWizard','Params':{'TrustId':'3627'}}
+2019-09-08 17:11:10,599 [http-nio-8080-exec-1] INFO  com.boot.web.TrustManagementController - GetTrustData-------applicationDomain：TrustManagement contextInfo:{'SPName':'usp_GetAllCodeDictionary','Params':{'AliasSetName':'zh-CN'}}
+2019-09-08 17:11:10,617 [http-nio-8080-exec-10] INFO  com.boot.web.CommonExecuteController - -----进入/service/DataProcessService.svc/jsAccessEP/CommonExecuteGet方法--
+2019-09-08 17:11:10,617 [http-nio-8080-exec-10] INFO  com.boot.web.CommonExecuteController - 跳转到公共调用方法----参数信息--appDomain:TrustManagement-----executeParams:{"SPName":"usp_GetFactBondPaymentFilterMetaData","SQLParams":[{"Name":"TrustId","value":"3627","DBType":"string"}]}
+2019-09-08 17:11:10,794 [http-nio-8080-exec-1] INFO  com.boot.web.TrustManagementController - GetTrustData----/DataProcessService.svc/jsAccessEP/GetTrustData----:applicationDomain:TrustManagement---contextInfo:{'SPName':'usp_GetAllCodeDictionary','Params':{'AliasSetName':'zh-CN'}}
+2019-09-08 17:11:11,083 [http-nio-8080-exec-2] INFO  com.boot.web.TrustManagementController - GetItemsPlus----最新改造的获取到了多少个：330
+2019-09-08 17:11:11,246 [http-nio-8080-exec-3] INFO  com.boot.web.TrustManagementController - GetPublicHolidays:---------------date:2018-9-8---text:中国大陆法定非工作日
+2019-09-08 17:11:36,082 [http-nio-8080-exec-7] INFO  com.boot.web.MainController - 跳转到产品管理-费用信息----html跳转到:www/components/FeeSettings/FeeSettingsNew
+2019-09-08 17:11:37,892 [http-nio-8080-exec-6] INFO  com.boot.web.TrustManagementController - applicationDomain：TrustManagement contextInfo:{'SPName':'usp_GetTrustInfoFromWizard','Params':{'TrustId':'3672'}}
+2019-09-08 17:11:37,892 [http-nio-8080-exec-6] INFO  com.boot.web.TrustManagementController - GetItemsPlus----TrustId:3672
+2019-09-08 17:11:37,892 [http-nio-8080-exec-6] INFO  com.boot.web.TrustManagementController - GetItemsPlus----TrustManagementService.svc/jsAccessEP/GetItemsPlus----:applicationDomain:TrustManagement----contextInfo:{'SPName':'usp_GetTrustInfoFromWizard','Params':{'TrustId':'3672'}}
+2019-09-08 17:11:37,896 [http-nio-8080-exec-9] INFO  com.boot.web.TrustManagementController - GetTrustData-------applicationDomain：TrustManagement contextInfo:{'SPName':'usp_GetAllCodeDictionary','Params':{'AliasSetName':'zh-CN'}}
+2019-09-08 17:11:37,924 [http-nio-8080-exec-8] INFO  com.boot.web.CommonExecuteController - -----进入/service/DataProcessService.svc/jsAccessEP/CommonExecuteGet方法--
+2019-09-08 17:11:37,924 [http-nio-8080-exec-8] INFO  com.boot.web.CommonExecuteController - 跳转到公共调用方法----参数信息--appDomain:TrustManagement-----executeParams:{"SPName":"usp_GetPaymentDateStrAndPeriod","SQLParams":[{"Name":"TrustId","Value":"3672","DBType":"int"}]}
+2019-09-08 17:11:38,148 [http-nio-8080-exec-4] INFO  com.boot.web.CommonExecuteController - -----进入/service/DataProcessService.svc/jsAccessEP/CommonExecuteGet方法--
+2019-09-08 17:11:38,148 [http-nio-8080-exec-4] INFO  com.boot.web.CommonExecuteController - 跳转到公共调用方法----参数信息--appDomain:TrustManagement-----executeParams:{"SPName":"usp_GetModelPathByTrustId","SQLParams":[{"Name":"TrustId","Value":"3672","DBType":"int"}]}
+2019-09-08 17:11:38,170 [http-nio-8080-exec-9] INFO  com.boot.web.TrustManagementController - GetTrustData----/DataProcessService.svc/jsAccessEP/GetTrustData----:applicationDomain:TrustManagement---contextInfo:{'SPName':'usp_GetAllCodeDictionary','Params':{'AliasSetName':'zh-CN'}}
+2019-09-08 17:11:38,321 [http-nio-8080-exec-6] INFO  com.boot.web.TrustManagementController - GetItemsPlus----最新改造的获取到了多少个：432
+2019-09-08 17:11:38,329 [http-nio-8080-exec-5] INFO  com.boot.web.DataProcessController - GetFeesFromXMLFile-----FilePath：yangyingyong1
+2019-09-08 17:11:38,626 [http-nio-8080-exec-5] INFO  com.boot.web.DataProcessController - -----------------------GetFeesFromXMLFile：330
+2019-09-08 17:11:38,627 [http-nio-8080-exec-5] INFO  com.boot.web.DataProcessController - ----GetFeesFromXMLFile-----filePath----TODO 拼接好的数据信息----------

@@ -531,8 +531,8 @@ define(function (require) {
                         {'AliasSetName': 'zh-CN'}
                     ]};
             */
-            var sContent = "{'SPName':'usp_GetAllCodeDictionary','Params':[{" +
-            "'AliasSetName':'zh-CN'}]}";
+            var sContent = "{'SPName':'usp_GetAllCodeDictionary','Params':{" +
+            "'AliasSetName':'zh-CN'}}";
 			//var sContent = "";
 			//TODO YANGYINGYONG 需要的unicode转码信息
 			sContent=encodeURIComponent(sContent);

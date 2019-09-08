@@ -285,13 +285,13 @@
                 //获取后所有Select数据
                 getAllCodeDictionary: function () {
                     var self = this;
+                    
                   //TODO YANGYINGYONG
                     var sContent = "{'SPName':'usp_GetAllCodeDictionary','Params':{" +
                              "'AliasSetName':'zh-CN'" +
-                             "},}";
-                    
-                    if (typeof sContent == 'object') { sContent=encodeURIComponent(JSON.stringify(sContent)); }//当是object就转String字符串//TODO YANGYINGYONG
-                    if (typeof sContent === 'string') { sContent=encodeURIComponent(sContent); }
+                             "}}";
+				     //TODO YANGYINGYONG 需要的unicode转码信息
+				     sContent=encodeURIComponent(sContent);
                     
                     var serviceUrl = config.tmsDataProcessBase + "GetTrustData?applicationDomain=TrustManagement&contextInfo=" + sContent;
                     $.ajax({
