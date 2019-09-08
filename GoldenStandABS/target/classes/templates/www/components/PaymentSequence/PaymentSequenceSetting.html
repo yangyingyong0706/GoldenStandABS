@@ -4,13 +4,14 @@
     <title>配置偿付顺序</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
-    <link href="../../productManage/TrustManagement/TrustFollowUp/css/trustFollowUp.css" rel="stylesheet" />
-    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
-    <link href="../../../asset/lib/d3/tipsy.css" rel="stylesheet" />
-    <script data-main="PaymentSequenceSetting" src="../../../asset/lib/require.js"></script>
-    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="/asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="/js/www/productManage/TrustManagement/TrustFollowUp/css/trustFollowUp.css" rel="stylesheet" />
+    <link href="/asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="/asset/lib/d3/tipsy.css" rel="stylesheet" />
+<!--     <script data-main="PaymentSequenceSetting" src="/asset/lib/require.js"></script> -->
+    <script data-main="/js/www/components/PaymentSequence/PaymentSequenceSetting.js" src="/asset/lib/require.js"></script>
+    <link href="/asset/font/fontello/css/fontello.css" rel="stylesheet" />
     <style type="text/css">
         html, body { /*overflow:hidden;*/
             height: 100%;
@@ -1672,7 +1673,7 @@
             </div>
         </div>
 
-        <div id="mask" class="mask"><div class="loading" v-show="loading"><img src="../../../asset/lib/Kendo/styles/Material/loading-image.gif" /></div></div>
+        <div id="mask" class="mask"><div class="loading" v-show="loading"><img src="/asset/lib/Kendo/styles/Material/loading-image.gif" /></div></div>
         <div class="titlestyle" v-cloak>
             <span>偿付顺序</span>
             <button type="button" class="btn saveBtn saveBtnSingle normal_small_button" v-bind:disabled="isSaving" @click="saveStructureSquence()" v-if="isStructure">保存</button>
@@ -1723,7 +1724,7 @@
             </div>
             <div id="divBody" class="form-panel item" ref="divBody" v-show="!loading">
                 <div class="no-data" v-if="isNodata">
-                    <img src="../../../asset/img/no_ata.png" />暂无偿付情景，请点击添加新的偿付情景
+                    <img src="/asset/img/no_ata.png" />暂无偿付情景，请点击添加新的偿付情景
                 </div>
                 <div class="col-12 heightFull" v-show="paymentScenarioList.length >0">
                     <!--左边表单区域-->

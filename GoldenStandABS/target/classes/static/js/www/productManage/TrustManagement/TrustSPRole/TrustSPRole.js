@@ -394,6 +394,8 @@
                 var sContent = "{'SPName':'usp_GetTrustInfoFromWizard','Params':{" +
                                 "'TrustId':'" + _this.trustId +
                                 "'}}";
+                //TODO YANGYINGYONG 需要的unicode转码信息
+                sContent=encodeURIComponent(sContent);
                 var serviceUrl = _this.tmsSessionServiceBase + "GetItemsPlus?applicationDomain=TrustManagement&contextInfo=" + sContent;
                 $.ajax({
                     type: "GET",

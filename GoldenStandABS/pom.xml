@@ -103,8 +103,44 @@
                 <groupId>org.webjars</groupId>
                 <artifactId>jquery</artifactId>
                 <version>3.3.1</version>
-            </dependency> -->
+		    </dependency> -->
 		    
+  		<!-- alibaba-json帮助类 -->
+		    <dependency>
+	            <groupId>com.alibaba</groupId>
+	            <artifactId>fastjson</artifactId>
+	            <version>1.2.4</version>
+		     </dependency>
+		     
+		<!-- 解决严格验证html5 -->
+		
+			<dependency>
+				<groupId>net.sourceforge.nekohtml</groupId>
+				<artifactId>nekohtml</artifactId>
+				<version>1.9.22</version>
+			</dependency> 
+			
+			<!-- https://用来xml转换到java -->
+			<dependency>
+			    <groupId>org.jdom</groupId>
+			    <artifactId>jdom</artifactId>
+			    <version>2.0.2</version>
+			</dependency>
+			
+			<!-- https://mvnrepository.com/artifact/org.dom4j/dom4j -->
+			<dependency>
+			    <groupId>org.dom4j</groupId>
+			    <artifactId>dom4j</artifactId>
+			    <version>2.1.1</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>cn.hutool</groupId>
+				<artifactId>hutool-all</artifactId>
+				<version>4.0.9</version>
+			</dependency>
+			
+			
 			</dependencies>
 	<build>
 	<plugins>

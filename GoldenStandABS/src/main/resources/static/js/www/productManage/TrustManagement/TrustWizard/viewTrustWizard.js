@@ -343,10 +343,11 @@ define(function (require) {
         // 获取后端数据
         getTrustInfoByTrustId: function () {
             var self = this;
-           /* var sContent = "{'SPName':'usp_GetTrustInfoFromWizard','Params':{" +
-                            "'TrustId':'" + trustId +
-                            "'}}";*/
-             var sContent = "";
+            var sContent = "{'SPName':'usp_GetTrustInfoFromWizard','Params':{" +
+            "'TrustId':'" + trustId +
+            "'}}";
+            //TODO YANGYINGYONG 需要的unicode转码信息
+            sContent=encodeURIComponent(sContent);
             var serviceUrl = config.tmsSessionServiceBase + "GetItemsPlus?applicationDomain=TrustManagement&contextInfo=" + sContent;
             $.ajax({
                 type: "GET",
@@ -380,6 +381,8 @@ define(function (require) {
                      "'AliasSetName':'zh-CN'" +
                      "},}";*/
             var sContent = "";
+            //TODO YANGYINGYONG 需要的unicode转码信息
+            sContent=encodeURIComponent(sContent);
             var serviceUrl = config.tmsDataProcessBase + "GetTrustData?applicationDomain=TrustManagement&contextInfo=" + sContent;
             $.ajax({
                 url: serviceUrl,

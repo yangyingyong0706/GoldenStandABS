@@ -100,6 +100,8 @@
                 contentType: "application/json;charset=utf-8",
                 data: JSON.stringify(postData),
                 success: function (res) {
+                	if (typeof res == 'object') { res = JSON.stringify(res) }//当是object就转String字符串//TODO YANGYINGYONG
+                	
                     if (callback && typeof callback === 'function') {
                         callback(JSON.parse(res));
                     }

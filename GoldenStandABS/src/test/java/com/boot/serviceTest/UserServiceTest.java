@@ -20,15 +20,15 @@ public class UserServiceTest extends SpringTestCase{
        User user = userService.selectUserById(10);  
        logger.info("查找结果" + user);  
     }  
-	@Test  
+	/*@Test  
 	public void getAllUsersTest(){  
 		logger.info("---------start-----getAllUsersTest----------------------------------");
-		List<com.boot.entity.User> user = userService.getAllUsers();  
-		for (com.boot.entity.User user2 : user) {
+		List<com.boot.util.User> user = userService.getAllUsers();  
+		for (com.boot.util.User user2 : user) {
 			logger.info("查找结果" + user2.getUserName());  
 			
 		}
 		logger.info("----------end----getAllUsersTest----------------------------------");
-	}  
+	}  */
 
 }

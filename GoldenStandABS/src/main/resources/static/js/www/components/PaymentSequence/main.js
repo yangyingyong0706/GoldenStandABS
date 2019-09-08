@@ -610,6 +610,7 @@
             //从xml获取账户和规则数据
             getRulesAndAccountsFromXmlFile: function (callback) {
                 var self = this;
+                 self.trustId="3627";//TODO YANGYINGYONG
                 var executeParams = {
                     'SPName': "usp_GetModelPathByTrustId", 'SQLParams': [
                         { 'Name': 'TrustId', 'Value': self.trustId, 'DBType': 'int' }
@@ -618,7 +619,9 @@
                 var serviceUrls = GlobalVariable.DataProcessServiceUrl + "CommonExecuteGet?";
                 var response = common.ExecuteGetData(false, serviceUrls, 'TrustManagement', executeParams);
                 response = response[0].Column1
-                var filePath = "E:\\TSSWCFServices\\TrustManagementService\\UITaskStudio\\Models\\" + response + "\\AccountRule.Xml";
+                //TODO YANGYINGYONG
+//                var filePath = "E:\\TSSWCFServices\\TrustManagementService\\UITaskStudio\\Models\\" + response + "\\AccountRule.Xml";
+                var filePath ="";
                 var serviceUrl = GlobalVariable.DataProcessServiceUrl + "GetRulesAndAccountsFromXMLFile?FilePath=" + filePath;
                 $.ajax({
                     url: serviceUrl,
@@ -627,6 +630,7 @@
                     dataType: "json",
                     crossDomain: true,
                     success: function (response) {
+                    	if (typeof response == 'object') { response = JSON.stringify(response) }//当是object就转String字符串//TODO YANGYINGYONG
                         response = JSON.parse(response)
                         console.log(response);
                         var rules = response.Json.Rules;
@@ -660,6 +664,7 @@
             //获取产品期数(起始日期和终止日期)
             getTrustPeriod: function (callback) {
                 var self = this;
+                self.trustId="3627";//TODO YANGYINGYONG
                 var executeParam = {
                     'SPName': "usp_GetTrustPeriod", 'SQLParams': [
                         { 'Name': 'TrustPeriodType', 'Value': 'PaymentDate_CF', 'DBType': 'string' },

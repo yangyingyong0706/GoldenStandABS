@@ -1,18 +1,17 @@
 package com.boot.service;
 
 import java.util.List;
-
-import com.boot.domain.User;
+import com.boot.entity.User;
 
 public interface UserService {
-	User selectUserById(Integer userId);
+	com.boot.domain.User selectUserById(Integer userId);
 	
 	//sqlserver方式
-	public List<com.boot.entity.User> getAllUsers();
+	public List<User> getAllUsers();
 	
-	public int addUser(com.boot.entity.User user);
+	public int addUser(User user);
 	
-	public int deleteUser(com.boot.entity.User user);
+	public int deleteUser(User user);
 	
 	
 }

@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>刷新现金流模型</title>
+    <link href="/asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/asset/font/fontello/css/fontello.css" rel="stylesheet" />
+<!--     <script data-main="RefreshCashflowModel" src="/asset/lib/require.js"></script> -->
+    <script data-main="/js/www/productManage/TrustManagement/RefreshCashflowModel/RefreshCashflowModel.js" src="/asset/lib/require.js"></script> 
+    <style>
+        html {
+            height: 100%;
+        }
+        html, body {
+            font-family: "Microsoft Yahei";
+            background: #fff;
+        }
+        body {
+            height: 100%;
+        }
+        .main {
+            position:relative;
+            width:100%;
+            height: 100%;
+        }
+        .divR {
+            position: absolute;
+            right: 30px;
+            top: 0px;
+        }
+         .mask {       
+            position: absolute; 
+            top: 0px; 
+            left: 0px; 
+            background-color: #777;     
+            z-index: 1002; 
+            filter: alpha(opacity=10); 
+            opacity:0.1; 
+            -moz-opacity:0.1;     
+        } 
+        .divR .tips {
+            width: 200px;
+            color: #555;
+            position: absolute;
+            top: 40px;
+            right: 0px;
+            font-size: 14px;
+            display: none;
+            box-shadow: 0 5px 10px rgba(0,0,0,.1);
+            border-radius: 2px;    
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 10px;
+        }
+        #viewDataCheck{
+            margin-right:10px;
+        }
+        .signle-default{
+          border: 1px solid #ccd0de;
+          border-radius:2px;
+      }
+    </style>
+</head>
+<body style="background-color:transparent">
+    <div id="mask" class="mask"></div>
+    <div class="main">
+        <div style="margin: 15px;border: 1px solid rgba(0,0,0,.1);">
+            <div style="border-bottom: 1px solid rgba(0,0,0,.1);height: 40px;line-height: 40px;padding: 0 15px;">
+                <span style="color: rgba(69,86,156,1);">刷新现金流模型</span>
+                <div class="divR">
+                    <button class="btn btn-default signle-default" id="viewDataCheck">查看结果</button>
+                    <button class="CheckAllocationData btn btn-default signle-default">收益分配数据校验</button>
+                    <button class="btnRefresh btn btn-default signle-default">刷 新</button>
+                </div>
+            </div>
+            <div style="padding: 15px;">
+                <img src="/asset/img/RefreshCashflow.png" style="width: 100%;display: block;"/>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>

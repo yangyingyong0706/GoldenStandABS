@@ -8,6 +8,8 @@
     var vm = new Vue({
         el: "#app",
         data: {
+        	//TODO YANGYINGYONG
+//            url: location.protocol + "//" + location.host + "/GoldenStandABS/www/components/AccountInformation/AccountInformation.html?tid=" + trustId,
             url: location.protocol + "//" + location.host + "/GoldenStandABS/www/components/AccountInformation/AccountInformation.html?tid=" + trustId,
         },
         methods: {

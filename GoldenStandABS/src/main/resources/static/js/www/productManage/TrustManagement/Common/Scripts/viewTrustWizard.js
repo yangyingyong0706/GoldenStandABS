@@ -367,6 +367,8 @@ define(function (require) {
             var sContent = "{'SPName':'usp_GetTrustInfoFromWizard','Params':{" +
                             "'TrustId':'" + trustId +
                             "'}}";
+            //TODO YANGYINGYONG 需要的unicode转码信息
+            sContent=encodeURIComponent(sContent);
             var serviceUrl = config.tmsSessionServiceBase + "GetItemsPlus?applicationDomain=TrustManagement&contextInfo=" + sContent;
             $.ajax({
                 type: "GET",
@@ -399,6 +401,8 @@ define(function (require) {
             var sContent = "{'SPName':'usp_GetAllCodeDictionary','Params':{" +
                      "'AliasSetName':'zh-CN'" +
                      "},}";
+            //TODO YANGYINGYONG 需要的unicode转码信息
+            sContent=encodeURIComponent(sContent);
             var serviceUrl = config.tmsDataProcessBase + "GetTrustData?applicationDomain=TrustManagement&contextInfo=" + sContent;
             $.ajax({
                 url: serviceUrl,
@@ -654,6 +658,8 @@ define(function (require) {
             var sContent = "{'SPName':'usp_GetTrustIdByTrustCode','Params':{" +
                             "'trustCode':'" + TrustCode +
                             "'}}";
+            //TODO YANGYINGYONG 需要的unicode转码信息
+            sContent=encodeURIComponent(sContent);
             var serviceUrl = config.tmsDataProcessBase + "GetTrustData?applicationDomain=TrustManagement&contextInfo=" + sContent;
             $.ajax({
                 type: "GET",
@@ -669,6 +675,8 @@ define(function (require) {
                     var sContent = "{'SPName':'usp_GetTrustInfoFromWizard','Params':{" +
                             "'TrustId':'" + trustId +
                             "'}}";
+                    //TODO YANGYINGYONG 需要的unicode转码信息
+                    sContent=encodeURIComponent(sContent);
                     var serviceUrl = config.tmsSessionServiceBase + "GetItemsPlus?applicationDomain=TrustManagement&contextInfo=" + sContent;
                     $.ajax({
                         type: "GET",

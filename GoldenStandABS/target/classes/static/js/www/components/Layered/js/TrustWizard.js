@@ -285,9 +285,14 @@
                 //获取后所有Select数据
                 getAllCodeDictionary: function () {
                     var self = this;
+                  //TODO YANGYINGYONG
                     var sContent = "{'SPName':'usp_GetAllCodeDictionary','Params':{" +
                              "'AliasSetName':'zh-CN'" +
                              "},}";
+                    
+                    if (typeof sContent == 'object') { sContent=encodeURIComponent(JSON.stringify(sContent)); }//当是object就转String字符串//TODO YANGYINGYONG
+                    if (typeof sContent === 'string') { sContent=encodeURIComponent(sContent); }
+                    
                     var serviceUrl = config.tmsDataProcessBase + "GetTrustData?applicationDomain=TrustManagement&contextInfo=" + sContent;
                     $.ajax({
                         url: serviceUrl,
@@ -302,7 +307,9 @@
 
                         },
                         success: function (response) {
-                            OptionSource = jQuery.parseJSON(response);
+                        	//TODO YANGYINGYONG
+//                            OptionSource = jQuery.parseJSON(response);
+                        	OptionSource = response;
                             self.LoadCount++;
                             if (self.LoadCount == 2) {
                                 self.registerEvent();
@@ -457,9 +464,13 @@
                 getTrustInfoByTrustId: function () {
                     var self = this;
                     // trustId= common.getQueryString("id");
+                    //TODO YANGYINGYONG
                     var sContent = "{'SPName':'usp_GetTrustInfoFromWizard','Params':{" +
                                     "'TrustId':'" + trustId+
                                     "'}}";
+                     //var sContent = "";
+                     //TODO YANGYINGYONG 需要的unicode转码信息
+                     sContent=encodeURIComponent(sContent);
                     var serviceUrl = config.tmsSessionServiceBase + "GetItemsPlus?applicationDomain=TrustManagement&contextInfo=" + sContent;
                     //console.log(serviceUrl);
                     $.ajax({
@@ -584,7 +595,9 @@
             }
            
             function getWcfCommon(param, async) {
-                var serviceUrl = config.tmsDataProcessBase + "CommonExecuteGet?appDomain=TrustManagement&resultType=commom&executeParams=" + JSON.stringify(param);
+            	 //TODO YANGYINGYONG
+//                var serviceUrl = config.tmsDataProcessBase + "CommonExecuteGet?appDomain=TrustManagement&resultType=commom&executeParams=" + JSON.stringify(param);
+                var serviceUrl = config.tmsDataProcessBase + "CommonExecuteGet?appDomain=TrustManagement&resultType=commom&executeParams=" ;
                 return $.ajax({
                     type: "GET",
                     url: serviceUrl,

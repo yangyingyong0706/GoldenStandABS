@@ -15,7 +15,13 @@ spring:
 ## 给返回的页面添加后缀名，spring boot默认为.html
 
 
-
+  thymeleaf: 
+   encoding: UTF-8
+   content-type: text/html 
+   cache: false 
+   mode: LEGACYHTML5 
+   
+   
 #  thymeleaf:
 #    mode: HTML5
 #    encoding: UTF-8
@@ -25,9 +31,11 @@ spring:
     
   datasource: ##172.16.7.104\mssql
     #url: jdbc:sqlserver://172.16.7.118:52482;databasename=LoanManagement #sqlserver数据库连接  1433
-    url: jdbc:sqlserver://172.16.7.184:52482;databasename=TrustManagement #sqlserver数据库连接  1433
+#    url: jdbc:sqlserver://172.16.7.184:52482;databasename=TrustManagement #sqlserver数据库连接  1433
+    url: jdbc:sqlserver://172.16.6.192:52482;databasename=TrustManagement #sqlserver数据库连接  1433
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver #连接的驱动
-    username: gsuser #账号
+#    username: gsuser #账号
+    username: sa #账号
     password: Password01  #密码 
     
     

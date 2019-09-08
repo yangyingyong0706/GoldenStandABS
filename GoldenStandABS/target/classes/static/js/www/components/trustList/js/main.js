@@ -1,4 +1,5 @@
 ﻿define(function (require) {
+	var projectUrl="";
     var $ = require('jquery');
     var kendoGridModel = require('gs/Kendo/kendoGridModel');
 
@@ -297,10 +298,12 @@
         var height = $(window).height() -100;
         var kendouiGrid = new kendoGridModel(height);
     }
-
-    var productManageFunction = '/GoldenStandABS/www/productManage/productManageFunction.json';
+    //TODO YYY
+/*    var productManageFunction = '/GoldenStandABS/www/productManage/productManageFunction.json';*/
+    var productManageFunction = '/js/www/productManage/productManageFunction.json';
     if (userLanguage && userLanguage.indexOf('en') > -1) {
-        productManageFunction = '/GoldenStandABS/www/productManage/productManageFunction_en.json';
+        //productManageFunction = '/GoldenStandABS/www/productManage/productManageFunction_en.json';
+        productManageFunction = '/js/www/productManage/productManageFunction_en.json';
     }
 
     GSAdmin.init(productManageFunction, function () {

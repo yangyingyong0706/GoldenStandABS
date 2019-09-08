@@ -650,9 +650,14 @@ define(function (require) {
           
             function SetHaveAndNoData(n, arr1, arr2) {
               
-                var CanDel = (n.IsCompulsory.toLocaleLowerCase() == "false");
+//TODO YANGYINIGONG               
+            	//var CanDel = (n.IsCompulsory == false);
+            	var CanDel = (n.IsCompulsory.toLocaleLowerCase() == "false");
                 var singledata = singleColumn(n.ItemCode, n.ItemAliasValue, n.ItemValue, n.DataType, CanDel, n.IsCompulsory, n.UnitOfMeasure, n.Precise);
+                  n.ItemValue=n.ItemValue==null?"":n.ItemValue;//加判断
                 var isShow = (n.IsCompulsory == "True" || n.ItemValue.toString().length > 0);
+                
+//                var isShow = (n.IsCompulsory == true || n.ItemValue.length > 0);
                 if (n.ItemCode == 'IsTopUpAvailable' && (n.ItemValue == '' || n.ItemValue == '0')) {
                     IsTopUpAvailableFlag = false;
                 }
@@ -860,6 +865,7 @@ define(function (require) {
                 crossDomain: true,
                 contentType: "application/json;charset=utf-8",
                 success: function (response) {
+                	
                     if (callback)
                         callback(response);
                 },

@@ -529,11 +529,12 @@ define(function (require) {
         getTrustInfoByTrustId: function () {
             var self = this;
             //TODO YYY update
-           /* var sContent = "{'SPName':'usp_GetTrustInfoFromWizard','Params':{" +
+            var sContent = "{'SPName':'usp_GetTrustInfoFromWizard','Params':{" +
                             "'TrustId':'" + trustId +
-                            "'}}";*/
-            
-            var sContent="";
+                            "'}}";
+            //TODO YANGYINGYONG 需要的unicode转码信息
+            sContent=encodeURIComponent(sContent);
+//            var sContent="";
             var serviceUrl = config.tmsSessionServiceBase + "GetItemsPlus?applicationDomain=TrustManagement&contextInfo=" + sContent;
             $.ajax({
                 type: "GET",
@@ -572,6 +573,11 @@ define(function (require) {
             
             //TODO YYY UPDATE
             var sContent = "";
+            var sContent = "{'SPName':'usp_GetAllCodeDictionary','Params':[{" +
+            "'AliasSetName':'zh-CN'}]}";
+			//var sContent = "";
+			//TODO YANGYINGYONG 需要的unicode转码信息
+			sContent=encodeURIComponent(sContent);
             var serviceUrl = config.tmsDataProcessBase + "GetTrustData?applicationDomain=TrustManagement&contextInfo=" + sContent;
             $.ajax({
                 url: serviceUrl,
@@ -587,7 +593,8 @@ define(function (require) {
                 success: function (response) {
                 	//TODO YYY
 //                    OptionSource = jQuery.parseJSON(response);
-                    OptionSource = response;//jQuery.parseJSON(response);
+                	if (typeof response == 'object') { response = JSON.stringify(response) }//当是object就转String字符串//TODO YANGYINGYONG
+                    OptionSource = jQuery.parseJSON(response);
                     self.LoadCount++;
                     if (self.LoadCount == 3) {
                         self.registerEvent();

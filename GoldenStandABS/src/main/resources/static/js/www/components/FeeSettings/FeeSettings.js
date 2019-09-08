@@ -930,7 +930,9 @@ define(function (require) {
         var serviceUrls = GlobalVariable.DataProcessServiceUrl + "CommonExecuteGet?";
         var response = common.ExecuteGetData(false, serviceUrls, 'TrustManagement', executeParams);
         response = response[0].Column1
-        var filePath = "E:\\TSSWCFServices\\TrustManagementService\\UITaskStudio\\Models\\" + response + "\\CashFlowFeeModel.Xml";
+        //TODO YANGYINGYONG
+//        var filePath = "E:\\TSSWCFServices\\TrustManagementService\\UITaskStudio\\Models\\" + response + "\\CashFlowFeeModel.Xml";
+        var filePath="yangyingyong";
         var serviceUrl = GlobalVariable.DataProcessServiceUrl + "/GetFeesFromXMLFile?FilePath=" + filePath;
         $.ajax({
             url: serviceUrl,

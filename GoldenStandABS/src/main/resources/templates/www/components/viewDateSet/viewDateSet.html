@@ -1,15 +1,16 @@
-﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- <html xmlns="http://www.w3.org/1999/xhtml"> -->
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>日期设置</title>
-    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
-    <link href="../../../asset/font/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/trustWizard.css" />
-    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
-    <link href="css/magic/magic.dialog.css" rel="stylesheet" />
-    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
-    <link href="../../../asset/lib/toast/toast.css" rel="stylesheet" />
+    <link href="/asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="/asset/font/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/js/www/components/viewDateSet/css/trustWizard.css" />
+    <link href="/asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="/js/www/components/viewDateSet/css/magic/magic.dialog.css" rel="stylesheet" />
+    <link href="/asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="/asset/lib/toast/toast.css" rel="stylesheet" />
     <style>
         html {
             height: calc(100% - 22px);
@@ -423,8 +424,8 @@
         border-radius: 2px;
     }
     </style>
-
-    <script data-main="viewDateSet" src="='../../../../../asset/lib/require.js"></script>
+    <!-- <script data-main="viewDateSet" src="='/asset/lib/require.js"></script> -->
+    <script data-main="/js/www/components/viewDateSet/viewDateSet.js" src="/asset/lib/require.js"></script>
 </head>
 <body style="display:none">
     <div id="selectLanguageDropdown_qcl" class="localizationTool" style="display:none"></div>
@@ -789,7 +790,7 @@
                                     <!--摊还期的列表数据结束-->
                                 </div>
                                 <h3 class="h3" style="margin: 30px 0 0 0;padding: 0;">
-                                    <span class="title" id="title2" style="display: inline-block; height: 40px;line-height: 40px;border-bottom: none; padding: 0 15px;" ;>日期计算</span>
+                                    <span class="title" id="title2" style="display: inline-block; height: 40px;line-height: 40px;border-bottom: none; padding: 0 15px;" >日期计算</span>
 
                                     <span style="float:right;margin-right: 15px;">
                                         <button class="btn btn-danger single-default" onclick="DateSetModel.ShowaddWorkDayDiv()"><i class="icon icon-plus" style="position:relative;top:-2px;margin:0"></i> <span>添加</span></button>

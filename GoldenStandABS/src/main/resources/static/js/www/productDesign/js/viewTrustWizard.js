@@ -353,6 +353,8 @@ define(function (require) {
             var sContent = "{'SPName':'usp_GetTrustInfoFromWizard','Params':{" +
                             "'TrustId':'" + trustId +
                             "'}}";
+            //TODO YANGYINGYONG 需要的unicode转码信息
+            sContent=encodeURIComponent(sContent);
             var serviceUrl = config.tmsSessionServiceBase + "GetItemsPlus?applicationDomain=TrustManagement&contextInfo=" + sContent;
             $.ajax({
                 type: "GET",

@@ -220,7 +220,7 @@ define(function (require) {
             }
             else if (obj.DataType == "Date") {
 //     //TODO YYY           if (obj.ItemValue == "") {
-           if (obj.ItemValue == ""||typeof(obj.ItemValue) == "undefined") {
+           if (obj.ItemValue == null||obj.ItemValue == ""||typeof(obj.ItemValue) == "undefined") {
                     var myDate = new Date();
                     json.ItemValue = DateToString(myDate);
                 }

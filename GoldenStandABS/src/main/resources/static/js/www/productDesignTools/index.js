@@ -1,5 +1,5 @@
 ﻿
-requirejs(['../../asset/lib/config'], function (config) {
+requirejs(['/asset/lib/config.js'], function (config) {
     require(['Vue2', 'common', 'callApi', 'globalVariable', 'jquery-ui', 'vuedraggable', 'gsAdminPages', 'anyDialog', 'vMessage']
         , function (Vue, common, CallApi, GlobalVariable, jqueryUi, draggable, GSdialog) {
             $(document).tooltip();
@@ -460,12 +460,18 @@ requirejs(['../../asset/lib/config'], function (config) {
                         var self = this;
                         $.each(response, function (i, v) {
                             self.periodStartOptions.push({
-                                'value': self.changeTimeStamp(new Date(eval(v.StartDate.replace("/Date(", "").replace(")/", ""))), 'int'),
-                                'text': self.changeTimeStamp(new Date(eval(v.StartDate.replace("/Date(", "").replace(")/", ""))), 'string')
+                            	//TODO YANGYINGYONG
+//                                'value': self.changeTimeStamp(new Date(eval(v.StartDate.replace("/Date(", "").replace(")/", ""))), 'int'),
+//                                'text': self.changeTimeStamp(new Date(eval(v.StartDate.replace("/Date(", "").replace(")/", ""))), 'string')
+                                'value': self.changeTimeStamp(new Date(eval(v.StartDate, "")), 'int'),
+                                'text': self.changeTimeStamp(new Date(eval(v.StartDate, "")), 'string')
                             });
                             self.periodEndOptions.push({
-                                'value': self.changeTimeStamp(new Date(eval(v.EndDate.replace("/Date(", "").replace(")/", ""))), 'int'),
-                                'text': self.changeTimeStamp(new Date(eval(v.EndDate.replace("/Date(", "").replace(")/", ""))), 'string')
+                            	//TODO YANGYINGYONG
+//                                'value': self.changeTimeStamp(new Date(eval(v.EndDate.replace("/Date(", "").replace(")/", ""))), 'int'),
+//                                'text': self.changeTimeStamp(new Date(eval(v.EndDate.replace("/Date(", "").replace(")/", ""))), 'string')
+                                'value': self.changeTimeStamp(new Date(eval(v.EndDate, "")), 'int'),
+                                'text': self.changeTimeStamp(new Date(eval(v.EndDate, "")), 'string')
                             });
                         });
                     },
@@ -642,6 +648,7 @@ requirejs(['../../asset/lib/config'], function (config) {
                         var callApi = new CallApi('TrustManagement', 'usp_StructureDesign_GetPeriods', true);
                         callApi.AddParam({ Name: 'TrustID', Value: self.TrustID, DBType: 'int' });
                         callApi.ExecuteDataTable(function (response) {
+                        	if (typeof response == 'object') { response = JSON.stringify(response) }//当是object就转String字符串//TODO YANGYINGYONG
                             self.Periods = response;
                             for (i = 0, length = self.Periods.length; i < length; i++) {
                                 self.DaysArr[i] = self.computeDays(self.Periods[i].EndDate, self.Periods[i].StartDate)

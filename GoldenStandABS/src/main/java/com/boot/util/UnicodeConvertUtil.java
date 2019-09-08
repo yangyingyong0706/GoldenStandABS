@@ -20,7 +20,11 @@ public class UnicodeConvertUtil {
 		System.out.println("字符串转unicode结果：" + unicode);
 		String s = unicodeToString(unicode);
 		System.out.println("unicode转字符串结果：" + s);
-
+		
+		
+		String unicode1="%7B%22SPName%22%3A%22usp_StructureDesign_GetPeriods%22%2C%22SQLParams%22%3A%5B%7B%22Name%22%3A%22TrustID%22%2C%22Value%22%3A%223612%22%2C%22DBType%22%3A%22int%22%7D%5D%7D";
+		String s1 = unicodeToString(unicode1);
+		System.out.println("unicode转字符串结果-----------：" + s1);
 	}
 
 	/**

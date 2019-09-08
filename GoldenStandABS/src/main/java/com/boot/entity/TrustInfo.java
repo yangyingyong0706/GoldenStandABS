@@ -1,5 +1,7 @@
 package com.boot.entity;
 
+import org.springframework.util.StringUtils;
+
 /**
  * Copyright 2019 bejson.com 
 * Auto-generated: 2019-08-31 18:1:34
@@ -16,9 +18,9 @@ public class TrustInfo {
    private String Category;
    private String DataType;
    private String EndDate;
-   private boolean IsCalculated;
-   private boolean IsCompulsory;
-   private boolean IsPrimary;
+   private String IsCalculated;
+   private String IsCompulsory;
+   private String IsPrimary;
    private String ItemAliasValue;
    private String ItemCode;
    private String ItemId;
@@ -56,28 +58,60 @@ public class TrustInfo {
         return EndDate;
     }
 
-   public void setIsCalculated(boolean IsCalculated) {
-        this.IsCalculated = IsCalculated;
+   public void setIsCalculated(String IsCalculated) {
+	   this.IsCalculated=IsCalculated;
     }
+   
    @JsonProperty("IsCalculated")
-    public boolean getIsCalculated() {
-        return IsCalculated;
+    public String getIsCalculated() {
+	   String flag=IsCalculated;
+	   if (!StringUtils.isEmpty(flag)&&!StringUtils.isEmpty(flag.trim())){//判断不等于空
+	   		if("1".equals(flag)){
+	   			return "True";
+	   		}else{
+	   			return "False";
+	   		}//判断数据库中的是 1 0
+	   	}else{
+	   		
+	   		return "False";
+	   	} 
     }
 
-   public void setIsCompulsory(boolean IsCompulsory) {
-        this.IsCompulsory = IsCompulsory;
+   public void setIsCompulsory(String IsCompulsory) {
+	  this.IsCompulsory=IsCompulsory;
     }
    @JsonProperty("IsCompulsory")
-    public boolean getIsCompulsory() {
-        return IsCompulsory;
+    public String getIsCompulsory() {
+	   
+	   String flag=IsCompulsory;
+	   if (!StringUtils.isEmpty(flag)&&!StringUtils.isEmpty(flag.trim())){//判断不等于空
+	   		if("1".equals(flag)){
+	   			return "True";
+	   		}else{
+	   			return "False";
+	   		}//判断数据库中的是 1 0
+	   	}else{
+	   		
+	   		return "False";
+	   	} 
     }
 
-   public void setIsPrimary(boolean IsPrimary) {
-        this.IsPrimary = IsPrimary;
+   public void setIsPrimary(String IsPrimary) {
+	  this.IsPrimary=IsPrimary;
     }
    @JsonProperty("IsPrimary")
-    public boolean getIsPrimary() {
-        return IsPrimary;
+    public String getIsPrimary() {
+ 	   String flag=IsPrimary;
+ 	   if (!StringUtils.isEmpty(flag)&&!StringUtils.isEmpty(flag.trim())){//判断不等于空
+ 	   		if("1".equals(flag)){
+ 	   			return "True";
+ 	   		}else{
+ 	   			return "False";
+ 	   		}//判断数据库中的是 1 0
+ 	   	}else{
+ 	   		
+ 	   		return "False";
+ 	   	} 
     }
 
    public void setItemAliasValue(String ItemAliasValue) {
@@ -175,5 +209,18 @@ public class TrustInfo {
     public String getUnitOfMeasure() {
         return UnitOfMeasure;
     }
-
+public static void main(String[] args) {
+	String IsCalculated="12";
+	if (!StringUtils.isEmpty(IsCalculated)&&!StringUtils.isEmpty(IsCalculated.trim())){//判断是否为空值
+		System.out.println("非空非空");
+		if("1".equals(IsCalculated)){
+   			System.out.println("True");
+   		}else{
+   			System.out.println("False");
+   		}//判断数据库中的是 1 0
+		
+	}else{
+		System.out.println("空空空");
+	}
+}
 }

@@ -24,7 +24,8 @@
             }
         })
         $("#viewDataCheck").click(function () {
-            GSDialog.open('数据校验', '../CashflowColletionVerify/DataCheck.html', 2, function (result) {
+//            GSDialog.open('数据校验', '/../CashflowColletionVerify/DataCheck.html', 2, function (result) {
+            GSDialog.open('数据校验', '/js/www/productManage/TrustManagement/CashflowColletionVerify/DataCheck.html', 2, function (result) {
                 if (result) {
                     window.location.reload();
                 }

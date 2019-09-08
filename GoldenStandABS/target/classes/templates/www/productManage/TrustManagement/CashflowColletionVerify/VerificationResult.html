@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>校验结果</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="renderer" content="webkit" />
+
+    <link href="../style/style.css" rel="stylesheet" />
+    <link href="../style/pagerlist-style.css" rel="stylesheet" />
+
+    <script src="../../../asset/lib/require.js"></script>
+
+    <script type="text/javascript">
+
+        requirejs(['../../../asset/lib/config.js'], function (config) {
+
+            requirejs(['app/basicAsset/AssetDataCheck/VerificationResult']);
+
+        });
+
+
+
+    </script>
+
+</head>
+<body>
+    <div class="main">
+        <h3 id="step-title" class="h3"><span class="title">校验结果列表</span></h3>
+        <div id="VerificationList" class="list-container"></div>
+    </div>
+
+   
+</body>
+</html>

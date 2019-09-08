@@ -45,28 +45,28 @@ public class UserController {
         model.addAttribute("user", user);   
         return "/index";    
     }
-//	@Autowired
+/*//	@Autowired
 //    private IUserService userService;
 	@ResponseBody
     @RequestMapping(value = "/getAllUser", method = RequestMethod.GET)
-    public List<com.boot.entity.User> getAllUser() {
-    	 List<com.boot.entity.User>  list=userService.getAllUsers();
-    	 for (com.boot.entity.User user : list) {
+    public List<com.boot.domain.User> getAllUser() {
+    	 List<com.boot.domain.User>  list=userService.getAllUsers();
+    	 for (com.boot.domain.User user : list) {
 			System.out.println(user.getUserName()+"-------------------------------");
 		}
         return list;
     }
  
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-    public int addUser( @RequestBody com.boot.entity.User user ) {
+    public int addUser( @RequestBody User user ) {
         return userService.addUser( user );
     }
  
     @RequestMapping(value = "/deleteUser", method = RequestMethod.POST)
-    public int deleteUser( @RequestBody com.boot.entity.User user ) {
+    public int deleteUser( @RequestBody User user ) {
         return userService.deleteUser( user );
     }
-    
+    */
     @ResponseBody
     @RequestMapping(value = "/getProvince", method = RequestMethod.GET)
     public List<District> getProvince() {

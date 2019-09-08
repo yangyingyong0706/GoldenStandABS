@@ -158,10 +158,12 @@
                         }
                     },
                     data: function (response) {
-                        return jQuery.parseJSON(response).data;
+                    	return response.data;
+//                      return jQuery.parseJSON(response).data;//TODO YYY
                     },
                     total: function (response) {
-                        return jQuery.parseJSON(response).total;
+                    	return response.total;
+//                        return jQuery.parseJSON(response).total;//TODO YYY
                     }
 
                 },

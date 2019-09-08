@@ -1,0 +1,429 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>设置</title>
+    <!--<link href="../TrustWizard/trustWizard.css" rel="stylesheet" />-->
+    <link href="../EventMaintain/css/maintain-huaneng.css" rel="stylesheet" />
+    <link href="../EventMaintain/css/reset-huaneng.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="../../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <link href="../../../../asset/lib/toast/toast.css" rel="stylesheet" />
+    <style>
+        .list {
+            cursor: default;
+            width: 100%;
+            border: 1px solid #dce0ee;
+            padding-left: 10px;
+            height: 30px;
+        }
+
+        html {
+            width: 100%;
+            height: 100%;
+            padding: 15px;
+            overflow: auto;
+        }
+
+        .rightTi {
+            width: 100%;
+            /*padding:2px*/
+            height: 100%;
+        }
+
+        #rationL {
+            border-bottom: none;
+        }
+
+            #rationL th, #circumstances2 th, #QualitativeListTable th {
+                font-size: 14px;
+                color: #777;
+                font-family: "Microsoft Yahei";
+                font-weight: 400;
+                text-align: center;
+                background: #fafafa;
+                vertical-align: middle;
+                height: 40px;
+                padding: 0;
+            }
+
+            #rationL td, #circumstances2 td {
+                text-align: center;
+            }
+
+            #rationL table {
+                margin: 15px;
+            }
+
+        .table > thead > tr > th {
+            /* border-bottom: 2px solid #B2C3E2; */
+            background: #ffffff;
+        }
+
+        .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+            border: 1px solid #dce0ee !important;
+        }
+
+        #circumstances {
+            /*display: block;*/
+            width: auto;
+            height: 141px !important;
+        }
+
+            #circumstances #DisplayDescribe {
+                width: calc(100% - 20px);
+                height: 100%;
+                margin: auto;
+            }
+
+        .ui-dialog .ui-dialog-buttonpane button {
+            padding: 0px;
+            border: 1px solid #dedede;
+            margin: 0;
+            text-decoration: none;
+            text-align: center;
+            text-shadow: 1px 1px 0 #fff;
+            color: #555;
+            white-space: nowrap;
+            cursor: pointer;
+            outline: none;
+            background-color: #ececec;
+            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f4f4f4), to(#ececec));
+            background-image: -moz-linear-gradient(#f4f4f4, #ececec);
+            background-image: -ms-linear-gradient(#f4f4f4, #ececec);
+            background-image: -o-linear-gradient(#f4f4f4, #ececec);
+            background-image: linear-gradient(#f4f4f4, #ececec);
+            -moz-background-clip: padding;
+            background-clip: padding-box;
+            border-radius: 0.2em;
+            zoom: 1;
+            font-size: 14px;
+            font-family: "Microsoft Yahei";
+            font-weight: normal;
+            text-align: center;
+        }
+
+            .ui-dialog .ui-dialog-buttonpane button:hover {
+                border-color: #3072b3;
+                border-bottom-color: #2a65a0;
+                text-decoration: none;
+                text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
+                color: #fff;
+                background-color: rgba(116,157,230,1);
+                background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#599bdc), to(#3072b3));
+                background-image: -moz-linear-gradient(#599bdc, #3072b3);
+                background-image: -o-linear-gradient(#599bdc, #3072b3);
+                background-image: linear-gradient(#599bdc, #3072b3);
+                font-size: 14px;
+                font-family: "Microsoft Yahei";
+                font-weight: normal;
+            }
+        /*ui-dialog .ui-dialog-buttonpane {
+                border-width: 0px 0 0 0 !important;
+            }*/
+        .content {
+            height: calc(100% - 42px);
+        }
+
+        .rightTi .header {
+            background: #fff;
+            height: 40px;
+            border-bottom: 1px solid #dedede;
+        }
+
+            .rightTi .header nav {
+                width: auto;
+            }
+
+                .rightTi .header nav ul li a {
+                    height: 40px;
+                    line-height: 40px;
+                    padding: 0;
+                    margin: 0 15px;
+                }
+
+                    .rightTi .header nav ul li a.active {
+                        border-bottom: 2px solid rgba(69,86,156,1);
+                        color: rgba(69,86,156,1);
+                    }
+
+        .leftTi {
+            height: 150px;
+        }
+
+        .navbar-nav li .line {
+            display: block;
+            height: 3px;
+            border-radius: 3px;
+            width: 20%;
+            margin-top: -3px;
+            background-color: transparent;
+            transition: width .3s;
+        }
+
+        .navbar-nav li:hover .line,
+        .navbar-nav li.active .line {
+            width: 100%;
+        }
+
+        .navbar-nav li:hover > a,
+        .navbar-nav li.active > a {
+            color: #fff;
+        }
+
+        .nav.navbar-nav > li > a:hover, .nav > li > a:focus {
+            background: #fff;
+            border-bottom: 2px solid rgba(69,86,156,1);
+            color: rgba(69,86,156,1);
+        }
+
+        .mask {
+            position: absolute;
+            top: 0px;
+            filter: alpha(opacity=60);
+            background-color: #777;
+            z-index: 1002;
+            left: 0px;
+            opacity: 0.1;
+            -moz-opacity: 0.1;
+        }
+
+        .table {
+            width: calc(100% - 30px);
+            margin-left: 15px;
+        }
+
+        .ConditionItem {
+            background: #d4d4d4;
+            color: #3072b3;
+        }
+
+        .determine li {
+            line-height: 32px;
+        }
+
+        .HoverTd {
+            background: #ddd;
+        }
+
+        .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+            border: 1px solid #dedede;
+        }
+
+        .determineList {
+            border-right: none;
+            border-bottom: none;
+        }
+
+        #QualitativeList tr td {
+            padding: 5px 0;
+            border-color:#dce0ee;
+        }
+
+        #CurrentEventName {
+            font-family: 'Microsoft YaHei';
+        }
+
+        #loading {
+            position: absolute;
+            top: 0px;
+            z-index: 1002;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+        }
+
+            #loading > i {
+                color: rgb(107, 147, 216);
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+            }
+
+        #deleteCondition, #addRation {
+            margin-left: 5px;
+        }
+
+        #QualitativeListTable {
+            margin: 0px;
+            width: calc(100% - 30px);
+            border-top: none;
+            margin: 15px;
+        }
+
+            #QualitativeListTable tr th {
+                border: 1px solid #dce0ee;
+                text-align: center;
+                padding: 5px;
+                font-weight: 400;
+            }
+       #Condition{
+			padding: 1px;
+		}
+    </style>
+</head>
+<body style="width:100%;height:100%;overflow:hidden" id="app">
+    <div id="mask" class="mask"></div>
+    <div id="loading">
+        <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+    </div>
+    <div style="display:flex;width:100%">
+        <span id="CurrentEventName" style="display:inline-block;line-height:32px"></span>
+        <div style="margin-left:auto">
+            <button type="button" id="addQualitative" class=" btn btn-default btn-single-default" title="Add Qualitative" @click="openQualitative()">
+                <i class="icon icon-add"></i> 添加定性
+            </button>
+            <button type="button" id="addRation" class="btn btn-default btn-single-default" title="Add RationItem" @click="openRation()">
+                <i class="icon icon-add"></i>添加定量
+            </button>
+            <button type="button" id="deleteCondition" class="btn btn-danger btn-single-default" title="deleteCondition TrustEvent" @click="removeItemList()">
+                <i class="fa fa-trash-o fa-fw"></i> <span>删除</span>
+            </button>
+        </div>
+    </div>
+    <div class="content clearfix" style="margin-top:10px;">
+        <div class="rightTi">
+            <div class="header">
+                <nav class="" role="navigation">
+                    <ul class="nav navbar-nav" id="tabLi">
+                        <li @click="showQualitative($event)">
+                            <a class="active" href="#" tab="QualitativeL" title="定性列表" id="ql">定性列表</a>
+                        </li>
+                        <li @click="showration($event)">
+                            <a href="#" tab="rationL" title="定量列表" id="rl">定量列表</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div id="tabMain">
+                <div id="QualitativeL" v-show="qls">
+                    <!--<div class="determineList">定性条件</div>-->
+                    <table id="QualitativeListTable" class="table-bordered parma">
+                        <thead>
+                            <tr>
+                                <th width="10%"> <input type="checkbox" class="checkAll" v-on:click="QualitativeListSelectAll($event)" id="qla" v-if="QualitativeList.length>0" /> </th>
+                                <th width="80%">条件详情</th>
+                                <th width="10%">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="QualitativeList">
+                            <tr v-for="item in QualitativeList" style="text-align: center;cursor:pointer">
+                                <td><input type="checkbox" class="checkBox" v-bind:value="item.ConditionDetails" v-bind:id="item.EventConditionId" @click="QualitativeCheckjudge($event)"></td>
+                                <td style="padding:10px 10px 5px 10px"><textarea class="list" readonly="readonly" style="border-color:#dce0ee;">{{item.ConditionDetails}}</textarea></td>
+                                <td><span class="btn btn-default btn-single-default" v-on:click="EditQualitative(item.ConditionDetails,item.EventConditionId)">编辑</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="rationL" style="margin:0px;" v-show="rls">
+                    <table class="table table-bordered parma">
+                        <thead>
+                            <tr>
+                                <th width="16"><input type="checkbox" class="checkAllTwo" v-on:click="RationSelectAll($event)" id="rla" v-if="RationList.length>0" /> </th>
+                                <th width="260">违约条件名</th>
+                                <th width="140">计算列</th>
+                                <th width="80">当前值</th>
+                                <th width="40">条件</th>
+                                <th width="80">阀值</th>
+                                <th width="40">操作</th>
+                                <!--<th width="40">操作</th>-->
+                            </tr>
+                        </thead>
+                        <tbody id="rationList">
+                            <tr style="cursor: pointer" v-for="item in RationList">
+                                <td style="vertical-align: middle;">
+                                    <div>
+                                        <input type="checkbox" class="checkBoxTwo" v-bind:id="item.EventConditionId" v-on:click="RationCheckjudge($event)">
+                                    </div>
+                                </td>
+                                <td style="vertical-align: middle;">
+                                    <span>{{item.ConditionName}}</span>
+                                </td>
+                                <td style="vertical-align: middle;">
+                                    <span>{{item.CaculateCode | changeZN }}</span>
+                                </td>
+                                <td style="vertical-align: middle;">
+                                    <span>{{item.CurrentValue}}</span>
+                                </td>
+                                <td style="vertical-align: middle;">
+                                    <span>{{item.Operation}}<span>
+                                </td>
+                                <td style="vertical-align: middle;">
+                                    <span>{{item.ThresholdValue}}</span>
+                                </td>
+                                <td style="vertical-align: middle;">
+                                    <button class="btn btn-default" v-on:click="EditRation(item.ConditionName,item.CaculateCode,item.CurrentValue,item.Operation,item.ThresholdValue,item.EventConditionId)">编辑</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="circumstances" class="circ" title="定性条件" style="text-align:center">
+        <div style="text-align:center;">
+            <div style="margin-bottom:10px">
+                <div><textarea id="DisplayDescribe" class="textT" rows="6" cols="43" style="width:calc(100% - 30px);margin-top:15px;border:1px solid #dce0ee;border-radius:2px;padding-left:15px;padding-top:10px"></textarea></div>
+            </div>
+        </div>
+        <button class="btn btn-default btn-single-default" id="QualitativeBtn" @click="addQualitativeList()">确定</button>
+        <button class="btn btn-default btn-single-default" id="QualitativeBtnEX" @click="editQualitativeList()">确定</button>
+    </div>
+
+    <div id="circumstances2" class="circ" title="定量条件" style="text-align:center;">
+        <table class="table table-bordered parma" style="margin-top:15px;margin-left:7px;">
+            <thead>
+                <tr>
+                    <th>违约条件名</th>
+                    <th>计算列</th>
+                    <th>当前值</th>
+                    <th>条件</th>
+                    <th>阀值</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr droppable="tasktools" id="single-form">
+                    <td>
+                        <input type="text" class="form-control gold-single-input" style="width:280px" id="RationDescribe">
+                    </td>
+                    <td>
+                        <select class="form-control gold-single-input" style="width:160px" id="CalculationCode"></select>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control gold-single-input" style="width:80px" id="CurrentValue">
+                    </td>
+                    <td>
+                        <select id="Condition" class="form-control gold-single-input" style="width:50px">
+                            <option></option>
+                            <option value="&lt;">&lt;</option>
+                            <option value="&gt;">&gt;</option>
+                            <option value="&ge;">&ge;</option>
+                            <option value="&le;">&le;</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control gold-single-input" id="Threshold" style="width:80px">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-default btn-single-default" id="QuantitativeBtn" style="position:absolute;bottom:15px;left:50%" v-on:click="addRation()">确定</button>
+        <button class="btn btn-default btn-single-default" id="ReQuantitativeBtn" style="position:absolute;bottom:15px;left:50%" v-on:click="editAddRation()">确定</button>
+    </div>
+    <script src="../../../../asset/lib/require.js"></script>
+    <script>
+        requirejs(['../../../../asset/lib/config.js'], function (config) {
+            requirejs(['app/productManage/TrustManagement/PaymentSetWizard/AddEventDescMain']);
+        });
+    </script>
+</body>
+</html>

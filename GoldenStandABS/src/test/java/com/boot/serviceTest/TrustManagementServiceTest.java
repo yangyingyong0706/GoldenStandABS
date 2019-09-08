@@ -1,5 +1,6 @@
 package com.boot.serviceTest;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -10,11 +11,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.boot.baseTest.SpringTestCase;
+import com.boot.dao.TrustManagementMapper;
 import com.boot.entity.Dictionary;
 import com.boot.entity.Trust;
 import com.boot.entity.TrustInfo;
+import com.boot.entity.req.CommonExecuteReq;
+import com.boot.entity.req.TrustListDataReq;
 import com.boot.service.DistrictService;
 import com.boot.service.TrustManagementService;
+import com.boot.util.FastJsonUtils;
 
 public class TrustManagementServiceTest extends SpringTestCase{
 	Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -23,6 +28,8 @@ public class TrustManagementServiceTest extends SpringTestCase{
 	
 	@Autowired
 	private TrustManagementService trustManagementService; 
+	@Autowired
+	private TrustManagementMapper trustManagementMapper; 
 	
 	@Test  
     public void GetTrustInfoFromWizardTest(){  
@@ -115,6 +122,56 @@ public class TrustManagementServiceTest extends SpringTestCase{
 
     logger.info("--------------------end----GetTrustInfoFromWizardMapTest-------------------------------------------------------------------------------------------------");
     } 
+	
+	@Test  
+	public void GetTrustListDataTest(){  
+		logger.info("--------------------start--GetTrustListDataTest---------------------------------------------------------------------------------------------------");
+		TrustListDataReq tl=new TrustListDataReq();
+		tl.setStart(1);
+		tl.setEnd(20);
+		tl.setOrderby("TrustId");
+		tl.setDirection("desc");
+		tl.setUserName("goldenstand");		
+		List<Map<String,Object>>  list=trustManagementService.GetTrustListData(tl);
+		for (Map<String, Object> map : list) {
+			Set<String> set=map.keySet();
+			for (String string : set) {
+				logger.info("查找结果getItemValue-----map--set----键key:("+string+")     值value:" +map.get(string) );  
+				
+			}
+//		logger.info("查找结果getItemValue:" + map.);  
+//		logger.info("查找结果getItemAliasValue:" + trustInfo.getItemAliasValue()); 
+		}
+		
+		logger.info("--------------------end----GetTrustListDataTest-------------------------------------------------------------------------------------------------");
+	} 
+	
+	@Test  
+	public void GetCommonTest(){  
+		logger.info("--------------------start--GetCommonTest---------------------------------------------------------------------------------------------------");
+		
+		/*Map<String, Object> mapValue=new HashMap<String, Object>();
+		String applicationDomain="TrustManagement";
+		String SPName="usp_GetTrustListData";
+		mapValue.put("start", "1");
+		mapValue.put("end", "20");
+		mapValue.put("orderby", "TrustId");
+		mapValue.put("direction", "desc");
+		mapValue.put("where", null);
+		mapValue.put("UserName", "goldenstand");
+		*/
+		String jsonStr = "{\"appDomain\":\" TrustManagement\",\"executeParams\":{\"SPName\":\"usp_GetTrustPeriod\",\"SQLParams\":[{\"Name\":\"TrustPeriodType\",\"Value\":\"PaymentDate_CF\",\"DBType\":\"string\"},{\"Name\":\"TrustId\",\"Value\":\"3612\",\"DBType\":\"int\"}]}}";
+		// json 转 实体
+		CommonExecuteReq executeReq = FastJsonUtils.getJsonToBean(jsonStr,
+				CommonExecuteReq.class);
+		
+		List<Map<String,Object>>  list=trustManagementService.CommonExecuteGet(executeReq);
+//		List<Map<String,Object>>  list=trustManagementMapper.CommonExecuteGet(applicationDomain,SPName,mapValue);
+		logger.info("公共方法----trustManagementMapper.CommonExecuteGet-----size:("+list.size()+")");  
+		String json =FastJsonUtils.getBeanToJson(list);
+		logger.info("--------------------json----json-------------------------------------"+json);
+		logger.info("--------------------end----GetCommonTest-------------------------------------------------------------------------------------------------");
+	} 
 	
 	
 }

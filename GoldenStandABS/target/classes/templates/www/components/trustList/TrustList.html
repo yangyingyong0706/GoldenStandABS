@@ -1,21 +1,24 @@
 ﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" style="overflow:hidden">
+<!-- <html xmlns="http://www.w3.org/1999/xhtml" style="overflow:hidden"> -->
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>产品列表</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta name="renderer" content="webkit" />
-    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
-    <link href="./css/pagerlist-style.css" rel="stylesheet" />
-    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
-    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
-    <link href="../../../asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
-    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
-    <link href="../../../asset/allstylesheet/goldDefined.css" rel="stylesheet" />
-    <script data-main="./TrustList.js" src="../../../asset/lib/require.js"></script>
+    <link href="/asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="/js/www/components/trustList/css/pagerlist-style.css" rel="stylesheet" />
+    <link href="/asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="/asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="/asset/lib/Kendo/styles/kendo.material.min.css" rel="stylesheet" />
+    <link href="/asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="/asset/allstylesheet/goldDefined.css" rel="stylesheet" />
+    <!-- <script data-main="./TrustList.js" src="/asset/lib/require.js"></script> -->
+    <script data-main="/js/www/components/trustList/TrustList.js" src="/asset/lib/require.js"></script>
+   <!--  <script src="/asset/lib/require.js"></script> -->
 
     <style>
         html,body {
@@ -99,7 +102,7 @@
     <div id="selectLanguageDropdown_qcl" class="localizationTool" style="display:none"></div>
     <div class="body-container form nobottom">
         <div class="main">
-            <div id="DashBoard" class="ribbonBox" v-cloak=v-cloak>
+            <div id="DashBoard"  class="ribbonBox" v-cloak="v-cloak">
                 <div class="ProjectApproval">
                     <button class="btn btn-default f-right" id="addProject">
                         <i class="fa fa-gg fa-fw"></i>
@@ -247,6 +250,13 @@
             </div>
         </div>
     </div>
-
+	
+   <!--  <script type="text/javascript">
+        requirejs(['/asset/lib/config'], function (config) {
+            /* requirejs(['']); */
+            requirejs(['app/components/trustList/TrustList']);
+        });
+    </script> -->
+	
 </body>
 </html>

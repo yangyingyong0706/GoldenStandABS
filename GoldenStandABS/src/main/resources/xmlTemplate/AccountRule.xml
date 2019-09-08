@@ -1,0 +1,997 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tool Name="CashFlowAccountModel">
+	<Accounts>
+		<Account>
+		  <Name>信托账户</Name>
+		  <Code>TrustAccount</Code>
+		  <VirtualAccounts>
+			<VirtualAccount>
+			  <Name>TrustPlanAccount</Name>
+			  <DisplayName>信托收款账户</DisplayName>
+			  <Code>TrustPlanAccount_Total_AvailableAmt</Code>
+			  <IsIndependent>True</IsIndependent>
+			  <Category>FirstLevelAccount</Category>
+			  <RelatedAccounts></RelatedAccounts>
+			  <MutexAccounts>TrustPlanAccount_Principal;TrustPlanAccount_Interest</MutexAccounts>
+			</VirtualAccount>
+
+			<VirtualAccount>
+			  <Name>TrustPlanAccount_Interest</Name>
+			  <DisplayName>收入分账户</DisplayName>
+			  <Code>TrustPlanAccount_Interest_AvailableAmt</Code>
+			  <IsIndependent>False</IsIndependent>
+			  <Category>SecondLevelAccount</Category>
+			  <RelatedAccounts>TrustPlanAccount_Principal</RelatedAccounts>
+			  <MutexAccounts>TrustPlanAccount</MutexAccounts>
+			</VirtualAccount>
+
+			<VirtualAccount>
+			  <Name>TrustPlanAccount_Principal</Name>
+			  <DisplayName>本金分账户</DisplayName>
+			  <Code>TrustPlanAccount_Principal_AvailableAmt</Code>
+			  <IsIndependent>False</IsIndependent>
+			  <Category>SecondLevelAccount</Category>
+			  <RelatedAccounts>TrustPlanAccount_Interest</RelatedAccounts>
+			  <MutexAccounts>TrustPlanAccount</MutexAccounts>
+
+			</VirtualAccount>
+
+			<VirtualAccount>
+			  <Name>TrustPlanAccount_Reserve</Name>
+			  <DisplayName>信托储备账户</DisplayName>
+			  <Code>TrustPlanAccount_Reserve_AvailableAmt</Code>
+			  <IsIndependent>False</IsIndependent>
+			  <Category>FirstLevelAccount</Category>
+			  <RelatedAccounts></RelatedAccounts>
+			  <MutexAccounts></MutexAccounts>
+			</VirtualAccount>
+		  </VirtualAccounts>
+		</Account>
+	</Accounts>
+	<Rules>
+		<Rule>
+		  <Code>Rule_ChinaBondFee</Code>
+		  <Name>Rule_ChinaBondFee</Name>
+		  <ProcessorName>Rule_ChinaBondFee_RuleProcessor</ProcessorName>
+		  <DisplayName>中登费计算及资金保障</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleAccountToAccount</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Global</Category>
+		  <Branch>Other</Branch>
+		  <IsRepeat>0</IsRepeat>
+		  <Amount IsDisplay="0" Displayname=""></Amount>
+		  <Percentage IsDisplay="0" Displayname=""></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="0" Displayname=""></Source>
+		  <Target IsDisplay="1" Displayname="资金来源"></Target>
+		  <RoudRule IsDisplay="1"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts></RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+		<Rule>
+		  <Code>Rule_TailMoneyFee_RuleProcessor</Code>
+		  <Name>Rule_TailMoneyFee_RuleProcessor</Name>
+		  <ProcessorName>Rule_TailMoneyFee_RuleProcessor</ProcessorName>
+		  <DisplayName>长款计算及资金来源</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleAccountToAccount</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Global</Category>
+		  <Branch>Other</Branch>
+		  <IsRepeat>0</IsRepeat>
+		  <Amount IsDisplay="1" Displayname="长款基数"></Amount>
+		  <Percentage IsDisplay="0" Displayname=""></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="0" Displayname=""></Source>
+		  <Target IsDisplay="1" Displayname="资金来源"></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts></RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+		<Rule>
+		  <Code>Rule_Account_To_Account</Code>
+		  <Name>Rule_Account_To_Account</Name>
+		  <ProcessorName>Rule_Account_To_Account_RuleProcessor</ProcessorName>
+		  <DisplayName>自定义账户间资金划转(指定转出金额或转出比例)</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleAccountToAccount</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Global</Category>
+		  <Branch>Other</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="1" Displayname="转出金额(元)"></Amount>
+		  <Percentage IsDisplay="1" Displayname="转出比例"></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="转出账户"></Source>
+		  <Target IsDisplay="1" Displayname="转入账户"></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts></RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+		<Rule>
+		  <Code>Rule_ReserveAccount_Carryover_To_TrustPlanAccount</Code>
+		  <Name>Rule_ReserveAccount_Carryover_To_TrustPlanAccount</Name>
+		  <ProcessorName>Rule_Account_To_Account_RuleProcessor</ProcessorName>
+		  <DisplayName>储备金账户转信托收款账户(期初存留资金全部转出)</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleAccountToAccount</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Global</Category>
+		  <Branch>TrustPlanAccount_Reserve</Branch>
+		  <IsRepeat>0</IsRepeat>
+		  <Amount IsDisplay="0" Displayname=""></Amount>
+		  <Percentage IsDisplay="0" Displayname=""></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="转出账户">TrustPlanAccount_Reserve_AvailableAmt</Source>
+		  <Target IsDisplay="1" Displayname="转入账户">TrustPlanAccount_Total_AvailableAmt</Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts>TrustPlanAccount,TrustPlanAccount_Reserve</RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+		<Rule>
+		  <Code>Rule_ReserveAccount_Carryover_To_InterestAccount</Code>
+		  <Name>Rule_ReserveAccount_Carryover_To_InterestAccount</Name>
+		  <ProcessorName>Rule_Account_To_Account_RuleProcessor</ProcessorName>
+		  <DisplayName>储备金账户转收入分账户(期初存留资金全部转出)</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleAccountToAccount</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Global</Category>
+		  <Branch>TrustPlanAccount_Reserve</Branch>
+		  <IsRepeat>0</IsRepeat>
+		  <Amount IsDisplay="0" Displayname="" ></Amount>
+		  <Percentage IsDisplay="0" Displayname=""></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="转出账户">TrustPlanAccount_Reserve_AvailableAmt</Source>
+		  <Target IsDisplay="1" Displayname="转入账户">TrustPlanAccount_Interest_AvailableAmt</Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts>TrustPlanAccount_Interest,TrustPlanAccount_Reserve</RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+		<Rule>
+		  <Code>Rule_ReserveAccount_Carryover_To_PrincipalAccount</Code>
+		  <Name>Rule_ReserveAccount_Carryover_To_PrincipalAccount</Name>
+		  <ProcessorName>Rule_Account_To_Account_RuleProcessor</ProcessorName>
+		  <DisplayName>储备金账户转本金分账户(期初存留资金全部转出)</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleAccountToAccount</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Global</Category>
+		  <Branch>TrustPlanAccount_Reserve</Branch>
+		  <IsRepeat>0</IsRepeat>
+		  <Amount IsDisplay="0" Displayname="" ></Amount>
+		  <Percentage IsDisplay="0" Displayname=""></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="转出账户">TrustPlanAccount_Reserve_AvailableAmt</Source>
+		  <Target IsDisplay="1" Displayname="转入账户">TrustPlanAccount_Principal_AvailableAmt</Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts>TrustPlanAccount_Principal,TrustPlanAccount_Reserve</RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+		<Rule>
+		  <Code>Rule_Account_To_Account_For_RangedToBeDefined</Code>
+		  <Name>Rule_Account_To_Account_For_RangedToBeDefined</Name>
+		  <ProcessorName>Rule_Account_To_Account_For_RangedToBeDefined_RuleProcessor</ProcessorName>
+		  <DisplayName>本金分账户转收入分账户(补足指定分配项)</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleAccountToAccount</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Global</Category>
+		  <Branch>TrustPlanAccount_Principal</Branch>
+		  <IsRepeat>0</IsRepeat>
+		  <Amount IsDisplay="0" Displayname="" ></Amount>
+		  <Percentage IsDisplay="0" Displayname=""></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="转出账户">TrustPlanAccount_Principal_AvailableAmt</Source>
+		  <Target IsDisplay="1" Displayname="转入账户">TrustPlanAccount_Interest_AvailableAmt</Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="1"></ElementNames>
+		  <ElementRange>SelectedBondFee</ElementRange>
+		  <RelatedAccounts>TrustPlanAccount_Principal,TrustPlanAccount_Interest</RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+
+		<Rule>
+		  <Code>Rule_Account_To_Account_For_ReserveAccount</Code>
+		  <Name>Rule_Account_To_Account_For_ReserveAccoun</Name>
+		  <ProcessorName>Rule_Account_To_Account_For_ReserveAccount_RuleProcessor</ProcessorName>
+		  <DisplayName>储备金补足收入账(补足指定分配项)</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleAccountToAccount</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Global</Category>
+		  <Branch>TrustPlanAccount_Interest</Branch>
+		  <IsRepeat>0</IsRepeat>
+		  <Amount IsDisplay="1" Displayname="初始金额" ></Amount>
+		  <Percentage IsDisplay="0" Displayname=""></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="补足来源"></Source>
+		  <Target IsDisplay="1" Displayname="转入账户"></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="1"></ElementNames>
+		  <ElementRange>SelectedBondFee</ElementRange>
+		  <RelatedAccounts>TrustPlanAccount_Interest</RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+
+		<Rule>
+		  <Code>Rule_ReserveAccount_To_TrustAccount</Code>
+		  <Name>Rule_ReserveAccount_To_TrustAccount</Name>
+		  <ProcessorName>Rule_ReserveAccount_To_TrustAccount_RuleProcessor</ProcessorName>
+		  <DisplayName>储备金补足信托账户(补足指定分配项)</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleAccountToAccount</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Global</Category>
+		  <Branch>TrustPlanAccount</Branch>
+		  <IsRepeat>0</IsRepeat>
+		  <Amount IsDisplay="1" Displayname="初始金额" ></Amount>
+		  <Percentage IsDisplay="0" Displayname=""></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="储备金补足来源">TrustPlanAccount_Total_AvailableAmt</Source>
+		  <Target IsDisplay="1" Displayname="转入账户"></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="1"></ElementNames>
+		  <ElementRange>SelectedBondFee</ElementRange>
+		  <RelatedAccounts>TrustPlanAccount</RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+
+
+		<Rule>
+		  <Code>Rule_IterationValueAddedTax</Code>
+		  <Name>Rule_IterationValueAddedTax</Name>
+		  <ProcessorName>Rule_IterationValueAddedTax_RuleProcessor</ProcessorName>
+		  <DisplayName>迭代增值税(*默认作用于中登费)</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleAccountToAccount</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Global</Category>
+		  <Branch>Other</Branch>
+		  <IsRepeat>0</IsRepeat>
+		  <Amount IsDisplay="1" Displayname="税率" ></Amount>
+		  <Percentage IsDisplay="1" Displayname="附加税率"></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="转出账户">TrustPlanAccount_Principal_AvailableAmt</Source>
+		  <Target IsDisplay="0" Displayname="转入账户">TrustPlanAccount_Interest_AvailableAmt</Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="1"></ElementNames>
+		  <ElementRange>SelectedBondFee</ElementRange>
+		  <RelatedAccounts></RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+
+		<Rule>
+		  <Code>Rule_Account_Transfer_EachOther</Code>
+		  <Name>Rule_Account_Transfer_EachOther</Name>
+		  <ProcessorName>Rule_Account_Transfer_EachOther_RuleProcessor</ProcessorName>
+		  <DisplayName>账户互转通用规则</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleAccountToAccount</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>Other</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="1"  Displayname="源账户首期期初金额"></Amount>
+		  <Percentage IsDisplay="0" Displayname=""></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="源账户"></Source>
+		  <Target IsDisplay="1" Displayname="目标账户"></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则"></RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="1"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="1"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts></RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+
+
+
+		<Rule>
+		  <Code>Rule_PrincipalAccount_PayLimit</Code>
+		  <Name>Rule_PrincipalAccount_PayLimit</Name>
+		  <ProcessorName>Rule_SameLevelAllocation_RuleProcessor</ProcessorName>
+		  <DisplayName>本金分账户(同级支付上限及分配方式)</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleSameLevel</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>TrustPlanAccount_Principal</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="1"  Displayname="可分配资金(元)"></Amount>
+		  <Percentage IsDisplay="1" Displayname="可分配资金占比"></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="1" Displayname="同级分配方式"></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="资金来源">TrustPlanAccount_Principal_AvailableAmt</Source>
+		  <Target IsDisplay="0" Displayname="">TrustPlanAccount_Interest_AvailableAmt</Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts>TrustPlanAccount_Principal</RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+		<Rule>
+		  <Code>Rule_PrincipalAccount_To_ReserveAccount</Code>
+		  <Name>Rule_PrincipalAccount_To_ReserveAccount</Name>
+		  <ProcessorName>Rule_Account_To_Account_RuleProcessor</ProcessorName>
+		  <DisplayName>本金分账户转储备金账户(补足必备金额)</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleAccountToAccount</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>TrustPlanAccount_Principal</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="0"  Displayname=""></Amount>
+		  <Percentage IsDisplay="0" Displayname=""></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="转出账户">TrustPlanAccount_Principal_AvailableAmt</Source>
+		  <Target IsDisplay="1" Displayname="转入账户">TrustPlanAccount_Reserve_AvailableAmt</Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts>TrustPlanAccount_Principal,TrustPlanAccount_Reserve</RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+		<Rule>
+		  <Code>Rule_PrincipalAccount_For_EquityClass</Code>
+		  <Name>Rule_PrincipalAccount_For_EquityClass</Name>
+		  <ProcessorName>Rule_Account_To_FeeBond_RuleProcessor</ProcessorName>
+		  <DisplayName>本金分账户转高收益档(剩余资金转给高收益档)</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleFeeBondBalancePayment</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>TrustPlanAccount_Principal</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="1" Displayname="转出金额(元)" ></Amount>
+		  <Percentage IsDisplay="1" Displayname="转出比例">1</Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="资金来源">TrustPlanAccount_Principal_AvailableAmt</Source>
+		  <Target IsDisplay="1" Displayname="转出目标"></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts>TrustPlanAccount_Principal</RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+		<Rule>
+		  <Code>Rule_InterestAccount_PayLimit</Code>
+		  <Name>Rule_InterestAccount_PayLimit</Name>
+		  <ProcessorName>Rule_SameLevelAllocation_RuleProcessor</ProcessorName>
+		  <DisplayName>收入分账户(同级支付上限及分配方式)</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleSameLevel</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>TrustPlanAccount_Interest</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="1" Displayname="可分配资金(元)" ></Amount>
+		  <Percentage IsDisplay="1" Displayname="可分配资金占比"></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="1" Displayname="同级分配方式"></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="资金来源">TrustPlanAccount_Interest_AvailableAmt</Source>
+		  <Target IsDisplay="0" Displayname=""></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts>TrustPlanAccount_Interest</RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+		<Rule>
+		  <Code>Rule_InterestAccount_To_ReserveAccount</Code>
+		  <Name>Rule_InterestAccount_To_ReserveAccount</Name>
+		  <ProcessorName>Rule_Account_To_Account_RuleProcessor</ProcessorName>
+		  <DisplayName>收入分账户转储备金账户(补足必备金额)</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleAccountToAccount</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>TrustPlanAccount_Interest</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="0"  Displayname="转出金额(元)"></Amount>
+		  <Percentage IsDisplay="0" Displayname="转出比例"></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="转出账户">TrustPlanAccount_Interest_AvailableAmt</Source>
+		  <Target IsDisplay="1" Displayname="转入账户">TrustPlanAccount_Reserve_AvailableAmt</Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts>TrustPlanAccount_Interest,TrustPlanAccount_Reserve</RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+		<Rule>
+		  <Code>Rule_InterestAccount_For_EquityClass</Code>
+		  <Name>Rule_InterestAccount_For_EquityClass</Name>
+		  <ProcessorName>Rule_Account_To_FeeBond_RuleProcessor</ProcessorName>
+		  <DisplayName>收入分账户转高收益档(剩余资金转给高收益档)</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleFeeBondBalancePayment</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>TrustPlanAccount_Interest</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="1" Displayname="转出金额(元)" ></Amount>
+		  <Percentage IsDisplay="1" Displayname="转出比例">1</Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="资金来源">TrustPlanAccount_Interest_AvailableAmt</Source>
+		  <Target IsDisplay="1" Displayname="转出目标"></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts>TrustPlanAccount_Interest</RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+		<Rule>
+		  <Code>Rule_InterestAccount_To_PrincipalAccount_For_ABCD</Code>
+		  <Name>Rule_InterestAccount_To_PrincipalAccount_For_ABCD</Name>
+		  <ProcessorName>Rule_InterestAccount_To_PrincipalAccount_For_ABCD_RuleProcessor</ProcessorName>
+		  <DisplayName>收入分账户转本金分账户(回补累计转移额和违约额)</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleAccountToAccount</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>TrustPlanAccount_Interest</Branch>
+		  <IsRepeat>0</IsRepeat>
+		  <Amount IsDisplay="0" Displayname="" ></Amount>
+		  <Percentage IsDisplay="0" Displayname=""></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="转出账户">TrustPlanAccount_Interest_AvailableAmt</Source>
+		  <Target IsDisplay="1" Displayname="转入账户">TrustPlanAccount_Principal_AvailableAmt</Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts>TrustPlanAccount_Interest</RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+		<Rule>
+		  <Code>Rule_InterestAccount_LeftOver_To_PrincipalAccount</Code>
+		  <Name>Rule_InterestAccount_LeftOver_To_PrincipalAccount</Name>
+		  <ProcessorName>Rule_Account_To_Account_RuleProcessor</ProcessorName>
+		  <DisplayName>收入分账户转本金分账户(剩余资金全部转出)</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleAccountToAccount</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>TrustPlanAccount_Interest</Branch>
+		  <IsRepeat>0</IsRepeat>
+		  <Amount IsDisplay="0" Displayname="转出金额(元)" ></Amount>
+		  <Percentage IsDisplay="1" Displayname="转出比例">1</Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="转出账户">TrustPlanAccount_Interest_AvailableAmt</Source>
+		  <Target IsDisplay="1" Displayname="转入账户">TrustPlanAccount_Principal_AvailableAmt</Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts>TrustPlanAccount_Interest</RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+		<Rule>
+		  <Code>Rule_TrustPlanAccount_PayLimit</Code>
+		  <Name>Rule_TrustPlanAccount_PayLimit</Name>
+		  <ProcessorName>Rule_SameLevelAllocation_RuleProcessor</ProcessorName>
+		  <DisplayName>信托收款账户(同级支付上限及分配方式)</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleSameLevel</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>TrustPlanAccount</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="1" Displayname="可分配资金(元)" ></Amount>
+		  <Percentage IsDisplay="1" Displayname="可分配资金占比"></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="1" Displayname="同级分配方式"></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="资金来源">TrustPlanAccount_Total_AvailableAmt</Source>
+		  <Target IsDisplay="0" Displayname=""></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts>TrustPlanAccount</RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+		<Rule>
+		  <Code>Rule_TrustPlanAccount_To_ReserveAccount</Code>
+		  <Name>Rule_TrustPlanAccount_To_ReserveAccount</Name>
+		  <ProcessorName>Rule_Account_To_Account_RuleProcessor</ProcessorName>
+		  <DisplayName>信托收款账户转储备金账户(补足必备金额)</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleAccountToAccount</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>TrustPlanAccount</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="0"  Displayname="转出金额"></Amount>
+		  <Percentage IsDisplay="0" Displayname="转出比例"></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="转出账户">TrustPlanAccount_Total_AvailableAmt</Source>
+		  <Target IsDisplay="1" Displayname="转入账户">TrustPlanAccount_Reserve_AvailableAmt</Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts>TrustPlanAccount,TrustPlanAccount_Reserve</RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+		<Rule>
+		  <Code>Rule_TrustPlanAccount_For_EquityClass</Code>
+		  <Name>Rule_TrustPlanAccount_For_EquityClass</Name>
+		  <ProcessorName>Rule_Account_To_FeeBond_RuleProcessor</ProcessorName>
+		  <DisplayName>信托收款账户转高收益档(剩余资金转给高收益档)</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleFeeBondBalancePayment</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>TrustPlanAccount</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="1" Displayname="转出金额" ></Amount>
+		  <Percentage IsDisplay="1" Displayname="转出比例">1</Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname="同级分配方式"></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="资金来源">TrustPlanAccount_Total_AvailableAmt</Source>
+		  <Target IsDisplay="1" Displayname="转出目标"></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts>TrustPlanAccount</RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+		<Rule>
+		  <Code>Rule_Account_To_ParentFee</Code>
+		  <Name>Rule_Account_To_ParentFee</Name>
+		  <ProcessorName>Rule_Account_To_ParentFee_RuleProcessor</ProcessorName>
+		  <DisplayName>费用计提(提取母费用预付金额)</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleFeeToFee</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>Other</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="0"  Displayname=""></Amount>
+		  <Percentage IsDisplay="0" Displayname=""></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="资金来源"></Source>
+		  <Target IsDisplay="1" Displayname="转出目标"></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="1"></ElementNames>
+		  <ElementRange>Fee</ElementRange>
+		  <RelatedAccounts></RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+		<Rule>
+		  <Code>Rule_Fee_Multi_Payment</Code>
+		  <Name>Rule_Fee_Multi_Payment</Name>
+		  <ProcessorName>Rule_Account_Multi_To_Fee_RuleProcessor</ProcessorName>
+		  <DisplayName>补足超过优先支出上限的单个费用</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleFeeSecondPayment</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>Other</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="1" Displayname="超上限部分补足金额(元）" ></Amount>
+		  <Percentage IsDisplay="1" Displayname="超上限部分补足占比">1</Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname="同级分配方式"></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="资金来源"></Source>
+		  <Target IsDisplay="1" Displayname="补足费用"></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts></RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+		<Rule>
+		  <Code>Rule_Account_Multi_To_Fees_SameLevel_RuleProcessor</Code>
+		  <Name>Rule_Account_Multi_To_Fees_SameLevel_RuleProcessor</Name>
+		  <ProcessorName>Rule_Account_Multi_To_Fees_SameLevel_RuleProcessor</ProcessorName>
+		  <DisplayName>补足超过优先支出上限的费用集合</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleFeeSecondPayment</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>Other</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="1" Displayname="超上限部分补足金额(元）" ></Amount>
+		  <Percentage IsDisplay="1" Displayname="超上限部分补足占比"></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="1" Displayname="同级分配方式"></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="资金来源"></Source>
+		  <Target IsDisplay="0" Displayname=""></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="1"></ElementNames>
+		  <ElementRange>Fee</ElementRange>
+		  <RelatedAccounts></RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+
+		<Rule>
+		  <Code>Rule_SubClass_IncomeAllocation</Code>
+		  <Name>Rule_SubClass_IncomeAllocation</Name>
+		  <ProcessorName>Rule_SubClass_IncomeAllocation_RuleProcessor</ProcessorName>
+		  <DisplayName>高收益档累积收益规则</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleFeeSecondPayment</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>Other</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="1" Displayname="" ></Amount>
+		  <Percentage IsDisplay="1" Displayname=""></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname=""></Source>
+		  <Target IsDisplay="1" Displayname=""></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange>Fee</ElementRange>
+		  <RelatedAccounts></RelatedAccounts>
+		  <supplement IsDisplay="1" Displayname="保留精度"></supplement>
+
+		</Rule>
+		<Rule>
+		  <Code>Rule_Account_To_Accoun_CustomAmount</Code>
+		  <Name>Rule_Account_To_Accoun_CustomAmount</Name>
+		  <ProcessorName>Rule_Account_To_Account_RuleProcessor</ProcessorName>
+		  <DisplayName>自定义账户间资金划转(指定转出金额或转出比例)</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleAccountToAccount</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>Other</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="1" Displayname="转出金额(元)" ></Amount>
+		  <Percentage IsDisplay="1" Displayname="转出比例">1</Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname="同级分配方式"></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="转出账户"></Source>
+		  <Target IsDisplay="1" Displayname="转入账户"></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts></RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+		<Rule>
+		  <Code>Rule_Account_To_Account_Overflow_RuleProcessor</Code>
+		  <Name>Rule_Account_To_Account_Overflow_RuleProcessor</Name>
+		  <ProcessorName>Rule_Account_To_Account_Overflow_RuleProcessor</ProcessorName>
+		  <DisplayName>自定义账户间资金划转(超出预留部分全部转出)</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleAccountToAccount</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>Other</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="1"  Displayname="预留金额(元)"></Amount>
+		  <Percentage IsDisplay="1" Displayname="预留资金占比"></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname="同级分配方式"></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="转出账户"></Source>
+		  <Target IsDisplay="1" Displayname="转入账户"></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts></RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+		<Rule>
+		  <Code>Rule_Account_Balance_Adjustment_RuleProcessor</Code>
+		  <Name>Rule_Account_Balance_Adjustment_RuleProcessor</Name>
+		  <ProcessorName>Rule_Account_Balance_Adjustment_RuleProcessor</ProcessorName>
+		  <DisplayName>计提下期优先级预期收益</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleAccountToAccount</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>Other</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="0"  Displayname=""></Amount>
+		  <Percentage IsDisplay="1" Displayname="可计提比例">0.9</Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="资金来源"></Source>
+		  <Target IsDisplay="0" Displayname=""></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts></RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+		<Rule>
+		  <Code>Rule_Account_ServiceFee</Code>
+		  <Name>Rule_Account_ServiceFee</Name>
+		  <ProcessorName>Rule_Account_ServiceFee_RuleProcessor</ProcessorName>
+		  <DisplayName>后端服务报酬</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleFeeSecondPayment</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>Other</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="0"  Displayname=""></Amount>
+		  <Percentage IsDisplay="1" Displayname="可计提比例">0.2</Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="资金来源"></Source>
+		  <Target IsDisplay="1" Displayname=""></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">1</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts></RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+		<Rule>
+		  <Code>Rule_Account_EquityClassFundInterest</Code>
+		  <Name>Rule_Account_EquityClassFundInterest</Name>
+		  <ProcessorName>Rule_Account_EquityClassFundInterest_RuleProcessor</ProcessorName>
+		  <DisplayName>次级阶梯式收益分配</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleFeeSecondPayment</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>Other</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="0"  Displayname=""></Amount>
+		  <Percentage IsDisplay="1" Displayname="比例"></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="资金来源"></Source>
+		  <Target IsDisplay="1" Displayname=""></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">1</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="1"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts></RelatedAccounts>
+		  <supplement IsDisplay="1" Displayname="比例区间">0.12;0.2;0.15</supplement>
+		</Rule>
+		<Rule>
+		  <Code>Rule_Account_FirtClassBond_PaymentLimitation</Code>
+		  <Name>Rule_Account_FirtClassBond_PaymentLimitation</Name>
+		  <ProcessorName>Rule_Account_FirtClassBond_PaymentLimitation_RuleProcessor</ProcessorName>
+		  <DisplayName>次级期间收益限制</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleFeeSecondPayment</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>Other</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="0"  Displayname=""></Amount>
+		  <Percentage IsDisplay="1" Displayname="比例"></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname="资金来源"></Source>
+		  <Target IsDisplay="1" Displayname=""></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts></RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+
+
+		<Rule>
+		  <Code>Rule_EquityClass_Income</Code>
+		  <Name>Rule_EquityClass_Income</Name>
+		  <ProcessorName>Rule_EquityClass_Income_RuleProcessor</ProcessorName>
+		  <DisplayName>次级收益</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleFeeSecondPayment</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>Other</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="0"  Displayname=""></Amount>
+		  <Percentage IsDisplay="1" Displayname="本金账剩余本金支付比例"></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="0" Displayname="资金来源"></Source>
+		  <Target IsDisplay="1" Displayname="目标"></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts></RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="全年计息天数">365</supplement>
+		</Rule>
+
+		<Rule>
+		  <Code>Rule_ChinaBondFee_SQS</Code>
+		  <Name>Rule_ChinaBondFee_SQS</Name>
+		  <ProcessorName>Rule_ChinaBondFee_SQS_RuleProcessor</ProcessorName>
+		  <DisplayName>上清所计算及资金保障</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleAccountToAccount</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Global</Category>
+		  <Branch>Other</Branch>
+		  <IsRepeat>0</IsRepeat>
+		  <Amount IsDisplay="0" Displayname=""></Amount>
+		  <Percentage IsDisplay="0" Displayname=""></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="0" Displayname=""></Source>
+		  <Target IsDisplay="1" Displayname="资金来源"></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts></RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="其他"></supplement>
+		</Rule>
+
+		<Rule>
+		  <Code>Rule_Tax_Reserve_BaseOnNextRunInterestCollectionEstimation</Code>
+		  <Name>Rule_Tax_Reserve_BaseOnNextRunInterestCollectionEstimation</Name>
+		  <ProcessorName>Rule_Tax_Reserve_BaseOnNextRunInterestCollectionEstimation_RuleProcessor</ProcessorName>
+		  <DisplayName>税收储备金</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleAccountToAccount</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>Other</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="1" Displayname="指定补足金额"></Amount>
+		  <Percentage IsDisplay="0" Displayname=""></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname=""></Source>
+		  <Target IsDisplay="1" Displayname=""></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts></RelatedAccounts>
+		  <supplement IsDisplay="1" Displayname="倍数"></supplement>
+		</Rule>
+
+
+		<Rule>
+		  <Code>Rule_Liquidity_Reserve_BasedOnFixedAmount </Code>
+		  <Name>Rule_Liquidity_Reserve_BasedOnFixedAmount</Name>
+		  <ProcessorName>Rule_Liquidity_Reserve_BasedOnFixedAmount_RuleProcessor</ProcessorName>
+		  <DisplayName>流动储备金(指定储备金额)</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleAccountToAccount</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Local</Category>
+		  <Branch>Other</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="1" Displayname="指定储备金额*"></Amount>
+		  <Percentage IsDisplay="0" Displayname=""></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname=""></Source>
+		  <Target IsDisplay="1" Displayname=""></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts></RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname="倍数"></supplement>
+		</Rule>
+
+		<Rule>
+		  <Code>Rule_Liquidity_Reserve_BasedOnNextRunFirstClassInterestDueEstimation</Code>
+		  <Name>Rule_Liquidity_Reserve_BasedOnNextRunFirstClassInterestDueEstimation</Name>
+		  <ProcessorName>Rule_Liquidity_Reserve_BasedOnNextRunFirstClassInterestDueEstimation_RuleProcessor</ProcessorName>
+		  <DisplayName>流动储备金(基于优先级剩余本金)</DisplayName>
+		  <Type>Rule</Type>
+		  <RuleType>RuleAccountToAccount</RuleType>
+		  <ClassType></ClassType>
+		  <Category>Global</Category>
+		  <Branch>Other</Branch>
+		  <IsRepeat>1</IsRepeat>
+		  <Amount IsDisplay="1" Displayname="倍数"></Amount>
+		  <Percentage IsDisplay="0" Displayname=""></Percentage>
+		  <AllocationRuleOfSameLevel IsDisplay="0" Displayname=""></AllocationRuleOfSameLevel>
+		  <Source IsDisplay="1" Displayname=""></Source>
+		  <Target IsDisplay="1" Displayname=""></Target>
+		  <RoudRule IsDisplay="0"  Displayname="舍入规则">0</RoudRule>
+		  <Genre IsDisplay="0"  Displayname="分类">0</Genre>
+		  <TransferAmount IsDisplay="0"  Displayname="互转金额"></TransferAmount>
+		  <TriggerCondition IsDisplay="0"  Displayname="触发条件"></TriggerCondition>
+		  <ElementNames IsDisplay="0"></ElementNames>
+		  <ElementRange></ElementRange>
+		  <RelatedAccounts></RelatedAccounts>
+		  <supplement IsDisplay="0" Displayname=""></supplement>
+		</Rule>
+	</Rules>
+	  
+</Tool>
+  

@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 //import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+
+import ch.qos.logback.core.rolling.RollingFileAppender;
 /**
  * 使用此类方法进行warapp启动设置
  * @author yangyingyong 2019-08-28

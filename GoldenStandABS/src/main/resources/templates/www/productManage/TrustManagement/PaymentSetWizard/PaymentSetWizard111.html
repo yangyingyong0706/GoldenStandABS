@@ -1,0 +1,166 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title>偿付顺序配置向导</title>
+    <link href="../Common/css/roles.css" rel="stylesheet" />
+
+    <link href="../../../../asset/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+    <script src="../../../../asset/lib/jquery/jquery-1.7.2.min.js"></script>
+    <script src="../../../../asset/lib/jquery/jquery-latest.js"></script>
+
+    <script src="../Common/Scripts/Sortable.js"></script>
+
+    <script src="../../../../config/globalVariable.js"></script>
+    <script src="../Common/Scripts/common.js"></script>
+    <script type="text/javascript">
+        var Pages = {}
+
+        $(function () {
+            var getUrlParam = function (name) {
+                var s = location.search;
+                if (s != null && s.length > 1) {
+                    var sarr = s.substr(1).split("&");
+                    var tarr;
+                    for (i = 0; i < sarr.length; i++) {
+                        tarr = sarr[i].split("=");
+                        if (tarr.length == 2 && tarr[0].toLowerCase() == name.toLowerCase()) {
+                            return tarr[1];
+                        }
+                    }
+                    return null;
+                }
+            }
+
+            var tid = getUrlParam('tid');
+
+            var dUrl = $("li").eq(0).data('url') + '?tid=' + tid;
+            var $iframe = $('.work iframe');
+            $iframe.attr('src', dUrl);
+            $iframe.load(function () {
+                $(this).fadeIn();
+            });
+            $("li").click(function () {
+                var self = this;
+                if ($(this).attr('id') == "paysequence") {
+                    var executeParam = {
+                        'SPName': "usp_GetCurrentActiveClient", 'SQLParams': []
+                    };
+
+                    var serviceUrl = GlobalVariable.DataProcessServiceUrl + "CommonExecuteGet?";//appDomain=TrustManagement&executeParams=" + context;
+
+                    ExecuteGetData(false, serviceUrl, 'TrustManagement', executeParam, function (data) {
+                        if (data.length > 0) {
+                            var clientCode = data[0].ClientCode;
+                            if (clientCode == "HNGTrust") {
+                                $(self).attr("data-url", "/TrustManagementService/Clients/HNGTrust/FeeSettings/PaymentSequenceSettingHN.html");
+                            }
+                            else {
+                                $(self).attr("data-url", "/GoldenStandABS/www/components/PaymentSequence/PaymentSequenceSetting.html");
+                            }
+                        }
+                    });
+                }
+                if (!$(this).hasClass("active")) {
+                    var url = $(this).data('url') +'?tid=' + tid;
+                    $iframe = $('.work iframe');
+                    $iframe.hide();
+                    $iframe.attr('src', url);
+                    $iframe.load(function () {
+                        $(this).fadeIn();
+                    });
+                    $("li").each(function () {
+                        $(this).removeClass("active");
+                        $(this).css("cursor", "pointer");
+                    })
+                    $(this).addClass("active");
+                    $(this).css("cursor", "default");
+                }
+            });
+
+
+
+            function changeMenu() {
+                var IsOpen = false;
+                var $menu = $('.step-menu'),
+                    $aside = $('.page>.aside');
+
+                $menu.unbind().click(function () {
+                    var $this = $(this), _left;
+
+                    if (IsOpen) {
+                        IsOpen = false;
+                        $aside.removeClass('menu');
+                        _left = 200;
+                    } else {
+                        IsOpen = true;
+                        $aside.addClass('menu');
+                        _left = 60;
+                    }
+                    $('.page').stop().animate({
+                        'padding-left': _left + 'px'
+                    }, 100);
+                });
+            }
+            changeMenu();
+        });
+
+    </script>
+</head>
+<body>
+
+    <div class="page">
+        <div class="aside">
+            <div class="step-box">
+                <div class="step-head">
+                    <div class="step-menu"><i class="icon icon-list"></i></div>
+                    <h2>偿付顺序配置向导</h2>
+                </div>
+                <div class="step-user" id="userDiv" style="display:none">
+
+                </div>
+                <ul id="steps">
+                    <li data-url="/GoldenStandABS/www/productManage/TrustManagement/EventMaintain/maintainDesigner-Huaneng.html" class="active" style="cursor:pointer">
+                        <span class="no">1</span>
+                        <span class="flag"><i class="icon icon-right"></i></span>
+                        <h3 class="step-title">事件条目</h3>
+                        <p class="step-text">维护事件条目信息</p>
+                    </li>
+                    <li data-url="/GoldenStandABS/www/productManage/TrustManagement/ScenarioWithEvent/ScenarioWithEvent.html" style="cursor:pointer">
+                        <span class="no">2</span>
+                        <span class="flag"><i class="icon icon-right"></i></span>
+                        <h3 class="step-title">偿付情景设置</h3>
+                        <p class="step-text">维护偿付情景信息</p>
+                    </li>
+                    <li data-url="/GoldenStandABS/www/productManage/TrustManagement/TrustEvents/TrustEvents.html">
+                        <span class="no">3</span>
+                        <span class="flag"><i class="icon icon-right"></i></span>
+                        <h3 class="step-title">信托事件</h3>
+                        <p class="step-text">信托事件触发信息</p>
+                    </li>
+                    <li id="paysequence" data-url="">
+                        <span class="no">4</span>
+                        <span class="flag"><i class="icon icon-right"></i></span>
+                        <h3 class="step-title">偿付顺序视图</h3>
+                        <p class="step-text">维护偿付顺序视图</p>
+                    </li>
+                    <!--<li data-url="TrustEvents/TrustEvents.html?tid=1">
+                        <span class="no">3</span>
+                        <span class="flag"><i class="icon icon-right"></i></span>
+                        <h3 class="step-title">专项事件</h3>
+                        <p class="step-text">维护专项事件信息</p>../FeeSettings/PaymentSequenceSetting.html
+                    </li>-->
+
+                </ul>
+
+            </div>
+        </div>
+        <div class="work">
+            <iframe src="" frameborder="0"></iframe>
+        </div>
+    </div>
+
+</body>
+</html>

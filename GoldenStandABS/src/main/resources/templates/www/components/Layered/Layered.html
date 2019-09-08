@@ -1,20 +1,21 @@
-﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<!-- <html xmlns="http://www.w3.org/1999/xhtml"> -->
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta name="renderer" content="webkit" />
     <title>分层信息</title>
-    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="../../../asset/lib/bootstrap/dist/css/bootstrap-select.min.css" rel="stylesheet" />
-    <link href="../../../asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet">
-    <link href="../../../asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
-    <link href="../../../asset/font/fontello/css/fontello.css" rel="stylesheet" />
-    <link href="../../../asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-    <!--<link href="../../productManage/TrustManagement/Common/css/trustWizard.css" rel="stylesheet" />-->
-    <link href="Layered.css" rel="stylesheet" />
-    <link href="../../../asset/allstylesheet/index.css" rel="stylesheet" />
-    <link href="../../../asset/lib/toast/toast.css" rel="stylesheet" />
+    <link href="/asset/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/asset/lib/bootstrap/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="/asset/lib/Kendo/styles/kendo.common-material.min.css" rel="stylesheet"/>
+    <link href="/asset/lib/jquery/jquery-ui.css" rel="stylesheet" />
+    <link href="/asset/font/fontello/css/fontello.css" rel="stylesheet" />
+    <link href="/asset/font/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!--<link href="././productManage/TrustManagement/Common/css/trustWizard.css" rel="stylesheet" />-->
+    <link href="/js/www/components/Layered/Layered.css" rel="stylesheet" />
+    <link href="/asset/allstylesheet/index.css" rel="stylesheet" />
+    <link href="/asset/lib/toast/toast.css" rel="stylesheet" />
     <style>
         html, body {
             height: 100%;
@@ -606,9 +607,9 @@
             box-sizing:border-box;
         }
     </style>
-    <script src="../../../asset/lib/require.js"></script>
+    <script src="/asset/lib/require.js"></script>
     <script>
-        requirejs(['../../../asset/lib/config'], function (config) {
+        requirejs(['/asset/lib/config.js'], function (config) {
             require(['app/components/Layered/js/LayeredMain'])
         });
     </script>
@@ -927,15 +928,16 @@
                                                         </div>
                                                         <!--/ko-->
                                                         <!--ko if: ItemCode() =="InterestRateCalculation"-->
-                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom"
-                                                             title="指计算应付利息的时间单位:<br><br>
+                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom" style="padding:0px 5px">
+                                                             <!-- title="指计算应付利息的时间单位:<br><br>
                                              若'以天为单位':<br><br>则应付利息=A*B*计息期间实际天数/全年计息天数<br><br>
                                              若'以月为单位':<br><br>则应付利息=A*B*计息期间间隔月数/12<br><br>
                                              若'以季为单位':<br><br>则应付利息=A*B*计息期间间隔信托季度数/4<br><br>
                                              …………<br><br>
                                              其中 A:证券期初未偿本金总额  B:当期证券执行利率<br><br>
                                              不满一个单位，按一个单位计算"
-                                                             style="padding:0px 5px">
+                                                             style="padding:0px 5px"> -->
+                                                              
                                                             <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
                                                         </div>
                                                         <!--/ko-->
@@ -1033,15 +1035,15 @@
                                                         <button id="btn_RemoveCompulsory" type="button" data-bind="attr: { itemCode: ItemCode }" onclick="TrustBondModule.RemoveCompulsory(this)" class="btn "><i class="icon icon-remove"></i></button>
                                                         <!-- /ko -->
                                                         <!--ko if: ItemCode() =="InterestRateCalculation"-->
-                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom"
-                                                             title="指计算应付利息的时间单位:<br><br>
-                                             若'以天为单位':<br><br>则应付利息=A*B*计息期间实际天数/全年计息天数<br><br>
-                                             若'以月为单位':<br><br>则应付利息=A*B*计息期间间隔月数/12<br><br>
-                                             若'以季为单位':<br><br>则应付利息=A*B*计息期间间隔信托季度数/4<br><br>
-                                             …………<br><br>
-                                             其中 A:证券期初未偿本金总额  B:当期证券执行利率<br><br>
+                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom"  style="padding:0px 5px"> 
+                                                            <!--  title="指计算应付利息的时间单位:<br/><br/>
+                                             若'以天为单位':<br/><br/>则应付利息=A*B*计息期间实际天数/全年计息天数<br/><br/>
+                                             若'以月为单位':<br/><br/>则应付利息=A*B*计息期间间隔月数/12<br/><br/>
+                                             若'以季为单位':<br/><br/>则应付利息=A*B*计息期间间隔信托季度数/4<br/><br/>
+                                             …………<br/><br/>
+                                             其中 A:证券期初未偿本金总额  B:当期证券执行利率<br/><br/>
                                              不满一个单位，按一个单位计算"
-                                                             style="padding:0px 5px">
+                                                             style="padding:0px 5px"> -->
                                                             <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
                                                         </div>
                                                         <!--/ko-->
@@ -1144,15 +1146,15 @@
                                                         <button id="btn_RemoveCompulsory" type="button" data-bind="attr: { itemCode: ItemCode }" onclick="TrustBondModule.RemoveCompulsory(this)" class="btn "><i class="icon icon-remove"></i></button>
                                                         <!-- /ko -->
                                                         <!--ko if: ItemCode() =="InterestRateCalculation"-->
-                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom"
-                                                             title="指计算应付利息的时间单位:<br><br>
+                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom" style="padding:0px 5px">
+                                                            <!--  title="指计算应付利息的时间单位:<br><br>
                                              若'以天为单位':<br><br>则应付利息=A*B*计息期间实际天数/全年计息天数<br><br>
                                              若'以月为单位':<br><br>则应付利息=A*B*计息期间间隔月数/12<br><br>
                                              若'以季为单位':<br><br>则应付利息=A*B*计息期间间隔信托季度数/4<br><br>
                                              …………<br><br>
                                              其中 A:证券期初未偿本金总额  B:当期证券执行利率<br><br>
-                                             不满一个单位，按一个单位计算"
-                                                             style="padding:0px 5px">
+                                             不满一个单位，按一个单位计算" 
+                                                             style="padding:0px 5px">-->
                                                             <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
                                                         </div>
                                                         <!--/ko-->
@@ -1255,15 +1257,15 @@
                                                         </div>
                                                         <!--/ko-->
                                                         <!--ko if: ItemCode() =="InterestRateCalculation"-->
-                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom"
-                                                             title="指计算应付利息的时间单位:<br><br>
+                                                        <div class="col-1-height col-md-1" data-toggle="tooltip" data-placement="bottom" style="padding:0px 5px">
+                                                            <!--  title="指计算应付利息的时间单位:<br><br>
                                              若'以天为单位':<br><br>则应付利息=A*B*计息期间实际天数/全年计息天数<br><br>
                                              若'以月为单位':<br><br>则应付利息=A*B*计息期间间隔月数/12<br><br>
                                              若'以季为单位':<br><br>则应付利息=A*B*计息期间间隔信托季度数/4<br><br>
                                              …………<br><br>
                                              其中 A:证券期初未偿本金总额  B:当期证券执行利率<br><br>
                                              不满一个单位，按一个单位计算"
-                                                             style="padding:0px 5px">
+                                                             style="padding:0px 5px"> -->
                                                             <i class="icon icon-help" style="display: block;color:rgba(69,86,156,1);cursor:pointer"></i>
                                                         </div>
                                                         <!--/ko-->
